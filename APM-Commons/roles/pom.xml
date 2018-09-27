@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>APM-Commons</artifactId>
+        <groupId>com.ca.apm.commons</groupId>
+        <version>99.99.dev_SaaS_fix-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>APM-Commons-roles</artifactId>
+    <packaging>jar</packaging>
+
+    <name>APM-Commons - roles</name>
+    <description>Module for defining custom roles.</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.ca.tas</groupId>
+            <artifactId>automation-roles</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+        </dependency>
+        <dependency>
+        	<groupId>com.ca.apm.commons</groupId>
+        	<artifactId>APM-Commons-flows</artifactId>
+        	<version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.commons</groupId>
+            <artifactId>APM-Commons-Lite-roles</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+
+</project>
