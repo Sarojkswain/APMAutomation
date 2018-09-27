@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+	
+	<!-- Uncomment below and configure your plugin implementations here -->
+	<!--
+	<context:component-scan base-package="com.ca.apm.systemtest.fld.monitor, com.ca.apm.systemtest.fld.agent"/>
+	-->
+
+	<bean class="com.ca.apm.systemtest.fld.plugin.powerpack.metrics.JmxMetricGatheringPlugin" />
+	<bean class="com.ca.apm.systemtest.fld.plugin.powerpack.metrics.JstatMetricGatheringPlugin" />
+	<bean class="com.ca.apm.systemtest.fld.plugin.powerpack.metrics.TypePerfMetricGatheringPlugin" />
+	<bean class="com.ca.apm.systemtest.fld.plugin.powerpack.metrics.MetricsCheckerPluginImpl" />
+	<bean class="com.ca.apm.systemtest.fld.plugin.powerpack.logcollectors.DefaultPerfResultsCollectorPluginImpl" />
+	<bean class="com.ca.apm.systemtest.fld.plugin.powerpack.common.PowerPackCommonPluginImpl" />
+	<bean class="com.ca.apm.systemtest.fld.plugin.powerpack.reporting.PowerPackReportPluginImpl" />
+</beans>

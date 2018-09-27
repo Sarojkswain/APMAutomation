@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!-- @Tas(testBed = [{name=com.ca.apm.tests.testbed.AgentControllabilityWindowsStandaloneTestbed,
+	executeOn=emMachine}], owner = balra06, size = BIG, description = 'CommandLinePropertyOverride
+    TestNg XML suite for all CommandLinePropertyOverrideWindows tests'), snapshotPolicy 
+	= SnapshotPolicy.ON_FAILURE, snapshot = SnapshotMode.LIVE -->
+<suite name="CommandLinePropertyOverrideWindowsTests" configfailurepolicy="continue">
+	<test name="CommandLinePropertyOverrideWindowsTests" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.tests.em.properties.CommandLinePropertyOverrideTests">
+			</class>
+		</classes>
+	</test>
+</suite>
+		

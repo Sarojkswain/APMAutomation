@@ -1,0 +1,12 @@
+version: '2'
+services:
+  collector:
+    image: ${image.registry}/apm-em:${project.version}
+    command: collector
+    environment:
+      - APM_CUSTOM_CONFIG_DIR=/opt/ca/custom-config
+      - EM_DB_HOST=${env.mom.db}
+    volumes:
+      - ./logs:/opt/ca/apm/logs
+      - ./config:/opt/ca/custom-config
+    network_mode: "host"

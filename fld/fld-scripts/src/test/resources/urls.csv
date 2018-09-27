@@ -1,0 +1,4 @@
+FLDNET02C,ch,http://WEBVIEW_HOST_NAME/#console;db=S3_Perf_Test_25_Metrics_Per_Agent_Total_500_Metrics_20_Charts;dn=SuperDomain;mm=Clean_BofA_MM_1;tr=0
+FLDNET02C,ch,http://WEBVIEW_HOST_NAME/#console;db=S3_Perf_Test_25_Metrics_Per_Agent_Total_500_Metrics_20_Charts;dn=SuperDomain;mm=Clean_BofA_MM_2;tr=0
+FLDNET02C,ch,http://WEBVIEW_HOST_NAME/#console;db=S3_Perf_Test_25_Metrics_Per_Agent_Total_500_Metrics_20_Charts;dn=SuperDomain;mm=Clean_BofA_MM_3;tr=0
+FLDNET02C,ch,http://WEBVIEW_HOST_NAME/#investigator;tab-in=mb;tab-tv=pd;tr=0;uid=SuperDomain%257Cwurlitzer-stress-app%257CStressTestProcess%257CWurlitzerAgent_11%257CFakeMetricSet3%257CFakeServlet1%253AAverage+Response+Time+(ms)

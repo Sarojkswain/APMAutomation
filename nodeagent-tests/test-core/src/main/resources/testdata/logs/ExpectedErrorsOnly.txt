@@ -1,0 +1,219 @@
+8/27/15 03:25:42,885 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] CollectorAgent Agent Release 99.99.0.leo_node (Build 50)
+8/27/15 03:25:42,887 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Using Java VM version "Java HotSpot(TM) 64-Bit Server VM 1.8.0_05" from Oracle Corporation
+8/27/15 03:25:42,888 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Trying to load agent profile based on system property "com.wily.introscope.agentProfile"
+8/27/15 03:25:42,890 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Trying to load file from C:\sw\apps\CollectorAgent\.\core\config\IntroscopeCollectorAgent.profile
+8/27/15 03:25:42,891 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Loaded file from C:\sw\apps\CollectorAgent\.\core\config\IntroscopeCollectorAgent.profile
+8/26/15 11:27:15,120 AM PDT [ERROR] [IntroscopeAgent.IsengardServerConnectionManager] Failed to disconnect agent bridge: null
+8/26/15 11:27:36,121 AM PDT [ERROR] [IntroscopeAgent.ArfConnection] Failed to read from ARF connection: Socket closed
+8/26/15 11:28:16,120 AM PDT [ERROR] [IntroscopeAgent.ArfConnection] ARF Connection socket closed:TcpArfCommandConnection program:server 
+8/27/15 03:25:42,891 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Agent using old configuration (introscope.agent.configuration.old) set to default value of "false"
+8/27/15 03:25:42,892 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Canonical Key Map Thread Local (introscope.agent.reduceAgentMemoryOverhead.usecanonicalkeysthreadlocal) set to default value of "false"
+8/27/15 03:25:42,893 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Thread priority (introscope.agent.thread.all.priority) set to default value of "5"
+8/27/15 03:25:42,894 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Agent Transaction Trace Limit (introscope.agent.ttClamp) set to "500"
+8/27/15 03:25:42,894 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.tracer.sampling.maxrate) set to default value of "10"
+8/27/15 03:25:42,895 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.tracer.sampling.initial.period) set to default value of "100"
+8/27/15 03:25:42,896 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.tracer.sampling.reset.period) set to default value of "10000"
+8/27/15 03:25:42,897 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.tailfilterPropagate.enable) set to default value of "true"
+8/27/15 03:25:42,897 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.parameter.capture.sessionid) set to default value of "true"
+8/27/15 03:25:42,898 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Agent Metric Aging (introscope.agent.metricAging.turnOn) set to "true"
+8/27/15 03:25:42,898 PM PDT [WARN] [IntroscopeAgent.CollectorAgent Agent] Invalid value "1800" seconds for Agent Metric Aging Interval (introscope.agent.metricAging.heartbeatInterval) ignored: Value cannot be below the default value
+8/27/15 03:25:42,899 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Agent Metric Aging Interval (introscope.agent.metricAging.heartbeatInterval) set to default value of "86400" seconds
+8/27/15 03:25:42,899 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Agent Metric Aging Data Chunk (introscope.agent.metricAging.dataChunk) set to "500"
+8/27/15 03:25:42,900 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Agent Metric Aging Exclusion List (introscope.agent.metricAging.metricExclude.ignore) set to "[Threads*, ChangeDetector.AgentID]"
+8/27/15 03:25:42,900 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Agent Metric Agent Timeslice Intervals (introscope.agent.metricAging.numberTimeslices) set to default value of "180000"
+8/27/15 03:25:42,901 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Looking for agent profile property "introscope.agent.extensions.directory" to locate the extensions directory.
+8/27/15 03:25:42,901 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] The agent extensions directory C:\sw\apps\CollectorAgent\core\ext was successfully located
+8/27/15 03:25:42,902 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] EagerClassLoader(ProbeBuilder.jar): Pre-loaded 670 classes.
+8/27/15 03:25:42,902 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] EagerClassLoader(IntelligentInstrumentation.jar): Pre-loaded 139 classes.
+8/27/15 03:25:42,903 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] EagerClassLoader(BasicDirectiveLoader.jar): Pre-loaded 9 classes.
+8/27/15 03:25:42,903 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Introscope AutoProbe Release 99.99.0.leo_node (Build 50)
+8/27/15 03:25:42,904 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.autoprobe.logging) set to default value of ""
+8/27/15 03:25:42,904 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] The Introscope AutoProbe log has been created at C:\sw\apps\CollectorAgent\logs\AutoProbe.log
+8/27/15 03:25:42,905 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.instrumentation.enabled) set to default value of "true"
+8/27/15 03:25:42,905 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] AutoProbe has reloaded all directive configuration.  This is because a change to a directive configuration file was detected.
+8/27/15 03:25:42,906 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.autoprobe.logskippedclasses.enabled) set to default value of "false"
+8/27/15 03:25:42,906 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Lock File created in C:\sw\apps\CollectorAgent\core\config\hotdeploy
+8/27/15 03:25:42,906 PM PDT [INFO] [IntroscopeAgent] Fully Qualified Agent Host Name (introscope.agent.display.hostName.as.fqdn) set to "false"
+8/27/15 03:25:42,907 PM PDT [INFO] [IntroscopeAgent] Configuration property (introscope.agent.fallback.domain.name) set to default value of null
+8/27/15 03:25:42,907 PM PDT [INFO] [IntroscopeAgent] Configuration property (introscope.agent.hostName) set to default value of null
+8/27/15 03:25:42,908 PM PDT [INFO] [IntroscopeAgent] Configuration property (introscope.agent.primary.net.interface.name) set to default value of null
+8/27/15 03:25:42,908 PM PDT [INFO] [IntroscopeAgent] Configuration property (introscope.agent.ip.family.order) set to default value of "1"
+8/27/15 03:25:42,909 PM PDT [INFO] [IntroscopeAgent] Configuration property (introscope.agent.subnetworks.path) set to default value of null
+8/27/15 03:25:42,910 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Business Recording Enabled (introscope.agent.bizRecording.enabled) set to default value of "true"
+8/27/15 03:25:42,910 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Introscope Agent startup complete.			
+8/27/15 03:25:42,911 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Agent Metric Limit (introscope.agent.metricClamp) set to default value of "50000"
+8/27/15 03:25:42,911 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.instrumentation.maxmethodsize) set to default value of "2000"
+8/27/15 03:25:42,911 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.instrumentation.decisionthreshold) set to default value of "-1"
+8/27/15 03:25:42,912 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.methodscoring.fullparse) set to default value of "true"
+8/27/15 03:25:42,912 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.instrumentation.custom.prefixes) set to default value of "java"
+8/27/15 03:25:42,913 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Scoring property introscope.agent.deep.instrumentation.pubmethod set to default value 1
+8/27/15 03:25:42,913 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Scoring property introscope.agent.deep.instrumentation.synmethod set to default value 2
+8/27/15 03:25:42,914 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Scoring property introscope.agent.deep.instrumentation.sgnexcp set to default value 1
+8/27/15 03:25:42,914 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Scoring property introscope.agent.deep.instrumentation.custompkgmc set to default value 1
+8/27/15 03:25:42,915 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Scoring property introscope.agent.deep.instrumentation.sameclassmc set to default value 1
+8/27/15 03:25:42,915 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Scoring property introscope.agent.deep.instrumentation.samepkgmc set to default value 2
+8/27/15 03:25:42,916 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Scoring property introscope.agent.deep.instrumentation.diffpfgmc set to default value 3
+8/27/15 03:25:42,916 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Scoring property introscope.agent.deep.instrumentation.diffrtpfgmc set to default value 4
+8/27/15 03:25:42,917 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Scoring property introscope.agent.deep.instrumentation.recurmc set to default value 5
+8/27/15 03:25:42,918 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Scoring property introscope.agent.deep.instrumentation.bdyexcp set to default value 1
+8/27/15 03:25:42,918 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Scoring property introscope.agent.deep.instrumentation.switch set to default value 1
+8/27/15 03:25:42,919 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Scoring property introscope.agent.deep.instrumentation.cghtexcp set to default value 1
+8/27/15 03:25:42,919 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Scoring property introscope.agent.deep.instrumentation.synblck set to default value 2
+8/27/15 03:25:42,919 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Scoring property introscope.agent.deep.instrumentation.loop set to default value 2
+8/27/15 03:25:42,920 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Scoring property introscope.agent.deep.instrumentation.loop set to default value 2
+8/27/15 03:25:42,920 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.instrumentation.level) set to default value of "low"
+8/27/15 03:25:42,921 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.instrumentation.level.methods.low) set to default value of "150"
+8/27/15 03:25:42,921 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.instrumentation.level.methods.medium) set to default value of "110"
+8/27/15 03:25:42,922 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.instrumentation.level.methods.high) set to default value of "80"
+8/27/15 03:25:42,922 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.instrumentation.autoprobelog.enabled) set to default value of "false"
+8/27/15 03:25:42,922 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.instrumentation.max.methods) set to default value of "10000"
+8/27/15 03:25:42,923 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.trace.max.components) set to "5000"
+8/27/15 03:25:42,923 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.trace.max.consecutive.components) set to "1000"
+8/27/15 03:25:42,924 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.trace.sustainability.metrics.enabled) set to default value of "true"
+8/27/15 03:25:42,924 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.instrumentation.level.batch.size) set to default value of "5"
+8/27/15 03:25:42,925 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.instrumentation.level.batch.interval) set to default value of "2"
+8/27/15 03:25:42,925 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.persistence.queue.size) set to default value of "50"
+8/27/15 03:25:42,925 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.entrypoint.count.max) set to default value of "100"
+8/27/15 03:25:42,926 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.entrypoint.blacklist.count.max) set to default value of "50"
+8/27/15 03:25:42,926 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.instrumentation.level.hot.enabled) set to default value of "true"
+8/27/15 03:25:42,927 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.instrumentation.visibility.processor.enabled) set to default value of "false"
+8/27/15 03:25:42,927 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.instrumentation.visibility.processor.interval) set to default value of "240"
+8/27/15 03:25:42,927 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.trace.entrypoint.candidate.stack.threshold) set to default value of "300000"
+8/27/15 03:25:42,927 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.trace.entrypoint.candidate.inactivity.threshold) set to default value of "600000"
+8/27/15 03:25:42,927 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.trace.entrypoint.pseudocandidate.instrumentation.threshold) set to default value of "180000"
+8/27/15 03:25:42,928 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.trace.entrypoint.candidate.transaction.count) set to default value of "100"
+8/27/15 03:25:42,928 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Entry Point Detection Feature - frequency at which initial candidate processor will be executed (introscope.agent.deep.entrypoint.initial.candidate.processor.intervalSeconds) set to default value of "60"
+8/27/15 03:25:42,928 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Entry Point Detection Feature - frequency at which monitored candidate processor will be executed (introscope.agent.deep.entrypoint.monitored.candidate.processor.intervalSeconds) set to default value of "60"
+8/27/15 03:25:42,929 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] I/O Socket Client Hosts (introscope.agent.io.socket.client.hosts) set to default value of ""
+8/27/15 03:25:42,929 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] I/O Socket Client Ports (introscope.agent.io.socket.client.ports) set to default value of ""
+8/27/15 03:25:42,929 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] I/O Socket Server Ports (introscope.agent.io.socket.server.ports) set to default value of ""
+8/27/15 03:25:42,929 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] NIO Datagram Client Hosts (introscope.agent.nio.datagram.client.hosts) set to default value of ""
+8/27/15 03:25:42,929 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] NIO Socket Client Hosts (introscope.agent.nio.socket.client.hosts) set to default value of ""
+8/27/15 03:25:42,930 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] NIO Datagram Client Ports (introscope.agent.nio.datagram.client.ports) set to default value of ""
+8/27/15 03:25:42,930 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] NIO Datagram Server Ports (introscope.agent.nio.datagram.server.ports) set to default value of ""
+8/27/15 03:25:42,930 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] NIO Socket Client Ports (introscope.agent.nio.socket.client.ports) set to default value of ""
+8/27/15 03:25:42,931 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] NIO Socket Server Ports (introscope.agent.nio.socket.server.ports) set to default value of ""
+8/27/15 03:25:42,931 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.harvesting.debugmetrics.enabled) set to default value of "false"
+8/27/15 03:25:42,931 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.harvesting.optimize.enabled) set to default value of "false"
+8/27/15 03:25:42,931 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.blame.transaction.doTransactionTrace) set to default value of "true"
+8/27/15 03:25:42,932 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.blame.highconcurrency.enabled) set to default value of "false"
+8/27/15 03:25:42,932 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.blame.usesharedaccumulators.enabled) set to default value of "true"
+8/27/15 03:25:42,932 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.harvesting.transaction.aging.period) set to default value of "60000"
+8/27/15 03:25:42,932 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.harvesting.transaction.aging.duration.max) set to default value of "30000"
+8/27/15 03:25:42,933 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.harvesting.transaction.aging.checkperiod) set to default value of "30000"
+8/27/15 03:25:42,933 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.harvesting.transaction.attentionlevel.absolute) set to default value of "100000"
+8/27/15 03:25:42,933 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.harvesting.transaction.aging.attentionlevel.percentage) set to default value of "5"
+8/27/15 03:25:42,933 PM PDT [INFO] [IntroscopeAgent.WilyTransactionStructure] Newly created concurrent counters will use synchronized approach
+8/27/15 03:25:42,933 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.blame.synchronized.enabled) set to default value of "true"
+8/27/15 03:25:42,934 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.blame.timer.enabled) set to default value of "true"
+8/27/15 03:25:42,934 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.blame.perinterval.enabled) set to default value of "true"
+8/27/15 03:25:42,934 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.blame.error.enabled) set to default value of "true"
+8/27/15 03:25:42,934 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.blame.concurrent.enabled) set to default value of "true"
+8/27/15 03:25:42,935 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.blame.stall.trace.enabled) set to default value of "true"
+8/27/15 03:25:42,935 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.blame.backend.BTC.enable) set to default value of "false"
+8/27/15 03:25:42,935 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.blame.highconcurrency.stripes) set to default value of "16"
+8/27/15 03:25:42,935 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.harvesting.transaction.creation.attentionlevel.absolute) set to default value of "100000"
+8/27/15 03:25:42,935 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.harvesting.transaction.creation.checkperiod) set to default value of "30000"
+8/27/15 03:25:42,936 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Transaction Trace Component Count Limit (introscope.agent.transactiontrace.componentCountClamp) set to default value of "5000"
+8/27/15 03:25:42,936 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.blame.transactions.debugmetrics.enabled) set to default value of "false"
+8/27/15 03:25:42,936 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.blame.transactions.contextualmetrics.enabled) set to default value of "false"
+8/27/15 03:25:42,936 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.blame.transactions.metrics.maxlength) set to default value of "1000"
+8/27/15 03:25:42,937 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (concurrentMapPolicy.generatemetrics) set to default value of "false"
+8/27/15 03:25:42,937 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.blame.transactions.depth.max) set to default value of "4096"
+8/27/15 03:25:42,937 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.blame.stall.invocationData.max) set to default value of "1000"
+8/27/15 03:25:42,937 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] TT_Min_Component_Count (com.wily.introscope.agent.intelligentinstrumentation.min.componentcount) set to default value of "3"
+8/27/15 03:25:42,937 PM PDT [INFO] [IntroscopeAgent.WilyTransactionStructure] Wily Transaction Structure is adding the callback for incoming correlations
+8/27/15 03:25:42,938 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.stalls.thresholdseconds) set to "30"
+8/27/15 03:25:42,938 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.stalls.resolutionseconds) set to "10"
+8/27/15 03:25:42,938 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Transaction Trace Component Count Limit (introscope.agent.transactiontrace.componentCountClamp) set to default value of "5000"
+8/27/15 03:25:42,938 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Transaction Trace Head Filter Limit (introscope.agent.transactiontrace.headFilterClamp) set to default value of "30"
+8/27/15 03:25:42,939 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.tailfilterPropagate.enable) set to default value of "true"
+8/27/15 03:25:42,939 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.trace.filter.metrics.enabled) set to default value of "false"
+8/27/15 03:25:42,939 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.charEncoding) set to default value of null
+8/27/15 03:25:42,939 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.parameter.httprequest.parameters) set to default value of ""
+8/27/15 03:25:42,940 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.parameter.httprequest.attributes) set to default value of ""
+8/27/15 03:25:42,940 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.parameter.httpsession.attributes) set to default value of ""
+8/27/15 03:25:42,940 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.userid.key) set to default value of null
+8/27/15 03:25:42,940 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.userid.method) set to default value of null
+8/27/15 03:25:42,940 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (com.wily.introscope.agent.cem.force.trace.enabled) set to default value of "false"
+8/27/15 03:25:42,941 PM PDT [WARN] [IntroscopeAgent.CollectorAgent Agent] Agent_Transaction_Trace_UserID_Not_Configured
+8/27/15 03:25:42,941 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.synthetic.node.name) set to default value of "Synthetic Users"
+8/27/15 03:25:42,941 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.non.synthetic.node.name) set to default value of "Real Users"
+8/27/15 03:25:42,941 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.synthetic.user.name) set to default value of null
+8/27/15 03:25:42,941 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.parameter.httprequest.headers) set to default value of ""
+8/27/15 03:25:42,942 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.synthetic.header.names) set to default value of ""
+8/27/15 03:25:42,942 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] I/O Socket Client Hosts (introscope.agent.io.socket.client.hosts) set to default value of ""
+8/27/15 03:25:42,942 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] I/O Socket Client Ports (introscope.agent.io.socket.client.ports) set to default value of ""
+8/27/15 03:25:42,942 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] I/O Socket Server Ports (introscope.agent.io.socket.server.ports) set to default value of ""
+8/27/15 03:25:42,942 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] NIO Datagram Client Hosts (introscope.agent.nio.datagram.client.hosts) set to default value of ""
+8/27/15 03:25:42,943 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] NIO Socket Client Hosts (introscope.agent.nio.socket.client.hosts) set to default value of ""
+8/27/15 03:25:42,943 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] NIO Datagram Client Ports (introscope.agent.nio.datagram.client.ports) set to default value of ""
+8/27/15 03:25:42,943 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] NIO Datagram Server Ports (introscope.agent.nio.datagram.server.ports) set to default value of ""
+8/27/15 03:25:42,943 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] NIO Socket Client Ports (introscope.agent.nio.socket.client.ports) set to default value of ""
+8/27/15 03:25:42,943 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] NIO Socket Server Ports (introscope.agent.nio.socket.server.ports) set to default value of ""
+8/27/15 03:25:42,944 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.charEncoding) set to default value of null
+8/27/15 03:25:42,944 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.parameter.httprequest.parameters) set to default value of ""
+8/27/15 03:25:42,944 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.parameter.httprequest.attributes) set to default value of ""
+8/27/15 03:25:42,944 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.parameter.httpsession.attributes) set to default value of ""
+8/27/15 03:25:42,945 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.synthetic.node.name) set to default value of "Synthetic Users"
+8/27/15 03:25:42,945 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.non.synthetic.node.name) set to default value of "Real Users"
+8/27/15 03:25:42,945 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.dns.lookup.type) set to "separateThread"
+8/27/15 03:25:42,945 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Maximum time in milliseconds that the separateThread implementation waits to lookup a host name or IP address (introscope.agent.dns.lookup.max.wait.in.milliseconds) set to "200"
+8/27/15 03:25:42,945 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.charEncoding) set to default value of null
+8/27/15 03:25:42,946 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.parameter.httprequest.headers) set to default value of ""
+8/27/15 03:25:42,946 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.parameter.httprequest.parameters) set to default value of ""
+8/27/15 03:25:42,946 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.parameter.httprequest.attributes) set to default value of ""
+8/27/15 03:25:42,946 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.parameter.httpsession.attributes) set to default value of ""
+8/27/15 03:25:42,946 PM PDT [WARN] [IntroscopeAgent.CollectorAgent Agent] Agent_Transaction_Trace_UserID_Not_Configured
+8/27/15 03:25:42,947 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] The Agent will attempt to determine its name.
+8/27/15 03:25:42,947 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Unable to determine the Agent name from the System Property "com.wily.introscope.agent.agentName" because that property was either not found or had no value.
+8/27/15 03:25:42,947 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Unable to determine the Agent name from a user specified System Property because the property "introscope.agent.agentNameSystemPropertyKey" in the Introscope Agent Profile was either not found or had no value.
+8/27/15 03:25:42,947 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] The Agent will not attempt to automatically determine its name from the Application Server because that feature has been disabled in the Introscope Agent Profile.
+8/27/15 03:25:42,948 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Using the Agent name "Agent" based on the "introscope.agent.agentName" property in the Introscope Agent Profile.
+8/27/15 03:25:42,948 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Initial agent name set to Agent
+8/27/15 03:25:42,948 PM PDT [INFO] [IntroscopeAgent.Isengard] Initiating connection attempts to the Introscope Enterprise Manager.
+8/27/15 03:25:42,948 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.deep.instrumentation.num.threads) set to default value of "100"
+8/27/15 03:25:42,948 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Automated Agent Failback disabled. Agent Failback Retry Interval property was not found in the agent profile or the retry interval is set to zero.
+8/27/15 03:25:42,949 PM PDT [INFO] [IntroscopeAgent.Isengard] The Agent reconnection delay is set to 15 second(s).
+8/27/15 03:25:42,949 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Enables/Disables automatic entry point detection feature (introscope.agent.deep.entrypoint.enabled) set to default value of "true"
+8/27/15 03:25:42,949 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] List of method names which should be skipped as entrypoint candidates during automatic entry point detection (introscope.agent.deep.entrypoint.rules.skip.methodNames) set to default value of "run,<init>"
+8/27/15 03:25:42,950 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] List of packages. A stack trace element belonging to any of these packages is skipped for automatic entry point detection (introscope.agent.deep.entrypoint.rules.skip.pkgs.essential) set to default value of "java,com.wily,com.ca,javax,com.sun,sun,oracle.jdbc"
+8/27/15 03:25:42,950 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] List of packages. A stack trace element belonging to any of these packages is skipped for automatic entry point detection (introscope.agent.deep.entrypoint.skip.pkgs) set to default value of ""
+8/27/15 03:25:42,950 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] List of application packages. A stack trace element belonging to any of these packages is considered for automatic entry point detection (introscope.agent.deep.entrypoint.rules.app.pkgs) set to default value of ""
+8/27/15 03:25:42,950 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] List of interesting method names. A stack trace element with matching name is considered for automatic entry point detection (introscope.agent.deep.entrypoint.rules.interesting.methodNames) set to default value of "onMessage,onReceive"
+8/27/15 03:25:42,951 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Entry Point Detection Feature - for selecting elements which are in bottom n% of stack trace (introscope.agent.deep.entrypoint.rules.include.bottomPercent) set to default value of "50.0"
+8/27/15 03:25:42,951 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Entry Point Detection Feature - for skipping elements which are in top n% of trace (introscope.agent.deep.entrypoint.rules.skip.topPercent) set to default value of "50.0"
+8/27/15 03:25:42,951 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Maximum number of rules which can be registered with entry point rule engine (introscope.agent.deep.entrypoint.max.rules) set to default value of "50"
+8/27/15 03:25:42,951 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Enables/Disables logging of stack trace for entry point detection feature (introscope.agent.deep.entrypoint.log.stackTrace.enabled) set to default value of "true"
+8/27/15 03:25:42,952 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Entry Point Detection Feature - Limits the number of stack traces to record in an interval (introscope.agent.deep.entrypoint.stackTraces.record.limitPerInterval) set to default value of "5"
+8/27/15 03:25:42,952 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Entry Point Detection Feature - Number of time intervals to elapse, before approving next recording request from same thread (introscope.agent.deep.entrypoint.stackTraces.record.waitInterval) set to default value of "4"
+8/27/15 03:25:42,952 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Entry Point Detection Feature - frequency at which candidate finder will be executed (introscope.agent.deep.entrypoint.candidate.finder.intervalSeconds) set to default value of "15"
+8/27/15 03:25:42,952 PM PDT [WARN] [IntroscopeAgent.EntryPointDetection] Automatic Boundary Detection Service is turned off because Intelligent Instrumentation has been disabled.
+8/27/15 03:25:42,953 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Error snapshot collection has been enabled
+8/27/15 03:25:42,953 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Started Error Reporting service
+8/27/15 03:25:42,953 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Agent Sustainability Property (com.wily.introscope.agent.sustainabilitymetrics.enabled) set to default value of "false"
+8/27/15 03:25:42,953 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Agent Sustainability Metric enabled property (com.wily.introscope.agent.sustainabilitymetrics.metrics.enabled) set to default value of "false"
+8/27/15 03:25:42,954 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Agent Sustainability Report enabled property (com.wily.introscope.agent.sustainabilitymetrics.report.enabled) set to default value of "false"
+8/27/15 03:25:42,954 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Agent Sustainability Report frequency property (com.wily.introscope.agent.sustainabilitymetrics.report.frequency) set to default value of "60000"
+8/27/15 03:25:42,954 PM PDT [INFO] [IntroscopeAgent.ReportingQueue] Configuration property (introscope.agent.reportingqueue.size) set to default value of "100"
+8/27/15 03:25:42,955 PM PDT [INFO] [IntroscopeAgent.ReportingQueue] ReportingQueue configured drop total:  to 1
+8/27/15 03:25:42,955 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.appmap.queue.size) set to default value of "1000"
+8/27/15 03:25:42,955 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.appmap.queue.period) set to default value of "1000"
+8/27/15 03:25:42,955 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.php.error.on.abort) set to "true"
+8/27/15 03:25:42,955 PM PDT [INFO] [IntroscopeAgent.CollectorAgent] ARF Communication Parser-Writer in current use : GSON module
+8/27/15 03:25:42,956 PM PDT [INFO] [IntroscopeAgent.ArfTransport] Server thread started.
+8/27/15 03:25:42,956 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Introscope Collector Agent started.
+8/27/15 03:25:42,956 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.sampling.perinterval.count) set to "10000"
+8/27/15 03:25:42,956 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.sampling.interval.seconds) set to "120"
+8/27/15 03:25:42,956 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Configuration property (introscope.agent.transactiontracer.sampling.enabled) set to "true"
+8/27/15 03:25:42,957 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Transaction Tracer sampling interval has been set to 120 seconds.
+8/27/15 03:25:42,957 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Transaction Tracer samples per interval has been set to 10000.
+8/27/15 03:25:42,957 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] Started transaction sampling service
+8/27/15 03:25:42,957 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] AutoTracingTriggerServiceBean activated.
+8/27/15 03:25:42,957 PM PDT [INFO] [IntroscopeAgent.IsengardServerConnectionManager] Connected controllable Agent to the Introscope Enterprise Manager at w2k8sys058.ca.com:5001,com.wily.isengard.postofficehub.link.net.DefaultSocketFactory. Host = "SINKA08-M4800", Process = "Collector", Agent Name = "Agent", Active = "true". 
+8/27/15 03:25:42,957 PM PDT [INFO] [IntroscopeAgent.ConnectionThread] New list {}@1439505512288 downloaded from w2k8sys058.ca.com:5001,com.wily.isengard.postofficehub.link.net.DefaultSocketFactory
+8/27/15 03:25:42,957 PM PDT [INFO] [IntroscopeAgent.CollectorAgent Agent] New list accepted
+8/27/15 03:25:42,958 PM PDT [INFO] [IntroscopeAgent.ConnectionThread] Connected to w2k8sys058.ca.com:5001,com.wily.isengard.postofficehub.link.net.DefaultSocketFactory in allowed mode.
+8/27/15 03:25:45,886 PM PDT [INFO] [IntroscopeAgent.ArfTransport] New tcp ARF command connection: {"op":"commandConn","probe":"nodejs","ver":1,"instid":13524,"pgm":"server"}
+8/27/15 03:25:45,886 PM PDT [INFO] [IntroscopeAgent.ArfTransport] New tcp ARF data connection: {"op":"dataConn","probe":"nodejs","ver":1,"pid":13524,"instid":13524}
+8/27/15 03:25:51,908 PM PDT [INFO] [IntroscopeAgent.IntelligentInstrumentationService] Intelligent Instrumentation Service activated

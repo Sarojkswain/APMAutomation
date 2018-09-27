@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!-- @Tas(testBed = [ {name=com.ca.apm.tests.testbed.AgentEMFailoverLinuxClusterTestbed, 
+	executeOn=emMachine}], owner = gamsa03, size = BIG, description = 'EM Fail 
+	over Tests for Linux Cluster'), snapshotPolicy = SnapshotPolicy.ON_FAILURE, snapshot 
+	= SnapshotMode.LIVE -->
+<suite name="AgentEMFailoverLinuxClusterTestsSuite" configfailurepolicy="continue">
+	<groups>
+    	<run>
+      		<include name="BAT"/>
+      		<include name="Bat"/>
+      		<include name="bat"/>
+    	</run>
+	</groups>
+	 <test name="AgentEMFailoverLinuxClusterTests" preserve-order="true"
+		enabled="true">
+		<classes>
+			<class name="com.ca.apm.tests.agentEMFailoverTests.AgentEMFailoverClusterTests">
+			<methods>
+				<include name="verify_ALM_305661_MoMFailover_MultiplePrimary"/>
+				<include name="verify_ALM_280515_PrimaryEMCollector_Recovery_WithAgentFailover"/>
+				<include name="verify_ALM_305660_MoMFailover_SecondPrimaryStartedFirst"/>
+			</methods>
+			</class>
+		</classes>
+	</test>
+ </suite>
+		

@@ -1,0 +1,396 @@
+{
+  "logStreams": {
+    "emLogStream": {
+      "enabled": false,
+      "logStreamId": "emLogStream",
+      "fileName": "${#emPlugin.pluginConfiguration.currentLogDir}/em.txt",
+      "rules": [
+        {
+          "condition": {
+            "@type": "or",
+            "conditionList": [
+              {
+                "@type": "simple",
+                "operator": "Contains",
+                "target": "DEBUG",
+                "caseInsensitive": false
+              },
+              {
+                "@type": "simple",
+                "operator": "Contains",
+                "target": "VERBOSE",
+                "caseInsensitive": false
+              },
+              {
+                "@type": "simple",
+                "operator": "Contains",
+                "target": "INFO",
+                "caseInsensitive": false
+              },
+              {
+                "@type": "simple",
+                "operator": "Contains",
+                "target": ".*ExceptionHandlerExceptionResolver.*",
+                "caseInsensitive": false
+              },
+              {
+                "@type": "simple",
+                "operator": "Contains",
+                "target": "Low Disk Mail to FLD Team",
+                "caseInsensitive": false
+              },
+              {
+                "@type": "simple",
+                "operator": "Contains",
+                "target": "EEM failed to authenticate user",
+                "caseInsensitive": false
+              },
+              {
+                "@type": "simple",
+                "operator": "Contains",
+                "target": "Error happened during controller invocation",
+                "caseInsensitive": false
+              },
+              {
+                "@type": "simple",
+                "operator": "Contains",
+                "target": "UnknownHub Hub Receive",
+                "caseInsensitive": false
+              },
+              {
+                "@type": "simple",
+                "operator": "Contains",
+                "target": "Duplicate or tardy metric value reported",
+                "caseInsensitive": false
+              },
+              {
+                "@type": "simple",
+                "operator": "Contains",
+                "target": "Access policy is not enforced due to NoPermissioningRealmException",
+                "caseInsensitive": false
+              },
+              {
+                "@type": "simple",
+                "operator": "Contains",
+                "target": "telra",
+                "caseInsensitive": false
+              },
+              {
+                "@type": "simple",
+                "operator": "Contains",
+                "target": "Error querying for correlated traces",
+                "caseInsensitive": false
+              },
+              {
+                "@type": "simple",
+                "operator": "Contains",
+                "target": "Vertex association not found",
+                "caseInsensitive": false
+              },
+              {
+                "@type": "simple",
+                "operator": "Contains",
+                "target": "Storage directory /home/sw/APM/Introscope/traces does not exist",
+                "caseInsensitive": false
+              },
+              {
+                "@type": "simple",
+                "operator": "Contains",
+                "target": "ChangeDetector server has been disabled and won't run",
+                "caseInsensitive": false
+              },
+              {
+                "@type": "simple",
+                "operator": "Contains",
+                "target": "An Agent is illegally reporting data against the calculator metric",
+                "caseInsensitive": false
+              },
+              {
+                "@type": "not",
+                "target": {
+                  "@type": "simple",
+                  "operator": "Regexp",
+                  "target": ".*(\\[DEBUG\\]|\\[INFO\\]|\\[ERROR\\]|\\[WARN\\]|\\[VERBOSE\\]).*",
+                  "caseInsensitive": false
+                }
+              }
+            ]
+          },
+          "periodocityLevel": "Never"
+        },
+        {
+          "condition": {
+            "@type": "or",
+            "conditionList": [
+              {
+                "@type": "simple",
+                "operator": "Contains",
+                "target": "exception processing monitor",
+                "caseInsensitive": false
+              }
+            ]
+          },
+          "periodocityLevel": "Never"
+        },
+        {
+          "condition": {
+            "@type": "simple",
+            "operator": "Contains",
+            "target": "MISSING_REQUIRED_PARAMETER",
+            "caseInsensitive": false
+          },
+          "periodocityLevel": "OncePerPeriod",
+          "periodocity": 1,
+          "timeUnit": "Hours"
+        },
+        {
+          "condition": {
+            "@type": "and",
+            "conditionList": [
+              {
+                "@type": "simple",
+                "operator": "Contains",
+                "target": "[Manager.Cluster]",
+                "caseInsensitive": false
+              },
+              {
+                "@type": "or",
+                "conditionList": [
+                  {
+                    "@type": "simple",
+                    "operator": "Contains",
+                    "target": "Outgoing mailbox is closed",
+                    "caseInsensitive": false
+                  },
+                  {
+                    "@type": "simple",
+                    "operator": "Contains",
+                    "target": "Outgoing message queue is not moving",
+                    "caseInsensitive": false
+                  },
+                  {
+                    "@type": "simple",
+                    "operator": "Contains",
+                    "target": "But did not receive the response",
+                    "caseInsensitive": false
+                  },
+                  {
+                    "@type": "simple",
+                    "operator": "Contains",
+                    "target": "Closing the mailbox registered to a dead postoffice...",
+                    "caseInsensitive": false
+                  },
+                  {
+                    "@type": "simple",
+                    "operator": "Contains",
+                    "target": "Got the response for the message",
+                    "caseInsensitive": false
+                  },
+                  {
+                    "@type": "simple",
+                    "operator": "Contains",
+                    "target": "Lost contact with the Introscope Enterprise Manager",
+                    "caseInsensitive": false
+                  },
+                  {
+                    "@type": "simple",
+                    "operator": "Contains",
+                    "target": "Not waiting for response for the message",
+                    "caseInsensitive": false
+                  },
+                  {
+                    "@type": "simple",
+                    "operator": "Contains",
+                    "target": "is sending data slowly to the MOM",
+                    "caseInsensitive": false
+                  },
+                  {
+                    "@type": "simple",
+                    "operator": "Contains",
+                    "target": "Failed to get historical agents",
+                    "caseInsensitive": false
+                  }
+                ]
+              }
+            ]
+          },
+          "periodocityLevel": "OncePerPeriod",
+          "periodocity": 4,
+          "timeUnit": "Hours"
+        },
+        {
+          "condition": {
+            "@type": "simple",
+            "operator": "Contains",
+            "target": "Caught exception while handling stream message. java.lang.NullPointerException",
+            "caseInsensitive": false
+          },
+          "periodocityLevel": "OncePerPeriod",
+          "periodocity": 1,
+          "timeUnit": "Hours"
+        },
+        {
+          "condition": {
+            "@type": "simple",
+            "operator": "Contains",
+            "target": "Processing of UVB metrics is overloaded",
+            "caseInsensitive": false
+          },
+          "periodocityLevel": "OncePerPeriod",
+          "periodocity": 4,
+          "timeUnit": "Hours"
+        },
+        {
+          "condition": {
+            "@type": "simple",
+            "operator": "Regexp",
+            "target": ".*is responding slower than (\\d*)ms and may be hung.*",
+            "caseInsensitive": false
+          },
+          "periodocityLevel": "OncePerPeriod",
+          "periodocity": 1,
+          "timeUnit": "Hours"
+        },
+        {
+          "condition": {
+            "@type": "simple",
+            "operator": "Contains",
+            "target": "Unable to send signal for clearing denied agents",
+            "caseInsensitive": false
+          },
+          "periodocityLevel": "OncePerPeriod",
+          "periodocity": 30,
+          "timeUnit": "Minutes"
+        },
+        {
+          "condition": {
+            "@type": "simple",
+            "operator": "Contains",
+            "target": "Timeslice processing delayed due to system activity",
+            "caseInsensitive": false
+          },
+          "periodocityLevel": "OncePerPeriod",
+          "periodocity": 30,
+          "timeUnit": "Minutes"
+        },
+        {
+          "condition": {
+            "@type": "simple",
+            "operator": "Contains",
+            "target": "Unable to update load balancing for collector",
+            "caseInsensitive": false
+          },
+          "periodocityLevel": "OncePerPeriod",
+          "periodocity": 1,
+          "timeUnit": "Hours"
+        },
+        {
+          "condition": {
+            "@type": "simple",
+            "operator": "Contains",
+            "target": "Unable to update collector info for collector",
+            "caseInsensitive": false
+          },
+          "periodocityLevel": "OncePerPeriod",
+          "periodocity": 1,
+          "timeUnit": "Hours"
+        },
+        {
+          "condition": {
+            "@type": "simple",
+            "operator": "Contains",
+            "target": "Caught exception trying to get the difference between MOM and this Collector",
+            "caseInsensitive": false
+          },
+          "periodocityLevel": "OncePerPeriod",
+          "periodocity": 1,
+          "timeUnit": "Hours"
+        },
+        {
+          "condition": {
+            "@type": "simple",
+            "operator": "Contains",
+            "target": "Processing of alerts is overloaded",
+            "caseInsensitive": false
+          },
+          "periodocityLevel": "OncePerPeriod",
+          "periodocity": 1,
+          "timeUnit": "Hours"
+        },
+        {
+          "condition": {
+            "@type": "simple",
+            "operator": "Contains",
+            "target": "Process mapper not found for",
+            "caseInsensitive": false
+          },
+          "periodocityLevel": "OncePerPeriod",
+          "periodocity": 1,
+          "timeUnit": "Hours"
+        },
+        {
+          "condition": {
+            "@type": "simple",
+            "operator": "Contains",
+            "target": "Failed to send intial JavaScript files",
+            "caseInsensitive": false
+          },
+          "periodocityLevel": "OncePerPeriod",
+          "periodocity": 4,
+          "timeUnit": "Hours"
+        },
+        {
+          "condition": {
+            "@type": "simple",
+            "operator": "Contains",
+            "target": "Failed to get historical agents in collector",
+            "caseInsensitive": false
+          },
+          "periodocityLevel": "OncePerPeriod",
+          "periodocity": 2,
+          "timeUnit": "Hours"
+        },
+        {
+          "condition": {
+            "@type": "simple",
+            "operator": "Contains",
+            "target": "reported Metric clamp hit",
+            "caseInsensitive": false
+          },
+          "periodocityLevel": "OncePerPeriod",
+          "periodocity": 12,
+          "timeUnit": "Hours"
+        },
+        {
+          "condition": {
+            "@type": "simple",
+            "operator": "Contains",
+            "target": "Exception",
+            "caseInsensitive": false
+          },
+          "periodocityLevel": "Always"
+        },
+        {
+          "condition": {
+            "@type": "simple",
+            "operator": "Contains",
+            "target": "ERROR",
+            "caseInsensitive": false
+          },
+          "periodocityLevel": "Always"
+        },
+        {
+          "condition": {
+            "@type": "simple",
+            "operator": "Contains",
+            "target": "WARN",
+            "caseInsensitive": false
+          },
+          "periodocityLevel": "Always"
+        }
+      ],
+      "concatLines": 100,
+      "waitForLines": 10000
+    }
+  }
+}

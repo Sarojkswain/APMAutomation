@@ -1,0 +1,86 @@
+<div>
+  <div ng-if="context.mapSelection.selectedGroupName">
+    <h3>Selected Group: {{context.mapSelection.selectedGroupValue}}</h3>
+  </div>
+  <sparkline metric-queries-string="{{metricQueries['Blame Point Metrics']['Average Response Time (ms)'].value}}"
+             metric-title="Average Response Time (ms)"
+             sparkline-height="150"
+             loading-enabled-string="true"
+             section-name="{{sectionName}}"></sparkline>
+  <sparkline metric-queries-string="{{metricQueries['Blame Point Metrics']['Responses Per Interval'].value}}"
+             metric-title="Responses Per Interval"
+             sparkline-height="150"
+             loading-enabled-string="true"
+             section-name="{{sectionName}}"></sparkline>
+  <sparkline metric-queries-string="{{metricQueries['Blame Point Metrics']['Errors Per Interval'].value}}"
+             metric-title="Average Response Time (ms)"
+             sparkline-height="150"
+             loading-enabled-string="true"
+             section-name="{{sectionName}}"></sparkline>
+  <sparkline metric-queries-string="{{metricQueries['Blame Point Metrics']['Stall Count'].value}}"
+             metric-title="Average Response Time (ms)"
+             sparkline-height="150"
+             loading-enabled-string="true"
+             section-name="{{sectionName}}"></sparkline>
+  <sparkline metric-queries-string="{{metricQueries['Blame Point Metrics']['Concurrent Invocations'].value}}"
+             metric-title="Average Response Time (ms)"
+             sparkline-height="150"
+             loading-enabled-string="true"
+             section-name="{{sectionName}}"></sparkline>
+
+  <div ng-if="metricQueries['CEM Metrics']">
+  <h3>CEM Metrics</h3>
+  <sparkline metric-queries-string="{{metricQueries['CEM Metrics']['Response Time 95th Percentile (ms)'].value}}"
+             metric-title="Response Time 95th Percentile (ms)"
+             sparkline-height="150"
+             loading-enabled-string="true"
+             section-name="{{sectionName}}"></sparkline>
+  <sparkline metric-queries-string="{{metricQueries['CEM Metrics']['Total Availability Defective Transactions Per Interval'].value}}"
+             metric-title="Total Availability Defective Transactions Per Interval"
+             sparkline-height="150"
+             loading-enabled-string="true"
+             section-name="{{sectionName}}"></sparkline>
+  <sparkline metric-queries-string="{{metricQueries['CEM Metrics']['Total Defect Ratio (%)'].value}}"
+             metric-title="Total Defect Ratio (%)"
+             sparkline-height="150"
+             loading-enabled-string="true"
+             section-name="{{sectionName}}"></sparkline>
+  <sparkline metric-queries-string="{{metricQueries['CEM Metrics']['Total Defects Per Interval'].value}}"
+             metric-title="Total Defects Per Interval"
+             sparkline-height="150"
+             loading-enabled-string="true"
+             section-name="{{sectionName}}"></sparkline>
+  <sparkline metric-queries-string="{{metricQueries['CEM Metrics']['Total Performance Defective Transactions Per Interval'].value}}"
+             metric-title="Total Performance Defective Transactions Per Interval"
+             sparkline-height="150"
+             loading-enabled-string="true"
+             section-name="{{sectionName}}"></sparkline>
+  <sparkline metric-queries-string="{{metricQueries['CEM Metrics']['Total Transactions Per Interval'].value}}"
+             metric-title="Total Transactions Per Interval"
+             sparkline-height="150"
+             loading-enabled-string="true"
+             section-name="{{sectionName}}"></sparkline>
+  <sparkline metric-queries-string="{{metricQueries['CEM Metrics']['Total RT 95th Percentile Transactions Per Interval'].value}}"
+             metric-title="Total RT 95th Percentile Transactions Per Interval"
+             sparkline-height="150"
+             loading-enabled-string="true"
+             section-name="{{sectionName}}"></sparkline>
+  </div>
+
+  <div ng-if="metricQueries['Resource Metrics']">
+  <h3>CEM Metrics</h3>
+  <sparkline metric-queries-string="{{metricQueries['Resource Metrics']['Bytes In Use'].value}}"
+             metric-title="Bytes In Use"
+             sparkline-height="150"
+             loading-enabled-string="true"
+             section-name="{{sectionName}}"></sparkline>
+  <sparkline metric-queries-string="{{metricQueries['Resource Metrics']['Utilization % (process)'].value}}"
+             metric-title="Utilization % (process)"
+             sparkline-height="150"
+             loading-enabled-string="true"
+             section-name="{{sectionName}}"></sparkline>
+  </div>
+  
+  <pre>{{ metricQueries | json}}</pre>
+
+</div>

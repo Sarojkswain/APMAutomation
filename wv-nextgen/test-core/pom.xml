@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2014 CA.  All rights reserved.
+  ~
+  ~ This software and all information contained therein is confidential and
+  ~ proprietary and shall not be duplicated, used, disclosed or disseminated in
+  ~ any way except as authorized by the applicable license agreement, without
+  ~ the express written permission of CA. All authorized reproductions must be
+  ~ marked with this language.
+  ~
+  ~ EXCEPT AS SET FORTH IN THE APPLICABLE LICENSE AGREEMENT, TO THE EXTENT
+  ~ PERMITTED BY APPLICABLE LAW, CA PROVIDES THIS SOFTWARE WITHOUT WARRANTY OF
+  ~ ANY KIND, INCLUDING WITHOUT LIMITATION, ANY IMPLIED WARRANTIES OF
+  ~ MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  IN NO EVENT WILL CA BE
+  ~ LIABLE TO THE END USER OR ANY THIRD PARTY FOR ANY LOSS OR DAMAGE, DIRECT OR
+  ~ INDIRECT, FROM THE USE OF THIS SOFTWARE, INCLUDING WITHOUT LIMITATION, LOST
+  ~ PROFITS, BUSINESS INTERRUPTION, GOODWILL, OR LOST DATA, EVEN IF CA IS
+  ~ EXPRESSLY ADVISED OF SUCH LOSS OR DAMAGE.
+  --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+    <artifactId>wv-nextgen</artifactId>
+    <groupId>com.ca.apm.tests</groupId>
+    <version>99.99.dev_SaaS_fix-SNAPSHOT</version>
+  </parent>
+
+    <artifactId>wv-nextgen-core</artifactId>
+    <packaging>jar</packaging>
+
+    <name>wv-nextgen - Core</name>
+    <description>Module for defining testbeds, test and custom roles.</description>
+
+	<properties>
+		<introscope.version>${env.INTROSCOPE_VERSION}</introscope.version>
+        <browser>${env.BROWSER}</browser>
+	</properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.ca.apm.tests</groupId>
+            <artifactId>wv-nextgen-flows</artifactId>
+            <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.collections</groupId>
+                    <artifactId>google-collections</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.commons</groupId>
+            <artifactId>APM-Commons-Lite-roles</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.tas</groupId>
+            <artifactId>automation-roles</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.tas</groupId>
+            <artifactId>automation-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.cssparser</groupId>
+            <artifactId>cssparser</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.subethamail</groupId>
+            <artifactId>subethasmtp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.sven-jacobs</groupId>
+            <artifactId>loremipsum</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+            </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>write-project-properties</goal>
+						</goals>
+						<configuration>
+							<outputFile>${project.build.outputDirectory}/tas_run.properties</outputFile>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+            <plugin>
+                <groupId>com.ca.tas.plugins</groupId>
+                <artifactId>tas-maven-plugin</artifactId>
+                <configuration>
+                    <resmanApiUrl>${resman.url}</resmanApiUrl>
+                    <resmanUser>${resman.user}</resmanUser>
+                    <resmanPassword>${resman.password}</resmanPassword>
+                    <almHost>${alm.host}</almHost>
+                    <almDomain>${alm.domain}</almDomain>
+                    <almProject>${alm.project}</almProject>
+                    <almUsername>${alm.username}</almUsername>
+                    <almPassword>${alm.password}</almPassword>
+                    <almTestPlanRoot>${alm.testPlanRoot}</almTestPlanRoot>
+                    <almTestLabRoot>${alm.testLabRoot}</almTestLabRoot>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>index</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.ca.apm.alm</groupId>
+                        <artifactId>alm-lib</artifactId>
+                        <version>${version.almlib}</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>commons-logging</groupId>
+                                <artifactId>commons-logging</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>com.ca.tas.plugins</groupId>
+                <artifactId>resman-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <appendAssemblyId>true</appendAssemblyId>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.ca.tas.client.deployment.Deploy</mainClass>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                    </archive>
+                    <appendAssemblyId>true</appendAssemblyId>
+                    <descriptors>
+                        <descriptor>assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>pack-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

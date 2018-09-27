@@ -1,0 +1,48 @@
+<div>
+    <div>
+        <h2 class="row">
+            <div class="col-sm-1">
+                <img class="dashboard-icon" src="img/agent48x48.png">
+            </div>
+            <span class="col-sm-11 text-right" style="margin-top: 15px;">
+                Upload Agent Distribution
+            </span>
+        </h2>
+        <h1 class="page-header">
+        </h1>
+
+        <file-uploader drop-zone-label="'Drop Agent zip here'"
+                       custom-over-class="'file-over-highlight'"
+                       drop-zone-class="'file-drop-zone'"
+                       class="agentUploader"
+                       submit-url="'api/agent'"
+                       file-alias="'agentZip'"
+                       uploader="uploader"
+                       event-suffix="'agent'">
+        </file-uploader>
+    </div>
+
+    <div>
+        <h2 class="row" style="margin-top: 20px;">
+            <span class="col-sm-12 text-right">
+                Download Preconfigured Agent Distribution
+            </span>
+        </h2>
+        <h1 class="page-header">
+        </h1>
+
+        <div ng-if="uploadAgentController.hasDistro">
+            <div>
+                <a class="btn btn-primary"
+                   title="Download preconfigured agent"
+                   href="api/preconfiguredAgent"
+                   ng-disabled="!uploadAgentController.hasDistro || uploadAgentController.downloadButtonDisabled">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span><span>  Download</span>
+                </a>
+            </div>
+        </div>
+        <div ng-if="!uploadAgentController.hasDistro">
+            <img src="img/butterfly48x48.png">&nbsp;&nbsp;&nbsp;&nbsp;No agent distribution available, sorry :(
+        </div>
+    </div>
+</div>

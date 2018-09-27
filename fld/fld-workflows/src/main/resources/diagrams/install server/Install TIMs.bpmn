@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="fld.install.tims" name="Install TIMs" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="timTrussBaseUrl" name="timTrussBaseUrl" type="string" variable="timTrussBaseUrl" required="true"></activiti:formProperty>
+        <activiti:formProperty id="timCodeName" name="timCodeName" type="string" variable="timCodeName" required="true"></activiti:formProperty>
+        <activiti:formProperty id="timBuildNumber" name="timBuildNumber" type="string" variable="timBuildNumber" required="true"></activiti:formProperty>
+        <activiti:formProperty id="timBuildId" name="timBuildId" type="string" variable="timBuildId" required="true"></activiti:formProperty>
+        <activiti:formProperty id="timFilename" name="timFilename" type="string" variable="timFilename" required="true"></activiti:formProperty>
+        <activiti:formProperty id="timInstallationPrefix" name="timInstallationPrefix" type="string" variable="timInstallationPrefix" default="/opt" required="true"></activiti:formProperty>
+        <activiti:formProperty id="timNetworkInterface" name="timNetworkInterface" type="string" variable="timNetworkInterface" default="eth2" required="true"></activiti:formProperty>
+        <activiti:formProperty id="timNodes" name="timNodes" type="string" variable="timNodes" default="fldtim01c,fldtim02c,fldtim03c,fldtim04c,fldtim05c" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="timerintermediatecatchevent4"></sequenceFlow>
+    <serviceTask id="install.tim.start" name="Start TIM Installation" activiti:class="com.ca.apm.systemtest.fld.plugin.tim.jobs.TimStartInstallJobDelegate"></serviceTask>
+    <sequenceFlow id="flow14" sourceRef="install.tim.start" targetRef="timerintermediatecatchevent5"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent4" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT3S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow22" sourceRef="timerintermediatecatchevent4" targetRef="install.tim.start"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent5" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT3S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <subProcess id="subprocess1" name="Sub Process">
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="nodeList" activiti:elementVariable="node"></multiInstanceLoopCharacteristics>
+      <serviceTask id="servicetask1" name="Service Task" activiti:delegateExpression="${timInstallJobTaskBean.checkRequirementsDelegate}"></serviceTask>
+      <startEvent id="startevent2" name="Start">
+        <extensionElements>
+          <activiti:formProperty id="some.var" name="some.var" type="string"></activiti:formProperty>
+          <activiti:formProperty id="timTrussBaseUrl" name="timTrussBaseUrl" type="string" variable="timTrussBaseUrl" required="true"></activiti:formProperty>
+          <activiti:formProperty id="timCodeName" name="timCodeName" type="string" variable="timCodeName" required="true"></activiti:formProperty>
+          <activiti:formProperty id="timBuildNumber" name="timBuildNumber" type="string" variable="timBuildNumber" required="true"></activiti:formProperty>
+          <activiti:formProperty id="timBuildId" name="timBuildId" type="string" variable="timBuildId" required="true"></activiti:formProperty>
+          <activiti:formProperty id="timFilename" name="timFilename" type="string" variable="timFilename" required="true"></activiti:formProperty>
+          <activiti:formProperty id="timInstallationPrefix" name="timInstallationPrefix" type="string" variable="timInstallationPrefix" default="/opt" required="true"></activiti:formProperty>
+          <activiti:formProperty id="timNetworkInterface" name="timNetworkInterface" type="string" variable="timNetworkInterface" default="eth2" required="true"></activiti:formProperty>
+          <activiti:formProperty id="timNodes" name="timNodes" type="string" variable="timNodes" default="fldtim01c,fldtim02c,fldtim03c,fldtim04c,fldtim05c" required="true"></activiti:formProperty>
+        </extensionElements>
+      </startEvent>
+      <sequenceFlow id="flow25" sourceRef="startevent2" targetRef="servicetask1"></sequenceFlow>
+      <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway" default="timNodeNotAvailable"></exclusiveGateway>
+      <sequenceFlow id="flow26" sourceRef="servicetask1" targetRef="exclusivegateway5"></sequenceFlow>
+      <callActivity id="callactivity2" name="Call activity" calledElement="fld.install.tim.2">
+        <extensionElements>
+          <activiti:in source="nodeName" target="nodeName"></activiti:in>
+          <activiti:in source="timTrussBaseUrl" target="timTrussBaseUrl"></activiti:in>
+          <activiti:in source="timCodeName" target="timCodeName"></activiti:in>
+          <activiti:in source="timBuildNumber" target="timBuildNumber"></activiti:in>
+          <activiti:in source="timBuildId" target="timBuildId"></activiti:in>
+          <activiti:in source="timFilename" target="timFilename"></activiti:in>
+          <activiti:in source="timInstallationPrefix" target="timInstallationPrefix"></activiti:in>
+          <activiti:in source="timNetworkInterface" target="timNetworkInterface"></activiti:in>
+          <activiti:in source="nodeAvailable" target="nodeReallyAvailable"></activiti:in>
+        </extensionElements>
+      </callActivity>
+      <sequenceFlow id="flow27" sourceRef="exclusivegateway5" targetRef="callactivity2">
+        <conditionExpression xsi:type="tFormalExpression"><![CDATA[${nodeAvailable == true}]]></conditionExpression>
+      </sequenceFlow>
+      <endEvent id="endevent3" name="End"></endEvent>
+      <endEvent id="endevent4" name="End"></endEvent>
+      <sequenceFlow id="timNodeNotAvailable" name="Node Not Available" sourceRef="exclusivegateway5" targetRef="endevent4"></sequenceFlow>
+      <sequenceFlow id="flow29" sourceRef="callactivity2" targetRef="endevent3"></sequenceFlow>
+    </subProcess>
+    <endEvent id="endevent5" name="End"></endEvent>
+    <sequenceFlow id="flow30" sourceRef="subprocess1" targetRef="endevent5"></sequenceFlow>
+    <sequenceFlow id="flow31" sourceRef="timerintermediatecatchevent5" targetRef="subprocess1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.install.tims">
+    <bpmndi:BPMNPlane bpmnElement="fld.install.tims" id="BPMNPlane_fld.install.tims">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="20.0" y="240.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="install.tim.start" id="BPMNShape_install.tim.start">
+        <omgdc:Bounds height="55.0" width="105.0" x="170.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent4" id="BPMNShape_timerintermediatecatchevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="90.0" y="240.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent5" id="BPMNShape_timerintermediatecatchevent5">
+        <omgdc:Bounds height="35.0" width="35.0" x="311.0" y="240.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="subprocess1" id="BPMNShape_subprocess1">
+        <omgdc:Bounds height="275.0" width="721.0" x="410.0" y="156.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="560.0" y="260.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent2" id="BPMNShape_startevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="470.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway5" id="BPMNShape_exclusivegateway5">
+        <omgdc:Bounds height="40.0" width="40.0" x="730.0" y="267.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callactivity2" id="BPMNShape_callactivity2">
+        <omgdc:Bounds height="55.0" width="105.0" x="860.0" y="260.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="1020.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="1020.0" y="356.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent5" id="BPMNShape_endevent5">
+        <omgdc:Bounds height="35.0" width="35.0" x="1206.0" y="430.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="55.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="90.0" y="257.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="275.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="311.0" y="257.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="125.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="170.0" y="257.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="505.0" y="287.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="287.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="665.0" y="287.0"></omgdi:waypoint>
+        <omgdi:waypoint x="730.0" y="287.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
+        <omgdi:waypoint x="770.0" y="287.0"></omgdi:waypoint>
+        <omgdi:waypoint x="860.0" y="287.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="timNodeNotAvailable" id="BPMNEdge_timNodeNotAvailable">
+        <omgdi:waypoint x="750.0" y="307.0"></omgdi:waypoint>
+        <omgdi:waypoint x="750.0" y="373.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1020.0" y="373.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="91.0" x="1170.0" y="520.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
+        <omgdi:waypoint x="965.0" y="287.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1020.0" y="287.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
+        <omgdi:waypoint x="1131.0" y="293.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1223.0" y="430.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
+        <omgdi:waypoint x="346.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="410.0" y="293.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

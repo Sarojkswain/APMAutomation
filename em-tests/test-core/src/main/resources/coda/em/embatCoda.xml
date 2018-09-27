@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2014 CA.  All rights reserved.
+  ~
+  ~ This software and all information contained therein is confidential and
+  ~ proprietary and shall not be duplicated, used, disclosed or disseminated in
+  ~ any way except as authorized by the applicable license agreement, without
+  ~ the express written permission of CA. All authorized reproductions must be
+  ~ marked with this language.
+  ~
+  ~ EXCEPT AS SET FORTH IN THE APPLICABLE LICENSE AGREEMENT, TO THE EXTENT
+  ~ PERMITTED BY APPLICABLE LAW, CA PROVIDES THIS SOFTWARE WITHOUT WARRANTY OF
+  ~ ANY KIND, INCLUDING WITHOUT LIMITATION, ANY IMPLIED WARRANTIES OF
+  ~ MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  IN NO EVENT WILL CA BE
+  ~ LIABLE TO THE END USER OR ANY THIRD PARTY FOR ANY LOSS OR DAMAGE, DIRECT OR
+  ~ INDIRECT, FROM THE USE OF THIS SOFTWARE, INCLUDING WITHOUT LIMITATION, LOST
+  ~ PROFITS, BUSINESS INTERRUPTION, GOODWILL, OR LOST DATA, EVEN IF CA IS
+  ~ EXPRESSLY ADVISED OF SUCH LOSS OR DAMAGE.
+  -->
+
+<codaSuite xmlns="http://www.ca.com/2013/tasCodaSuite">
+	<name>APMRegression/bat/apmbase/testSuitesModified/em_bat_sa_v2.xml</name>
+	<testBeds>
+		<testbedConfigs>
+			<testBedName>com.ca.tas.test.sample.testbed.EmBatTestRunner</testBedName>
+		</testbedConfigs>
+	</testBeds>
+	<genericProperties>
+		<properties key="coda.logic.mercurial.branch" value="{codaLogicMercurialBranch}"/>
+		<properties key="coda.logic.mercurial.source" value="ssh://hg@{oerthRegionalMirror}/apm/coda-logic"/>
+		<properties key="testvariant.files"
+					value="qa/bat/introscope/variants/newconfig.var.xml,APMRegression/variants/bat.var.xml"/>
+		<properties key="overrides.versions.agent.build.number" value="{artifactVersion}"/>
+		<properties key="overrides.versions.agent.build.suffix" value="{fullProductVersion}"/>
+		<properties key="overrides.versions.introscope.build.number" value="{artifactVersion}"/>
+		<properties key="overrides.versions.introscope.build.suffix" value="{productVersion}"/>
+		<properties key="overrides.versions.osgi" value="{productVersion}"/>
+		<properties key="overrides.coda.site" value="tas"/>
+
+		<properties key="role.webapp02.wls.xjvm.port" value="7002"/>
+		<properties key="role.webapp02.weblogic.version" value="10.3"/>
+		<properties key="role.webapp02.wls.perm.space.size" value="48"/>
+		<properties key="role.webapp02.wls.xjvm.hostname" value="{machineId:machine1}"/>
+		<properties key="role.webapp02.wls.agent.install.dir" value="${testbed_webapp.install.parent.dir}/webapp/pipeorgandomain/wily"/>
+		<properties key="role.webapp02.wls.max.perm.space.size" value="128"/>
+		<properties key="role.webapp02.wls.start.sleep" value="120000"/>
+		<properties key="role.webapp02.wls.stop.sleep" value="90000"/>
+		<properties key="role.webapp02.wls.min.heap.size" value="256"/>
+		<properties key="role.webapp02.wls.bin.loc" value="C:/Oracle/Middleware/user_projects/domains/base_domain"/>
+		<properties key="role.webapp02.wls.port" value="7001"/>
+		<properties key="role.webapp02.wls.max.heap.size" value="350"/>
+		<properties key="role.webapp02.wls.home" value="C:/Oracle/Middleware/wlserver_10.3"/>
+
+		<properties key="role.webapp01.was7.home" value="C:/IBM/WebSphere"/>
+		<properties key="role.webapp01.was7.xjvm.server.name" value="server_xjvm"/>
+		<properties key="role.webapp01.was7.xjvm.port" value="9101"/>
+		<properties key="role.webapp01.was7.port" value="9080"/>
+		<properties key="role.webapp01.was7.xjvm.profile.name" value="CrossJvmProfile"/>
+		<properties key="role.webapp01.was7.admin.port" value="9060"/>
+		<properties key="role.webapp01.was7.node.info" value="Node01"/>
+		<properties key="role.webapp01.was7.xjvm.hostname" value="{machineId:machine1}"/>
+		<properties key="role.webapp01.was7.xjvm.node.info" value="Node02"/>
+		<properties key="role.webapp01.was7.appserver.dir" value="${testbed_webapp.was7.home}/AppServer"/>
+
+		<properties key="role.agent01.username" value="Admin"/>
+		<properties key="role.agent01.was8.5.admin.port" value="9062"/>
+		<properties key="role.agent01.was8.5.appserver.dir" value="${testbed_webapp.was8.5.home}/AppServer"/>
+		<properties key="role.agent01.slaveType" value="WindowsService"/>
+		<properties key="role.agent01.auto.home" value="C:/automation"/>
+		<properties key="role.agent01.Base_dir" value="C:/sw"/>
+		<properties key="role.agent01.em.username" value="Admin"/>
+		<properties key="role.agent01.tomcat7.home" value="C:/sw/Tomcat/apache-tomcat-7.0.52"/>
+		<properties key="role.agent01.install.parent.dir" value="C:/sw"/>
+		<properties key="role.agent01.dotnettestapp.bitmode" value="32"/>
+		<properties key="role.agent01.was8.5.port" value="9082"/>
+		<properties key="role.agent01.java.agent.install.dir" value="C:/sw/introscope/agent"/>
+		<properties key="role.agent01.was8.5.xjvm.port" value="9083"/>
+		<properties key="role.agent01.emfolderwithspace.location" value="C:/sw/em with space"/>
+		<properties key="role.agent01.qatestapp.javac.executable" value="C:/Program Files/Java/jdk1.7.0_51/bin/javac"/>
+		<properties key="role.agent01.was8.5.xjvm.hostname" value="{machineId:machine1}"/>
+		<properties key="role.agent01.dotnet.install.dir" value="C:/dotnet"/>
+		<properties key="role.agent01.YourKit.min.heap.mb" value="8000"/>
+		<properties key="role.agent01.dotnettestapp.site.name" value="QASite"/>
+		<properties key="role.agent01.scp.password" value="Lister@123"/>
+		<properties key="role.agent01.stage.dir" value="C:/sw/coda-stage/${role.name}"/>
+		<properties key="role.agent01.max.heap.mb" value="1024"/>
+		<properties key="role.agent01.tomcat6.port" value="9091"/>
+		<properties key="role.agent01.clwloc" value="C:/sw/clw"/>
+		<properties key="role.agent01.tomcat.ver.dir" value="tomcat-6.0.33"/>
+		<properties key="role.agent01.was8.5.server.name" value="server1"/>
+		<properties key="role.agent01.scp.user" value="Administrator"/>
+		<properties key="role.agent01.os" value="windowsAMD64"/>
+		<properties key="role.agent01.java.home" value="C:/Program Files/Java/jdk1.6.0_45"/>
+		<properties key="role.agent01.was8.5.xjvm.node.info" value="Node04"/>
+		<properties key="role.agent01.tomcat7.port" value="9091"/>
+		<properties key="role.agent01.was.agent.install.dir" value="${testbed_webapp.was7.home}/AppServer/wily"/>
+		<properties key="role.agent01.em.loc" value="C:\sw\em"/>
+		<properties key="role.agent01.em.loc1" value="C:\sw\em"/>
+		<properties key="role.agent01.em.loc2" value="C:\sw\em"/>
+		<properties key="role.agent01.YourKit.dir" value="''"/>
+		<properties key="role.agent01.logFolderName" value="/logs"/>
+		<properties key="role.agent01.em.hostname" value="{machineId:machine1}"/>
+		<properties key="role.agent01.was8.5.xjvm.profile.name" value="CrossJvmProfile"/>
+		<properties key="role.agent01.Agent.host" value="{machineId:machine1}"/>
+		<properties key="role.agent01.epagent.java.home" value="C:/Program Files/Java/jdk1.6.0_45"/>
+		<properties key="role.agent01.jboss.parent.dir" value="c:/sw"/>
+		<properties key="role.agent01.em.host.name" value="{machineId:machine1}"/>
+		<properties key="role.agent01.dotnettestapp.apppool.name" value="QASite"/>
+		<properties key="role.agent01.was8.5.node.info" value="Node03"/>
+		<properties key="role.agent01.pipeorgan.client.jvm.home" value="C:/Program Files/Java/jdk1.6.0_45"/>
+		<properties key="role.agent01.stPort" value="5001"/>
+		<properties key="role.agent01.standalone.base" value="st"/>
+		<properties key="role.agent01.dotnettestapp.framework" value="4.0"/>
+		<properties key="role.agent01.was8.5.xjvm.server.name" value="server_xjvm"/>
+		<properties key="role.agent01.em.port" value="5001"/>
+		<properties key="role.agent01.jboss.home" value="c:/sw/jboss-as-7.1.1.Final"/>
+		<properties key="role.agent01.tomcat7.version" value="7.0.52"/>
+		<properties key="role.agent01.jboss.version" value="7.1.1"/>
+		<properties key="role.agent01.was8.5.profile.name" value="AppSrv01"/>
+		<properties key="role.agent01.YourKit.max.heap.mb" value="8000"/>
+		<properties key="role.agent01.bitmode" value="64"/>
+		<properties key="role.agent01.emPort" value="5001"/>
+		<properties key="role.agent01.binFolderName" value="/bin"/>
+		<properties key="role.agent01.min.heap.mb" value="512"/>
+		<properties key="role.agent01.was8.5.home" value="C:/sw/ibm/WebSphere85"/>
+		<properties key="role.agent01.smartstor.dir" value="C:/"/>
+		<properties key="role.agent01.dotnettestapp.home" value="C:/sw/DotNetTestApp"/>
+		<properties key="role.agent01.password" value=""/>
+		<properties key="role.agent01.em.password" value=""/>
+		<properties key="role.agent01.config.dir" value="/"/>
+		<properties key="role.agent01.was8.5.xjvm.admin.port" value="9063"/>
+		<properties key="role.agent01.epagent.home" value="C:/sw/epagent"/>
+		<properties key="role.agent01.jboss.port" value="8080"/>
+		<properties key="role.agent01.max.permsize.mb" value="256"/>
+		<properties key="role.agent01.tomcat6.home" value="C:/sw/Tomcat/apache-tomcat-6.0.39"/>
+		<properties key="role.agent01.tomcat.version" value="7.0.52"/>
+		<properties key="role.agent01.host" value="{machineId:machine1}"/>
+		<properties key="role.agent01.dotnet.install.dir.wily" value="C:/dotnet/wily"/>
+		<properties key="role.qcuploadtool01.qcuploadtool.upload.results" value="false"/>
+		<properties key="role.qcuploadtool01.qcuploadtool.java.home" value="C:/Program Files (x86)/Java/jdk1.7.0_25/jre"/>
+ 		<properties key="role.em01.os" value="windowsAMD64"/>
+		<properties key="role.em02.os" value="windowsAMD64"/>
+		<properties key="test.result.regex" value=".*junitreports.(?!TEST-).*\.xml"/>
+	</genericProperties>
+	<type>CODA:Suite</type>
+	<owner>yenn</owner>
+	<description>EM.BAT test suite</description>
+	<size>COLOSSAL</size>
+	<group>coda-em</group>
+	<executeOn>controller</executeOn>
+</codaSuite>

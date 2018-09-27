@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<!--
+	@Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.ControlScriptsWindowsTestbed, executeOn=emMachine}],
+	  owner = ketsw01,
+	  size = BIG,
+	  description = 'ControlScripts TestNg XML suite for all windows tests'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="ControlScriptsWindowsTests" configfailurepolicy="continue">
+	<groups>
+    	<run>
+      		<include name="BAT"/>
+      		<include name="Bat"/>
+      		<include name="bat"/>
+    	</run>
+	</groups>
+	<test name="ControlScriptsWindowsTests" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.tests.ControlScriptsTests.test.ControlScriptTestsWindows">
+			</class>
+		</classes>
+	</test>
+</suite>
+		

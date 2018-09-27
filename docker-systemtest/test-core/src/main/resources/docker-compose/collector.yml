@@ -1,0 +1,17 @@
+version: '2'
+services:
+
+  mom:
+    image: ${IMAGE_REGISTRY}/apm-em:${PROJECT_VERSION}
+    #mem_limit: 2000m
+    command: collector
+    ports:
+    - "5001:5001"
+    - "8081:8081"
+    - "8082:8080"
+    environment:
+      - HEAP_XMX=${ENV_MEMORY}
+    #volumes:
+      #- ./:/opt/ca/logs
+      #- ~/docker-introscope/transfer/xmltv:/transfer/xmltv
+      #- ~/docker-introscope/transfer/modules:/transfer/modules

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" exporter="camunda modeler" exporterVersion="2.7.0">
+  <signal id="JMeterStartedSignal" name="JMeterStartedSignal"></signal>
+  <process id="fld.powerpack.monitoring" name="Typeperf monitoring for Process" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="node" name="Node" type="node" variable="node" required="true"></activiti:formProperty>
+        <activiti:formProperty id="testType" name="Test Type (No Agent, Agent, Agent + PowerPack)" type="enum" variable="testType" default="noAgent" required="true">
+          <activiti:value id="noAgent" name="noAgent"></activiti:value>
+          <activiti:value id="Agent" name="Agent"></activiti:value>
+          <activiti:value id="AgentPlusPP" name="AgentPlusPP"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="processName" name="Process Name" type="string" variable="processName" default="java" required="true"></activiti:formProperty>
+        <activiti:formProperty id="testWarmupInSeconds" name="Warm Up Time (in seconds)" type="long" variable="testWarmupInSeconds" default="10" required="true"></activiti:formProperty>
+        <activiti:formProperty id="testDurationInSeconds" name="Test Duration (in seconds)" type="long" variable="testDurationInSeconds" default="10" required="true"></activiti:formProperty>
+        <activiti:formProperty id="logDir" name="Log Directory" type="string" variable="logDir" default="."></activiti:formProperty>
+        <activiti:formProperty id="appServerHost" name="Web Application Host" type="string" variable="appServerHost" default="localhost"></activiti:formProperty>
+        <activiti:formProperty id="jmxPort" name="Jmx Port" type="long" variable="jmxPort" default="1099"></activiti:formProperty>
+        <activiti:formProperty id="monInterval" name="Interval Between Metric Collections (in milliseconds)" type="long" variable="monInterval" default="1000"></activiti:formProperty>
+        <activiti:formProperty id="serverType" name="Server Type (Websphere, Weblogic, etc.)" type="enum" variable="serverType" default="webspherePP" required="true">
+          <activiti:value id="webspherePP" name="webspherePP"></activiti:value>
+          <activiti:value id="webspherePortalPP" name="webspherePortalPP"></activiti:value>
+          <activiti:value id="weblogicPP" name="weblogicPP"></activiti:value>
+          <activiti:value id="sharePointPP" name="sharePointPP"></activiti:value>
+          <activiti:value id="weblogicportalPP" name="weblogicportalPP"></activiti:value>
+        </activiti:formProperty>
+
+        <activiti:formProperty id="monSamplesCount" name="Number Of Samples (Same As Time Interval = 1000)" type="long" variable="monSamplesCount" default="60"></activiti:formProperty>
+        <activiti:formProperty id="jmxMetrics" name="JMX Metrics" type="string" variable="jmxMetrics"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <serviceTask id="servicetask2" name="Start Monitoring" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).monitor()}"></serviceTask>
+    <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT${testDurationInSeconds}S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow12" sourceRef="servicetask2" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+    <scriptTask id="scripttask1" name="Record start time" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+def log = LoggerFactory.getLogger("JmeterTestStartTime")
+
+def shortDate= new Date().format("HH:mm:ss")
+log.info("Test start time short: " +  shortDate)
+execution.setVariable("testStartTimeShort", shortDate)</script>
+    </scriptTask>
+    <serviceTask id="servicetask3" name="Stop Monitoring" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).stopMonitoring()}"></serviceTask>
+    <sequenceFlow id="flow17" sourceRef="servicetask3" targetRef="timerintermediatecatchevent3"></sequenceFlow>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="scripttask1">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent2" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT2S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow18" sourceRef="timerintermediatecatchevent1" targetRef="servicetask3"></sequenceFlow>
+    <sequenceFlow id="flow19" sourceRef="timerintermediatecatchevent2" targetRef="servicetask2"></sequenceFlow>
+    <intermediateCatchEvent id="catching_JMeterStartedSignal_signalintermediatecatchevent1" name="SignalCatchEvent">
+      <signalEventDefinition signalRef="JMeterStartedSignal"></signalEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow20" sourceRef="startevent1" targetRef="catching_JMeterStartedSignal_signalintermediatecatchevent1"></sequenceFlow>
+    <sequenceFlow id="flow21" sourceRef="catching_JMeterStartedSignal_signalintermediatecatchevent1" targetRef="scripttask1"></sequenceFlow>
+    <sequenceFlow id="flow22" sourceRef="scripttask1" targetRef="timerintermediatecatchevent2"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent3" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT2S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow23" sourceRef="timerintermediatecatchevent3" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.powerpack.monitoring">
+    <bpmndi:BPMNPlane bpmnElement="fld.powerpack.monitoring" id="BPMNPlane_fld.powerpack.monitoring">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="130.0" y="1.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="130.0" y="750.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="95.0" y="350.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="130.0" y="460.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="95.0" y="168.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="95.0" y="540.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="190.0" y="181.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent2" id="BPMNShape_timerintermediatecatchevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="130.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="catching_JMeterStartedSignal_signalintermediatecatchevent1" id="BPMNShape_catching_JMeterStartedSignal_signalintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="130.0" y="79.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent3" id="BPMNShape_timerintermediatecatchevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="130.0" y="670.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="147.0" y="405.0"></omgdi:waypoint>
+        <omgdi:waypoint x="147.0" y="460.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="147.0" y="595.0"></omgdi:waypoint>
+        <omgdi:waypoint x="147.0" y="670.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="147.0" y="495.0"></omgdi:waypoint>
+        <omgdi:waypoint x="147.0" y="540.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="147.0" y="305.0"></omgdi:waypoint>
+        <omgdi:waypoint x="147.0" y="350.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="147.0" y="36.0"></omgdi:waypoint>
+        <omgdi:waypoint x="147.0" y="79.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="147.0" y="114.0"></omgdi:waypoint>
+        <omgdi:waypoint x="147.0" y="168.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="147.0" y="223.0"></omgdi:waypoint>
+        <omgdi:waypoint x="147.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="147.0" y="705.0"></omgdi:waypoint>
+        <omgdi:waypoint x="147.0" y="750.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+	    {name=com.ca.apm.tests.testbed.NodeJSNativeLessLoadTestbed, executeOn=nodejsMachine}],
+	  owner = sinka08,
+	  size = MAMMOTH,
+	  description = 'NodeAgent TestNg XML suite for system tests on native less probe setup'),
+	  snapshotPolicy = SnapshotPolicy.ALWAYS,
+      snapshot = SnapshotMode.LIVE
+-->
+<suite name="TestSuite" configfailurepolicy="continue">
+	<test name="NativeLessSystemTests" preserve-order="true">
+
+		<classes>
+			<class name="com.ca.apm.tests.system.JmeterLoadTest">
+				<methods>
+					<include name="testTixChangeLoad" />
+				</methods>
+			</class>
+		</classes>
+
+	</test>
+</suite>

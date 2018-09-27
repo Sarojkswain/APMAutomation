@@ -1,0 +1,21 @@
+Ales's scenarios:
+
+ - Switching between the Default perspective and No Group:
+   * 40 times in a row
+   * for 4 browsers
+   * measuring load time and JavaScript Heap
+
+ - Switching between Map and Dashboard views
+   * same as for the previous scenario
+
+Results:
+http://lopal05-web/perf
+
+Sources:
+\\czprfs5\CA-NSM\AppMapSeleniumPerformance.7z
+
+------------------------------------------------------------
+
+Performance logging with Selenium Chrome WebDriver:
+https://sites.google.com/a/chromium.org/chromedriver/logging/performance-log
+

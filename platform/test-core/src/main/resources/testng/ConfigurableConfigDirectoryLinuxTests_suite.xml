@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!-- @Tas(testBed = [{name=com.ca.apm.tests.testbed.ConfigurableConfigDirectoryLinuxTestbed,
+	executeOn=emMachine}], owner = balra06, size = BIG, description = 'ConfigurableConfigDirectory
+    TestNg XML suite for all ConfigurableConfigDirectoryLinux tests'), snapshotPolicy 
+	= SnapshotPolicy.ON_FAILURE, snapshot = SnapshotMode.LIVE -->
+<suite name="ConfigurableConfigDirectoryLinuxTests" configfailurepolicy="continue">
+	<test name="ConfigurableConfigDirectoryLinuxTests" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.tests.em.properties.ConfigurableConfigDirectoryTests">
+			</class>
+		</classes>
+	</test>
+</suite>
+		

@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="plugin-api" verbose="1">
+	<test name="TestVO-JsonMapping">
+		<packages>
+			<package name="com.ca.apm.systemtest.fld.plugin.vo" />
+		</packages>
+	</test>
+
+	<test name="artifact-manager">
+		<packages>
+			<package name="com.ca.apm.systemtest.fld.plugin.downloader" />
+		</packages>
+	</test>
+</suite>

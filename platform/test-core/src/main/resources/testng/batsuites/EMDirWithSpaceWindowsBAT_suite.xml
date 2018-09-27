@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.EMDirWithSpaceWindowsTestbed, executeOn=testMachine}],
+	  owner = gamsa03,
+	  size = BIG,
+	  description = 'EM Property Configuration test suite for Windows'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="EM_ControlScripts_EMHome_WithSpace" configfailurepolicy="continue">
+	<groups>
+    	<run>
+      		<include name="BAT"/>
+      		<include name="Bat"/>
+      		<include name="bat"/>
+    	</run>
+	</groups>
+	<test name="VerifyControlScriptWithSpaceEMInstallHome" preserve-order="true" enabled="true">
+  		<classes>    
+     		<class name="com.ca.apm.tests.ControlScriptsTests.test.ControlScriptsEMHomeWithSpace">
+	 			<methods>	 					
+	 				<include name="verify_ALM_280481_ControlScript_WithSpace_EM_InstallHome"/>
+	 			</methods>
+	 		</class>
+	 	</classes>
+	</test>	 											
+</suite>
+		

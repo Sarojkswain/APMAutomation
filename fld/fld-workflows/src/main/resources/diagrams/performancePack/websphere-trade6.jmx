@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="2.6" jmeter="2.11 r1554548">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Configuration Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="appServerHost" elementType="Argument">
+            <stringProp name="Argument.name">appServerHost</stringProp>
+            <stringProp name="Argument.value">${__P(appServerHost,localhost)}</stringProp>
+            <stringProp name="Argument.desc">Websphere Site</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="appServerPort" elementType="Argument">
+            <stringProp name="Argument.name">appServerPort</stringProp>
+            <stringProp name="Argument.value">${__P(appServerPort,9080)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">Webstie port</stringProp>
+          </elementProp>
+          <elementProp name="logDir" elementType="Argument">
+            <stringProp name="Argument.name">logDir</stringProp>
+            <stringProp name="Argument.value">${__P(logDir,.)}</stringProp>
+            <stringProp name="Argument.desc">directory for logs produced by this test</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="loops" elementType="Argument">
+            <stringProp name="Argument.name">loops</stringProp>
+            <stringProp name="Argument.value">${__P(loops,10)}</stringProp>
+            <stringProp name="Argument.desc">how many loops of the whole test to do</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="cycleDelay" elementType="Argument">
+            <stringProp name="Argument.name">cycleDelay</stringProp>
+            <stringProp name="Argument.value">${__P(cycleDelay,1000)}</stringProp>
+            <stringProp name="Argument.desc">delay between test cycles (ms)</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="testNumberOfCVUS" elementType="Argument">
+            <stringProp name="Argument.name">testNumberOfCVUS</stringProp>
+            <stringProp name="Argument.value">${__P(testNumberOfCVUS,10)}</stringProp>
+            <stringProp name="Argument.desc">number of threads/clients to run</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="testDurationInSeconds" elementType="Argument">
+            <stringProp name="Argument.name">testDurationInSeconds</stringProp>
+            <stringProp name="Argument.value">${__P(testDurationInSeconds,2400)}</stringProp>
+            <stringProp name="Argument.desc">duration of test (seconds)</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="testWarmupInSeconds" elementType="Argument">
+            <stringProp name="Argument.name">testWarmupInSeconds</stringProp>
+            <stringProp name="Argument.value">${__P(testWarmupInSeconds, 900)}</stringProp>
+            <stringProp name="Argument.desc">Warmup duration</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Trade6 Users" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${testNumberOfCVUS}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${testWarmupInSeconds}</stringProp>
+        <longProp name="ThreadGroup.start_time">1301433961000</longProp>
+        <longProp name="ThreadGroup.end_time">1301433742000</longProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">${testDurationInSeconds}</stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">${AppServerHost}</stringProp>
+          <stringProp name="HTTPSampler.port">${appServerPort}</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/trade/services/TradeWSServices</stringProp>
+          <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
+        </ConfigTestElement>
+        <hashTree/>
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+          <collectionProp name="CookieManager.cookies"/>
+          <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+          <stringProp name="CookieManager.policy">rfc2109</stringProp>
+        </CookieManager>
+        <hashTree/>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">content-type</stringProp>
+              <stringProp name="Header.value">text/xml;charset=UTF-8</stringProp>
+            </elementProp>
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Cache-Control</stringProp>
+              <stringProp name="Header.value">private, no-store, max-age=0</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="User Parameters" enabled="true">
+          <collectionProp name="UserParameters.names">
+            <stringProp name="115792">uid</stringProp>
+            <stringProp name="1091761859">holding</stringProp>
+            <stringProp name="107953788">quote</stringProp>
+          </collectionProp>
+          <collectionProp name="UserParameters.thread_values">
+            <collectionProp name="1820453373">
+              <stringProp name="50">2</stringProp>
+              <stringProp name="1786">82</stringProp>
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <collectionProp name="1309081949">
+              <stringProp name="52">4</stringProp>
+              <stringProp name="48781">151</stringProp>
+              <stringProp name="50">2</stringProp>
+            </collectionProp>
+            <collectionProp name="1310197429">
+              <stringProp name="53">5</stringProp>
+              <stringProp name="48879">186</stringProp>
+              <stringProp name="51">3</stringProp>
+            </collectionProp>
+            <collectionProp name="1342116927">
+              <stringProp name="54">6</stringProp>
+              <stringProp name="49649">221</stringProp>
+              <stringProp name="52">4</stringProp>
+            </collectionProp>
+            <collectionProp name="1343151249">
+              <stringProp name="55">7</stringProp>
+              <stringProp name="49719">249</stringProp>
+              <stringProp name="53">5</stringProp>
+            </collectionProp>
+            <collectionProp name="1344283748">
+              <stringProp name="56">8</stringProp>
+              <stringProp name="49811">278</stringProp>
+              <stringProp name="54">6</stringProp>
+            </collectionProp>
+            <collectionProp name="2093034722">
+              <stringProp name="57">9</stringProp>
+              <stringProp name="50583">315</stringProp>
+              <stringProp name="55">7</stringProp>
+            </collectionProp>
+            <collectionProp name="-22234699">
+              <stringProp name="1567">10</stringProp>
+              <stringProp name="50679">348</stringProp>
+              <stringProp name="56">8</stringProp>
+            </collectionProp>
+            <collectionProp name="-20247902">
+              <stringProp name="1568">11</stringProp>
+              <stringProp name="50801">386</stringProp>
+              <stringProp name="57">9</stringProp>
+            </collectionProp>
+            <collectionProp name="66824300">
+              <stringProp name="1569">12</stringProp>
+              <stringProp name="51572">422</stringProp>
+              <stringProp name="1567">10</stringProp>
+            </collectionProp>
+            <collectionProp name="68711742">
+              <stringProp name="1570">13</stringProp>
+              <stringProp name="51671">458</stringProp>
+              <stringProp name="1568">11</stringProp>
+            </collectionProp>
+          </collectionProp>
+          <boolProp name="UserParameters.per_iteration">true</boolProp>
+        </UserParameters>
+        <hashTree/>
+        <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="User Parameters" enabled="false">
+          <collectionProp name="UserParameters.names">
+            <stringProp name="115792">uid</stringProp>
+            <stringProp name="1091761859">holding</stringProp>
+            <stringProp name="107953788">quote</stringProp>
+          </collectionProp>
+          <collectionProp name="UserParameters.thread_values">
+            <collectionProp name="661431061">
+              <stringProp name="50">2</stringProp>
+              <stringProp name="1541128">2428</stringProp>
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <collectionProp name="661604267">
+              <stringProp name="52">4</stringProp>
+              <stringProp name="1541151">2430</stringProp>
+              <stringProp name="50">2</stringProp>
+            </collectionProp>
+            <collectionProp name="661642001">
+              <stringProp name="53">5</stringProp>
+              <stringProp name="1541152">2431</stringProp>
+              <stringProp name="51">3</stringProp>
+            </collectionProp>
+            <collectionProp name="661786158">
+              <stringProp name="54">6</stringProp>
+              <stringProp name="1541182">2440</stringProp>
+              <stringProp name="52">4</stringProp>
+            </collectionProp>
+            <collectionProp name="661828604">
+              <stringProp name="55">7</stringProp>
+              <stringProp name="1541187">2445</stringProp>
+              <stringProp name="53">5</stringProp>
+            </collectionProp>
+            <collectionProp name="662717102">
+              <stringProp name="56">8</stringProp>
+              <stringProp name="1541215">2452</stringProp>
+              <stringProp name="54">6</stringProp>
+            </collectionProp>
+            <collectionProp name="662860081">
+              <stringProp name="57">9</stringProp>
+              <stringProp name="1541244">2460</stringProp>
+              <stringProp name="55">7</stringProp>
+            </collectionProp>
+            <collectionProp name="-1453454753">
+              <stringProp name="1567">10</stringProp>
+              <stringProp name="1541250">2466</stringProp>
+              <stringProp name="56">8</stringProp>
+            </collectionProp>
+            <collectionProp name="-1453417019">
+              <stringProp name="1568">11</stringProp>
+              <stringProp name="1541251">2467</stringProp>
+              <stringProp name="57">9</stringProp>
+            </collectionProp>
+            <collectionProp name="-1397374639">
+              <stringProp name="1569">12</stringProp>
+              <stringProp name="1541281">2476</stringProp>
+              <stringProp name="1567">10</stringProp>
+            </collectionProp>
+            <collectionProp name="-1395767065">
+              <stringProp name="1570">13</stringProp>
+              <stringProp name="1541306">2480</stringProp>
+              <stringProp name="1568">11</stringProp>
+            </collectionProp>
+          </collectionProp>
+          <boolProp name="UserParameters.per_iteration">true</boolProp>
+        </UserParameters>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="Login" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${appServerHost}:${appServerPort}/trade/services/TradeWSServices</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;trad:login&gt;
+         &lt;trad:userID&gt;uid:${uid}&lt;/trad:userID&gt;
+         &lt;trad:password&gt;xxx&lt;/trad:password&gt;
+      &lt;/trad:login&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION">http://trade.samples.websphere.ibm.com/TradeWSServices/loginRequest</stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="GetAccountData" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${appServerHost}:${appServerPort}/trade/services/TradeWSServices</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;trad:getAccountData&gt;
+         &lt;trad:userID&gt;uid:${uid}&lt;/trad:userID&gt;
+      &lt;/trad:getAccountData&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION">http://trade.samples.websphere.ibm.com/TradeWSServices/getAccountDataRequest</stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="GetAccountProfileData" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${appServerHost}:${appServerPort}/trade/services/TradeWSServices</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;trad:getAccountProfileData&gt;
+         &lt;trad:userID&gt;uid:${uid}&lt;/trad:userID&gt;
+      &lt;/trad:getAccountProfileData&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION">http://trade.samples.websphere.ibm.com/TradeWSServices/getAccountProfileDataRequest</stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="UpdateAccountProfile" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${appServerHost}:${appServerPort}/trade/services/TradeWSServices</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;trad:updateAccountProfile&gt;
+         &lt;trad:profileData&gt;
+            &lt;trad:userID&gt;uid:${uid}&lt;/trad:userID&gt;
+            &lt;trad:password&gt;xxx&lt;/trad:password&gt;
+            &lt;trad:fullName&gt;ASDF&lt;/trad:fullName&gt;
+            &lt;trad:address&gt;Adres 1, City&lt;/trad:address&gt;
+            &lt;trad:email&gt;email@email.cz&lt;/trad:email&gt;
+            &lt;trad:creditCard&gt;123456&lt;/trad:creditCard&gt;
+         &lt;/trad:profileData&gt;
+      &lt;/trad:updateAccountProfile&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION">http://trade.samples.websphere.ibm.com/TradeWSServices/updateAccountProfileRequest</stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="GetAccountProfileData" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${appServerHost}:${appServerPort}/trade/services/TradeWSServices</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;trad:getAccountProfileData&gt;
+         &lt;trad:userID&gt;uid:${uid}&lt;/trad:userID&gt;
+      &lt;/trad:getAccountProfileData&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION">http://trade.samples.websphere.ibm.com/TradeWSServices/getAccountProfileDataRequest</stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="GetMarketSummary" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${appServerHost}:${appServerPort}/trade/services/TradeWSServices</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;trad:getMarketSummary/&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION">http://trade.samples.websphere.ibm.com/TradeWSServices/getMarketSummaryRequest</stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="GetHolding" enabled="false">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${appServerHost}:${appServerPort}/trade/services/TradeWSServices</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;trad:getHolding&gt;
+         &lt;trad:holdingID&gt;${holding}&lt;/trad:holdingID&gt;
+      &lt;/trad:getHolding&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION">http://trade.samples.websphere.ibm.com/TradeWSServices/getHoldingRequest</stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="GetAllQuotes" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${appServerHost}:${appServerPort}/trade/services/TradeWSServices</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;trad:getAllQuotes/&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION">http://trade.samples.websphere.ibm.com/TradeWSServices/getAllQuotesRequest</stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="GetQuote" enabled="false">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${appServerHost}:${appServerPort}/trade/services/TradeWSServices</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;trad:getQuote&gt;
+         &lt;trad:symbol&gt;s:${quote}&lt;/trad:symbol&gt;
+      &lt;/trad:getQuote&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION">http://trade.samples.websphere.ibm.com/TradeWSServices/getQuoteRequest</stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="GetOrders" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${appServerHost}:${appServerPort}/trade/services/TradeWSServices</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;trad:getOrders&gt;
+         &lt;trad:userID&gt;uid:${uid}&lt;/trad:userID&gt;
+      &lt;/trad:getOrders&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION">http://trade.samples.websphere.ibm.com/TradeWSServices/getOrdersRequest</stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="GetHoldings" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${appServerHost}:${appServerPort}/trade/services/TradeWSServices</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;trad:getHoldings&gt;
+         &lt;trad:userID&gt;uid:${uid}&lt;/trad:userID&gt;
+      &lt;/trad:getHoldings&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION">http://trade.samples.websphere.ibm.com/TradeWSServices/getHoldingsRequest</stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="Logout" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${appServerHost}:${appServerPort}/trade/services/TradeWSServices</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;trad:logout&gt;
+         &lt;trad:userID&gt;uid:${uid}&lt;/trad:userID&gt;
+      &lt;/trad:logout&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION">http://trade.samples.websphere.ibm.com/TradeWSServices/logoutRequest</stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="false">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>false</assertions>
+              <subresults>false</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <hostname>true</hostname>
+              <threadCounts>true</threadCounts>
+              <sampleCount>true</sampleCount>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>false</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+            </value>
+          </objProp>
+          <stringProp name="filename">tableresult.csv</stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+          <stringProp name="ConstantTimer.delay">${cycleDelay}</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

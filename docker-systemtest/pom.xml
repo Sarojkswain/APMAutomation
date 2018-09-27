@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2014 CA.  All rights reserved.
+  ~
+  ~ This software and all information contained therein is confidential and
+  ~ proprietary and shall not be duplicated, used, disclosed or disseminated in
+  ~ any way except as authorized by the applicable license agreement, without
+  ~ the express written permission of CA. All authorized reproductions must be
+  ~ marked with this language.
+  ~
+  ~ EXCEPT AS SET FORTH IN THE APPLICABLE LICENSE AGREEMENT, TO THE EXTENT
+  ~ PERMITTED BY APPLICABLE LAW, CA PROVIDES THIS SOFTWARE WITHOUT WARRANTY OF
+  ~ ANY KIND, INCLUDING WITHOUT LIMITATION, ANY IMPLIED WARRANTIES OF
+  ~ MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  IN NO EVENT WILL CA BE
+  ~ LIABLE TO THE END USER OR ANY THIRD PARTY FOR ANY LOSS OR DAMAGE, DIRECT OR
+  ~ INDIRECT, FROM THE USE OF THIS SOFTWARE, INCLUDING WITHOUT LIMITATION, LOST
+  ~ PROFITS, BUSINESS INTERRUPTION, GOODWILL, OR LOST DATA, EVEN IF CA IS
+  ~ EXPRESSLY ADVISED OF SUCH LOSS OR DAMAGE.
+  --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+    <artifactId>com.ca.apm.test.parent</artifactId>
+    <groupId>com.ca.apm.test</groupId>
+    <version>99.99.dev_SaaS_fix-SNAPSHOT</version>
+  </parent>
+
+	<groupId>com.ca.apm.tests</groupId>
+	<artifactId>docker-systemtest</artifactId>
+	<packaging>pom</packaging>
+
+	<name>docker-systemtest</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- versions -->
+		<version.testNg>6.8.7</version.testNg>
+		<!-- Resource manager credentials - change ONLY IF you created resource manager using MANUAL installation (not from provided and synchronized templates) -->
+		<resman.user>admin</resman.user>
+		<resman.password>admin</resman.password>
+		<!-- Resman hostname -->
+		<resman.host>fld-prg-res-man</resman.host>
+		<resman.url>http://${resman.host}:8080/resman</resman.url>
+		<!-- Resource manager deployment credentials - required ONLY IF you created resource manager using MANUAL installation (not from provided and synchronized templates) -->
+		<resman.deployUser>deploy</resman.deployUser>
+		<resman.deployPassword>#cut2dl#</resman.deployPassword>
+		<!-- Automation Agent deployment credentials - required ONLY IF you created resource manager using MANUAL installation (not from provided and synchronized templates) -->
+		<aa.deployUser>deploy</aa.deployUser>
+		<aa.deployPassword>#cut2dl#</aa.deployPassword>
+		<tas.testClassifier>jar-with-dependencies</tas.testClassifier>
+		<!-- Package filter used when scanning classes on the classpath -->
+		<tas.classpathPackageFilter>+com.ca</tas.classpathPackageFilter>
+		<!-- Default TAS execution mode local=true uses local repository (in addition to remote artifactory) and creates NO snapshots-->
+		<tas.local>true</tas.local>
+		<!-- ALM config properties -->
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.testng</groupId>
+				<artifactId>testng</artifactId>
+				<version>${version.testNg}</version>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.8.2</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.ca.tas.plugins</groupId>
+										<artifactId>tas-maven-plugin</artifactId>
+										<versionRange>[${version.tas},)</versionRange>
+										<goals>
+											<goal>index</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore/>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+  <modules>
+    <module>flows</module>
+    <module>test-core</module>
+  </modules>
+</project>

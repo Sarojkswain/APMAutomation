@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1425992219129" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <process id="agentDynamicInstrumentationProcess" isClosed="true" isExecutable="true" name="Agent Dynamic Instrumentation Process" processType="None">
+    <startEvent activiti:initiator="initiator" id="startAgentDynamicInstrumentation" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="nodeName" name="nodeName" required="true" type="string" variable="nodeName"/>
+        <activiti:formProperty default="fldmom01c" id="momNode" name="momNode" required="true" type="string" variable="momNode"/>
+        <activiti:formProperty default="1000" id="numberOfServlets" name="numberOfServlets" required="true" type="long" variable="numberOfServlets"/>
+        <activiti:formProperty id="pathToEMRoot" name="pathToEMRoot" required="true" type="string" variable="pathToEMRoot"/>
+        <activiti:formProperty default="xxx" id="javaHome" name="javaHome" required="true" type="string" variable="javaHome"/>
+        <activiti:formProperty default="fldmom01c" id="momHost" name="momHost" required="true" type="string" variable="momHost"/>
+        <activiti:formProperty default="5001" id="momPort" name="momPort" required="true" type="long" variable="momPort"/>
+        <activiti:formProperty default="8081" id="momDBRestApiPort" name="momDBRestApiPort" required="true" type="long" variable="momDBRestApiPort"/>
+        <activiti:formProperty default="Admin" id="momUser" name="momUser" required="true" type="string" variable="momUser"/>
+        <activiti:formProperty id="momUserPassword" name="momUserPassword" required="false" type="string" variable="momUserPassword"/>
+        <activiti:formProperty default="localhost" id="helloWorld10kHost" name="helloWorld10kHost" required="true" type="string" variable="helloWorld10kHost"/>
+        <activiti:formProperty default="8080" id="helloWorld10kHostPort" name="helloWorld10kHostPort" required="true" type="long" variable="helloWorld10kHostPort"/>
+        <activiti:formProperty default="/HelloWorld10k" id="helloWorld10kPath" name="helloWorld10kPath" required="true" type="string" variable="helloWorld10kPath"/>
+        <activiti:formProperty default="f47ac10b-58cc-4372-a567-0e02b2c3d479" id="emAuthBearerToken" name="emAuthBearerToken" required="true" type="string" variable="emAuthBearerToken"/>
+      </extensionElements>
+    </startEvent>
+    <scriptTask activiti:autoStoreVariables="false" activiti:exclusive="true" id="instrumentServlets" name="instrument servlets" scriptFormat="groovy">
+      <documentation id="instrumentServlets_D_1"><![CDATA[instrument servlets using CLWorkstation.jar]]></documentation>
+      <script><![CDATA[import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import java.io.File
+import java.util.Map
+import java.util.HashMap
+import java.util.TreeMap
+import groovy.transform.Field
+
+@Field def log = LoggerFactory.getLogger("com.ca.apm.systemstest.fld." + execution.getActivityId())
+
+dashboardManager.configureMonitoredValue(execution, "fld.monitor.dynamic.instrumentation.servlets", "Agent DI Servlets");
+
+def servletIndex = runtimeService.getVariable(execution.getId(), "servletIndex") ?: 0
+def agentName = helloWorld10kHost
+def clwCommand = "add labeled instrumentation for 36000000 ms with resource name HWS${servletIndex} and label name HWLabel of type DynamicBlamePointTracer in group HWGroup for agents matching \"${agentName}.*\" for method \"doGet(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V\" in class com.wily.test.HelloWorldServlet${servletIndex}".toString()
+
+def emPlugin = agentProxyFactory.createProxy(momNode.toString()).plugins.emPlugin;
+def clwRet = emPlugin.executeCLWCommand(clwCommand, "clw.out", true)
+log.info("CLW returned: {}", clwRet)
+dashboardManager.setMonitoredValue(execution, "fld.monitor.dynamic.instrumentation.servlets", clwRet == 0);
+
+servletIndex += 1
+runtimeService.setVariable(execution.getId(), "servletIndex", servletIndex);
+log.info("serlvetIndex: {}", servletIndex)
+log.info("numberOfServlets: {}", numberOfServlets)
+
+return servletIndex
+]]></script>
+    </scriptTask>
+    <sequenceFlow id="flow1" sourceRef="startAgentDynamicInstrumentation" targetRef="instrumentServlets"/>
+    <scriptTask activiti:autoStoreVariables="false" activiti:exclusive="true" id="hitServlets1" name="hit servlets to record metrics" scriptFormat="groovy">
+      <script><![CDATA[def jMeterStartDate = new Date()
+runtimeService.setVariable(execution.getId(), "jMeterStartDate", jMeterStartDate);
+
+def jmeterPlugin = agentProxyFactory.createProxy(nodeName).plugins.jmeterPlugin
+jmeterPlugin.setScenarioUrl("http://localhost:8080/LoadOrchestrator/getResource?resourceName=HelloWorldServlet-test.jmx")
+def jmxProps = [
+  "numberOfServletsToAccess": numberOfServlets.toString(),
+  "helloWorld10kHost": helloWorld10kHost,
+  "helloWorld10kHostPort": helloWorld10kHostPort.toString(),
+  "helloWorld10kPath": helloWorld10kPath]
+def task = jmeterPlugin.execute(jmxProps)
+runtimeService.setVariable(execution.getId(), "jMeterTaskName", task)
+]]></script>
+    </scriptTask>
+    <scriptTask activiti:autoStoreVariables="false" activiti:exclusive="true" id="disableInstrumentation" name="disable instrumentation" scriptFormat="groovy">
+      <script><![CDATA[import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import java.io.File
+import java.util.Map
+import java.util.HashMap
+import java.util.TreeMap
+import groovy.transform.Field
+
+@Field def log = LoggerFactory.getLogger("com.ca.apm.systemstest.fld." + execution.getActivityId())
+
+def servletIndex = runtimeService.getVariable(execution.getId(), "servletIndex") ?: 0
+def agentName = helloWorld10kHost
+def clwCommand = "remove instrumentation with resource name HWS${servletIndex} of type DynamicBlamePointTracer in group HWGroup for agents matching \"${agentName}.*\" for method \"doGet(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V\" in class com.wily.test.HelloWorldServlet${servletIndex}".toString()
+
+
+def emPlugin = agentProxyFactory.createProxy(momNode.toString()).plugins.emPlugin;
+def clwRet = emPlugin.executeCLWCommand(clwCommand, "clw.out", true)
+log.info("CLW returned: {}", clwRet)
+dashboardManager.setMonitoredValue(execution, "fld.monitor.dynamic.instrumentation.servlets", clwRet == 0);
+
+servletIndex += 1
+runtimeService.setVariable(execution.getId(), "servletIndex", servletIndex);
+log.info("serlvetIndex: {}", servletIndex)
+log.info("numberOfServlets: {}", numberOfServlets)
+
+return servletIndex
+]]></script>
+    </scriptTask>
+    <scriptTask activiti:autoStoreVariables="false" activiti:exclusive="true" id="checkInstrumentationWorked" name="check that instrumentation worked" scriptFormat="groovy">
+      <script><![CDATA[import org.slf4j.LoggerFactory
+import groovy.json.JsonOutput
+import groovy.time.TimeCategory
+import groovyx.net.http.ContentType
+import groovyx.net.http.RESTClient
+import groovy.transform.Field
+import com.ca.apm.systemtest.fld.shared.vo.MonitoredValueStatus
+
+@Field def log = LoggerFactory.getLogger("com.ca.apm.systemstest.fld." + execution.getActivityId())
+
+def emHost = momHost
+def emPort = momDBRestApiPort
+def bId = "42"
+def agentName = helloWorld10kHost
+
+def jMeterStartDate = runtimeService.getVariable(execution.getId(), "jMeterStartDate")
+log.debug("start: ${jMeterStartDate}")
+
+def jMeterEndDate = new Date()
+println "end: ${jMeterEndDate}"
+
+def duration = use(TimeCategory) { jMeterEndDate - jMeterStartDate + 1.minute }
+log.debug("duration: ${duration}")
+log.debug("duration in ms: ${duration.toMilliseconds()}")
+
+def json = new groovy.json.JsonBuilder()
+def servletCount = 2
+def root = json {
+    batchedMetrics {
+        metricQueries((1..(servletCount)).collect { n ->
+            [agentSpecifier : {
+                specifier "${agentName}|Tomcat|Tomcat Agent"
+                type "EXACT"
+            },
+             metricSpecifier: {
+                 specifier "HWS${n}:Responses Per Interval"
+                 type "REGEX"
+             }]
+        })
+        queryRange {
+            rangeSize(duration.toMilliseconds())
+            endTime(new Date().format("yyyy-MM-dd'T'HH:mm:ss'Z'", TimeZone.getTimeZone("UTC")))
+        }
+        fillGapsFlag false
+        uvb false
+    }
+    batchId bId
+}
+
+root = json.call(java.util.Collections.singletonList(root))
+log.info(json.toPrettyString())
+
+def apiClient = new RESTClient("http://${emHost}:${emPort}")
+def resp = apiClient.post(
+    path: "/api/db/metric/batch",
+    headers: [
+        "X-Username"   : "admin",
+        "Authorization": "Bearer ${emAuthBearerToken}",
+        "Accept"       : "application/json"
+    ],
+    body: json.toString(),
+    requestContentType: ContentType.JSON)
+
+log.debug("resp.status: ${resp.status}")
+log.debug("parsed data: ${resp.data}")
+
+def data = resp.data
+if (data.content == null) {
+    throw new RuntimeException("Null response")
+}
+if (data.content.size() != 1) {
+    throw new RuntimeException("Unexpected size of content: ${data.content.size()}")
+}
+if (!data.content[0].batchId.equals(bId)) {
+    throw new RuntimeException("Unexpected batch ID ${data.content[0].batchId}. Expected batch ID was ${bId}.")
+}
+if (resp.status != 200) {
+    throw new RuntimeException("Unexpected HTTP status: ${resp.status}")
+}
+
+def metricValues = data.content[0].metricValues
+//def metricNames = metricValues.collect { it["id"] }
+//log.debug("metricNames: ${groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(metricNames))}")
+log.debug("metricValues: ${groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(metricValues))}")
+
+def unexpectedMetrics = []
+def badResultMetrics = []
+def resultsRetunedCount = 0
+metricValues.each { metricRec ->
+    def metricId = metricRec["id"]
+    def m = metricId =~ /.*\|HWS\d+:Responses Per Interval/
+    def boolean nameOK = m
+    if (nameOK) {
+        resultsRetunedCount += 1
+    }
+    if (! nameOK) {
+        unexpectedMetrics.add(metricId)
+    } else if (! metricRec["dataChunks"][0].containsKey("values")) {
+        badResultMetrics.add(metricId)
+    } else if (metricRec["dataChunks"][0]["values"].every { it == 0 }) {
+        badResultMetrics.add(metricId)
+    }
+}
+
+if (unexpectedMetrics.size() != 0) {
+    log.warn("unexpectedMetrics: ${groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(unexpectedMetrics))}")
+}
+
+def diResult = MonitoredValueStatus.OK
+if (badResultMetrics.size() != 0) {
+    log.error("badResultMetrics: ${groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(badResultMetrics))}")
+    diResult = MonitoredValueStatus.Error
+}
+log.debug("resultsRetunedCount: ${resultsRetunedCount}")
+def missingResults = servletCount - resultsRetunedCount
+if (missingResults != 0) {
+    log.error("missingResults: ${missingResults}")
+    diResult = MonitoredValueStatus.Error
+}
+
+execution.setVariable("fld.dynamic.instrumentation", diResult)
+]]></script>
+    </scriptTask>
+    <scriptTask activiti:autoStoreVariables="false" activiti:exclusive="true" id="checkInstrumentationIsDisabled" name="check that instrumentation is disabled" scriptFormat="groovy">
+      <script><![CDATA[// TODO]]></script>
+    </scriptTask>
+    <endEvent id="endevent1" name="End"/>
+    <sequenceFlow id="flow6" sourceRef="checkInstrumentationIsDisabled" targetRef="endevent1"/>
+    <exclusiveGateway gatewayDirection="Unspecified" id="allServletsInstrumentedXGate" name="All servlets instrumented?"/>
+    <scriptTask activiti:exclusive="true" id="resetServletIndex" name="reset servletIndex" scriptFormat="groovy">
+      <script><![CDATA[import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import com.ca.apm.systemtest.fld.shared.vo.MonitoredValueStatus
+
+def log = LoggerFactory.getLogger("com.ca.fld." + execution.getActivityId())
+execution.setVariable("servletIndex", 0)
+log.info("reset servletIndex")
+runtimeService.setVariable(execution.getId(), "servletIndex", 0)
+execution.setVariable("fld.dynamic.instrumentation", MonitoredValueStatus.Unknown)
+]]></script>
+    </scriptTask>
+    <sequenceFlow id="_8" name="finished looping" sourceRef="allServletsInstrumentedXGate" targetRef="resetServletIndex">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${servletIndex > numberOfServlets}]]></conditionExpression>
+    </sequenceFlow>
+    <intermediateCatchEvent id="shortWait" name="15 seconds wait">
+      <timerEventDefinition id="_5_ED_1">
+        <timeDuration><![CDATA[PT15S]]></timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <exclusiveGateway gatewayDirection="Unspecified" id="jMeterExited1" name="jMeter task finished?"/>
+    <intermediateCatchEvent id="shortWait2" name="short wait">
+      <timerEventDefinition id="_4_ED_1">
+        <timeDuration><![CDATA[PT3S]]></timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <scriptTask activiti:exclusive="true" id="jMeterTaskFinishCheck" name="check if jMeter task is finished" scriptFormat="groovy">
+      <script><![CDATA[import org.activiti.engine.delegate.BpmnError
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import groovy.transform.Field
+
+@Field def log = LoggerFactory.getLogger("com.ca.apm.systemstest.fld." + execution.getActivityId())
+
+//jMeterTaskFinished
+//jMeterTaskName
+//jMeterNodeName
+def jmeterPlugin = agentProxyFactory.createProxy(nodeName).plugins.jmeterPlugin
+def jMeterTaskName = runtimeService.getVariable(execution.getId(), "jMeterTaskName")
+def loggerName = "com.ca.apm.systemstest.fld." + execution.getActivityId()
+logLogger.info(loggerName, "", "checking whether ${jMeterTaskName} has already finished")
+def jMeterRunning = jmeterPlugin.isRunning(jMeterTaskName)
+runtimeService.setVariable(execution.getId(), "jMeterTaskFinished", !jMeterRunning)
+def jMeterLastResult = ""
+if (jMeterRunning != true) {
+    jMeterLastResult = jmeterPlugin.getLastResult(jMeterTaskName)
+    log.info("JMeter returned: {}", jMeterLastResult)
+}
+dashboardManager.configureMonitoredValue(execution, "fld.monitor.dynamic.instrumentation", "Agent DI Load");
+if (jMeterLastResult.contains("FATAL")) {
+    dashboardManager.setMonitoredValue(execution, "fld.monitor.dynamic.instrumentation", false);
+    throw BpmnError(jMeterLastResult, "jMeter scheduled task has failed")
+}
+dashboardManager.setMonitoredValue(execution, "fld.monitor.dynamic.instrumentation", true);
+]]></script>
+    </scriptTask>
+    <sequenceFlow id="_2" sourceRef="jMeterTaskFinishCheck" targetRef="jMeterExited1"/>
+    <sequenceFlow id="_4" name="more loops" sourceRef="jMeterExited1" targetRef="shortWait2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${jMeterTaskFinished == false}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_5" sourceRef="shortWait2" targetRef="jMeterTaskFinishCheck"/>
+    <scriptTask activiti:exclusive="true" id="downloadJMeter" name="download jMeter" scriptFormat="groovy">
+      <script><![CDATA[def jmeterPlugin = agentProxyFactory.createProxy(nodeName).plugins.jmeterPlugin
+jmeterPlugin.deleteTempDir()
+def jMeterZip = jmeterPlugin.downloadJMeter(null)
+
+]]></script>
+    </scriptTask>
+    <scriptTask activiti:exclusive="true" id="unzipJMeter" name="unzip jMeter" scriptFormat="groovy">
+      <script><![CDATA[def jmeterPlugin = agentProxyFactory.createProxy(nodeName).plugins.jmeterPlugin
+def jMeterDir = jmeterPlugin.unzipJMeterZip()
+]]></script>
+    </scriptTask>
+    <intermediateCatchEvent id="_19" name="15 seconds wait">
+      <timerEventDefinition id="_19_ED_1">
+        <timeDuration><![CDATA[PT15S]]></timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="_20" sourceRef="disableInstrumentation" targetRef="_19"/>
+    <exclusiveGateway gatewayDirection="Unspecified" id="_26" name="all servlets done?"/>
+    <sequenceFlow id="_28" name="all servlets done" sourceRef="_26" targetRef="checkInstrumentationIsDisabled">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${servletIndex > numberOfServlets}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_29" name="more servlets to de-instrument" sourceRef="_26" targetRef="disableInstrumentation">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${servletIndex <= numberOfServlets}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_30" sourceRef="instrumentServlets" targetRef="shortWait"/>
+    <sequenceFlow id="_31" name="more servlets to instrument" sourceRef="allServletsInstrumentedXGate" targetRef="instrumentServlets">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${servletIndex <= numberOfServlets}]]></conditionExpression>
+    </sequenceFlow>
+    <intermediateCatchEvent id="_3" name="short wait">
+      <timerEventDefinition id="_3_ED_1">
+        <timeDuration><![CDATA[PT1S]]></timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="_7" sourceRef="resetServletIndex" targetRef="_3"/>
+    <sequenceFlow id="_9" sourceRef="_3" targetRef="downloadJMeter"/>
+    <intermediateCatchEvent id="_11" name="short wait">
+      <timerEventDefinition id="_11_ED_1">
+        <timeDuration><![CDATA[PT1S]]></timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="_12" sourceRef="downloadJMeter" targetRef="_11"/>
+    <sequenceFlow id="_13" sourceRef="_11" targetRef="unzipJMeter"/>
+    <intermediateCatchEvent id="_14" name="short wait">
+      <timerEventDefinition id="_14_ED_1">
+        <timeDuration><![CDATA[PT1S]]></timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="_25" sourceRef="unzipJMeter" targetRef="_14"/>
+    <sequenceFlow id="_35" sourceRef="_14" targetRef="hitServlets1"/>
+    <intermediateCatchEvent id="_36" name="short wait">
+      <timerEventDefinition id="_36_ED_1">
+        <timeDuration><![CDATA[PT1S]]></timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="_37" sourceRef="hitServlets1" targetRef="_36"/>
+    <sequenceFlow id="_38" sourceRef="_36" targetRef="jMeterTaskFinishCheck"/>
+    <intermediateCatchEvent id="_39" name="short wait">
+      <timerEventDefinition id="_39_ED_1">
+        <timeDuration><![CDATA[PT1S]]></timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="_40" sourceRef="checkInstrumentationWorked" targetRef="_39"/>
+    <sequenceFlow id="_41" sourceRef="_39" targetRef="disableInstrumentation"/>
+    <intermediateCatchEvent id="_15" name="wait 30 seconds (two harvest cycles)">
+      <timerEventDefinition id="_15_ED_1">
+        <timeDuration><![CDATA[PT30S]]></timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="_16" name="finished looping" sourceRef="jMeterExited1" targetRef="_15">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${jMeterTaskFinished == true}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_43" sourceRef="shortWait" targetRef="allServletsInstrumentedXGate"/>
+    <sequenceFlow id="_18" sourceRef="_19" targetRef="_26"/>
+    <sequenceFlow id="_22" sourceRef="_15" targetRef="checkInstrumentationWorked"/>
+    <textAnnotation id="_6" textFormat="text/plain">
+      <text>We need this 15 sedons wait or,
+if we push too many dynamic instrumentation requests too fast,
+EM will respond with "Agent is busy."</text>
+    </textAnnotation>
+  </process>
+  <bpmndi:BPMNDiagram documentation="background=#3C3F41;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0" id="Diagram-_1" name="New Diagram">
+    <bpmndi:BPMNPlane bpmnElement="agentDynamicInstrumentationProcess">
+      <bpmndi:BPMNShape bpmnElement="startAgentDynamicInstrumentation" id="Shape-startAgentDynamicInstrumentation">
+        <omgdc:Bounds height="32.0" width="32.0" x="50.0" y="5.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="instrumentServlets" id="Shape-instrumentServlets">
+        <omgdc:Bounds height="55.0" width="105.0" x="130.0" y="60.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="105.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="hitServlets1" id="Shape-hitServlets1">
+        <omgdc:Bounds height="61.0" width="105.0" x="140.0" y="595.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="61.0" width="105.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="disableInstrumentation" id="Shape-disableInstrumentation">
+        <omgdc:Bounds height="61.0" width="105.0" x="470.0" y="930.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="61.0" width="105.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkInstrumentationWorked" id="Shape-checkInstrumentationWorked">
+        <omgdc:Bounds height="65.0" width="105.0" x="125.0" y="930.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="65.0" width="105.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkInstrumentationIsDisabled" id="Shape-checkInstrumentationIsDisabled">
+        <omgdc:Bounds height="65.0" width="105.0" x="645.0" y="580.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="65.0" width="105.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="Shape-endevent1">
+        <omgdc:Bounds height="32.0" width="32.0" x="825.0" y="525.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="allServletsInstrumentedXGate" id="Shape-allServletsInstrumentedXGate" isMarkerVisible="false">
+        <omgdc:Bounds height="32.0" width="32.0" x="240.0" y="175.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="resetServletIndex" id="Shape-resetServletIndex">
+        <omgdc:Bounds height="55.0" width="85.0" x="145.0" y="265.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="shortWait" id="Shape-shortWait">
+        <omgdc:Bounds height="32.0" width="32.0" x="385.0" y="70.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="jMeterExited1" id="Shape-jMeterExited1" isMarkerVisible="false">
+        <omgdc:Bounds height="32.0" width="32.0" x="160.0" y="815.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="shortWait2" id="Shape-shortWait2">
+        <omgdc:Bounds height="32.0" width="32.0" x="330.0" y="815.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="jMeterTaskFinishCheck" id="Shape-jMeterTaskFinishCheck">
+        <omgdc:Bounds height="55.0" width="95.0" x="140.0" y="720.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="95.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="downloadJMeter" id="Shape-downloadJMeter">
+        <omgdc:Bounds height="55.0" width="85.0" x="145.0" y="375.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="unzipJMeter" id="Shape-unzipJMeter">
+        <omgdc:Bounds height="55.0" width="85.0" x="145.0" y="475.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" id="Shape-_6">
+        <omgdc:Bounds height="55.0" width="315.0" x="315.0" y="10.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="315.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_19" id="Shape-_19">
+        <omgdc:Bounds height="32.0" width="32.0" x="640.0" y="945.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_26" id="Shape-_26" isMarkerVisible="false">
+        <omgdc:Bounds height="32.0" width="32.0" x="680.0" y="715.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3" id="Shape-_3">
+        <omgdc:Bounds height="32.0" width="32.0" x="60.0" y="325.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_11" id="Shape-_11">
+        <omgdc:Bounds height="32.0" width="32.0" x="65.0" y="435.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_14" id="Shape-_14">
+        <omgdc:Bounds height="32.0" width="32.0" x="70.0" y="545.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_36" id="Shape-_36">
+        <omgdc:Bounds height="32.0" width="32.0" x="75.0" y="665.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_39" id="Shape-_39">
+        <omgdc:Bounds height="32.0" width="32.0" x="340.0" y="945.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_15" id="Shape-_15">
+        <omgdc:Bounds height="32.0" width="32.0" x="70.0" y="870.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_35" id="BPMNEdge__35" sourceElement="_14" targetElement="hitServlets1">
+        <omgdi:waypoint x="102.0" y="561.0"/>
+        <omgdi:waypoint x="140.0" y="625.5"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_37" id="BPMNEdge__37" sourceElement="hitServlets1" targetElement="_36">
+        <omgdi:waypoint x="140.0" y="625.5"/>
+        <omgdi:waypoint x="107.0" y="681.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_38" id="BPMNEdge__38" sourceElement="_36" targetElement="jMeterTaskFinishCheck">
+        <omgdi:waypoint x="107.0" y="681.0"/>
+        <omgdi:waypoint x="140.0" y="747.5"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1" sourceElement="startAgentDynamicInstrumentation" targetElement="instrumentServlets">
+        <omgdi:waypoint x="82.0" y="21.0"/>
+        <omgdi:waypoint x="185.0" y="55.0"/>
+        <omgdi:waypoint x="185.0" y="60.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6" sourceElement="checkInstrumentationIsDisabled" targetElement="endevent1">
+        <omgdi:waypoint x="750.0" y="612.0"/>
+        <omgdi:waypoint x="842.0" y="612.0"/>
+        <omgdi:waypoint x="842.0" y="556.9687194226713"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_40" id="BPMNEdge__40" sourceElement="checkInstrumentationWorked" targetElement="_39">
+        <omgdi:waypoint x="230.0" y="962.5"/>
+        <omgdi:waypoint x="340.0" y="961.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_41" id="BPMNEdge__41" sourceElement="_39" targetElement="disableInstrumentation">
+        <omgdi:waypoint x="372.0" y="961.0"/>
+        <omgdi:waypoint x="470.0" y="960.5"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_43" id="BPMNEdge__43" sourceElement="shortWait" targetElement="allServletsInstrumentedXGate">
+        <omgdi:waypoint x="400.0" y="101.96871942267131"/>
+        <omgdi:waypoint x="400.0" y="190.0"/>
+        <omgdi:waypoint x="271.0" y="190.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_2" id="BPMNEdge__2" sourceElement="jMeterTaskFinishCheck" targetElement="jMeterExited1">
+        <omgdi:waypoint x="176.0" y="775.0"/>
+        <omgdi:waypoint x="176.0" y="815.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4" id="BPMNEdge__4" sourceElement="jMeterExited1" targetElement="shortWait2">
+        <omgdi:waypoint x="192.0" y="831.0"/>
+        <omgdi:waypoint x="330.0" y="831.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="-3.0" x="0.0" y="16.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_5" id="BPMNEdge__5" sourceElement="shortWait2" targetElement="jMeterTaskFinishCheck">
+        <omgdi:waypoint x="345.0" y="815.0312805773287"/>
+        <omgdi:waypoint x="345.0" y="790.0"/>
+        <omgdi:waypoint x="235.0" y="747.5"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_7" id="BPMNEdge__7" sourceElement="resetServletIndex" targetElement="_3">
+        <omgdi:waypoint x="145.0" y="292.5"/>
+        <omgdi:waypoint x="92.0" y="341.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8" id="BPMNEdge__8" sourceElement="allServletsInstrumentedXGate" targetElement="resetServletIndex">
+        <omgdi:waypoint x="255.0" y="206.0"/>
+        <omgdi:waypoint x="255.0" y="300.0"/>
+        <omgdi:waypoint x="230.0" y="300.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="-5.0" x="1.0" y="-50.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_9" id="BPMNEdge__9" sourceElement="_3" targetElement="downloadJMeter">
+        <omgdi:waypoint x="92.0" y="341.0"/>
+        <omgdi:waypoint x="145.0" y="402.5"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_13" id="BPMNEdge__13" sourceElement="_11" targetElement="unzipJMeter">
+        <omgdi:waypoint x="97.0" y="451.0"/>
+        <omgdi:waypoint x="145.0" y="502.5"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_12" id="BPMNEdge__12" sourceElement="downloadJMeter" targetElement="_11">
+        <omgdi:waypoint x="145.0" y="402.5"/>
+        <omgdi:waypoint x="97.0" y="451.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_16" id="BPMNEdge__16" sourceElement="jMeterExited1" targetElement="_15">
+        <omgdi:waypoint x="160.0" y="831.0"/>
+        <omgdi:waypoint x="115.0" y="860.0"/>
+        <omgdi:waypoint x="102.0" y="886.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="-22.0" width="-49.0" x="0.0" y="-11.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_18" id="BPMNEdge__18" sourceElement="_19" targetElement="_26">
+        <omgdi:waypoint x="672.0" y="961.0"/>
+        <omgdi:waypoint x="695.0" y="855.0"/>
+        <omgdi:waypoint x="695.0" y="746.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_20" id="BPMNEdge__20" sourceElement="disableInstrumentation" targetElement="_19">
+        <omgdi:waypoint x="575.0" y="960.5"/>
+        <omgdi:waypoint x="640.0" y="961.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_22" id="BPMNEdge__22" sourceElement="_15" targetElement="checkInstrumentationWorked">
+        <omgdi:waypoint x="102.0" y="886.0"/>
+        <omgdi:waypoint x="125.0" y="962.5"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_25" id="BPMNEdge__25" sourceElement="unzipJMeter" targetElement="_14">
+        <omgdi:waypoint x="145.0" y="502.5"/>
+        <omgdi:waypoint x="102.0" y="561.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_28" id="BPMNEdge__28" sourceElement="_26" targetElement="checkInstrumentationIsDisabled">
+        <omgdi:waypoint x="696.0" y="715.0"/>
+        <omgdi:waypoint x="696.0" y="645.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_29" id="BPMNEdge__29" sourceElement="_26" targetElement="disableInstrumentation">
+        <omgdi:waypoint x="680.0" y="731.0"/>
+        <omgdi:waypoint x="515.0" y="855.0"/>
+        <omgdi:waypoint x="515.0" y="930.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="72.0" width="0.0" x="0.0" y="15.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_31" id="BPMNEdge__31" sourceElement="allServletsInstrumentedXGate" targetElement="instrumentServlets">
+        <omgdi:waypoint x="240.0" y="191.0"/>
+        <omgdi:waypoint x="190.0" y="165.0"/>
+        <omgdi:waypoint x="190.0" y="115.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="35.0" width="0.0" x="1.0" y="5.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_30" id="BPMNEdge__30" sourceElement="instrumentServlets" targetElement="shortWait">
+        <omgdi:waypoint x="235.0" y="87.5"/>
+        <omgdi:waypoint x="385.0" y="86.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

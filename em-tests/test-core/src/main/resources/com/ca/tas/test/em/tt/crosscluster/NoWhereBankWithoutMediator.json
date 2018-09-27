@@ -1,0 +1,2713 @@
+{
+    "vertices": [
+        {
+            "vertexId": "tas-cz-n7.ca.com:8081:29",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Portal"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Apps|Portal|URLs|Get Transaction Details"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "processedBy": [
+                    "FrontendVertexIdentifier"
+                ],
+                "type": [
+                    "GENERICFRONTEND"
+                ],
+                "applicationName": [
+                    "Portal"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:NowhereBank:Portal - Average Response Time (ms)"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:NowhereBank:Portal - Errors Per Interval"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409112000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Portal|Variance|NowhereBank|Portal - Average Response Time (ms)|Frontends|Apps|Portal|URLs|Get Transaction Details:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409112000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n9@5001)|Variance|Default|Differential Analysis Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:Default:Frontend Stalls"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409112000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409112000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Portal|Variance|Default|Differential Analysis Control|Frontends|Apps|Portal|URLs|Get Transaction Details:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:Default:Frontend Errors"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "tas-cz-n7.ca.com:8081:48",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Portal"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Apps|Portal|URLs|Subtract Money From Account"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "processedBy": [
+                    "FrontendVertexIdentifier"
+                ],
+                "type": [
+                    "GENERICFRONTEND"
+                ],
+                "applicationName": [
+                    "Portal"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409112000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Portal|Variance|NowhereBank|Portal - Average Response Time (ms)|Frontends|Apps|Portal|URLs|Subtract Money From Account:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:NowhereBank:Portal - Average Response Time (ms)"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:NowhereBank:Portal - Errors Per Interval"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409112000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n9@5001)|Variance|Default|Differential Analysis Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409112000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Portal|Variance|Default|Differential Analysis Control|Frontends|Apps|Portal|URLs|Subtract Money From Account:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:Default:Frontend Stalls"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409112000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:Default:Frontend Errors"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "Nowhere Bank BTs:Get Transaction Details",
+            "attributes": {
+                "endUser": [
+                    "Client"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081",
+                    "Enterprise Team Center"
+                ],
+                "name": [
+                    "Get Transaction Details"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "transactionName": [
+                    "Get Transaction Details"
+                ],
+                "serviceId": [
+                    "Nowhere Bank BTs"
+                ],
+                "processedBy": [
+                    "BusinessTransactionVertexIdentifier"
+                ],
+                "type": [
+                    "BUSINESSTRANSACTION"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463408287000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n9@5001)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Get Transaction Details|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463408280000,
+                        "alertName": "SuperDomain:Default:Transaction Errors"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463408287000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Get Transaction Details|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463408280000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409062000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n85@5001)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Get Transaction Details|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409060000,
+                        "alertName": "SuperDomain:Default:Transaction Errors"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409062000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Get Transaction Details|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409060000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "tas-cz-n7.ca.com:8081:43",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Engine"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Backends|NowhereDB|addCreditTransaction"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "processedBy": [
+                    "BackendVertexIdentifier"
+                ],
+                "type": [
+                    "GENERICBACKEND"
+                ],
+                "applicationName": [
+                    "Engine"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463401665000,
+                        "alertName": "SuperDomain:Default:Backend Errors"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "tas-cz-n7.ca.com:8081:44",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Engine"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "wsOperation": [
+                    "Add Money To Account"
+                ],
+                "name": [
+                    "BookingService|Add Money To Account"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "processedBy": [
+                    "WebServicesOutboundVertexIdentifier"
+                ],
+                "type": [
+                    "WEBSERVICE"
+                ],
+                "wsNamespace": [
+                    "http///NowhereBank.com/BookingService"
+                ],
+                "applicationName": [
+                    "Engine"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463410290000,
+                        "alertName": "SuperDomain:Default:WebService Client Errors"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463410297000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Engine|Variance|Default|Differential Analysis Control|WebServices|Client|http///NowhereBank.com/BookingService|Add Money To Account:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463410290000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "Engine:GENERICFRONTEND:Apps|Engine|URLs|accounts:tas-cz-n9:Engine:NowhereBank",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Engine"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Apps|Engine|URLs|accounts"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "processedBy": [
+                    "FrontendVertexIdentifier"
+                ],
+                "type": [
+                    "GENERICFRONTEND"
+                ],
+                "applicationName": [
+                    "Engine"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463401672000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Engine|Variance|NowhereBank|Engine - Average Response Time (ms)|Frontends|Apps|Engine|URLs|accounts:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463401665000,
+                        "alertName": "SuperDomain:NowhereBank:Engine - Average Response Time (ms)"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463401672000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n9@5001)|Variance|Default|Differential Analysis Control|By Frontend|Engine|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463401672000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Frontend|Engine|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463401665000,
+                        "alertName": "SuperDomain:Default:Frontend Stalls"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463401665000,
+                        "alertName": "SuperDomain:NowhereBank:Engine - Errors Per Interval"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463401665000,
+                        "alertName": "SuperDomain:Default:Frontend Errors"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463401665000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463401672000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Engine|Variance|Default|Differential Analysis Control|Frontends|Apps|Engine|URLs|accounts:Average Response Time (ms) Variance Intensity"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "Nowhere Bank BTs:Add Money To Account",
+            "attributes": {
+                "endUser": [
+                    "Client"
+                ],
+                "Source cluster": [
+                    "Enterprise Team Center",
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Add Money To Account"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "transactionName": [
+                    "Add Money To Account"
+                ],
+                "serviceId": [
+                    "Nowhere Bank BTs"
+                ],
+                "processedBy": [
+                    "BusinessTransactionVertexIdentifier"
+                ],
+                "type": [
+                    "BUSINESSTRANSACTION"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463408312000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Add Money To Account|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463408310000,
+                        "alertName": "SuperDomain:Default:Transaction Errors"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463408310000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463408312000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n85@5001)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Add Money To Account|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463410042000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Add Money To Account|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463410035000,
+                        "alertName": "SuperDomain:Default:Transaction Errors"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463410035000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463410042000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n9@5001)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Add Money To Account|Sub Process:Average Response Time (ms) Variance Intensity"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "tas-cz-n7.ca.com:8081:61",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Portal"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Apps|Portal|URLs|Add Account"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "processedBy": [
+                    "FrontendVertexIdentifier"
+                ],
+                "type": [
+                    "GENERICFRONTEND"
+                ],
+                "applicationName": [
+                    "Portal"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409112000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Portal|Variance|Default|Differential Analysis Control|Frontends|Apps|Portal|URLs|Add Account:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:NowhereBank:Portal - Average Response Time (ms)"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:NowhereBank:Portal - Errors Per Interval"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409112000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Portal|Variance|NowhereBank|Portal - Average Response Time (ms)|Frontends|Apps|Portal|URLs|Add Account:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409112000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n9@5001)|Variance|Default|Differential Analysis Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:Default:Frontend Stalls"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409112000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:Default:Frontend Errors"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "tas-cz-n7.ca.com:8081:63",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Portal"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Apps|Portal|URLs|List Accounts"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "processedBy": [
+                    "FrontendVertexIdentifier"
+                ],
+                "type": [
+                    "GENERICFRONTEND"
+                ],
+                "applicationName": [
+                    "Portal"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409937000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Portal|Variance|NowhereBank|Portal - Average Response Time (ms)|Frontends|Apps|Portal|URLs|List Accounts:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409930000,
+                        "alertName": "SuperDomain:NowhereBank:Portal - Average Response Time (ms)"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409930000,
+                        "alertName": "SuperDomain:NowhereBank:Portal - Errors Per Interval"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409937000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n9@5001)|Variance|Default|Differential Analysis Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409937000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Portal|Variance|Default|Differential Analysis Control|Frontends|Apps|Portal|URLs|List Accounts:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409930000,
+                        "alertName": "SuperDomain:Default:Frontend Stalls"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409937000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409930000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409930000,
+                        "alertName": "SuperDomain:Default:Frontend Errors"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "Portal:WEBSERVICE:WebService at http_//localhost_80|URLs|/transactions:tas-cz-n9:Portal:NowhereBank",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Portal"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "wsOperation": [
+                    "/transactions"
+                ],
+                "name": [
+                    "transactions"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "backendName": [
+                    "WebService at http_//localhost_80|URLs|/transactions"
+                ],
+                "processedBy": [
+                    "WebServicesOutboundVertexIdentifier"
+                ],
+                "type": [
+                    "WEBSERVICE"
+                ],
+                "wsNamespace": [
+                    "WebService at http_//localhost_80|URLs"
+                ],
+                "applicationName": [
+                    "Portal"
+                ]
+            },
+            "status": {
+                "alertStates": []
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "Nowhere Bank BTs:Get Account Details",
+            "attributes": {
+                "endUser": [
+                    "Client"
+                ],
+                "Source cluster": [
+                    "Enterprise Team Center",
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Get Account Details"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "transactionName": [
+                    "Get Account Details"
+                ],
+                "serviceId": [
+                    "Nowhere Bank BTs"
+                ],
+                "processedBy": [
+                    "BusinessTransactionVertexIdentifier"
+                ],
+                "type": [
+                    "BUSINESSTRANSACTION"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463410022000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n85@5001)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Get Account Details|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463410020000,
+                        "alertName": "SuperDomain:Default:Transaction Errors"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463410022000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Get Account Details|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463410020000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409472000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n9@5001)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Get Account Details|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409465000,
+                        "alertName": "SuperDomain:Default:Transaction Errors"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409472000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Get Account Details|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409465000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "Engine:GENERICBACKEND:Backends|Queue|requestValidation_reply:tas-cz-n9:Engine:NowhereBank",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Engine"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Backends|Queue|requestValidation_reply"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "processedBy": [
+                    "BackendVertexIdentifier"
+                ],
+                "type": [
+                    "GENERICBACKEND"
+                ],
+                "applicationName": [
+                    "Engine"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463405400000,
+                        "alertName": "SuperDomain:Default:Backend Errors"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "Nowhere Bank BTs:List Accounts",
+            "attributes": {
+                "endUser": [
+                    "Client"
+                ],
+                "Source cluster": [
+                    "Enterprise Team Center",
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "List Accounts"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "transactionName": [
+                    "List Accounts"
+                ],
+                "serviceId": [
+                    "Nowhere Bank BTs"
+                ],
+                "processedBy": [
+                    "BusinessTransactionVertexIdentifier"
+                ],
+                "type": [
+                    "BUSINESSTRANSACTION"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463408910000,
+                        "alertName": "SuperDomain:Default:Transaction Errors"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463408912000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|List Accounts|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463408912000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n85@5001)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|List Accounts|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463408910000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409930000,
+                        "alertName": "SuperDomain:Default:Transaction Errors"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409937000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|List Accounts|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409937000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n9@5001)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|List Accounts|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409930000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "tas-cz-n7.ca.com:8081:2",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Portal"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Apps|Portal|URLs|Get Account Details"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "processedBy": [
+                    "FrontendVertexIdentifier"
+                ],
+                "type": [
+                    "GENERICFRONTEND"
+                ],
+                "applicationName": [
+                    "Portal"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409465000,
+                        "alertName": "SuperDomain:NowhereBank:Portal - Average Response Time (ms)"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409465000,
+                        "alertName": "SuperDomain:NowhereBank:Portal - Errors Per Interval"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409472000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n9@5001)|Variance|Default|Differential Analysis Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409472000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Portal|Variance|Default|Differential Analysis Control|Frontends|Apps|Portal|URLs|Get Account Details:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409465000,
+                        "alertName": "SuperDomain:Default:Frontend Stalls"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409472000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409465000,
+                        "alertName": "SuperDomain:Default:Frontend Errors"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409465000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409472000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Portal|Variance|NowhereBank|Portal - Average Response Time (ms)|Frontends|Apps|Portal|URLs|Get Account Details:Average Response Time (ms) Variance Intensity"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "tas-cz-n7.ca.com:8081:4",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Portal"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Backends|Socket|Client Reply"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "processedBy": [
+                    "BackendVertexIdentifier"
+                ],
+                "type": [
+                    "GENERICBACKEND"
+                ],
+                "applicationName": [
+                    "Portal"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463405940000,
+                        "alertName": "SuperDomain:Default:Backend Errors"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "Engine:GENERICBACKEND:Backends|Queue|transactions_reply:tas-cz-n9:Engine:NowhereBank",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Engine"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Backends|Queue|transactions_reply"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "processedBy": [
+                    "BackendVertexIdentifier"
+                ],
+                "type": [
+                    "GENERICBACKEND"
+                ],
+                "applicationName": [
+                    "Engine"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463401665000,
+                        "alertName": "SuperDomain:Default:Backend Errors"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "tas-cz-n7.ca.com:8081:51",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Portal"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Apps|Portal|URLs|List Transactions"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "processedBy": [
+                    "FrontendVertexIdentifier"
+                ],
+                "type": [
+                    "GENERICFRONTEND"
+                ],
+                "applicationName": [
+                    "Portal"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:NowhereBank:Portal - Average Response Time (ms)"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:NowhereBank:Portal - Errors Per Interval"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409112000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n9@5001)|Variance|Default|Differential Analysis Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409112000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Portal|Variance|Default|Differential Analysis Control|Frontends|Apps|Portal|URLs|List Transactions:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:Default:Frontend Stalls"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409112000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Portal|Variance|NowhereBank|Portal - Average Response Time (ms)|Frontends|Apps|Portal|URLs|List Transactions:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409112000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409105000,
+                        "alertName": "SuperDomain:Default:Frontend Errors"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "tas-cz-n7.ca.com:8081:73",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Portal"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Apps|Portal|URLs|Add Money To Account"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "processedBy": [
+                    "FrontendVertexIdentifier"
+                ],
+                "type": [
+                    "GENERICFRONTEND"
+                ],
+                "applicationName": [
+                    "Portal"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463410035000,
+                        "alertName": "SuperDomain:NowhereBank:Portal - Average Response Time (ms)"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463410035000,
+                        "alertName": "SuperDomain:NowhereBank:Portal - Errors Per Interval"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463410042000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Portal|Variance|Default|Differential Analysis Control|Frontends|Apps|Portal|URLs|Add Money To Account:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463410042000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Portal|Variance|NowhereBank|Portal - Average Response Time (ms)|Frontends|Apps|Portal|URLs|Add Money To Account:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463410042000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n9@5001)|Variance|Default|Differential Analysis Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463410035000,
+                        "alertName": "SuperDomain:Default:Frontend Stalls"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463410042000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463410035000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463410035000,
+                        "alertName": "SuperDomain:Default:Frontend Errors"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "Nowhere Bank BTs:Add Account",
+            "attributes": {
+                "endUser": [
+                    "Client"
+                ],
+                "Source cluster": [
+                    "Enterprise Team Center",
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Add Account"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "transactionName": [
+                    "Add Account"
+                ],
+                "serviceId": [
+                    "Nowhere Bank BTs"
+                ],
+                "processedBy": [
+                    "BusinessTransactionVertexIdentifier"
+                ],
+                "type": [
+                    "BUSINESSTRANSACTION"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463410350000,
+                        "alertName": "SuperDomain:Default:Transaction Errors"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 3,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463410352000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n85@5001)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Add Account|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 3,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463410352000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Add Account|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 3,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "UP",
+                        "startTime": 1463410350000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463408475000,
+                        "alertName": "SuperDomain:Default:Transaction Errors"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463408482000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n9@5001)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Add Account|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463408482000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Add Account|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463408475000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "Portal:WEBSERVICE:WebService at http_//localhost_80|URLs|/validateRequest:tas-cz-n9:Portal:NowhereBank",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Portal"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "wsOperation": [
+                    "/validateRequest"
+                ],
+                "name": [
+                    "validateRequest"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "backendName": [
+                    "WebService at http_//localhost_80|URLs|/validateRequest"
+                ],
+                "processedBy": [
+                    "WebServicesOutboundVertexIdentifier"
+                ],
+                "type": [
+                    "WEBSERVICE"
+                ],
+                "wsNamespace": [
+                    "WebService at http_//localhost_80|URLs"
+                ],
+                "applicationName": [
+                    "Portal"
+                ]
+            },
+            "status": {
+                "alertStates": []
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "Nowhere Bank BTs:Subtract Money From Account",
+            "attributes": {
+                "endUser": [
+                    "Client"
+                ],
+                "Source cluster": [
+                    "Enterprise Team Center",
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Subtract Money From Account"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "transactionName": [
+                    "Subtract Money From Account"
+                ],
+                "serviceId": [
+                    "Nowhere Bank BTs"
+                ],
+                "processedBy": [
+                    "BusinessTransactionVertexIdentifier"
+                ],
+                "type": [
+                    "BUSINESSTRANSACTION"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463408400000,
+                        "alertName": "SuperDomain:Default:Transaction Errors"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463408402000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n85@5001)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Subtract Money From Account|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463408402000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Subtract Money From Account|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463408400000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463404012000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n9@5001)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Subtract Money From Account|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463404005000,
+                        "alertName": "SuperDomain:Default:Transaction Errors"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463404012000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|Subtract Money From Account|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463404005000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "Engine:GENERICBACKEND:Backends|Queue|accounts_reply:tas-cz-n9:Engine:NowhereBank",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Engine"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Backends|Queue|accounts_reply"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "processedBy": [
+                    "BackendVertexIdentifier"
+                ],
+                "type": [
+                    "GENERICBACKEND"
+                ],
+                "applicationName": [
+                    "Engine"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463401665000,
+                        "alertName": "SuperDomain:Default:Backend Errors"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "Portal:WEBSERVICE:WebService at http_//localhost_80|URLs|/transactions/book:tas-cz-n9:Portal:NowhereBank",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Portal"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "wsOperation": [
+                    "/transactions/book"
+                ],
+                "name": [
+                    "book"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "backendName": [
+                    "WebService at http_//localhost_80|URLs|/transactions/book"
+                ],
+                "processedBy": [
+                    "WebServicesOutboundVertexIdentifier"
+                ],
+                "type": [
+                    "WEBSERVICE"
+                ],
+                "wsNamespace": [
+                    "WebService at http_//localhost_80|URLs"
+                ],
+                "applicationName": [
+                    "Portal"
+                ]
+            },
+            "status": {
+                "alertStates": []
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "Engine:GENERICFRONTEND:Apps|Engine|URLs|requestValidation:tas-cz-n9:Engine:NowhereBank",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Engine"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Apps|Engine|URLs|requestValidation"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "processedBy": [
+                    "FrontendVertexIdentifier"
+                ],
+                "type": [
+                    "GENERICFRONTEND"
+                ],
+                "applicationName": [
+                    "Engine"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463405400000,
+                        "alertName": "SuperDomain:NowhereBank:Engine - Average Response Time (ms)"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463405407000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n9@5001)|Variance|Default|Differential Analysis Control|By Frontend|Engine|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463405407000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Engine|Variance|NowhereBank|Engine - Average Response Time (ms)|Frontends|Apps|Engine|URLs|requestValidation:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463405407000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Engine|Variance|Default|Differential Analysis Control|Frontends|Apps|Engine|URLs|requestValidation:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463405407000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Frontend|Engine|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463405400000,
+                        "alertName": "SuperDomain:Default:Frontend Stalls"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463405400000,
+                        "alertName": "SuperDomain:NowhereBank:Engine - Errors Per Interval"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463405400000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463405400000,
+                        "alertName": "SuperDomain:Default:Frontend Errors"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "Nowhere Bank BTs:List Transactions",
+            "attributes": {
+                "endUser": [
+                    "Client"
+                ],
+                "Source cluster": [
+                    "Enterprise Team Center",
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "List Transactions"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "transactionName": [
+                    "List Transactions"
+                ],
+                "serviceId": [
+                    "Nowhere Bank BTs"
+                ],
+                "processedBy": [
+                    "BusinessTransactionVertexIdentifier"
+                ],
+                "type": [
+                    "BUSINESSTRANSACTION"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463406332000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n85@5001)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|List Transactions|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463406332000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|List Transactions|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463406330000,
+                        "alertName": "SuperDomain:Default:Transaction Errors"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463406330000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463407162000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|List Transactions|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463407155000,
+                        "alertName": "SuperDomain:Default:Transaction Errors"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463407162000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n9@5001)|Variance|Default|Differential Analysis Control|By Business Service|Nowhere Bank BTs|List Transactions|Sub Process:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463407155000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "Engine:GENERICFRONTEND:Apps|Engine|URLs|transactions:tas-cz-n9:Engine:NowhereBank",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Engine"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "name": [
+                    "Apps|Engine|URLs|transactions"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "processedBy": [
+                    "FrontendVertexIdentifier"
+                ],
+                "type": [
+                    "GENERICFRONTEND"
+                ],
+                "applicationName": [
+                    "Engine"
+                ]
+            },
+            "status": {
+                "alertStates": [
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409952000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Engine|Variance|Default|Differential Analysis Control|Frontends|Apps|Engine|URLs|transactions:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409945000,
+                        "alertName": "SuperDomain:NowhereBank:Engine - Average Response Time (ms)"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409952000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual) (tas-cz-n9@5001)|Variance|Default|Differential Analysis Control|By Frontend|Engine|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409952000,
+                        "alertName": "UVB://SuperDomain|tas-cz-n9|NowhereBank|Engine|Variance|NowhereBank|Engine - Average Response Time (ms)|Frontends|Apps|Engine|URLs|transactions:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 0,
+                        "damageFactor": 0,
+                        "uvb": true,
+                        "trend": "STALL",
+                        "startTime": 1463409952000,
+                        "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Default|Differential Analysis Control|By Frontend|Engine|Health:Average Response Time (ms) Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409945000,
+                        "alertName": "SuperDomain:Default:Frontend Stalls"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409945000,
+                        "alertName": "SuperDomain:NowhereBank:Engine - Errors Per Interval"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409945000,
+                        "alertName": "SuperDomain:Default:Response Time Variance Intensity"
+                    },
+                    {
+                        "alertId": 0,
+                        "state": 1,
+                        "damageFactor": 0,
+                        "uvb": false,
+                        "trend": "STALL",
+                        "startTime": 1463409945000,
+                        "alertName": "SuperDomain:Default:Frontend Errors"
+                    }
+                ]
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        },
+        {
+            "vertexId": "Portal:WEBSERVICE:WebService at http_//localhost_80|URLs|/accounts:tas-cz-n9:Portal:NowhereBank",
+            "attributes": {
+                "agent": [
+                    "tas-cz-n9|NowhereBank|Portal"
+                ],
+                "hostname": [
+                    "tas-cz-n9"
+                ],
+                "Source cluster": [
+                    "tas-cz-n7.ca.com:8081"
+                ],
+                "wsOperation": [
+                    "/accounts"
+                ],
+                "name": [
+                    "accounts"
+                ],
+                "agentDomain": [
+                    "SuperDomain"
+                ],
+                "backendName": [
+                    "WebService at http_//localhost_80|URLs|/accounts"
+                ],
+                "processedBy": [
+                    "WebServicesOutboundVertexIdentifier"
+                ],
+                "type": [
+                    "WEBSERVICE"
+                ],
+                "wsNamespace": [
+                    "WebService at http_//localhost_80|URLs"
+                ],
+                "applicationName": [
+                    "Portal"
+                ]
+            },
+            "status": {
+                "alertStates": []
+            },
+            "liveCacheVersion": 0,
+            "topologicalChange": "NOT_CHANGED",
+            "gAttributesChanged": false
+        }
+    ],
+    "edges": [
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:61",
+            "targetId": "Portal:WEBSERVICE:WebService at http_//localhost_80|URLs|/validateRequest:tas-cz-n9:Portal:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:Add Account",
+            "liveCacheVersion": 784,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Engine:GENERICFRONTEND:Apps|Engine|URLs|accounts:tas-cz-n9:Engine:NowhereBank",
+            "targetId": "Engine:GENERICBACKEND:Backends|Queue|accounts_reply:tas-cz-n9:Engine:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:List Accounts",
+            "liveCacheVersion": 1031,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:48",
+            "targetId": "Portal:WEBSERVICE:WebService at http_//localhost_80|URLs|/transactions/book:tas-cz-n9:Portal:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:Subtract Money From Account",
+            "liveCacheVersion": 934,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Engine:GENERICFRONTEND:Apps|Engine|URLs|transactions:tas-cz-n9:Engine:NowhereBank",
+            "targetId": "Engine:GENERICBACKEND:Backends|Queue|transactions_reply:tas-cz-n9:Engine:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:Subtract Money From Account",
+            "liveCacheVersion": 920,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Engine:GENERICFRONTEND:Apps|Engine|URLs|transactions:tas-cz-n9:Engine:NowhereBank",
+            "targetId": "Engine:GENERICBACKEND:Backends|Queue|transactions_reply:tas-cz-n9:Engine:NowhereBank",
+            "liveCacheVersion": 737,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Nowhere Bank BTs:List Accounts",
+            "targetId": "tas-cz-n7.ca.com:8081:63",
+            "businessTransactionId": "Nowhere Bank BTs:List Accounts",
+            "liveCacheVersion": 626,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:63",
+            "targetId": "Portal:WEBSERVICE:WebService at http_//localhost_80|URLs|/accounts:tas-cz-n9:Portal:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:List Accounts",
+            "liveCacheVersion": 948,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:2",
+            "targetId": "Portal:WEBSERVICE:WebService at http_//localhost_80|URLs|/validateRequest:tas-cz-n9:Portal:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:Get Account Details",
+            "liveCacheVersion": 792,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Nowhere Bank BTs:Subtract Money From Account",
+            "targetId": "tas-cz-n7.ca.com:8081:48",
+            "businessTransactionId": "Nowhere Bank BTs:Subtract Money From Account",
+            "liveCacheVersion": 496,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Engine:GENERICFRONTEND:Apps|Engine|URLs|transactions:tas-cz-n9:Engine:NowhereBank",
+            "targetId": "tas-cz-n7.ca.com:8081:43",
+            "businessTransactionId": "Nowhere Bank BTs:Add Money To Account",
+            "liveCacheVersion": 1114,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Engine:GENERICFRONTEND:Apps|Engine|URLs|transactions:tas-cz-n9:Engine:NowhereBank",
+            "targetId": "tas-cz-n7.ca.com:8081:44",
+            "businessTransactionId": "Nowhere Bank BTs:Add Money To Account",
+            "liveCacheVersion": 1108,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Nowhere Bank BTs:Add Account",
+            "targetId": "tas-cz-n7.ca.com:8081:61",
+            "businessTransactionId": "Nowhere Bank BTs:Add Account",
+            "liveCacheVersion": 623,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:51",
+            "targetId": "Portal:WEBSERVICE:WebService at http_//localhost_80|URLs|/transactions:tas-cz-n9:Portal:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:List Transactions",
+            "liveCacheVersion": 804,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Nowhere Bank BTs:Add Money To Account",
+            "targetId": "tas-cz-n7.ca.com:8081:73",
+            "businessTransactionId": "Nowhere Bank BTs:Add Money To Account",
+            "liveCacheVersion": 673,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Engine:GENERICFRONTEND:Apps|Engine|URLs|requestValidation:tas-cz-n9:Engine:NowhereBank",
+            "targetId": "Engine:GENERICBACKEND:Backends|Queue|requestValidation_reply:tas-cz-n9:Engine:NowhereBank",
+            "liveCacheVersion": 845,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:61",
+            "targetId": "tas-cz-n7.ca.com:8081:4",
+            "businessTransactionId": "Nowhere Bank BTs:Add Account",
+            "liveCacheVersion": 617,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:73",
+            "targetId": "tas-cz-n7.ca.com:8081:4",
+            "businessTransactionId": "Nowhere Bank BTs:Add Money To Account",
+            "liveCacheVersion": 670,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:48",
+            "targetId": "tas-cz-n7.ca.com:8081:4",
+            "businessTransactionId": "Nowhere Bank BTs:Subtract Money From Account",
+            "liveCacheVersion": 493,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Nowhere Bank BTs:Get Account Details",
+            "targetId": "tas-cz-n7.ca.com:8081:2",
+            "businessTransactionId": "Nowhere Bank BTs:Get Account Details",
+            "liveCacheVersion": 79,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Engine:GENERICFRONTEND:Apps|Engine|URLs|transactions:tas-cz-n9:Engine:NowhereBank",
+            "targetId": "Engine:GENERICBACKEND:Backends|Queue|transactions_reply:tas-cz-n9:Engine:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:Get Transaction Details",
+            "liveCacheVersion": 771,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:51",
+            "targetId": "tas-cz-n7.ca.com:8081:4",
+            "businessTransactionId": "Nowhere Bank BTs:List Transactions",
+            "liveCacheVersion": 536,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:2",
+            "targetId": "Portal:WEBSERVICE:WebService at http_//localhost_80|URLs|/accounts:tas-cz-n9:Portal:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:Get Account Details",
+            "liveCacheVersion": 950,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:29",
+            "targetId": "Portal:WEBSERVICE:WebService at http_//localhost_80|URLs|/validateRequest:tas-cz-n9:Portal:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:Get Transaction Details",
+            "liveCacheVersion": 780,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:63",
+            "targetId": "Portal:WEBSERVICE:WebService at http_//localhost_80|URLs|/validateRequest:tas-cz-n9:Portal:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:List Accounts",
+            "liveCacheVersion": 790,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Engine:GENERICFRONTEND:Apps|Engine|URLs|accounts:tas-cz-n9:Engine:NowhereBank",
+            "targetId": "Engine:GENERICBACKEND:Backends|Queue|accounts_reply:tas-cz-n9:Engine:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:Add Account",
+            "liveCacheVersion": 1028,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:63",
+            "targetId": "tas-cz-n7.ca.com:8081:4",
+            "businessTransactionId": "Nowhere Bank BTs:List Accounts",
+            "liveCacheVersion": 620,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Engine:GENERICFRONTEND:Apps|Engine|URLs|transactions:tas-cz-n9:Engine:NowhereBank",
+            "targetId": "tas-cz-n7.ca.com:8081:44",
+            "liveCacheVersion": 739,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:2",
+            "targetId": "tas-cz-n7.ca.com:8081:4",
+            "businessTransactionId": "Nowhere Bank BTs:Get Account Details",
+            "liveCacheVersion": 82,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Nowhere Bank BTs:Get Transaction Details",
+            "targetId": "tas-cz-n7.ca.com:8081:29",
+            "businessTransactionId": "Nowhere Bank BTs:Get Transaction Details",
+            "liveCacheVersion": 291,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:73",
+            "targetId": "Portal:WEBSERVICE:WebService at http_//localhost_80|URLs|/transactions/book:tas-cz-n9:Portal:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:Add Money To Account",
+            "liveCacheVersion": 936,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Engine:GENERICFRONTEND:Apps|Engine|URLs|transactions:tas-cz-n9:Engine:NowhereBank",
+            "targetId": "tas-cz-n7.ca.com:8081:43",
+            "liveCacheVersion": 735,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Engine:GENERICFRONTEND:Apps|Engine|URLs|transactions:tas-cz-n9:Engine:NowhereBank",
+            "targetId": "Engine:GENERICBACKEND:Backends|Queue|transactions_reply:tas-cz-n9:Engine:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:Add Money To Account",
+            "liveCacheVersion": 1111,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Engine:GENERICFRONTEND:Apps|Engine|URLs|accounts:tas-cz-n9:Engine:NowhereBank",
+            "targetId": "Engine:GENERICBACKEND:Backends|Queue|accounts_reply:tas-cz-n9:Engine:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:Get Account Details",
+            "liveCacheVersion": 917,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:29",
+            "targetId": "tas-cz-n7.ca.com:8081:4",
+            "businessTransactionId": "Nowhere Bank BTs:Get Transaction Details",
+            "liveCacheVersion": 289,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Nowhere Bank BTs:List Transactions",
+            "targetId": "tas-cz-n7.ca.com:8081:51",
+            "businessTransactionId": "Nowhere Bank BTs:List Transactions",
+            "liveCacheVersion": 533,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:73",
+            "targetId": "Portal:WEBSERVICE:WebService at http_//localhost_80|URLs|/validateRequest:tas-cz-n9:Portal:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:Add Money To Account",
+            "liveCacheVersion": 788,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Engine:GENERICFRONTEND:Apps|Engine|URLs|requestValidation:tas-cz-n9:Engine:NowhereBank",
+            "targetId": "Engine:GENERICBACKEND:Backends|Queue|requestValidation_reply:tas-cz-n9:Engine:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:Add Account",
+            "liveCacheVersion": 1025,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:48",
+            "targetId": "Portal:WEBSERVICE:WebService at http_//localhost_80|URLs|/validateRequest:tas-cz-n9:Portal:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:Subtract Money From Account",
+            "liveCacheVersion": 786,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:29",
+            "targetId": "Portal:WEBSERVICE:WebService at http_//localhost_80|URLs|/transactions:tas-cz-n9:Portal:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:Get Transaction Details",
+            "liveCacheVersion": 802,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Engine:GENERICFRONTEND:Apps|Engine|URLs|transactions:tas-cz-n9:Engine:NowhereBank",
+            "targetId": "Engine:GENERICBACKEND:Backends|Queue|transactions_reply:tas-cz-n9:Engine:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:List Transactions",
+            "liveCacheVersion": 1022,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:61",
+            "targetId": "Portal:WEBSERVICE:WebService at http_//localhost_80|URLs|/accounts:tas-cz-n9:Portal:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:Add Account",
+            "liveCacheVersion": 952,
+            "attributes": {}
+        },
+        {
+            "sourceId": "Engine:GENERICFRONTEND:Apps|Engine|URLs|accounts:tas-cz-n9:Engine:NowhereBank",
+            "targetId": "Engine:GENERICBACKEND:Backends|Queue|accounts_reply:tas-cz-n9:Engine:NowhereBank",
+            "liveCacheVersion": 719,
+            "attributes": {}
+        },
+        {
+            "sourceId": "tas-cz-n7.ca.com:8081:51",
+            "targetId": "Portal:WEBSERVICE:WebService at http_//localhost_80|URLs|/validateRequest:tas-cz-n9:Portal:NowhereBank",
+            "businessTransactionId": "Nowhere Bank BTs:List Transactions",
+            "liveCacheVersion": 782,
+            "attributes": {}
+        }
+    ],
+    "liveModeVersion": "3791",
+    "incrementalResult": false,
+    "removedVertices": [],
+    "removedEdges": [],
+    "resultClamped": false,
+    "resultVerticesSize": 0,
+    "resultVerticesLimit": 0,
+    "graphTime": 1463410376597
+}

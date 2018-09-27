@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!-- @Tas(testBed = [ {name = com.ca.apm.tests.testbed.BrowserAgentTomcatChromeWinTestbed, 
+	executeOn = browserAgentMachine}, {name = com.ca.apm.tests.testbed.BrowserAgentTomcatFirefoxWinTestbed, 
+	executeOn = browserAgentMachine}], owner = gupra04, size = MEDIUM, description 
+	= 'BrowserAgent TestNg XML suite for BAT functional tests - Tomcat'), snapshotPolicy 
+	= SnapshotPolicy.ALWAYS, snapshot = SnapshotMode.LIVE -->
+<suite name="TomcatBATTestSuite" configfailurepolicy="continue">
+	<test name="testNGTomcatBAT" preserve-order="true">
+		<classes>
+            <class name="com.ca.apm.tests.test.noagent.BANoAgentTestRunnerSuite">
+                <methods>
+                    <include name="beforeClass"/>
+                    <include name="beforeTest"/>
+                    <include name="beforeMethod"/>
+          
+                    <include name="AJAXTests_testAjaxValidValues_454733_454739_454742"/>
+                    <include name="AJAXTests_testJquerySupport_455850()"/>
+                    <include name="ConfigurationTests_test204UpdatedConfigIsValid_454821"/>
+                    <include name="ConfigurationTests_testMetricFrequency_454830"/>
+                    <include name="ConfigurationTests_testBAEnabled_454826"/>
+                    <include name="ConfigurationTests_testValidConfigUrl_454832"/>
+                    <include name="ExtensionTests_testNonCollidingTracers_455003"/>
+                    <include name="GeneralTests_testJSON_454928_454929_454926_454931"/>
+                    <include name="GeneralTests_testGeoLocation_454932"/>
+                    <include name="GeneralTests_testThinkTimeValidValues_455014"/>
+                    <include name="GeneralTests_testThinkTimeUpdatedConfig_455015"/>
+                    <include name="GeneralTests_testThinkTimeOpenLinkInNewWindow_455016"/>
+                    <include name="GeneralTests_testPageLoad_455101"/>
+                    <include name="GeneralTests_testCookieSnapshot_454734"/>
+                    <include name="JSErrorsTests_testJSErrorsEnabled_454885"/>
+                    <include name="JSErrorsTests_testJSInvalidProfile_454886"/>
+                    <include name="PageLoadTests_testPage_454728_454731_454730_454732"/>
+                    <include name="SnippetTests_testValidIdSrcTags_454735_454736"/>
+                    <include name="SnippetTests_testSnipptAttrs_454740_454741_454738"/>
+                    <include name="SPATests_testBasicDataIntegrityTest_455156"/>
+                    <include name="URLIncludeExcludeTests_testURLExclude_454760"/>
+                    <include name="URLIncludeExcludeTests_testURLInclude_454761"/>
+                    <include name="URLIncludeExcludeTests_testURLIncludeExclude_454762"/>
+                    
+                                  
+                    <include name="afterMethod"/>    
+                    <include name="afterTest"/>                                                         
+                    <include name="afterClass"/>
+                    
+                </methods>
+            </class>
+        </classes>
+	</test>
+</suite>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>apm-saas</artifactId>
+        <groupId>com.ca.apm.test</groupId>
+        <version>99.99.dev_SaaS_fix-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>apm-saas-core</artifactId>
+    <packaging>jar</packaging>
+    <name>apm-saas - Core</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.ca.tas</groupId>
+            <artifactId>automation-roles</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.tas</groupId>
+            <artifactId>automation-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+        </dependency>
+    </dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.ca.tas.plugins</groupId>
+				<artifactId>tas-maven-plugin</artifactId>
+				<configuration>
+					<resmanApiUrl>${resman.host}</resmanApiUrl>
+					<resmanUser>${resman.user}</resmanUser>
+					<resmanPassword>${resman.password}</resmanPassword>
+					<almHost>${alm.host}</almHost>
+					<almDomain>${alm.domain}</almDomain>
+					<almProject>${alm.project}</almProject>
+					<almUsername>${alm.username}</almUsername>
+					<almPassword>${alm.password}</almPassword>
+					<almTestPlanRoot>${alm.testPlanRoot}</almTestPlanRoot>
+					<almTestLabRoot>${alm.testLabRoot}</almTestLabRoot>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>index</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.ca.tas.plugins</groupId>
+				<artifactId>resman-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<appendAssemblyId>true</appendAssemblyId>
+					<archive>
+						<manifest>
+							<mainClass>com.ca.tas.client.deployment.Deploy</mainClass>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+					</archive>
+					<appendAssemblyId>true</appendAssemblyId>
+					<descriptors>
+						<descriptor>src/main/assembly/assembly.xml</descriptor>
+                        <!--<descriptor>src/main/assembly/dist.xml</descriptor>-->
+					</descriptors>
+				</configuration>
+
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

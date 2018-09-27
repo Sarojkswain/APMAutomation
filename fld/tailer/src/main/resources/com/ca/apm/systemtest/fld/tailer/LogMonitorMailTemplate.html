@@ -1,0 +1,70 @@
+<div>
+    <table border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+        <tbody>
+        <tr>
+            <td colspan="2" style="padding:0.75pt 0.75pt 4pt 0.75pt;">
+                <div style="margin:0;"><font face="Times New Roman,serif" size="1"><span style="font-size:7.5pt;"><font
+                        face="Verdana,sans-serif" size="2"><span
+                        style="font-size:9pt;">Log Monitor at ${serverId?html}</span></font></span></font></div>
+            </td>
+        </tr>
+        <tr>
+            <td nowrap="" style="padding:0.75pt 0.75pt 0.75pt 7.5pt;">
+                <div style="margin:0;"><font face="Times New Roman,serif" size="1"><span style="font-size:7.5pt;"><font
+                        face="Verdana,sans-serif" color="#0066CC">Date:</font></span></font></div>
+            </td>
+            <td style="width:99%;padding:0.75pt 0.75pt 0.75pt 7.5pt;">
+                <div style="margin:0;"><font face="Times New Roman,serif" size="1"><span style="font-size:7.5pt;"><font
+                        face="Verdana,sans-serif">${timestamp?html}</font></span></font></div>
+            </td>
+        </tr>
+        <tr>
+            <td nowrap="" style="padding:0.75pt 0.75pt 0.75pt 7.5pt;">
+                <div style="margin:0;"><font face="Times New Roman,serif" size="1"><span style="font-size:7.5pt;"><font
+                        face="Verdana,sans-serif" color="#0066CC">Host:</font></span></font></div>
+            </td>
+            <td style="width:99%;padding:0.75pt 0.75pt 0.75pt 7.5pt;">
+                <div style="margin:0;"><font face="Times New Roman,serif" size="1"><span style="font-size:7.5pt;"><font
+                        face="Verdana,sans-serif">${serverId?html}</font></span></font></div>
+            </td>
+        </tr>
+        <tr>
+            <td nowrap="" style="padding:0.75pt 0.75pt 0.75pt 7.5pt;">
+                <div style="margin:0;"><font face="Times New Roman,serif" size="1"><span style="font-size:7.5pt;"><font
+                        face="Verdana,sans-serif" color="#0066CC">Log:</font></span></font></div>
+            </td>
+            <td style="width:99%;padding:0.75pt 0.75pt 0.75pt 7.5pt;">
+                <div style="margin:0;"><font face="Times New Roman,serif" size="1"><span style="font-size:7.5pt;"><font
+                        face="Verdana,sans-serif">${logFileLocation?html}</font></span></font></div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div style="margin:0;"><font face="Times New Roman,serif" size="1"><span style="font-size:7.5pt;"><font
+            face="Verdana,sans-serif">&nbsp;</font></span></font></div>
+    <table border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+        <tbody>
+        <tr>
+            <td nowrap=""
+                style="padding:1.5pt 7.5pt 1.5pt 1.5pt;border-style:none none solid none;border-bottom-width:1pt;border-bottom-color:#CCCCCC;">
+                <div style="margin:0;"><font face="Times New Roman,serif" size="1"><span style="font-size:7.5pt;"><font
+                        face="Verdana,sans-serif"><b>Message</b></font></span></font></div>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top"
+                style="width:99%;background-color:#FCFCFC;padding:1.5pt 7.5pt 1.5pt 1.5pt;border-style:none none solid none;border-bottom-width:1pt;border-bottom-color:#CCCCCC;">
+
+                <div style="margin:0;">
+    <span style="background-color:#FCFCFC; color: black;">
+		<pre style="font-size:0.625em; font-family: &quot;DejaVu Sans Mono&quot;, &quot;Courier New&quot;, monospace;">
+${log?html}
+</pre>
+        </span>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

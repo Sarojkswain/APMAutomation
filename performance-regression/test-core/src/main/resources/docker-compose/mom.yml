@@ -1,0 +1,17 @@
+version: '2'
+services:
+  ######
+  ## MOM
+  ######
+  mom:
+    image: ${image.registry}/apm-em:${project.version}
+    command: mom
+    environment:
+      - APM_CUSTOM_CONFIG_DIR=/opt/ca/custom-config
+${env.col.hosts}
+      - EM_DB_HOST=${env.mom.db}
+    volumes:
+      - ./logs:/opt/ca/apm/logs
+      - ./modules:/transfer/modules
+      - ./config:/opt/ca/custom-config
+    network_mode: "host"

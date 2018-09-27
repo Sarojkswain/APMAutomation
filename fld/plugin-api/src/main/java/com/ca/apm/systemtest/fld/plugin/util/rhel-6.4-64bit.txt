@@ -1,0 +1,107 @@
+[root@ssftim01 src]# uname -a
+Linux ssftim01 2.6.32-358.el6.x86_64 #1 SMP Tue Jan 29 11:47:41 EST 2013 x86_64 x86_64 x86_64 GNU/Linux
+------------------------------------------------------------------------
+[root@ssftim01 src]# cat /etc/redhat-release
+Red Hat Enterprise Linux Server release 6.4 (Santiago)
+------------------------------------------------------------------------
+
+ ** awt.toolkit ==> sun.awt.X11.XToolkit
+ ** file.encoding ==> UTF-8
+ ** file.encoding.pkg ==> sun.io
+ ** file.separator ==> /
+ ** java.awt.graphicsenv ==> sun.awt.X11GraphicsEnvironment
+ ** java.awt.printerjob ==> sun.print.PSPrinterJob
+ ** java.class.path ==> .
+ ** java.class.version ==> 51.0
+ ** java.endorsed.dirs ==> /usr/java/jdk1.7.0_25/jre/lib/endorsed
+ ** java.ext.dirs ==> /usr/java/jdk1.7.0_25/jre/lib/ext:/usr/java/packages/lib/ext
+ ** java.home ==> /usr/java/jdk1.7.0_25/jre
+ ** java.io.tmpdir ==> /tmp
+ ** java.library.path ==> /usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+ ** java.runtime.name ==> Java(TM) SE Runtime Environment
+ ** java.runtime.version ==> 1.7.0_25-b15
+ ** java.specification.name ==> Java Platform API Specification
+ ** java.specification.vendor ==> Oracle Corporation
+ ** java.specification.version ==> 1.7
+ ** java.vendor ==> Oracle Corporation
+ ** java.vendor.url ==> http://java.oracle.com/
+ ** java.vendor.url.bug ==> http://bugreport.sun.com/bugreport/
+ ** java.version ==> 1.7.0_25
+ ** java.vm.info ==> mixed mode
+ ** java.vm.name ==> Java HotSpot(TM) 64-Bit Server VM
+ ** java.vm.specification.name ==> Java Virtual Machine Specification
+ ** java.vm.specification.vendor ==> Oracle Corporation
+ ** java.vm.specification.version ==> 1.7
+ ** java.vm.vendor ==> Oracle Corporation
+ ** java.vm.version ==> 23.25-b01
+ ** line.separator ==>
+
+ ** os.arch ==> amd64
+ ** os.name ==> Linux
+ ** os.version ==> 2.6.32-358.el6.x86_64
+ ** path.separator ==> :
+ ** sun.arch.data.model ==> 64
+ ** sun.boot.class.path ==> /usr/java/jdk1.7.0_25/jre/lib/resources.jar:/usr/java/jdk1.7.0_25/jre/lib/rt.jar:/usr/java/jdk1.7.0_25/jre/lib/sunrsasign.
+jar:/usr/java/jdk1.7.0_25/jre/lib/jsse.jar:/usr/java/jdk1.7.0_25/jre/lib/jce.jar:/usr/java/jdk1.7.0_25/jre/lib/charsets.jar:/usr/java/jdk1.7.0_25/jre/
+lib/jfr.jar:/usr/java/jdk1.7.0_25/jre/classes
+ ** sun.boot.library.path ==> /usr/java/jdk1.7.0_25/jre/lib/amd64
+ ** sun.cpu.endian ==> little
+ ** sun.cpu.isalist ==>
+ ** sun.io.unicode.encoding ==> UnicodeLittle
+ ** sun.java.command ==> PrintEnv
+ ** sun.java.launcher ==> SUN_STANDARD
+ ** sun.jnu.encoding ==> UTF-8
+ ** sun.management.compiler ==> HotSpot 64-Bit Tiered Compilers
+ ** sun.os.patch.level ==> unknown
+ ** user.country ==> US
+ ** user.dir ==> /root/src
+ ** user.home ==> /root
+ ** user.language ==> en
+ ** user.name ==> root
+ ** user.timezone ==>
+ANT_HOME ==> /opt/apache-ant-1.7.1
+BASH_FUNC_module() ==> () {  eval `/usr/bin/modulecmd bash $*`
+}
+CVS_RSH ==> ssh
+G_BROKEN_FILENAMES ==> 1
+HISTCONTROL ==> ignoredups
+HISTSIZE ==> 1000
+HOME ==> /root
+HOSTNAME ==> ssftim01
+JAVA_HOME ==> /usr/java/jdk1.7.0_25/
+LANG ==> en_US.UTF-8
+LESSOPEN ==> |/usr/bin/lesspipe.sh %s
+LOADEDMODULES ==>
+LOGNAME ==> root
+LS_COLORS ==> rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=01;05;37;41:su=37;41:sg=30;43:ca=30;41:tw
+=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=01;31:*.z=01;
+31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.tbz=01;31:*.tbz2=01;31:*.bz=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;3
+1:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.pp
+m=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01
+;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*
+.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;
+35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=01;36:*.au=01;36:*.flac=01;36:*.mid=01;36:*.midi=01;36:*.mka=01;36:*.mp3=01;36:*.mpc=01;36:*.
+ogg=01;36:*.ra=01;36:*.wav=01;36:*.axa=01;36:*.oga=01;36:*.spx=01;36:*.xspf=01;36:
+MAIL ==> /var/spool/mail/root
+MODULEPATH ==> /usr/share/Modules/modulefiles:/etc/modulefiles
+MODULESHOME ==> /usr/share/Modules
+NLSPATH ==> /usr/dt/lib/nls/msg/%L/%N.cat
+OLDPWD ==> /root
+PATH ==> /usr/java/jdk1.7.0_25/bin:/usr/lib64/qt-3.3/bin:/usr/kerberos/sbin:/usr/kerberos/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr
+/bin:/root/bin:/opt/apache-ant-1.7.1/bin:/root/bin:/opt/apache-ant-1.7.1/bin:/usr/java/jdk1.7.0_25/bin
+PWD ==> /root/src
+QTDIR ==> /usr/lib64/qt-3.3
+QTINC ==> /usr/lib64/qt-3.3/include
+QTLIB ==> /usr/lib64/qt-3.3/lib
+SELINUX_LEVEL_REQUESTED ==>
+SELINUX_ROLE_REQUESTED ==>
+SELINUX_USE_CURRENT_RANGE ==>
+SHELL ==> /bin/bash
+SHLVL ==> 1
+SSH_ASKPASS ==> /usr/libexec/openssh/gnome-ssh-askpass
+SSH_CLIENT ==> 130.119.133.199 57917 22
+SSH_CONNECTION ==> 130.119.133.199 57917 10.130.94.13 22
+SSH_TTY ==> /dev/pts/0
+TERM ==> cygwin
+USER ==> root
+XFILESEARCHPATH ==> /usr/dt/app-defaults/%L/Dt

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+	@Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.TwoCollectorsOneTomcatOneJBossCentOSTestbed, executeOn=momMachine}],
+	  owner = dwiba01,
+	  size = COLOSSAL,
+	  description = 'DomainPermissionsManagementTwoCollectorsTwoAgents TestNg XML suite for all Linux tests'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="DomainsPermissionManagementTwoCollectorsTwoAgentsLinuxTests" configfailurepolicy="continue">
+	<test name="DomainsPermissionManagementTwoCollectorsTwoAgentsLinuxTests" preserve-order="true">		
+		<classes>
+			<class name="com.ca.apm.tests.domainpermissions.DomainsPermissionTwoCollectorsTwoAgentsTests">
+			</class>		
+		</classes>
+	</test>
+</suite>
+		

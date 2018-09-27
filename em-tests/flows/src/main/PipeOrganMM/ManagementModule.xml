@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ManagementModule xmlns:ns1="http://www.w3.org/2005/11/its" xmlns:introscope="generated://introscope.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Editable="true" Version="4.0" IsActive="true" DescriptionContentType="text/plain" xsi:noNamespaceSchemaLocation="bundle://com.wily.introscope.em/com/wily/introscope/server/enterprise/entity/bundle/IntroscopeManagementModules4.0.xsd">
+    <Name>PipeOrgan MM</Name>
+    <Description/>
+    <DataGroups>
+        <DataGroup xsi:type="DashboardDataGroup"/>
+        <DataGroup xsi:type="TriageMapAlertDataGroup"/>
+        <DataGroup xsi:type="AlertDataGroup">
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Errors Per Interval PipeOrgan</Name>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>PipeOrgan MM</ManagementModuleName>
+                    <ConstructName>Errors Per Interval wsClient 3</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>3</AlertCompareOperator>
+                <CautionTargetValue>0</CautionTargetValue>
+                <DangerTargetValue>0</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Concurrent Invocations PipeOrgan</Name>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>PipeOrgan MM</ManagementModuleName>
+                    <ConstructName>Concurrent Invocations ws3</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>0</CautionTargetValue>
+                <DangerTargetValue>1</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Story Update ART on 14</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>PipeOrgan MM</ManagementModuleName>
+                    <ConstructName>Story Update ART on 14</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>55</CautionTargetValue>
+                <DangerTargetValue>65</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Average Response Time PipeOrgan</Name>
+                <Frequency>
+                    <PeriodInSeconds>120</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>PipeOrgan MM</ManagementModuleName>
+                    <ConstructName>Average Response Time</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>1000</CautionTargetValue>
+                <DangerTargetValue>2000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="false" DescriptionContentType="text/plain">
+                <Name>Responses Per Interval PipeOrgan</Name>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>PipeOrgan MM</ManagementModuleName>
+                    <ConstructName>Responses Per Interval Servlet 6</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>0</CautionTargetValue>
+                <DangerTargetValue>1</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Story Update ART on BT</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>PipeOrgan MM</ManagementModuleName>
+                    <ConstructName>Story Update ART on BT</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>280</CautionTargetValue>
+                <DangerTargetValue>400</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="false" DescriptionContentType="text/plain">
+                <Name>Stall Count 2 PipeOrgan</Name>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>PipeOrgan MM</ManagementModuleName>
+                    <ConstructName>Stall Count 8080</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>3</AlertCompareOperator>
+                <CautionTargetValue>0</CautionTargetValue>
+                <DangerTargetValue>0</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="false" DescriptionContentType="text/plain">
+                <Name>Stall Count PipeOrgan</Name>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>PipeOrgan MM</ManagementModuleName>
+                    <ConstructName>Stall Count</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>3</AlertCompareOperator>
+                <CautionTargetValue>0</CautionTargetValue>
+                <DangerTargetValue>0</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="false" DescriptionContentType="text/plain">
+                <Name>Story Update ART on 13</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>PipeOrgan MM</ManagementModuleName>
+                    <ConstructName>Story Update ART on 13</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>60</CautionTargetValue>
+                <DangerTargetValue>75</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+             <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Default Analysts ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>PipeOrgan MM</ManagementModuleName>
+                    <ConstructName>Default Analysts ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>300</CautionTargetValue>
+                <DangerTargetValue>400</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Default Analysts ART 2</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>PipeOrgan MM</ManagementModuleName>
+                    <ConstructName>Default Analysts ART 2</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>200</CautionTargetValue>
+                <DangerTargetValue>300</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Problem Merge ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>PipeOrgan MM</ManagementModuleName>
+                    <ConstructName>Problem Merge ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>300</CautionTargetValue>
+                <DangerTargetValue>400</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Problem Merge ART 2</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>PipeOrgan MM</ManagementModuleName>
+                    <ConstructName>Problem Merge ART 2</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>300</CautionTargetValue>
+                <DangerTargetValue>400</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Deployment Merge ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>PipeOrgan MM</ManagementModuleName>
+                    <ConstructName>Deployment Merge ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>300</CautionTargetValue>
+                <DangerTargetValue>400</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>ErrorSnapshot ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>PipeOrgan MM</ManagementModuleName>
+                    <ConstructName>ErrorSnapshot ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>150</CautionTargetValue>
+                <DangerTargetValue>200</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>StallSnapshot ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>PipeOrgan MM</ManagementModuleName>
+                    <ConstructName>StallSnapshot ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>1000</CautionTargetValue>
+                <DangerTargetValue>2000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+        </DataGroup>
+        <DataGroup xsi:type="MapEntityMetricGroupingDataGroup"/>
+        <DataGroup xsi:type="SnmpCollectionDataGroup"/>
+        <DataGroup xsi:type="UnmonitoredComponentGroupDataGroup"/>
+        <DataGroup xsi:type="introscope:AlertDowntimeScheduleDataGroup"/>
+        <DataGroup xsi:type="ActionDataGroup"/>
+        <DataGroup xsi:type="DifferentialControlDataGroup"/>
+        <DataGroup xsi:type="ReportDataGroup"/>
+        <DataGroup xsi:type="CalculatorDataGroup"/>
+        <DataGroup xsi:type="ImageDataGroup"/>
+        <DataGroup xsi:type="MetricGroupingDataGroup">
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Stall Count</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Business Application Agent \(Virtual\) \(tas\-scx\-n13a@5001\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>By Business Service\|PipeOrganApp\|User_Alert via iOS 8\|Health:Stall Count</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Errors Per Interval wsClient 3</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Tomcat.*\|Tomcat.*</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>WebServices\|Client\|PipeOrganWebService_3\|execute:Errors Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Concurrent Invocations ws3</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Tomcat.*\|Tomcat.*</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>WebServices\|Server\|http_//PipeOrganWebService_3\.webservices\.executor\.pipeorgan\.tools\.wily\.com\|execute:Concurrent Invocations</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Stall Count 8080</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Tomcat.*\|Tomcat.*</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Backends\|WebService at [^|]*_8080\|Paths\|Default:Stall Count</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp></MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Responses Per Interval Servlet 6</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Tomcat.*\|Tomcat.*</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets\|ExecutorServlet_6:Responses Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Average Response Time</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Tomcat.*\|Tomcat.*</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets\|ExecutorServlet_7:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Story Update ART on 14</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Tomcat\|(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets\|ExecutorServlet_14:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Story Update ART on 13</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Tomcat\|(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets\|ExecutorServlet_13:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Story Update ART on BT</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>By Business Service\|PipeOrganApp\|User_Story_Updated via iOS 9\|Health:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Default Analysts ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>By Business Service\|PipeOrganApp\|Cart_Checkout via iOS 8\|Health:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Default Analysts ART 2</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Tomcat\|(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets\|ExecutorServlet_5:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Problem Merge ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Tomcat\|(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets\|ExecutorServlet_9:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Problem Merge ART 2</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Tomcat\|(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets\|ExecutorServlet_10:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Deployment Merge ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Tomcat\|(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets\|ExecutorServlet_11:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>ErrorSnapshot ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Tomcat\|(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets\|ExecutorServlet_8:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>StallSnapshot ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Tomcat\|(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets\|ExecutorServlet_4:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+        </DataGroup>
+        <DataGroup xsi:type="EntityDataGroup"/>
+    </DataGroups>
+</ManagementModule>

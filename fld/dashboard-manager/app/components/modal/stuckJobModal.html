@@ -1,0 +1,61 @@
+<div id="stuckJobsModal">
+    <div class="modal-header">
+        <h3 class="modal-title">
+            <span>Relaunch stuck jobs</span>
+        </h3>
+    </div>
+    <div class="modal-body">
+        <form name="stuckJobModalForm">
+            <table class="table modalTable">
+                <thead>
+                <tr class="row">
+                    <th class="col-md-1 text-left">Job Id</th>
+                    <th class="col-md-1 text-left">Execution Id</th>
+                    <th class="col-md-3 text-left">Process Definition Id</th>
+                    <th class="col-md-4 text-left">Exception Message</th>
+                    <th class="col-md-2 text-left">Retries</th>
+                    <th class="col-md-1 text-right">Re-launch</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="job in jobs" class="row">
+                    <td class="col-md-1 text-left">{{ job.id }}</td>
+                    <td class="col-md-1 text-left">{{ job.executionId }}</td>
+                    <td class="col-md-3 text-left">{{ job.processDefinitionId }}</td>
+                    <td class="col-md-4 text-left">{{ job.exceptionMessage }}</td>
+                    <td class="col-md-2 text-left">
+                        <input type="number"
+                               class="form-control"
+                               placeholder="Retries counter"
+                               ng-model="job.retries"
+                               min="1"
+                               value="{{ job.retries }}"
+                               ng-required="true">
+                    </td>
+                    <td class="col-md-1 text-right">
+                        <button class="btn btn-success"
+                                ng-click="jobModalController.reLaunchJob(job)"
+                                autocomplete="off"
+                                title="Re-launch job">
+                            <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"
+                ng-click="jobModalController.onCancel()">
+            {{ modalOptions.cancelButtonText }}
+        </button>
+        <button type="button"
+                class="btn btn-primary"
+                data-dismiss="modal"
+                ng-click="jobModalController.onReLaunchAll()"
+                ng-disabled="!stuckJobModalForm.$valid">
+            {{ modalOptions.applyButtonText }}
+        </button>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+.navBarHeader {
+	margin-left: 5px !important; 
+}
+
+.navBarBrand {
+	padding: 0;	
+}
+
+.navBarLogoSpan {
+	padding: 0px 0px;
+	font-family: 'Segoe UI', 'HelveticaNeue-Light', 'sans-serif';
+	font-size: 1.75em; 
+	line-height: 2.0;
+	font-weight: 100;
+}
+
+.navBarLogoImage {
+	float: left;
+	height: 48px; 
+}
+
+.navGlyphButton {
+	padding-top: 20;
+}
+
+.contentContainer {
+	margin: 0 auto;
+	width: 80%;
+}

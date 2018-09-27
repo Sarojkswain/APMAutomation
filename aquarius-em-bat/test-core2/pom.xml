@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2014 CA.  All rights reserved.
+  ~
+  ~ This software and all information contained therein is confidential and
+  ~ proprietary and shall not be duplicated, used, disclosed or disseminated in
+  ~ any way except as authorized by the applicable license agreement, without
+  ~ the express written permission of CA. All authorized reproductions must be
+  ~ marked with this language.
+  ~
+  ~ EXCEPT AS SET FORTH IN THE APPLICABLE LICENSE AGREEMENT, TO THE EXTENT
+  ~ PERMITTED BY APPLICABLE LAW, CA PROVIDES THIS SOFTWARE WITHOUT WARRANTY OF
+  ~ ANY KIND, INCLUDING WITHOUT LIMITATION, ANY IMPLIED WARRANTIES OF
+  ~ MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  IN NO EVENT WILL CA BE
+  ~ LIABLE TO THE END USER OR ANY THIRD PARTY FOR ANY LOSS OR DAMAGE, DIRECT OR
+  ~ INDIRECT, FROM THE USE OF THIS SOFTWARE, INCLUDING WITHOUT LIMITATION, LOST
+  ~ PROFITS, BUSINESS INTERRUPTION, GOODWILL, OR LOST DATA, EVEN IF CA IS
+  ~ EXPRESSLY ADVISED OF SUCH LOSS OR DAMAGE.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>aquarius-em-bat</artifactId>
+		<groupId>com.ca.apm.test</groupId>
+		<version>99.99.dev_SaaS_fix-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>aquarius-em-bat-core2</artifactId>
+	<packaging>jar</packaging>
+
+	<name>Aquarius Team EM BAT TAS project - Core2</name>
+	<description>Module for defining testbeds, test and custom roles.</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.ca.apm.test</groupId>
+			<artifactId>aquarius-em-bat-flows</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ca.tas</groupId>
+			<artifactId>automation-roles</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.ca.tas.plugins</groupId>
+				<artifactId>tas-maven-plugin</artifactId>
+				<configuration>
+					<resmanApiUrl>${resman.url}</resmanApiUrl>
+					<resmanUser>${resman.user}</resmanUser>
+					<resmanPassword>${resman.password}</resmanPassword>
+
+					<almRunName>aquariusTAS2ALMTest</almRunName>
+					<almTestSetName>aquariusTAS2ALMTestSet</almTestSetName>
+					<almHost>http://alm11.ca.com/qcbin</almHost>
+					<almDomain>APM</almDomain>
+					<almProject>APM</almProject>
+					<almUsername>${almQAUser}</almUsername>
+					<almPassword>${almQAPassword}</almPassword>
+					<almTestPlanRoot>APM\\SystemTest\\Aquarius\\ALM Integration</almTestPlanRoot>
+					<almTestLabRoot>test</almTestLabRoot>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>index</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass>com.ca.tas.client.deployment.Deploy</mainClass>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<id>pack-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											com.ca.tas.plugins
+										</groupId>
+										<artifactId>
+											tas-maven-plugin
+										</artifactId>
+										<versionRange>
+											[${version.tas},)
+										</versionRange>
+										<goals>
+											<goal>index</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

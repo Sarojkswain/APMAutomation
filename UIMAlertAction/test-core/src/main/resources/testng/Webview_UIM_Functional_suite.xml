@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!-- @Tas(testBed = [ 
+    {name=com.ca.apm.tests.testbed.WindowsStandaloneTestbed, executeOn=agentMachine}],
+    owner = telra04,
+    size = BIG,
+    description = 'WebViewUIM Automation Selenium TestNg XML suite for all functional tests',
+    snapshotMode = 'LIVE') -->
+<suite name="WebViewUIMRegressionSuite">
+	<test name="testNgAllFunctionalTestsforWebViewUIMAutomation" preserve-order="false">
+
+		<classes>
+			<class name="com.ca.apm.tests.test.WebViewUIMTest" />
+		</classes>
+
+	</test>
+</suite>

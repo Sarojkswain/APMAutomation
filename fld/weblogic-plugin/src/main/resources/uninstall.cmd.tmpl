@@ -1,0 +1,17 @@
+@ECHO OFF
+REM ############################################################################
+REM Uninstall WebLogic installation and remove directory
+REM ############################################################################
+SETLOCAL EnableDelayedExpansion
+SET OLDDIR=%CD%
+
+IF EXIST utils\uninstall IF EXIST wl_server_10.3 (
+	utils\uninstall\uninstall.cmd -mode=silent & (
+		ECHO removing %OLDDIR% ...
+		CD ..
+		RD /s /q %OLDDIR%
+		ECHO ... done
+	)
+)
+
+ENDLOCAL

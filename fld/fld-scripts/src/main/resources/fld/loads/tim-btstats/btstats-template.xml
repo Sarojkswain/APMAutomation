@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2004 Wily Technology Inc, Inc. All rights reserved. -->
+<BTStats version="4" timestamp="[TIME]" host="[HOST]">
+<BTlist>
+<BT id="[BTID]" avgTime="10" respTime95Percentile="85" respTime95PercentileCount="1" count="1" performanceDefectiveCount="1" availabilityDefectiveCount="0" defectCount="1" minTime="10" maxTime="10" name="[BTID]" appName="Test" clamped="0">
+<Defect id="[DDID1]" type="1" count="1"/>
+<GeoLocation clientIp="51.80.[SecondSubnet].[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="20.85.[FirstSubnet].[SecondSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="200.80.[FirstSubnet].[SecondSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="69.63.240.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="69.61.35.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="223.253.[FirstSubnet].[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="1.11.[SecondSubnet].[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="1.1.0.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="103.228.83.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="103.228.65.[SecondSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="103.228.48.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="103.228.143.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="1.23.128.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="1.33.45.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="50.4.230.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="50.3.155.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="50.3.165.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="50.3.175.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="12.5.12.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="83.64.91.[SecondSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="223.255.0.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="223.255.240.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="223.227.128.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="223.226.0.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="223.224.45.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="223.223.220.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="223.223.64.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="223.223.128.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="223.197.128.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="223.194.0.[SecondSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="86.65.144.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="86.65.141.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="86.65.138.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="86.65.127.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="83.236.128.40" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="83.235.253.80" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="83.235.251.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="83.234.108.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+<GeoLocation clientIp="83.234.109.[FirstSubnet]" avgTime="10" count="1" minTime="10" maxTime="10"></GeoLocation>
+</BT>
+</BTlist>
+</BTStats>

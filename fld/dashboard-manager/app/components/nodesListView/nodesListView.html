@@ -1,0 +1,28 @@
+<div>
+    <script type="text/ng-template" id="nodeSelectorModal">
+        <div class="modal-header">
+            <h3 class="modal-title">Choose a node</h3>
+        </div>
+        <div class="modal-body">
+                <form>
+                    <div ng-class="{ 'form-group has-feedback' : true, 'has-success' : fldNodeName, 'has-error' : !fldNodeName }">
+                        <label class="control-label" for="nodeNameId">Name</label>
+                        <input type="text" class="form-control" id="nodeNameId" placeholder="Node Name"
+                               ng-model="fldNodeName" value="{{ fldNodeName }}">
+                        <span ng-class="{ 'glyphicon form-control-feedback' : true, 'glyphicon-ok' : fldNodeName, 'glyphicon-remove' : !fldNodeName }"
+                              aria-hidden="true"></span>
+                    </div>
+                </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal"
+                    ng-click="nodeSelectorController.onCancel()">Cancel
+            </button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="nodeSelectorController.onOk()">
+                Ok
+            </button>
+        </div>
+    </script>
+
+    <a class="nodeSearchButton" ng-click="controller.openNodesList()"><img src="img/binoculars32x32.png"></a>
+</div>

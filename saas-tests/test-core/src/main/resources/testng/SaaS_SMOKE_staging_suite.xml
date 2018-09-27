@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+	    {name=com.ca.apm.saas.testbed.SaasUITestbed, executeOn=testMachine}],
+	  owner = akujo01,
+	  size = BIG,
+	  description = 'SAAS End to End Tests'),
+	  snapshotPolicy = SnapshotPolicy.ALWAYS,
+      snapshot = SnapshotMode.LIVE
+-->	
+<suite name="SaaS_SMOKE" configfailurepolicy="continue">	
+	<parameter name="instance" value="staging" />			
+	<parameter name="testngEmailEnabled" value="true" />
+	 	  
+	<test name="SaaSEnd2EndBAT" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.saas.test.SaaSEnd2EndTests">
+				 <methods>
+				   	<include name="testAgentBundles" />
+				   	<include name="testDemoAgent" />
+				 	<include name="testThievesConnected" />
+					<include name="testThievesMap" />
+					<include name="testThievesTTViewer" />
+				 </methods>
+			</class>
+			<class name="com.ca.apm.saas.test.SaasAxaSanityTest" />
+				 <methods>
+				 	<exclude name="testAxaDataStudioSuccessful" />
+				 </methods>
+			<class name="com.ca.apm.saas.test.PageLinksTest" />
+			<class name="com.ca.apm.saas.test.SaasAgentViewTests"/>
+		</classes>
+	</test>
+	<listeners>    	
+   	    <listener class-name="org.uncommons.reportng.HTMLReporter" />    	
+   		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+ 	</listeners>
+</suite>

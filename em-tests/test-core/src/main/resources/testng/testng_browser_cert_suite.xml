@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!-- @Tas(testBed = [ 
+    {name=com.ca.apm.testbed.atc.TeamCenterRegressionTestBed, executeOn=endUserMachine}],
+    owner = haiva01,
+    size = BIG,
+    description = 'AGC Selenium TestNg XML suite for all functional tests',
+    snapshotMode = 'LIVE') -->
+<suite name="testNgBrowserCertTestSuite" configfailurepolicy="continue">
+	<test name="testNgAllFunctionalTests" preserve-order="true">
+		<classes>
+            <!-- SetupRegressionTest starts WebView and thus needs to be executed as the first thing. -->
+            <class name="com.ca.apm.test.atc.SetupRegressionTest" />
+
+            <class name="com.ca.apm.test.atc.AppMapHelpLinksTest" />
+            <class name="com.ca.apm.test.atc.attributes.AttributeRulesTest" />
+            <class name="com.ca.apm.test.atc.attributes.AttributesTest" />
+            <class name="com.ca.apm.test.atc.changedetection.ChangeEventsHighlightingTest" />
+            <class name="com.ca.apm.test.atc.changedetection.ChangeEventsTest" />
+            <class name="com.ca.apm.test.atc.databrushing.DatabrushingTest" />
+            <class name="com.ca.apm.test.atc.DeepLinkingTest" />
+            <class name="com.ca.apm.test.atc.DetailsPanelTest" />
+            <class name="com.ca.apm.test.atc.ExpandCollapseViewsTest" />
+            <class name="com.ca.apm.test.atc.externalization.ExternalizationTest" />
+            <class name="com.ca.apm.test.atc.filtersnavigation.AdvancedFilterUrlTest" />
+            <class name="com.ca.apm.test.atc.filtersnavigation.CreateFilter" />
+            <class name="com.ca.apm.test.atc.filtersnavigation.DeleteFilter" />
+            <class name="com.ca.apm.test.atc.filtersnavigation.DisableFilter" />
+            <class name="com.ca.apm.test.atc.filtersnavigation.DragAndDropTest" />
+            <class name="com.ca.apm.test.atc.filtersnavigation.EditFilter" />
+            <class name="com.ca.apm.test.atc.filtersnavigation.FilterFilter" />
+            <class name="com.ca.apm.test.atc.filtersnavigation.MapView" />
+            <class name="com.ca.apm.test.atc.filtersnavigation.SimpleFilterUrlTest" />
+            <class name="com.ca.apm.test.atc.filtersnavigation.Sorting" />
+            <class name="com.ca.apm.test.atc.grouping.SemanticGroupingTest" />
+            <class name="com.ca.apm.test.atc.grouping.TemporaryPerspectiveTest" />
+            <class name="com.ca.apm.test.atc.grouping.TemporaryPerspectiveTest" />
+            <class name="com.ca.apm.test.atc.landing.BreadcrumbTest" />
+            <class name="com.ca.apm.test.atc.landing.ConfigurationPageTest" />
+            <class name="com.ca.apm.test.atc.landing.FoldingTest" />
+            <class name="com.ca.apm.test.atc.landing.LandingPageHelpLinksTest" />
+            <class name="com.ca.apm.test.atc.landing.SortingAndDragAndDropTest" />
+            <class name="com.ca.apm.test.atc.landing.TileInteractionTest" />
+            <class name="com.ca.apm.test.atc.landing.TimePersistenceTest" />
+            <class name="com.ca.apm.test.atc.landing.TopNavigationTest" />
+            <class name="com.ca.apm.test.atc.landing.UrlSharingTest" />
+            <class name="com.ca.apm.test.atc.levelofdetail.LevelsOfDetailTest" />
+            <class name="com.ca.apm.test.atc.permalink.FiltersPermalinkTest" />
+            <class name="com.ca.apm.test.atc.permalink.TimelinePermalink" />
+            <class name="com.ca.apm.test.atc.search.SearchTest" />
+            <class name="com.ca.apm.test.atc.status.StatusTest" />
+            <class name="com.ca.apm.test.atc.timeline.TimelineTest" />
+            <class name="com.ca.apm.test.atc.timeline.ZoomingTest" />
+            <class name="com.ca.apm.test.atc.trendview.ComponentViewInDashboardTest" />
+            <class name="com.ca.apm.test.atc.trendview.DetailViewTest" />
+            <class name="com.ca.apm.test.atc.universe.ActiveUniverseTest" />
+            <class name="com.ca.apm.test.atc.universe.UniverseAuthorizationTest" />
+            <class name="com.ca.apm.test.atc.universe.UniverseTest" />
+            <class name="com.ca.apm.test.atc.webview.TimeResolutionTest" />
+            <class name="com.ca.apm.test.atc.WelcomeScreenTest" />
+		</classes>
+	</test>
+</suite>

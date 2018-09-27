@@ -1,0 +1,25 @@
+# connect(adminServerName='AdminServer', url='t3://localhost:${LISTEN_PORT}')
+connect('weblogic', 'welcome123', 't3://localhost:${LISTEN_PORT}')
+edit()
+startEdit()
+undo('true', 'y')
+cd('/')
+apps=ls('/AppDeployments')
+if ( apps.find('${DEPLOY_APP_NAME}') == -1):
+	progress=deploy('${DEPLOY_APP_NAME}', '${DEPLOY_WAR_FILE}')
+else:
+	progress=redeploy('${DEPLOY_APP_NAME}')
+
+activate()
+
+a=0;
+while (progress.isRunning() and a < 20):
+	Thread.sleep(2000)
+	print '--------------------------------------------------------'
+	progress.printStatus()
+	a += 1
+
+print '\n--------------------------------------------------------'
+print 'FINAL STATE:'
+progress.printStatus()
+print '--------------------------------------------------------'

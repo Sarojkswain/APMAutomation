@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1428410805422" name="">
+  <signal id="fld.end.fake.workstation.load.signal" name="fld.end.fake.workstation.load.signal"></signal>
+  <process id="fld.start.fake.workstation.load" name="FLD Fake Workstation Load" isExecutable="true" isClosed="false" processType="None">
+    <documentation>See</documentation>
+    <startEvent id="startFakeWorkstationLoad" name="Start Fake Workstation Load Process">
+      <extensionElements>
+        <activiti:formProperty id="agentNode" name="agentNode" type="node" variable="agentNode" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fakeWorkstationVersion" name="fakeWorkstationVersion" type="string" variable="fakeWorkstationVersion" default="99.99.sys-SNAPSHOT"></activiti:formProperty>
+        <activiti:formProperty id="agentListLive" name="agentListLive" type="string" variable="agentListLive" default="(.*)Agent_1,(.*)Agent_2,(.*)Agent_3,(.*)Agent_4,(.*)Agent_5,(.*)Agent_6,(.*)Agent_7,(.*)Agent_8,(.*)Agent_9,(.*)Agent_10"></activiti:formProperty>
+        <activiti:formProperty id="agentListHistorical" name="agentListHistorical" type="string" variable="agentListHistorical" default="(.*)Agent_2"></activiti:formProperty>
+        <activiti:formProperty id="momHost" name="momHost" type="string" variable="momHost" required="true"></activiti:formProperty>
+        <activiti:formProperty id="javaOptions" name="javaOptions" type="string" variable="javaOptions" default="-Xms96m -Xmx512m -XX:+HeapDumpOnOutOfMemoryError"></activiti:formProperty>
+        <activiti:formProperty id="port" name="port" type="long" variable="port" default="5001"></activiti:formProperty>
+        <activiti:formProperty id="userLive" name="userLive" type="string" variable="userLive" default="Admin11"></activiti:formProperty>
+        <activiti:formProperty id="userHistorical" name="userHistorical" type="string" variable="userHistorical" default="Admin12"></activiti:formProperty>
+        <activiti:formProperty id="passwordLive" name="passwordLive" type="string" variable="passwordLive" default="admin11"></activiti:formProperty>
+        <activiti:formProperty id="passwordHistorical" name="passwordHistorical" type="string" variable="passwordHistorical" default="admin12"></activiti:formProperty>
+        <activiti:formProperty id="resolution" name="resolution" type="long" variable="resolution" default="15"></activiti:formProperty>
+        <activiti:formProperty id="sleepBetween" name="sleepBetween" type="long" variable="sleepBetween" default="300000"></activiti:formProperty>
+        <activiti:formProperty id="metric" name="metric" type="string" variable="metric" default="Servlets\|Servlet_(.*):Average Response Time \(ms\)"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <scriptTask id="scripttask1" name="Download Fake Workstation plugin" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>Thread.sleep(5000);
+
+def nodeName = agentNode.getName();
+def proxy = agentProxyFactory.createProxy(nodeName);
+def fakeWorkstationPlugin = proxy.plugins.fakeWorkstation;
+def downloadDir = 'C:/fakeWS';
+def fileName = 'fakeWorkstation';
+def extension = '.jar';
+
+logLogger.info("FakeWorkstation", "Download Script", "About to download Fake workstation tool");
+logLogger.info("FakeWorkstation", "Download Script", "    Fake workstation version: " + fakeWorkstationVersion);
+logLogger.info("FakeWorkstation", "Download Script", "    Download dir: " + downloadDir);
+logLogger.info("FakeWorkstation", "Download Script", "    File name: " + fileName + extension);
+
+def fakeWorkstationJarPath = fakeWorkstationPlugin.downloadFakeWorkstation(fakeWorkstationVersion, downloadDir, fileName, extension);
+
+logLogger.info("FakeWorkstation", "Download Script", "Downloaded fake workstation path: " + fakeWorkstationJarPath);
+
+execution.setVariable('fakeWorkstationJarPath',  fakeWorkstationJarPath);
+
+Thread.sleep(5000);</script>
+    </scriptTask>
+    <sequenceFlow id="asyncStartFlow" name="Start asynchronously" sourceRef="startFakeWorkstationLoad" targetRef="scripttask3"></sequenceFlow>
+    <scriptTask id="scripttask2" name="Historical &amp; Live MOM Querying" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>def nodeName = agentNode.getName();
+def proxy = agentProxyFactory.createProxy(nodeName);
+def fakeWorkstationPlugin = proxy.plugins.fakeWorkstation;
+
+logLogger.info("FakeWorkstation", "Launch Loads Script", "About to launch fake workstation loads ");
+
+def jvmOptsArray = javaOptions.split("\\s+");
+
+logLogger.info("FakeWorkstation", "Launch Loads Script", "JVM Options: " + jvmOptsArray);
+
+def agentsLive = agentListLive.split(',');
+
+logLogger.info("FakeWorkstation", "Launch Loads Script", "Agents for live metrics querying: " + agentsLive);
+
+def liveMap = [:];
+for (agent in agentsLive) {
+    def liveProcId = fakeWorkstationPlugin.runQueriesAgainstMOM(fakeWorkstationJarPath, jvmOptsArray, momHost, port, userLive,
+                                                                                                              passwordLive, resolution, sleepBetween, '', metric, agent);
+    liveMap.put(agent, liveProcId);
+}
+
+//----------------------
+
+def agentsHistorical = agentListHistorical.split(',');
+
+def historicalMap = [:];
+for (agent in agentsHistorical) {
+    def historicalProcId = fakeWorkstationPlugin.runQueriesAgainstMOM(fakeWorkstationJarPath, jvmOptsArray, momHost, port, userHistorical,
+                                                                                                                       passwordHistorical, resolution, sleepBetween, '-historical', metric, agent);
+    historicalMap.put(agent, historicalProcId);
+}
+
+execution.setVariable('liveMap', liveMap);
+execution.setVariable('historicalMap', historicalMap);
+execution.setVariable('endFakeWorkstationLoads', false);</script>
+    </scriptTask>
+    <sequenceFlow id="goWaitFlow1" name="Wait a bit" sourceRef="scripttask1" targetRef="shortWait1"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <scriptTask id="setExitFlagToTrueScriptTask" name="Set the exit flag to true" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>logLogger.info("FakeWorkstationLog", "", "Got EndFakeWorkstation signal...");
+execution.setVariable('endFakeWorkstationLoads', true);</script>
+    </scriptTask>
+    <scriptTask id="shutDownAllFakeWorkstationLoadProcessesScriptTask" name="End up all fake workstation processes" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>def nodeName = agentNode.getName();
+def proxy = agentProxyFactory.createProxy(nodeName)
+def fakeWorkstationPlugin = proxy.plugins.fakeWorkstation
+
+liveMap.each { agent, procId -&gt; 
+    execution.setVariable('fw.live.monitor.' + agent, null)
+    logLogger.info("FakeWorkstationLog", "[ Live, Agent = '" + agent + "', ProcId = '" + procId + "' ]", "Finishing process...")
+    fakeWorkstationPlugin.stopFakeWorkstationProcess(procId)
+}
+
+historicalMap.each { agent, procId -&gt; 
+    execution.setVariable('fw.historical.monitor.' + agent, null)
+    logLogger.info("FakeWorkstationLog", "[ Historical, Agent = '" + agent + "', ProcId = '" + procId + "' ]", "Finishing process...")
+    fakeWorkstationPlugin.stopFakeWorkstationProcess(procId)
+}
+</script>
+    </scriptTask>
+    <sequenceFlow id="exitFlow" name="Exit" sourceRef="shutDownAllFakeWorkstationLoadProcessesScriptTask" targetRef="parallelgateway2"></sequenceFlow>
+    <scriptTask id="logPollingScriptTask" name="Check fake workstation logs" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>def nodeName = agentNode.getName();
+def proxy = agentProxyFactory.createProxy(nodeName);
+def fakeWorkstationPlugin = proxy.plugins.fakeWorkstation;
+
+def monKey = "fld.monitor.fake.workstation";
+def monStatus = true;
+dashboardManager.configureMonitoredValue(execution, monKey, "Fake Workstation Load Status");
+
+liveMap.each { agent, procId -&gt; 
+    def isLoadRunning = fakeWorkstationPlugin.isLoadRunning(procId);
+    if (isLoadRunning == null) {
+        isLoadRunning = false;
+    }
+    monStatus = monStatus &amp;&amp; isLoadRunning;
+}
+
+historicalMap.each { agent, procId -&gt; 
+    def isLoadRunning = fakeWorkstationPlugin.isLoadRunning(procId);
+    monStatus = monStatus &amp;&amp; isLoadRunning;
+}
+
+dashboardManager.setMonitoredValue(execution, monKey, monStatus);
+</script>
+    </scriptTask>
+    <sequenceFlow id="goPollFakeWorkstationLogsFlow" name="Go poll fake workstation logs" sourceRef="scripttask2" targetRef="longWait1"></sequenceFlow>
+    <sequenceFlow id="goSetEndFakeWorkstationFlagToFalseFlow" name="Go set endFakeWorkstation to false to stop the load processes" sourceRef="signalintermediatecatchevent1" targetRef="setExitFlagToTrueScriptTask"></sequenceFlow>
+    <scriptTask id="scripttask3" name="Async Start" activiti:async="true" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>Thread.sleep(1);</script>
+    </scriptTask>
+    <sequenceFlow id="downloadFakeWorkstationFlow" name="Download fake workstation tool" sourceRef="scripttask3" targetRef="scripttask1"></sequenceFlow>
+    <intermediateCatchEvent id="shortWait1" name="TimerCatchEvent1">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="launchLoadsFlow" name="Launch live and historical loads" sourceRef="shortWait1" targetRef="scripttask2"></sequenceFlow>
+    <intermediateCatchEvent id="checkStatusTimerEvent" name="TimerCatchEvent3">
+      <timerEventDefinition>
+        <timeDuration>PT${sleepBetween/1000}S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow1" sourceRef="checkStatusTimerEvent" targetRef="logPollingScriptTask"></sequenceFlow>
+    <intermediateCatchEvent id="longWait1" name="TimerCatchEvent2">
+      <timerEventDefinition>
+        <timeDuration>PT30S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow2" sourceRef="longWait1" targetRef="parallelgateway1"></sequenceFlow>
+    <intermediateCatchEvent id="signalintermediatecatchevent1" name="SignalCatchEvent">
+      <signalEventDefinition signalRef="fld.end.fake.workstation.load.signal"></signalEventDefinition>
+    </intermediateCatchEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT30S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow6" sourceRef="setExitFlagToTrueScriptTask" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+    <parallelGateway id="parallelgateway1" name="Parallel Gateway"></parallelGateway>
+    <sequenceFlow id="flow9" sourceRef="parallelgateway1" targetRef="checkStatusTimerEvent"></sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="parallelgateway1" targetRef="signalintermediatecatchevent1"></sequenceFlow>
+    <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
+    <sequenceFlow id="flow11" sourceRef="parallelgateway2" targetRef="endevent1"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow12" sourceRef="logPollingScriptTask" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow13" name="Continue" sourceRef="exclusivegateway1" targetRef="checkStatusTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${endFakeWorkstationLoads == false}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow14" name="End" sourceRef="exclusivegateway1" targetRef="shutDownAllFakeWorkstationLoadProcessesScriptTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${endFakeWorkstationLoads == true}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow15" sourceRef="timerintermediatecatchevent1" targetRef="parallelgateway2"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.start.fake.workstation.load">
+    <bpmndi:BPMNPlane bpmnElement="fld.start.fake.workstation.load" id="BPMNPlane_fld.start.fake.workstation.load">
+      <bpmndi:BPMNShape bpmnElement="startFakeWorkstationLoad" id="BPMNShape_startFakeWorkstationLoad">
+        <omgdc:Bounds height="35.0" width="35.0" x="480.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
+        <omgdc:Bounds height="81.0" width="151.0" x="422.0" y="340.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask2" id="BPMNShape_scripttask2">
+        <omgdc:Bounds height="81.0" width="217.0" x="389.0" y="750.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="480.0" y="1660.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="setExitFlagToTrueScriptTask" id="BPMNShape_setExitFlagToTrueScriptTask">
+        <omgdc:Bounds height="101.0" width="191.0" x="736.0" y="1050.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="shutDownAllFakeWorkstationLoadProcessesScriptTask" id="BPMNShape_shutDownAllFakeWorkstationLoadProcessesScriptTask">
+        <omgdc:Bounds height="91.0" width="255.0" x="120.0" y="1430.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="logPollingScriptTask" id="BPMNShape_logPollingScriptTask">
+        <omgdc:Bounds height="102.0" width="174.0" x="251.0" y="1211.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask3" id="BPMNShape_scripttask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="445.0" y="140.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="shortWait1" id="BPMNShape_shortWait1">
+        <omgdc:Bounds height="35.0" width="35.0" x="480.0" y="600.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkStatusTimerEvent" id="BPMNShape_checkStatusTimerEvent">
+        <omgdc:Bounds height="35.0" width="35.0" x="320.0" y="1083.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="longWait1" id="BPMNShape_longWait1">
+        <omgdc:Bounds height="35.0" width="35.0" x="480.0" y="982.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="signalintermediatecatchevent1" id="BPMNShape_signalintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="550.0" y="1083.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="814.0" y="1458.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway1" id="BPMNShape_parallelgateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="477.0" y="1080.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway2" id="BPMNShape_parallelgateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="477.0" y="1455.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="40.0" y="1241.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="asyncStartFlow" id="BPMNEdge_asyncStartFlow">
+        <omgdi:waypoint x="497.0" y="55.0"></omgdi:waypoint>
+        <omgdi:waypoint x="497.0" y="140.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="48.0" width="100.0" x="544.0" y="212.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="goWaitFlow1" id="BPMNEdge_goWaitFlow1">
+        <omgdi:waypoint x="497.0" y="421.0"></omgdi:waypoint>
+        <omgdi:waypoint x="497.0" y="600.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="48.0" width="44.0" x="527.0" y="425.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="exitFlow" id="BPMNEdge_exitFlow">
+        <omgdi:waypoint x="375.0" y="1475.0"></omgdi:waypoint>
+        <omgdi:waypoint x="477.0" y="1475.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="16.0" width="100.0" x="394.0" y="1455.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="goPollFakeWorkstationLogsFlow" id="BPMNEdge_goPollFakeWorkstationLogsFlow">
+        <omgdi:waypoint x="497.0" y="831.0"></omgdi:waypoint>
+        <omgdi:waypoint x="497.0" y="982.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="48.0" width="100.0" x="507.0" y="831.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="goSetEndFakeWorkstationFlagToFalseFlow" id="BPMNEdge_goSetEndFakeWorkstationFlagToFalseFlow">
+        <omgdi:waypoint x="585.0" y="1100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="736.0" y="1100.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="80.0" width="100.0" x="609.0" y="1001.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="downloadFakeWorkstationFlow" id="BPMNEdge_downloadFakeWorkstationFlow">
+        <omgdi:waypoint x="497.0" y="195.0"></omgdi:waypoint>
+        <omgdi:waypoint x="497.0" y="340.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="48.0" width="100.0" x="395.0" y="240.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="launchLoadsFlow" id="BPMNEdge_launchLoadsFlow">
+        <omgdi:waypoint x="497.0" y="635.0"></omgdi:waypoint>
+        <omgdi:waypoint x="497.0" y="750.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="48.0" width="100.0" x="506.0" y="537.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="337.0" y="1118.0"></omgdi:waypoint>
+        <omgdi:waypoint x="338.0" y="1211.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="497.0" y="1017.0"></omgdi:waypoint>
+        <omgdi:waypoint x="497.0" y="1080.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="831.0" y="1151.0"></omgdi:waypoint>
+        <omgdi:waypoint x="831.0" y="1458.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="477.0" y="1100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="355.0" y="1100.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="517.0" y="1100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="550.0" y="1100.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="497.0" y="1495.0"></omgdi:waypoint>
+        <omgdi:waypoint x="497.0" y="1660.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="251.0" y="1262.0"></omgdi:waypoint>
+        <omgdi:waypoint x="80.0" y="1261.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="60.0" y="1241.0"></omgdi:waypoint>
+        <omgdi:waypoint x="60.0" y="1100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="1100.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="16.0" width="51.0" x="70.0" y="1111.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="60.0" y="1281.0"></omgdi:waypoint>
+        <omgdi:waypoint x="60.0" y="1474.0"></omgdi:waypoint>
+        <omgdi:waypoint x="120.0" y="1475.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="16.0" width="23.0" x="64.0" y="1301.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="814.0" y="1475.0"></omgdi:waypoint>
+        <omgdi:waypoint x="517.0" y="1475.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

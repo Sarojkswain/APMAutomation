@@ -1,0 +1,2 @@
+Insight Polling Interval (sec)
+DB2 Polling Interval (sec)

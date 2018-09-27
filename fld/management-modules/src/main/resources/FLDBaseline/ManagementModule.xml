@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ManagementModule xmlns:ns1="http://www.w3.org/2005/11/its" xmlns:introscope="generated://introscope.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Editable="true" Version="4.0" IsActive="true" DescriptionContentType="text/plain" xsi:noNamespaceSchemaLocation="bundle://com.wily.introscope.em/com/wily/introscope/server/enterprise/entity/bundle/IntroscopeManagementModules4.0.xsd">
+    <Name>FLDBaselineManagementModule</Name>
+    <DataGroups>
+        <DataGroup xsi:type="DifferentialControlDataGroup">
+            <DifferentialControl IsActive="true" DescriptionContentType="text/plain">
+                <Name>Differential Control - C7 - C8 - 3PortletAgent</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLDBaselineManagementModule</ManagementModuleName>
+                    <ConstructName>C7 - C8 - 3PortletAgent - Metric Grouping</ConstructName>
+                </MetricGroupingID>
+                <WesternElectricRuleSet>
+                    <Rule1>true</Rule1>
+                    <Rule2>true</Rule2>
+                    <Rule3>true</Rule3>
+                    <Rule4>true</Rule4>
+                </WesternElectricRuleSet>
+                <EvaluationWindowCellCount>20</EvaluationWindowCellCount>
+                <EvaluationWindowCellDecay>20</EvaluationWindowCellDecay>
+                <CautionThresholdLevel>5</CautionThresholdLevel>
+                <DangerThresholdLevel>4</DangerThresholdLevel>
+            </DifferentialControl>
+            <DifferentialControl IsActive="true" DescriptionContentType="text/plain">
+                <Name>Differential Control - C9 - 6ComplexAgent </Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLDBaselineManagementModule</ManagementModuleName>
+                    <ConstructName>C9 - 6ComplexAgent - Metric Grouping</ConstructName>
+                </MetricGroupingID>
+                <WesternElectricRuleSet>
+                    <Rule1>true</Rule1>
+                    <Rule2>true</Rule2>
+                    <Rule3>true</Rule3>
+                    <Rule4>true</Rule4>
+                </WesternElectricRuleSet>
+                <EvaluationWindowCellCount>20</EvaluationWindowCellCount>
+                <EvaluationWindowCellDecay>20</EvaluationWindowCellDecay>
+                <CautionThresholdLevel>5</CautionThresholdLevel>
+                <DangerThresholdLevel>4</DangerThresholdLevel>
+            </DifferentialControl>
+            <DifferentialControl IsActive="true" DescriptionContentType="text/plain">
+                <Name>Differential Control - C6 - 5ComplexAgent</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLDBaselineManagementModule</ManagementModuleName>
+                    <ConstructName>C6 - 5ComplexAgent - Metric Grouping</ConstructName>
+                </MetricGroupingID>
+                <WesternElectricRuleSet>
+                    <Rule1>true</Rule1>
+                    <Rule2>true</Rule2>
+                    <Rule3>true</Rule3>
+                    <Rule4>true</Rule4>
+                </WesternElectricRuleSet>
+                <EvaluationWindowCellCount>20</EvaluationWindowCellCount>
+                <EvaluationWindowCellDecay>20</EvaluationWindowCellDecay>
+                <CautionThresholdLevel>5</CautionThresholdLevel>
+                <DangerThresholdLevel>4</DangerThresholdLevel>
+            </DifferentialControl>
+            <DifferentialControl IsActive="true" DescriptionContentType="text/plain">
+                <Name>Differential Control - C5 - 4ComplexAgent</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLDBaselineManagementModule</ManagementModuleName>
+                    <ConstructName>C5 - 4ComplexAgent - Metric Grouping</ConstructName>
+                </MetricGroupingID>
+                <WesternElectricRuleSet>
+                    <Rule1>true</Rule1>
+                    <Rule2>true</Rule2>
+                    <Rule3>true</Rule3>
+                    <Rule4>true</Rule4>
+                </WesternElectricRuleSet>
+                <EvaluationWindowCellCount>20</EvaluationWindowCellCount>
+                <EvaluationWindowCellDecay>20</EvaluationWindowCellDecay>
+                <CautionThresholdLevel>5</CautionThresholdLevel>
+                <DangerThresholdLevel>4</DangerThresholdLevel>
+            </DifferentialControl>
+            <DifferentialControl IsActive="true" DescriptionContentType="text/plain">
+                <Name>Differential Control - C10 - 5PortletAgent</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLDBaselineManagementModule</ManagementModuleName>
+                    <ConstructName>C10 - 5PortletAgent - Metric Grouping</ConstructName>
+                </MetricGroupingID>
+                <WesternElectricRuleSet>
+                    <Rule1>true</Rule1>
+                    <Rule2>true</Rule2>
+                    <Rule3>true</Rule3>
+                    <Rule4>true</Rule4>
+                </WesternElectricRuleSet>
+                <EvaluationWindowCellCount>20</EvaluationWindowCellCount>
+                <EvaluationWindowCellDecay>20</EvaluationWindowCellDecay>
+                <CautionThresholdLevel>5</CautionThresholdLevel>
+                <DangerThresholdLevel>4</DangerThresholdLevel>
+            </DifferentialControl>
+            <DifferentialControl IsActive="true" DescriptionContentType="text/plain">
+                <Name>Differential Control - C4 - 3ComplexAgent </Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLDBaselineManagementModule</ManagementModuleName>
+                    <ConstructName>C4 - 3ComplexAgent - Metric Grouping</ConstructName>
+                </MetricGroupingID>
+                <WesternElectricRuleSet>
+                    <Rule1>true</Rule1>
+                    <Rule2>true</Rule2>
+                    <Rule3>true</Rule3>
+                    <Rule4>true</Rule4>
+                </WesternElectricRuleSet>
+                <EvaluationWindowCellCount>20</EvaluationWindowCellCount>
+                <EvaluationWindowCellDecay>20</EvaluationWindowCellDecay>
+                <CautionThresholdLevel>5</CautionThresholdLevel>
+                <DangerThresholdLevel>4</DangerThresholdLevel>
+            </DifferentialControl>
+            <DifferentialControl IsActive="true" DescriptionContentType="text/plain">
+                <Name>Differential Control - C3 - 1PortletAgent</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLDBaselineManagementModule</ManagementModuleName>
+                    <ConstructName>C3 - 1PortletAgent - Metric Grouping</ConstructName>
+                </MetricGroupingID>
+                <WesternElectricRuleSet>
+                    <Rule1>true</Rule1>
+                    <Rule2>true</Rule2>
+                    <Rule3>true</Rule3>
+                    <Rule4>true</Rule4>
+                </WesternElectricRuleSet>
+                <EvaluationWindowCellCount>20</EvaluationWindowCellCount>
+                <EvaluationWindowCellDecay>20</EvaluationWindowCellDecay>
+                <CautionThresholdLevel>5</CautionThresholdLevel>
+                <DangerThresholdLevel>4</DangerThresholdLevel>
+            </DifferentialControl>
+        </DataGroup>
+        <DataGroup xsi:type="EntityDataGroup"/>
+        <DataGroup xsi:type="SnmpCollectionDataGroup"/>
+        <DataGroup xsi:type="UnmonitoredComponentGroupDataGroup"/>
+        <DataGroup xsi:type="ReportDataGroup"/>
+        <DataGroup xsi:type="MapEntityMetricGroupingDataGroup"/>
+        <DataGroup xsi:type="CalculatorDataGroup"/>
+        <DataGroup xsi:type="ActionDataGroup"/>
+        <DataGroup xsi:type="MetricGroupingDataGroup">
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>C6 - 5ComplexAgent - Metric Grouping</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>.*5ComplexAgent_.*</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|App_[1-2]:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>C4 - 3ComplexAgent - Metric Grouping</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>.*3ComplexAgent_.*</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|App_1\|URLs\|Servlet_.*\|Called Backends\|DB_[1]:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>C5 - 4ComplexAgent - Metric Grouping</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>.*4ComplexAgent_.*</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|App_.*\|URLs\|Servlet_[1-9]\|Called Backends\|DB_[1-2]:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>C3 - 1PortletAgent - Metric Grouping</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>.*1PortletAgent_.*</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|App_.*\|URLs\|Servlet_.*\|Called Backends\|DB_[1-8]:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>.*1PortletAgent_.*</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|App_[1-9][0]\|URLs\|Servlet_.*\|Called Backends\|DB_[9]:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>C10 - 5PortletAgent - Metric Grouping</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>.*BackEndAgent_2_[1-4].*</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|Application\|URLs\|Servlet_.*\|Called Backends\|.*:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>.*5PortletAgent_.*</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|App_.*\|URLs\|Servlet_.*\|Called Backends\|DB_[1-9][0-4]?:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>C7 - C8 - 3PortletAgent - Metric Grouping</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>.*[34]PortletAgent_.*</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|App_.*\|URLs\|Servlet_.*\|Called Backends\|DB_[1-9]:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>C9 - 6ComplexAgent - Metric Grouping</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>.*6ComplexAgent_.*</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|App_.*\|URLs\|Servlet_.*\|Called Backends\|DB_[1]:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+        </DataGroup>
+        <DataGroup xsi:type="AlertDataGroup"/>
+        <DataGroup xsi:type="introscope:AlertDowntimeScheduleDataGroup"/>
+        <DataGroup xsi:type="ImageDataGroup"/>
+        <DataGroup xsi:type="TriageMapAlertDataGroup"/>
+        <DataGroup xsi:type="DashboardDataGroup"/>
+    </DataGroups>
+</ManagementModule>

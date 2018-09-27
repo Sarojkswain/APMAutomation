@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE scenario SYSTEM "./dtd/PipeOrganScenario.dtd">
+
+<!-- Problem Scenario for Deployment based merging for webservice. -->
+
+<scenario>
+
+	<iterateEvent count="4" interval="100">
+		<servlet milestones="no" uri="ExecutorServlet_16" port="8080"
+			host="localhost" receiveError="yes"
+			x-apm-bt="t=4F2504E0-4F89-9B0C-0305E82C2301;d=2b6f0cc904d137be2e1730235f5664094b831186;v=1.0;n=VERIZON;l=3g;g=94015-1523;a=Tomcat Example$bs=PipeOrganApp;bt=Multiple_Users;p=iOS;pv=9.3">
+			<webService
+				uri="http://crossMachine:8080/pipeorgan/services/PipeOrganWebService_16"
+				requestsize="10">
+				<wait duration="40000" />
+			</webService>
+		</servlet>
+	</iterateEvent>
+</scenario>

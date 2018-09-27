@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<loadbalancing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="loadbalancing0.1.xsd">
+    <agent-collector name="Historical Metrics Agents">
+       <agent-specifier>.*\|.*\|TomcatDM.*</agent-specifier>
+       <include>
+              <collector host="%%COLLECTOR_HOSTNAME%%" port="5001"/>
+       </include>
+    </agent-collector>
+</loadbalancing>

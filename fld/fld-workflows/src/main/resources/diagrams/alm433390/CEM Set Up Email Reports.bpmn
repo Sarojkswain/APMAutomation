@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="setUpEmailReportsProcess" name="CEM Set Up Email Reports" isExecutable="true">
+    <startEvent id="startSetUpEmailReports" name="Start" activiti:initiator="initiator">
+      <extensionElements>
+        <activiti:formProperty id="targetHost" name="targetHost" type="string" variable="targetHost" default="fldmom01c" required="true"></activiti:formProperty>
+        <activiti:formProperty id="targetPort" name="targetPort" type="string" variable="targetPort" default="8081" required="true"></activiti:formProperty>
+        <activiti:formProperty id="nodeName" name="nodeName" type="string" variable="nodeName" default="fldcontroll01c" required="true"></activiti:formProperty>
+        <activiti:formProperty id="user" name="user" type="string" variable="user" default="admin" required="true"></activiti:formProperty>
+        <activiti:formProperty id="numberOfReportsToCreate" name="numberOfReportsToCreate" type="long" variable="numberOfReportsToCreate" default="10"></activiti:formProperty>
+        <activiti:formProperty id="fromEmail" name="fromEmail" type="string" variable="fromEmail" default="Team-APM-Aquarius@ca.com" required="true"></activiti:formProperty>
+        <activiti:formProperty id="toEmail" name="toEmail" type="string" variable="toEmail" default="haiva01@ca.com" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <callActivity id="callLogIntoCEM" name="log into CEM" calledElement="logIntoCEMProcess">
+      <extensionElements>
+        <activiti:in source="password" target="password"></activiti:in>
+        <activiti:in source="user" target="user"></activiti:in>
+        <activiti:in sourceExpression="http://${targetHost}:${targetPort}/wily/cem/tess/app/biz/reportDefList.html" target="pageUrl"></activiti:in>
+        <activiti:in source="nodeName" target="nodeName"></activiti:in>
+        <activiti:out source="sessionId" target="sessionId"></activiti:out>
+        <activiti:out source="windowId" target="windowId"></activiti:out>
+      </extensionElements>
+    </callActivity>
+    <scriptTask id="createOneReportDaily" name="create one report daily" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import com.ca.apm.systemtest.fld.plugin.selenium.SeleniumPlugin.SelectionBy
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+def log = LoggerFactory.getLogger("createOneReport") 
+def plugin = agentProxyFactory.createProxy(nodeName).plugins.seleniumPluginChrome
+
+def reportsCreated = execution.getVariable("reportsCreated") ?: 0;
+log.info("creating report number ${reportsCreated+1}")
+
+plugin.visitUrl(sessionId, windowId, "http://${targetHost}:${targetPort}/wily/cem/tess/app/biz/reportDefList.html")
+plugin.click(sessionId, windowId, SelectionBy.XPATH, "//input[@name='new']")
+plugin.fillTextField(sessionId, windowId, SelectionBy.XPATH, "//input[@name='name']", "report ${reportsCreated+1}")
+// 26 is SessionUsage
+// 20 is Transaction Throughput
+def possibleReports = [20, 26]
+// Set report type.
+plugin.selectOption(sessionId, windowId, SelectionBy.XPATH, "//select[@name='reportType']",
+    "${possibleReports[reportsCreated % possibleReports.size()]}")
+// Set time interval.
+plugin.selectOption(sessionId, windowId, SelectionBy.XPATH, "//select[@name='timeFrame']", "LastWeek")
+// Schedule emails to be sent.
+plugin.click(sessionId, windowId, SelectionBy.XPATH, "//input[@id='scheduled']")
+// Fill email addresses.
+plugin.fillTextField(sessionId, windowId, SelectionBy.XPATH, "//input[@id='fromAddress']", fromEmail)
+plugin.fillTextField(sessionId, windowId, SelectionBy.XPATH, "//input[@id='to']", toEmail)
+// Save
+plugin.click(sessionId, windowId, SelectionBy.XPATH, "//input[@name='_finish']")
+
+reportsCreated += 1
+execution.setVariable("reportsCreated", reportsCreated);</script>
+    </scriptTask>
+    <sequenceFlow id="flow2" sourceRef="callLogIntoCEM" targetRef="createOneReportDaily"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway" default="flow10"></exclusiveGateway>
+    <sequenceFlow id="flow3" sourceRef="createOneReportDaily" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow4" name="${reportsCreated &lt; numberOfReportsToCreate}" sourceRef="exclusivegateway1" targetRef="createOneReportDaily">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${reportsCreated < numberOfReportsToCreate}]]></conditionExpression>
+    </sequenceFlow>
+    <scriptTask id="preparePassword" name="prepare password" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+def log = LoggerFactory.getLogger("logIntoCEM") 
+
+def pass = ""
+if (binding.variables.containsKey("password")) {
+  pass = password
+}
+execution.setVariable('password', pass)
+
+log.info("at the end")</script>
+    </scriptTask>
+    <sequenceFlow id="flow6" sourceRef="startSetUpEmailReports" targetRef="preparePassword"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="preparePassword" targetRef="callLogIntoCEM"></sequenceFlow>
+    <scriptTask id="closeSession" name="close session" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>def plugin = agentProxyFactory.createProxy(nodeName).plugins.seleniumPluginChrome
+plugin.closeSession(sessionId)
+</script>
+    </scriptTask>
+    <sequenceFlow id="flow9" sourceRef="closeSession" targetRef="endevent1"></sequenceFlow>
+    <scriptTask id="createOneReportWeekly" name="create one report weekly" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import com.ca.apm.systemtest.fld.plugin.selenium.SeleniumPlugin.SelectionBy
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+def log = LoggerFactory.getLogger("createOneReport") 
+def plugin = agentProxyFactory.createProxy(nodeName).plugins.seleniumPluginChrome
+
+def reportsCreated = execution.getVariable("reportsCreated") ?: 0;
+log.info("creating report number ${reportsCreated+1}")
+
+plugin.visitUrl(sessionId, windowId, "http://${targetHost}:${targetPort}/wily/cem/tess/app/biz/reportDefList.html")
+plugin.click(sessionId, windowId, SelectionBy.XPATH, "//input[@name='new']")
+plugin.fillTextField(sessionId, windowId, SelectionBy.XPATH, "//input[@name='name']", "weekly report ${reportsCreated+1}")
+// 26 is SessionUsage
+// 20 is Transaction Throughput
+def possibleReports = [20, 26]
+// Set report type.
+plugin.selectOption(sessionId, windowId, SelectionBy.XPATH, "//select[@name='reportType']",
+    "${possibleReports[reportsCreated % possibleReports.size()]}")
+// Set time interval.
+plugin.selectOption(sessionId, windowId, SelectionBy.XPATH, "//select[@name='timeFrame']", "LastWeek")
+// Schedule emails to be sent.
+plugin.click(sessionId, windowId, SelectionBy.XPATH, "//input[@id='scheduled']")
+// Select weekly frequency.
+// 0 - daily, 1 - weekly, 2 - monthly
+plugin.selectOption(sessionId, windowId, SelectionBy.XPATH, "//select[@name='frequency']", "1")
+// Fill email addresses.
+plugin.fillTextField(sessionId, windowId, SelectionBy.XPATH, "//input[@id='fromAddress']", fromEmail)
+plugin.fillTextField(sessionId, windowId, SelectionBy.XPATH, "//input[@id='to']", toEmail)
+// Save
+plugin.click(sessionId, windowId, SelectionBy.XPATH, "//input[@name='_finish']")
+
+reportsCreated += 1
+execution.setVariable("reportsCreated", reportsCreated);
+</script>
+    </scriptTask>
+    <scriptTask id="resetReportsCounter" name="reset reports counter to zero" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>execution.setVariable("reportsCreated", 0);</script>
+    </scriptTask>
+    <sequenceFlow id="flow10" sourceRef="exclusivegateway1" targetRef="resetReportsCounter"></sequenceFlow>
+    <sequenceFlow id="flow11" sourceRef="resetReportsCounter" targetRef="createOneReportWeekly"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway" default="flow14"></exclusiveGateway>
+    <sequenceFlow id="flow12" sourceRef="createOneReportWeekly" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow13" name="${reportsCreated &lt; numberOfReportsToCreate}" sourceRef="exclusivegateway2" targetRef="createOneReportWeekly">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${reportsCreated < numberOfReportsToCreate}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow14" sourceRef="exclusivegateway2" targetRef="closeSession"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_setUpEmailReportsProcess">
+    <bpmndi:BPMNPlane bpmnElement="setUpEmailReportsProcess" id="BPMNPlane_setUpEmailReportsProcess">
+      <bpmndi:BPMNShape bpmnElement="startSetUpEmailReports" id="BPMNShape_startSetUpEmailReports">
+        <omgdc:Bounds height="35.0" width="35.0" x="575.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="575.0" y="750.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callLogIntoCEM" id="BPMNShape_callLogIntoCEM">
+        <omgdc:Bounds height="55.0" width="105.0" x="540.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="createOneReportDaily" id="BPMNShape_createOneReportDaily">
+        <omgdc:Bounds height="61.0" width="105.0" x="540.0" y="290.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="572.0" y="366.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="preparePassword" id="BPMNShape_preparePassword">
+        <omgdc:Bounds height="55.0" width="105.0" x="540.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="closeSession" id="BPMNShape_closeSession">
+        <omgdc:Bounds height="55.0" width="105.0" x="540.0" y="670.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="createOneReportWeekly" id="BPMNShape_createOneReportWeekly">
+        <omgdc:Bounds height="65.0" width="105.0" x="540.0" y="500.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="resetReportsCounter" id="BPMNShape_resetReportsCounter">
+        <omgdc:Bounds height="61.0" width="105.0" x="540.0" y="420.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="572.0" y="600.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="592.0" y="255.0"></omgdi:waypoint>
+        <omgdi:waypoint x="592.0" y="290.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="592.0" y="351.0"></omgdi:waypoint>
+        <omgdi:waypoint x="592.0" y="366.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="572.0" y="386.0"></omgdi:waypoint>
+        <omgdi:waypoint x="426.0" y="386.0"></omgdi:waypoint>
+        <omgdi:waypoint x="426.0" y="320.0"></omgdi:waypoint>
+        <omgdi:waypoint x="540.0" y="320.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="56.0" width="100.0" x="431.0" y="325.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="592.0" y="65.0"></omgdi:waypoint>
+        <omgdi:waypoint x="592.0" y="110.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="592.0" y="165.0"></omgdi:waypoint>
+        <omgdi:waypoint x="592.0" y="200.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="592.0" y="725.0"></omgdi:waypoint>
+        <omgdi:waypoint x="592.0" y="750.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="592.0" y="406.0"></omgdi:waypoint>
+        <omgdi:waypoint x="592.0" y="420.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="592.0" y="481.0"></omgdi:waypoint>
+        <omgdi:waypoint x="592.0" y="500.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="592.0" y="565.0"></omgdi:waypoint>
+        <omgdi:waypoint x="592.0" y="600.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="572.0" y="620.0"></omgdi:waypoint>
+        <omgdi:waypoint x="405.0" y="620.0"></omgdi:waypoint>
+        <omgdi:waypoint x="405.0" y="532.0"></omgdi:waypoint>
+        <omgdi:waypoint x="540.0" y="532.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="56.0" width="100.0" x="411.0" y="545.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="592.0" y="640.0"></omgdi:waypoint>
+        <omgdi:waypoint x="592.0" y="670.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

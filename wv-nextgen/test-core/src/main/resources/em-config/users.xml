@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<principals xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="0.3" plainTextPasswords="false" xsi:noNamespaceSchemaLocation="users0.3.xsd">
+	<users>
+		<user password="" name="Test2" />
+		<user password="" name="Test3" />
+		<user password="" name="Admin" />
+		<user password="" name="Guest" />
+		<user password="" name="Test1" />
+	</users>
+	<groups>
+		<group name="Admin" description="Administrator Group">
+			<user name="Admin" />
+		</group>
+	</groups>
+</principals>

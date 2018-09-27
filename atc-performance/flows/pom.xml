@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>atc-performance</artifactId>
+        <groupId>com.ca.apm.tests</groupId>
+        <version>99.99.dev_SaaS_fix-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>atc-performance-flows</artifactId>
+    <packaging>jar</packaging>
+
+    <name>atc-performance-flows</name>
+    <description>Custom TAS flows module for ATC performance tests.</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.ca.tas</groupId>
+            <artifactId>automation-flows</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>

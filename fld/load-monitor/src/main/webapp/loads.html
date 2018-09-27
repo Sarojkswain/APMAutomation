@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>FLD Load Monitor</title>
+    <meta charset="UTF-8">
+
+    <script src="https://code.jquery.com/jquery-2.2.3.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://fb.me/react-15.0.2.js"></script>
+    <script src="https://fb.me/react-dom-15.0.2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.29.4/react-bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="default.css">
+</head>
+<body>
+
+<div id="navigationTopMenuBar"></div>
+<div id="container"></div>
+
+<script type="text/babel">
+var Button = ReactBootstrap.Button;
+var ButtonToolbar = ReactBootstrap.ButtonToolbar;
+var Navbar = ReactBootstrap.Navbar;
+var Nav = ReactBootstrap.Nav;
+var NavItem = ReactBootstrap.NavItem;
+var Table = ReactBootstrap.Table;
+var ProgressBar = ReactBootstrap.ProgressBar;
+
+var LoadStatusRow = React.createClass({
+  startLoad: function() {
+    var loadId = this.props.name;
+    $.ajax({
+      type: "POST",
+      url: "api/loads/start/" + loadId
+    });
+  },
+
+  forceStartLoad: function() {
+    var loadId = this.props.name;
+    $.ajax({
+      type: "POST",
+      url: "api/loads/start/" + loadId + "?force=true"
+    });
+  },
+
+  stopLoad: function() {
+    var loadId = this.props.name;
+    $.ajax({
+      type: "POST",
+      url: "api/loads/stop/" + loadId
+    });
+  },
+
+  forceStopLoad: function() {
+    var loadId = this.props.name;
+    $.ajax({
+      type: "POST",
+      url: "api/loads/stop/" + loadId + "?force=true"
+    });
+  },
+
+  render: function() {
+    var buttonLabel;
+    var buttonFunction;
+    if (this.props.status === "STARTED"
+        || this.props.status === "FAILEDSTART"
+        || this.props.status === "ISSTARTING") {
+        buttonLabel = "Stop";
+        buttonFunction = this.stopLoad;
+    } else {
+        buttonLabel = "Start";
+        buttonFunction = this.startLoad;
+    }
+
+    var loadProgressBar;
+    if (this.props.status === "STARTED") {
+        loadProgressBar = <ProgressBar striped style={{ verticalAlign : "middle" }} bsStyle="success" now={100} label={'Started'} active />;
+    } else if (this.props.status === "ISSTOPPING") {
+        loadProgressBar = <ProgressBar striped style={{ verticalAlign : "middle" }} bsStyle="danger" now={100} label={'Stopping'} active />;
+    } else if (this.props.status === "ISSTARTING") {
+        loadProgressBar = <ProgressBar striped style={{ verticalAlign : "middle" }} bsStyle="warning" now={100} label={'Starting'} active />;
+    } else {
+        loadProgressBar = this.props.status;
+    }
+
+    return (
+      <tr >
+        <td style={{ verticalAlign : "middle" }}>{this.props.name}</td>
+        <td style={{ verticalAlign : "middle" }}>{loadProgressBar}</td>
+        <td style={{ verticalAlign : "middle", textAlign: "center" }}>
+            <ButtonToolbar>
+                <Button bsStyle="primary" bsSize="small" onClick={buttonFunction}>
+                  {buttonLabel}
+                </Button>
+                <Button bsStyle="danger" bsSize="small" onClick={this.forceStartLoad}>
+                  Force Start
+                </Button>
+                <Button bsStyle="danger" bsSize="small" onClick={this.forceStopLoad}>
+                  Force Stop
+                </Button>
+            </ButtonToolbar>
+        </td>
+      </tr>
+    );
+  }
+});
+
+var LoadStatusesTable = React.createClass({
+  render: function() {
+    var rows = [];
+    if (this.state && this.state.statuses) {
+        this.state.statuses.forEach(function(load) {
+            rows.push(<LoadStatusRow key={load.name} name={load.name} status={load.status} />);
+        });
+    }
+    return (
+      <div style={{ margin: "0 auto", width: "70%" }}>
+          <Table striped bordered hover id="statuses-table" >
+            <thead style={{ backgroundColor: "rgba(51, 122, 183, 0.48)" }}>
+              <tr>
+                <th style={{ width: "65%" }}>Load Name</th>
+                <th style={{ textAlign : "center" }}>Load Status</th>
+                <th style={{ textAlign : "center" }}>Operation</th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
+      </div>
+    );
+  },
+
+  getInitialState: function() {
+    this.getStatuses();
+    return { statuses : [] };
+  },
+
+  getStatuses: function () {
+    var self = this;
+    $.ajax({
+        url: "api/loads/status"
+    }).then(function(data) {
+         self.setState({ statuses : data.statuses });
+    });
+  },
+
+  componentDidMount: function() {
+    this.interval = setInterval(this.getStatuses, 5000);
+  },
+
+  componentWillUnmount: function() {
+    clearInterval(this.interval);
+  }
+
+});
+
+$(document).ready(function() {
+    const navbarInstance = (
+        <Navbar>
+            <Navbar.Header style={{ marginLeft: "5px !important" }}>
+                <Navbar.Brand style={{ padding: "0" }}>
+                   <span style={{ padding: "0px 0px", fontFamily: "'Segoe UI','HelveticaNeue-Light',sans-serif", fontSize: "1.75em", lineHeight: "2.5", fontWeight: "100" }}>
+                       <img style={{ float: "left", height: "48px" }}
+                            src="img/heavy_load_48x48.png"/> &nbsp;&nbsp;&nbsp;FLD Load Monitor
+                   </span>
+                </Navbar.Brand>
+            </Navbar.Header>
+        </Navbar>
+    );
+    ReactDOM.render(navbarInstance, document.getElementById('navigationTopMenuBar'));
+
+
+    ReactDOM.render(<LoadStatusesTable statuses="" />, document.getElementById('container'));
+});
+
+</script>
+</body>
+</html>

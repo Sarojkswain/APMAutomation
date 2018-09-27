@@ -1,0 +1,128 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.ca.apm.powerpack.sysview.tests</groupId>
+        <artifactId>ceapm.tools</artifactId>
+        <version>99.99.dev_SaaS_fix-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>ceapm.tools.cicstestdriver</artifactId>
+    <packaging>jar</packaging>
+    <name>CICSTestDriver</name>
+
+    <!-- TODO: Review the dependencies, the current list was taken from P4 but
+         some of them might not be necessary -->
+    <dependencies>
+        <dependency>
+            <groupId>com.ca.apm.powerpack.sysview.tests</groupId>
+            <artifactId>ceapm.common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.agent</groupId>
+            <artifactId>Agent</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.libs</groupId>
+            <artifactId>ibm-ctgclient</artifactId>
+            <version>7.2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.libs</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.14</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.libs</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.libs</groupId>
+            <artifactId>ibm-mask</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.libs</groupId>
+            <artifactId>ibm-ccf2</artifactId>
+            <version>3.5.3.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.libs</groupId>
+            <artifactId>ibm-cicsj2ee</artifactId>
+            <version>7.2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.libs</groupId>
+            <artifactId>ibm-conftool</artifactId>
+            <version>7.2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.libs</groupId>
+            <artifactId>ibm-ctgadmin</artifactId>
+            <version>7.2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.libs</groupId>
+            <artifactId>ibm-ctgsamples</artifactId>
+            <version>7.2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.libs</groupId>
+            <artifactId>ibm-ctgserver</artifactId>
+            <version>7.2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.libs</groupId>
+            <artifactId>ibm-screenable</artifactId>
+            <version>1.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.libs</groupId>
+            <artifactId>sun-psk</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.libs</groupId>
+            <artifactId>connector</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>CICSTestDriver</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <compilerId>jdt</compilerId> <!-- Avoid OSGi -->
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/dist.xml</descriptor>
+                    </descriptors>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>

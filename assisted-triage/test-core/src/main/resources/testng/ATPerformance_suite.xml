@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+ 
+<!--
+ @Tas(testBed = [
+    {name=com.ca.apm.tests.testbed.ATPerformanceTestbed, executeOn=hammondMachine}],
+    owner = patpr15,
+    size = MEDIUM,
+    description = 'Assisted Triage TestNg XML suite for Performance')
+-->
+
+<suite name="ATTestforPerformance" configfailurepolicy="continue"> 
+        <test name="testng.ATPerformance_suite" preserve-order="true" >
+        <classes>   
+            <class name="com.ca.apm.tests.test.PerformanceTest">
+                 <methods>
+                       <include name="PerformanceMetricsTest_ATEnabled"/>
+                       <include name="PerformanceMetricsTest_ATDisabled"/>    
+                 </methods>
+            </class>
+          </classes>
+        </test>
+</suite>

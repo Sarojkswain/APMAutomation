@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <signal id="monkeySeeMonkeyDo" name="monkeySeeMonkeyDo"></signal>
+  <process id="fld.autogen.load" name="Autogen Load" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="wurlitzerHost" name="wurlitzerHost" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="wurlitzerPort" name="wurlitzerPort" type="long" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <subProcess id="subprocess1" name="Sub Process">
+      <scriptTask id="scripttask11" name="Set Count" scriptFormat="groovy" activiti:autoStoreVariables="false">
+        <script>execution.setVariable("count", 1);
+execution.setVariable("done", false);</script>
+      </scriptTask>
+      <startEvent id="startevent2" name="Start"></startEvent>
+      <sequenceFlow id="flow22" sourceRef="startevent2" targetRef="prepare"></sequenceFlow>
+      <scriptTask id="scripttask12" name="Hit URL #1" scriptFormat="groovy" activiti:autoStoreVariables="false">
+        <script>// This variable is changed to true if any of the "Hit URL" tasks fail.
+runtimeService.setVariable(execution.getId(), "loadFailure", false);
+
+println "reading url #1 for autogen";
+def target = "http://${wurlitzerHost}:${wurlitzerPort}/wurlitzer/web-clients?metricBaseName=sss&amp;newMetricCount=count${count}";
+println "Using url ${target}";
+
+try {
+  def url = target.toURL();
+  def txt = url.text;
+} catch (Exception e) {
+  println "Exception reading URL: " + e.getMessage();
+  runtimeService.setVariable(execution.getId(), "loadFailure", true);
+}
+
+</script>
+      </scriptTask>
+      <scriptTask id="scripttask13" name="Hit URL #2" scriptFormat="groovy" activiti:autoStoreVariables="false">
+        <script>println "reading url #2 for autogen";
+def target = "http://${wurlitzerHost}:${wurlitzerPort}/wurlitzer/transaction-shape.jsp?user=Admin${count}";
+println "Using url ${target}";
+try {
+  def url = target.toURL();
+  def txt = url.text;
+} catch (Exception e) {
+  println "Exception reading URL: " + e.getMessage();
+  runtimeService.setVariable(execution.getId(), "loadFailure", true);
+}
+
+</script>
+      </scriptTask>
+      <scriptTask id="scripttask14" name="Hit URL#3" scriptFormat="groovy" activiti:autoStoreVariables="false">
+        <script>println "reading url #3 for autogen";
+def target = "http://${wurlitzerHost}:${wurlitzerPort}/wurlitzer/echo/cem-defect-slow-tnx?msg=Definition${count}";
+println "Using url ${target}";
+
+try {
+  def url = target.toURL();
+  def txt = url.text;
+} catch (Exception e) {
+  println "Exception reading URL: " + e.getMessage();
+  runtimeService.setVariable(execution.getId(), "loadFailure", true);
+}
+
+</script>
+      </scriptTask>
+      <scriptTask id="scripttask15" name="Hit URL#4" scriptFormat="groovy" activiti:autoStoreVariables="false">
+        <script>println "reading url #4 for autogen";
+def target = "http://${wurlitzerHost}:${wurlitzerPort}/echo/cem-content-too-large-tnx?msg=Testing${count}";
+println "Using url ${target}";
+
+try {
+  def url = target.toURL();
+  def txt = url.text;
+} catch (Exception e) {
+  println "Exception reading URL: " + e.getMessage();
+  runtimeService.setVariable(execution.getId(), "loadFailure", true);
+}
+
+</script>
+      </scriptTask>
+      <scriptTask id="scripttask16" name="Hit URL#5" scriptFormat="groovy" activiti:autoStoreVariables="false">
+        <script>println "reading url #5 for autogen";
+def target = "http://${wurlitzerHost}:${wurlitzerPort}/echo/cem-defect-fast-tnx/?msg=Definition${count}";
+println "Using url ${target}";
+
+try {
+  def url = target.toURL();
+  def txt = url.text;
+} catch (Exception e) {
+  println "Exception reading URL: " + e.getMessage();
+  runtimeService.setVariable(execution.getId(), "loadFailure", true);
+}
+
+def loadFailure = runtimeService.getVariable(execution.getId(), "loadFailure");
+dashboardManager.setMonitoredValue(execution, "fld.monitor.autogen.load", !loadFailure);
+</script>
+      </scriptTask>
+      <sequenceFlow id="flow23" sourceRef="scripttask11" targetRef="scripttask12"></sequenceFlow>
+      <intermediateCatchEvent id="timerintermediatecatchevent8" name="TimerCatchEvent">
+        <timerEventDefinition>
+          <timeDuration>PT1S</timeDuration>
+        </timerEventDefinition>
+      </intermediateCatchEvent>
+      <intermediateCatchEvent id="timerintermediatecatchevent9" name="TimerCatchEvent">
+        <timerEventDefinition>
+          <timeDuration>PT1S</timeDuration>
+        </timerEventDefinition>
+      </intermediateCatchEvent>
+      <intermediateCatchEvent id="timerintermediatecatchevent10" name="TimerCatchEvent">
+        <timerEventDefinition>
+          <timeDuration>PT1S</timeDuration>
+        </timerEventDefinition>
+      </intermediateCatchEvent>
+      <intermediateCatchEvent id="timerintermediatecatchevent11" name="TimerCatchEvent">
+        <timerEventDefinition>
+          <timeDuration>PT1S</timeDuration>
+        </timerEventDefinition>
+      </intermediateCatchEvent>
+      <intermediateCatchEvent id="timerintermediatecatchevent12" name="TimerCatchEvent">
+        <timerEventDefinition>
+          <timeDuration>PT1S</timeDuration>
+        </timerEventDefinition>
+      </intermediateCatchEvent>
+      <sequenceFlow id="flow24" sourceRef="scripttask12" targetRef="timerintermediatecatchevent8"></sequenceFlow>
+      <sequenceFlow id="flow25" sourceRef="timerintermediatecatchevent8" targetRef="scripttask13"></sequenceFlow>
+      <sequenceFlow id="flow26" sourceRef="scripttask13" targetRef="timerintermediatecatchevent9"></sequenceFlow>
+      <sequenceFlow id="flow27" sourceRef="timerintermediatecatchevent9" targetRef="scripttask14"></sequenceFlow>
+      <sequenceFlow id="flow28" sourceRef="scripttask14" targetRef="timerintermediatecatchevent10"></sequenceFlow>
+      <sequenceFlow id="flow29" sourceRef="timerintermediatecatchevent10" targetRef="scripttask15"></sequenceFlow>
+      <sequenceFlow id="flow30" sourceRef="scripttask15" targetRef="timerintermediatecatchevent11"></sequenceFlow>
+      <sequenceFlow id="flow31" sourceRef="timerintermediatecatchevent11" targetRef="scripttask16"></sequenceFlow>
+      <sequenceFlow id="flow32" sourceRef="scripttask16" targetRef="timerintermediatecatchevent12"></sequenceFlow>
+      <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+      <sequenceFlow id="flow33" sourceRef="timerintermediatecatchevent12" targetRef="exclusivegateway2"></sequenceFlow>
+      <sequenceFlow id="flow35" sourceRef="exclusivegateway2" targetRef="scripttask17">
+        <conditionExpression xsi:type="tFormalExpression"><![CDATA[${count < 2000}]]></conditionExpression>
+      </sequenceFlow>
+      <scriptTask id="scripttask17" name="Increment" scriptFormat="groovy" activiti:autoStoreVariables="false">
+        <script>def cnt = count;
+cnt = cnt + 1;
+execution.setVariable("count", cnt);</script>
+      </scriptTask>
+      <sequenceFlow id="flow36" sourceRef="scripttask17" targetRef="scripttask12"></sequenceFlow>
+      <intermediateCatchEvent id="timerintermediatecatchevent13" name="TimerCatchEvent">
+        <timerEventDefinition>
+          <timeDuration>PT24H</timeDuration>
+        </timerEventDefinition>
+      </intermediateCatchEvent>
+      <sequenceFlow id="flow37" sourceRef="exclusivegateway2" targetRef="timerintermediatecatchevent13">
+        <conditionExpression xsi:type="tFormalExpression"><![CDATA[${count == 2000}]]></conditionExpression>
+      </sequenceFlow>
+      <sequenceFlow id="flow38" sourceRef="timerintermediatecatchevent13" targetRef="scripttask11"></sequenceFlow>
+      <endEvent id="endevent1" name="End"></endEvent>
+      <sequenceFlow id="flow39" sourceRef="exclusivegateway2" targetRef="endevent1">
+        <conditionExpression xsi:type="tFormalExpression"><![CDATA[${count > 2000}]]></conditionExpression>
+      </sequenceFlow>
+      <scriptTask id="prepare" name="Prepare" scriptFormat="groovy" activiti:autoStoreVariables="false">
+        <script>dashboardManager.configureMonitoredValue(execution, "fld.monitor.autogen.load", "Autogen load");
+</script>
+      </scriptTask>
+      <sequenceFlow id="flow47" sourceRef="prepare" targetRef="scripttask11"></sequenceFlow>
+    </subProcess>
+    <parallelGateway id="parallelgateway1" name="Parallel Gateway"></parallelGateway>
+    <sequenceFlow id="flow40" sourceRef="startevent1" targetRef="parallelgateway1"></sequenceFlow>
+    <sequenceFlow id="flow41" sourceRef="parallelgateway1" targetRef="subprocess1"></sequenceFlow>
+    <userTask id="usertask1" name="User Task">
+      <extensionElements>
+        <activiti:formProperty id="nextAction" name="Next Action" type="enum">
+          <activiti:value id="endLoad" name="End Load"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow42" sourceRef="parallelgateway1" targetRef="usertask1"></sequenceFlow>
+    <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
+    <boundaryEvent id="boundarysignal1" name="Signal" attachedToRef="subprocess1" cancelActivity="true">
+      <signalEventDefinition signalRef="monkeySeeMonkeyDo"></signalEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="flow43" sourceRef="boundarysignal1" targetRef="parallelgateway2"></sequenceFlow>
+    <intermediateThrowEvent id="signalintermediatethrowevent1" name="SignalThrowEvent">
+      <signalEventDefinition signalRef="monkeySeeMonkeyDo"></signalEventDefinition>
+    </intermediateThrowEvent>
+    <sequenceFlow id="flow44" sourceRef="usertask1" targetRef="signalintermediatethrowevent1"></sequenceFlow>
+    <sequenceFlow id="flow45" sourceRef="signalintermediatethrowevent1" targetRef="parallelgateway2"></sequenceFlow>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow46" sourceRef="parallelgateway2" targetRef="endevent2"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.autogen.load">
+    <bpmndi:BPMNPlane bpmnElement="fld.autogen.load" id="BPMNPlane_fld.autogen.load">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="25.0" y="382.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="subprocess1" id="BPMNShape_subprocess1">
+        <omgdc:Bounds height="591.0" width="736.0" x="286.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask11" id="BPMNShape_scripttask11">
+        <omgdc:Bounds height="55.0" width="105.0" x="470.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent2" id="BPMNShape_startevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="345.0" y="306.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask12" id="BPMNShape_scripttask12">
+        <omgdc:Bounds height="55.0" width="105.0" x="640.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask13" id="BPMNShape_scripttask13">
+        <omgdc:Bounds height="55.0" width="105.0" x="640.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask14" id="BPMNShape_scripttask14">
+        <omgdc:Bounds height="55.0" width="105.0" x="640.0" y="240.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask15" id="BPMNShape_scripttask15">
+        <omgdc:Bounds height="55.0" width="105.0" x="640.0" y="330.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask16" id="BPMNShape_scripttask16">
+        <omgdc:Bounds height="55.0" width="105.0" x="640.0" y="420.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent8" id="BPMNShape_timerintermediatecatchevent8">
+        <omgdc:Bounds height="35.0" width="35.0" x="810.0" y="70.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent9" id="BPMNShape_timerintermediatecatchevent9">
+        <omgdc:Bounds height="35.0" width="35.0" x="810.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent10" id="BPMNShape_timerintermediatecatchevent10">
+        <omgdc:Bounds height="35.0" width="35.0" x="810.0" y="250.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent11" id="BPMNShape_timerintermediatecatchevent11">
+        <omgdc:Bounds height="35.0" width="35.0" x="810.0" y="340.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent12" id="BPMNShape_timerintermediatecatchevent12">
+        <omgdc:Bounds height="35.0" width="35.0" x="810.0" y="430.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="890.0" y="428.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask17" id="BPMNShape_scripttask17">
+        <omgdc:Bounds height="55.0" width="105.0" x="470.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent13" id="BPMNShape_timerintermediatecatchevent13">
+        <omgdc:Bounds height="35.0" width="35.0" x="970.0" y="430.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="970.0" y="500.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="prepare" id="BPMNShape_prepare">
+        <omgdc:Bounds height="55.0" width="105.0" x="310.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundarysignal1" id="BPMNShape_boundarysignal1">
+        <omgdc:Bounds height="30.0" width="30.0" x="1008.0" y="265.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway1" id="BPMNShape_parallelgateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="160.0" y="379.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="530.0" y="650.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway2" id="BPMNShape_parallelgateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="1200.0" y="379.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="signalintermediatethrowevent1" id="BPMNShape_signalintermediatethrowevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="790.0" y="660.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="1285.0" y="382.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="362.0" y="306.0"></omgdi:waypoint>
+        <omgdi:waypoint x="362.0" y="115.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="575.0" y="87.0"></omgdi:waypoint>
+        <omgdi:waypoint x="640.0" y="87.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
+        <omgdi:waypoint x="745.0" y="87.0"></omgdi:waypoint>
+        <omgdi:waypoint x="810.0" y="87.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="827.0" y="105.0"></omgdi:waypoint>
+        <omgdi:waypoint x="692.0" y="150.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="745.0" y="177.0"></omgdi:waypoint>
+        <omgdi:waypoint x="810.0" y="177.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
+        <omgdi:waypoint x="827.0" y="195.0"></omgdi:waypoint>
+        <omgdi:waypoint x="692.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
+        <omgdi:waypoint x="745.0" y="267.0"></omgdi:waypoint>
+        <omgdi:waypoint x="810.0" y="267.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
+        <omgdi:waypoint x="827.0" y="285.0"></omgdi:waypoint>
+        <omgdi:waypoint x="692.0" y="330.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
+        <omgdi:waypoint x="745.0" y="357.0"></omgdi:waypoint>
+        <omgdi:waypoint x="810.0" y="357.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
+        <omgdi:waypoint x="827.0" y="375.0"></omgdi:waypoint>
+        <omgdi:waypoint x="692.0" y="420.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
+        <omgdi:waypoint x="745.0" y="447.0"></omgdi:waypoint>
+        <omgdi:waypoint x="810.0" y="447.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
+        <omgdi:waypoint x="845.0" y="447.0"></omgdi:waypoint>
+        <omgdi:waypoint x="890.0" y="448.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
+        <omgdi:waypoint x="910.0" y="468.0"></omgdi:waypoint>
+        <omgdi:waypoint x="909.0" y="501.0"></omgdi:waypoint>
+        <omgdi:waypoint x="522.0" y="501.0"></omgdi:waypoint>
+        <omgdi:waypoint x="522.0" y="205.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
+        <omgdi:waypoint x="522.0" y="150.0"></omgdi:waypoint>
+        <omgdi:waypoint x="692.0" y="115.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
+        <omgdi:waypoint x="930.0" y="448.0"></omgdi:waypoint>
+        <omgdi:waypoint x="970.0" y="447.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
+        <omgdi:waypoint x="987.0" y="430.0"></omgdi:waypoint>
+        <omgdi:waypoint x="987.0" y="35.0"></omgdi:waypoint>
+        <omgdi:waypoint x="523.0" y="35.0"></omgdi:waypoint>
+        <omgdi:waypoint x="522.0" y="60.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
+        <omgdi:waypoint x="910.0" y="468.0"></omgdi:waypoint>
+        <omgdi:waypoint x="987.0" y="500.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow47" id="BPMNEdge_flow47">
+        <omgdi:waypoint x="415.0" y="87.0"></omgdi:waypoint>
+        <omgdi:waypoint x="470.0" y="87.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
+        <omgdi:waypoint x="60.0" y="399.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="399.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">
+        <omgdi:waypoint x="180.0" y="379.0"></omgdi:waypoint>
+        <omgdi:waypoint x="180.0" y="325.0"></omgdi:waypoint>
+        <omgdi:waypoint x="286.0" y="325.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow42" id="BPMNEdge_flow42">
+        <omgdi:waypoint x="180.0" y="419.0"></omgdi:waypoint>
+        <omgdi:waypoint x="180.0" y="677.0"></omgdi:waypoint>
+        <omgdi:waypoint x="530.0" y="677.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow43" id="BPMNEdge_flow43">
+        <omgdi:waypoint x="1038.0" y="280.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1220.0" y="280.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1220.0" y="379.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow44" id="BPMNEdge_flow44">
+        <omgdi:waypoint x="635.0" y="677.0"></omgdi:waypoint>
+        <omgdi:waypoint x="790.0" y="677.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow45" id="BPMNEdge_flow45">
+        <omgdi:waypoint x="825.0" y="677.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1220.0" y="677.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1220.0" y="419.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow46" id="BPMNEdge_flow46">
+        <omgdi:waypoint x="1240.0" y="399.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1285.0" y="399.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

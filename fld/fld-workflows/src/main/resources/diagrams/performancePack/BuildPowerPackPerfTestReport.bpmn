@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="build.powerpack.performance.test.result.report" name="Build PowerPack Performance Test Result Report" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="loNode" name="Load Orchestrator Node" type="node" required="true"></activiti:formProperty>
+        <activiti:formProperty id="serverType" name="Server Type (Websphere, Weblogic, ...)" type="enum" required="true">
+          <activiti:value id="webspherePP" name="Websphere"></activiti:value>
+          <activiti:value id="weblogicPP" name="Weblogic"></activiti:value>
+          <activiti:value id="webspheremqPP" name="WebsphereMQ"></activiti:value>
+          <activiti:value id="webmethodsPP" name="WebMethods"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="reportResultsFileTemplateUrl" name="Results Report File Template Url" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="typePerfLogFileName" name="TypePerf Log File Name" type="string" default="typePerf.csv"></activiti:formProperty>
+        <activiti:formProperty id="jmxLogFileName" name="JMX Log File Name" type="string" default="jmx.csv"></activiti:formProperty>
+        <activiti:formProperty id="jstatLogFileName" name="Jstat Log File Name" type="string" default="jstat.log"></activiti:formProperty>
+        <activiti:formProperty id="resultReportFileName" name="Final Result Report File Name" type="string"></activiti:formProperty>
+        <activiti:formProperty id="logsArchiveFolder" name="On-server Logs Archive Folder" type="string" default="C:/temp/archive"></activiti:formProperty>
+        <activiti:formProperty id="buildTypePerfReport" name="Build TypePerf Report?" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="buildJmxReport" name="Build JMX Report?" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="buildJmeterReport" name="Build Jmeter Report?" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="buildJstatReport" name="Build Jstat Report?" type="boolean" default="false"></activiti:formProperty>
+        <activiti:formProperty id="runNewAgentWithPPTest" name="Build Report For New Agent With PowerPack Test?" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="runNewAgentTest" name="Build Report For New Agent Test?" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="runNoAgentTest" name="Build Report For No Agent Test?" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="runOldAgentWithPPTest" name="Build Report For Old Agent With PowerPack Test?" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="runOldAgentTest" name="Build Report For Old Agent Test?" type="boolean" default="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <serviceTask id="buildReportServiceTask" name="Build Report" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).buildReport()}"></serviceTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="buildReportServiceTask" targetRef="timerintermediatecatchevent2"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow3" sourceRef="timerintermediatecatchevent1" targetRef="buildReportServiceTask"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent2" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow4" sourceRef="timerintermediatecatchevent2" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_build.powerpack.performance.test.result.report">
+    <bpmndi:BPMNPlane bpmnElement="build.powerpack.performance.test.result.report" id="BPMNPlane_build.powerpack.performance.test.result.report">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="390.0" y="52.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="buildReportServiceTask" id="BPMNShape_buildReportServiceTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="355.0" y="267.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="390.0" y="500.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="390.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent2" id="BPMNShape_timerintermediatecatchevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="390.0" y="390.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="407.0" y="87.0"></omgdi:waypoint>
+        <omgdi:waypoint x="407.0" y="170.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="407.0" y="322.0"></omgdi:waypoint>
+        <omgdi:waypoint x="407.0" y="390.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="407.0" y="205.0"></omgdi:waypoint>
+        <omgdi:waypoint x="407.0" y="267.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="407.0" y="425.0"></omgdi:waypoint>
+        <omgdi:waypoint x="407.0" y="500.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

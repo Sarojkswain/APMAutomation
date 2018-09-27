@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+        
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <context:annotation-config />
+    <context:property-placeholder location="file:${catalina.home}/conf/fld.properties"/>
+    <context:component-scan base-package="com.ca.apm.systemtest.fld.server.dao" />
+    <context:component-scan base-package="com.ca.apm.systemtest.fld.server.logmonitor" />
+    <context:component-scan base-package="com.ca.apm.systemtest.fld.filecache" />
+    <context:component-scan base-package="com.ca.apm.systemtest.fld.server.tasks" />
+    <context:component-scan base-package="com.ca.apm.systemtest.fld.server.util" />
+    <context:component-scan base-package="com.ca.apm.systemtest.fld.proxy" />
+    <task:annotation-driven executor="executor1" scheduler="scheduler1" />
+    <task:executor id="executor1" pool-size="2" />
+    <task:scheduler id="scheduler1" pool-size="2" />
+    
+	<!-- Import our delegate jobs defined in the plugin .jar files-->
+	<import resource="classpath*:workflow-jobs.xml" />
+
+
+	<bean id="logLogger" class="com.ca.apm.systemtest.fld.server.logmonitor.FldLoggerLocalImpl" />
+
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+<!-- 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> -->
+<!-- 		<property name="dataSource" ref="dataSource" /> -->
+<!-- 	</bean> -->
+	
+
+
+	<bean id="asyncExecutor" class="org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor">
+		<property name="corePoolSize" value="5" />
+		<property name="maxPoolSize" value="30" />
+		<property name="keepAliveTime" value="20000" />
+		<property name="queueSize" value="200" />
+		<property name="maxTimerJobsPerAcquisition" value="1" />
+		<property name="maxAsyncJobsDuePerAcquisition" value="1" />
+		<property name="defaultAsyncJobAcquireWaitTimeInMillis" value="3450" />
+		<property name="defaultTimerJobAcquireWaitTimeInMillis" value="1000" />
+		<property name="timerLockTimeInMillis" value="1200000" />
+		<property name="asyncJobLockTimeInMillis" value="1200000" />
+	</bean>
+	
+	
+<!--
+	Patterns are evaluated from first to last, first which match is used. You can
+	use \ as escape character when you need : as value for pattern.
+
+	VALUE
+		ListOfEventTypes:ProcDefIdPattern:ProcInstIdPattern:ExecIdPattern:Level:Tag:Message
+
+	MATCHING PARAMETERS
+		ListOfEventTypes - is comma separated list of event types (look to ActivitiEventType enum)
+		ProcessDefIdPattern - Standard Java Pattern to match against event.ProcessDefinitionId
+		ProcessInstIdPattern - Standard Java Pattern to match against event.ProcessInstanceId
+		ExecIdPattern - Standard Java Pattern to match against event.ExecIdPattern
+
+	OUTPUT PARAMETERS
+		Level - Should be one of TRACE, DEBUG, INFO, WARN, ERROR (default to DEBUG)
+		Tag - Tag used for logging into FldLogger
+		Message - Format for output message in java 'Format', parameters are EventType, ProcessDefId,
+			ProcessInstId, ExecId (default is "Event %s executed in %s (inst: %s, exec: %s)")
+
+	EXAMPLES
+		ACTIVITY_COMPLETED,PROCESS_COMPLETED:web.*\:4:::WARN:COMPL_TAG:%2$s completed with event %1$s
+		:::::CATCH_ALL:| %-20s| %-20s| %-5s| %-5s|
+-->
+	<bean id="eventListener" class="com.ca.apm.systemtest.fld.server.listener.EventListener">
+		<property name="eventMatches">
+			<list>
+				<value>ACTIVITY_STARTED,TIMER_FIRED,JOB_EXECUTION_SUCCESS::::DEBUG:ANY:| %-20s| %-20s| %-5s| %-5s|</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="preParseHandler" class="com.ca.apm.systemtest.fld.server.util.activiti.PreBpmnParseHandler" />
+	
+	<bean id="processEngineConfiguration" class="com.ca.apm.systemtest.fld.server.util.CustomSpringProcessEngineConfiguration">
+		<property name="dataSource" ref="dataSource" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="databaseSchemaUpdate" value="true" />
+		<property name="jobExecutorActivate" value="false" />
+		<property name="asyncExecutorEnabled" value="true" />
+		<property name="asyncExecutorActivate" value="true" />
+		<property name="asyncExecutor" ref="asyncExecutor" />
+		<property name="eventListeners" ref="eventListener" />
+		<property name="preBpmnParseHandlers">
+			<list>
+				<ref bean="preParseHandler"/>
+			</list>
+		</property>
+
+		<!-- <property name="mailServerHost" value="mail.my-corp.com" /> -->
+		<!-- <property name="mailServerPort" value="5025" /> -->
+	</bean>
+
+
+
+	<bean id="processEngine" class="com.ca.apm.systemtest.fld.server.util.CustomProcessEngineFactoryBean" lazy-init="false">
+		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+	</bean>
+	
+	<bean id="processEngineHolder" class="com.ca.apm.systemtest.fld.server.ProcessEngineHolder">
+		<property name="closeDatabasePool" value="true" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
+	<bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
+	<bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
+	<bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
+	<bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
+	<bean id="formService" factory-bean="processEngine" factory-method="getFormService" />
+
+
+	<!-- Node Manager configuration -->
+	<bean id="nodeHibernate4Dao" class="com.ca.apm.systemtest.fld.server.dao.NodeHibernate4Dao"></bean>
+
+	<bean id="nodeManager" class="com.ca.apm.systemtest.fld.server.NodeManagerImpl">
+		<property name="nodeDao" ref="nodeHibernate4Dao"></property>
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="sendDestination" ref="fld.admin" />
+	</bean>
+	
+	<bean id="dashboardManager" class="com.ca.apm.systemtest.fld.server.manager.DashboardManagerImpl"/>
+
+	<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL">
+			<value>${activemq.broker.url}</value>
+<!-- 			<value>tcp://localhost:61616</value> -->
+		</property>
+	</bean>
+	
+	<bean id="messageListener" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+		<property name="delegate" ref="nodeManager" />
+		<property name="defaultListenerMethod" value="receiveHeartbeat"/>
+	</bean>
+	
+	<bean id="fld.admin" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg value="fld.admin" />
+	</bean>
+	
+	<bean id="fldAdminResponse" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg value="fld.admin.response" />
+	</bean>
+	
+	<bean id="logMonitorMessageListenerAdapter" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+    	<property name="defaultListenerMethod" value="onMessage"></property>
+    </bean>
+	
+	<bean id="logMonitorDestination" class="org.apache.activemq.command.ActiveMQQueue">
+	    <constructor-arg index="0" value="fld.remote.logger.queue" />
+  	</bean>
+  	
+  	
+	
+	<bean id="listenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="pubSubDomain" value="true" />
+		<property name="destinationName" value="fld.admin.response" />
+		<property name="messageListener" ref="messageListener" />
+	</bean>
+	
+	
+	
+<!-- 	<bean id="jmsConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory"> -->
+<!-- 		<constructor-arg ref="connectionFactory" /> -->
+<!--     </bean> -->
+	
+	<bean id="logMonitorListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+	 	<property name="connectionFactory" ref="connectionFactory" />
+	    <property name="destination" ref="logMonitorDestination" />
+	    <property name="messageListener" ref="loggerMessageListener"></property>
+	</bean>
+
+	<bean id="loggerMessageListener" class="com.ca.apm.systemtest.fld.server.logmonitor.LoggerMessageListener">
+		<property name="mapper" ref="dozerMapper"></property>
+		<property name="loggerMonitorDao" ref="loggerMonitorHibernate4Dao"></property>
+	</bean>
+	
+	
+	<bean id="loggerMonitorHibernate4Dao" class="com.ca.apm.systemtest.fld.server.dao.LoggerMonitorHibernate4Dao"></bean>
+	
+	
+	
+	<!-- Spring namespace support is broken when using GWT devmode, since the libs are not yet in WEB-INF/lib -->
+<!-- 	<jms:listener-container > -->
+<!-- 		<jms:listener destination="fld.admin.response" ref="agentListener" method="receiveHeartbeat" /> -->
+<!-- 	</jms:listener-container> -->
+
+	<!-- Proxy factory for agent beans -->
+	<bean id="agentProxyFactory" class="com.ca.apm.systemtest.fld.proxy.AgentProxyFactoryImpl">
+		<constructor-arg>
+			<list>
+				<value>com.ca.apm.systemtest.fld.plugin</value>
+			</list>
+        </constructor-arg>
+        <property name="nodeManager" ref="nodeManager" />
+	</bean>
+	
+	<!-- 	Hibernate stuff -->
+	
+	
+	<bean id="dozerMapper" class="org.dozer.DozerBeanMapper">
+		<property name="mappingFiles">
+			<list>
+				<value>dozer-config.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!--
+		Log messages from logmonitor plugin
+	-->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="mail.ca.com"/>
+	</bean>
+
+	<bean id="mailMessageTemplate" class="org.springframework.mail.SimpleMailMessage">
+		<property name="from" value="logmonitor@ca.com"/>
+		<property name="to" value="${logmonitor.recipients:JayAndrew.Key@ca.com}" />
+		<property name="subject" value="Error message from log monitor"/>
+	</bean>
+
+	<bean id="sendEmailListener" class="com.ca.apm.systemtest.fld.server.SendEmailListener">
+		<property name="mailSender" ref="mailSender"/>
+		<property name="messageTemplate" ref="mailMessageTemplate"/>
+		<property name="mailTemplateFile" value="LogMonitorMailTemplate.html"/>
+	</bean>
+
+	<bean id="logMessageMonitorQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="${logmonitor.queue:com.ca.apm.systemtest.fld.plugin.logmonitor}" />
+	</bean>
+
+	<bean id="logMessageMonitorListener" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="logMessageMonitorQueue" />
+		<property name="messageListener" ref="sendEmailListener" />
+	</bean>
+
+</beans>

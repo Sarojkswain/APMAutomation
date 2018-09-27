@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE scenario SYSTEM "./dtd/PipeOrganScenario.dtd">
+
+<!-- Problem Scenario for Stall Event. Generates stall on webservice_4. ExecutorServlet_4 
+	calls PipeOrganWebService_4 with stall in webservice. -->
+
+<scenario>
+	<iterateEvent count="50" interval="100">
+      	<servlet milestones="no" uri="ExecutorServlet_17" 
+      		port="8080" host="localhost"   
+      		contextroot="/pipeorgan">
+			<webService uri="http://localhost:8080/pipeorgan/services/PipeOrganWebService_17" requestsize="10">
+				<message>Entered Web Service, Stalling... </message>
+          		<wait duration="40000"/>
+				<message>Exiting Web Service</message>
+			</webService>
+		</servlet>
+	</iterateEvent>
+</scenario>

@@ -1,0 +1,58 @@
+#####
+#####
+version: '2'
+services:
+
+  #All in (Introscope, WebView and DB) setup
+  apm:
+    image: ${artifactory}/${apmImage}:${branch}
+    ${hostname}
+    command: ${command}
+    mem_limit: ${memLimitEm}
+    ports:
+      - "5001:5001"
+      - "8081:8081"
+      - "8082:8080"
+      ${apmDebugPortMapping}
+    environment:
+      - HEAP_XMX_EM=${maxHeapEm}
+      - ACC_TOKEN=${accToken}
+      - ACC_HOST_IP=${accHost}
+      #- HEAP_XMX_WV=${maxHeapEm}
+      - APM_USER_NAME=${user}
+      - APM_USER_PASSWORD=${pass}
+      - APM_CONFIG_SAAS=${apmConfigSaas}
+      - AGENT_WEBVIEW_MONITOR_IP=${agentWebViewMonitorIp}
+      - AGENT_WEBVIEW_MONITOR_PORT=${agentWebViewMonitorPort}
+      ${apmAgentToken}
+      ${apmToken}
+      ${apmDebug}
+    volumes:
+      - ./:/opt/ca/logs
+      #- ~/docker-introscope/transfer/xmltv:/transfer/xmltv
+      #- ~/docker-introscope/transfer/modules:/transfer/modules
+
+  tradeservice:
+    image: ${artifactory}/apm-tradeservice-tomcat8-saas:${branch}
+    mem_limit: ${memLimitTradeService}
+    environment:
+      - AGENT_NAME=CA APM Demo Agent - Tomcat
+      ${agentToken}
+    ports:
+      - "7080:7080"
+    hostname: tradeservice-app
+    links:
+      - apm:docker-em
+
+  jmeter:
+    image: ${artifactory}/jmeter-client-saas:${branch}
+    mem_limit: ${memLimitJmeter}
+    links:
+      - tradeservice:tradeservice-app
+    #environment:
+      #- REMOTE_HOSTS=tradeservice-app
+      #- TEST_DIR=tradeservices
+      #- TEST_PLAN=FullLoad
+      #- APP_HOST=tradeservice-app
+      #- APP_PORT=7080
+      #- APP_NAME=/TradeService

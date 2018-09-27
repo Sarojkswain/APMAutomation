@@ -1,0 +1,1290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.ca.apm.testing</groupId>
+		<artifactId>com.ca.apm.testing.parent</artifactId>
+		<version>99.99.dev_SaaS_fix-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.ca.apm.systemtest</groupId>
+	<artifactId>com.ca.apm.systemtest.parent</artifactId>
+	<packaging>pom</packaging>
+
+	<name>FLD Projects</name>
+	<description>Aggregation project for FLD system tests</description>
+
+	<properties>
+        <version.tas>2.0.11</version.tas>
+		<activiti.version>5.19.0</activiti.version>
+		<spring.version>4.1.8.RELEASE</spring.version>
+		<jackson.json.version>2.6.6</jackson.json.version>
+		<mockito.version>1.9.5</mockito.version>
+        <slf4j.version>1.7.21</slf4j.version>
+        <activemq.version>5.13.0</activemq.version>
+        <jmeter.version>2.13</jmeter.version>
+        <blazeds.version>4.7.0</blazeds.version>
+        <selenium.version>3.4.0</selenium.version>
+        <maven.core.version>3.2.5</maven.core.version>
+		<hazelcast.version>3.6.4</hazelcast.version>
+        <bc.version>1.56</bc.version>
+	</properties>
+
+	<modules>
+		<module>dashboard-manager</module>
+		<module>common</module>
+		<module>common-with-apache-commons</module>
+		<module>common-with-spring</module>
+        <module>win32-helper-java-agent</module>
+		<module>plugin-api</module>
+		<module>windows-perfmon-plugin</module>
+		<module>powerpack-test-plugins</module>
+		<module>selenium-plugin</module>
+		<module>tim-plugin</module>
+		<module>tim-plugin-tester</module>
+		<module>dotnet-plugin</module>
+		<module>dotnet-plugin-tester</module>
+        <module>run2-plugin</module>
+		<module>em-plugin</module>
+		<module>agent</module>
+		<module>tas-tests</module>
+		<module>fld-workflows</module>
+		<module>wls-plugin</module>
+		<module>tibco-plugin</module>
+		<module>websphere-plugin</module>
+		<module>agent-download-plugin</module>
+		<module>agent-hvr-plugin</module>
+        <module>logmonitor-config</module>
+		<module>logmonitor-plugin</module>
+		<module>wurlitzer-plugin</module>
+		<module>run-plugin</module>
+		<module>weblogic-plugin</module>
+		<module>webmethods-plugin</module>
+		<module>tomcat-plugin</module>
+		<module>memory-monitor-plugin</module>
+		<module>jboss-plugin</module>
+        <module>jmeter-plugin</module>
+        <module>pcap-plugin</module>
+        <module>fld-scripts</module>
+        <module>fake-workstation-plugin</module>
+        <module>prelert-plugin</module>
+        <module>run-loadtest</module>
+        <module>alm-tests-scraper</module>
+        <module>appsrv-detection-plugin</module>
+        <module>management-modules</module>
+        <module>file-transformation-plugin</module>
+        <module>agent-apm-agent</module>
+        <module>activiti-delegates</module>
+        <module>load-orchestrator-webapp</module>
+        <module>hammond-tool</module>
+        <module>flex/jmeter-amf</module>
+        <module>flex/flex-echo-app</module>
+        <module>flex/flex-parser</module>
+        <module>tattoo-core</module>
+        <module>tattoo-log4j</module>
+        <module>tailer</module>
+        <module>load-monitor-common</module>
+        <module>load-monitor</module>
+		<module>memory-monitor-webapp</module>
+		<module>network-traffic-monitor-webapp</module>
+    </modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-engine</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-spring</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jul-to-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-simple</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-nop</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-jdk14</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-jcl</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.17</version>
+            </dependency>
+
+			<dependency>
+				<groupId>org.apache.logging.log4j.adapters</groupId>
+				<artifactId>log4j-slf4j-impl</artifactId>
+				<version>2.4.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>uk.org.lidalia</groupId>
+				<artifactId>lidalia-slf4j-ext</artifactId>
+				<version>1.0.0-jdk6</version>
+			</dependency>
+
+            <dependency>
+                <groupId>uk.org.lidalia</groupId>
+                <artifactId>sysout-over-slf4j</artifactId>
+                <version>1.0.2</version>
+            </dependency>
+
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>1.1.7</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>4.5.3</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpmime</artifactId>
+                <version>4.5.3</version>
+            </dependency>
+
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpcore</artifactId>
+				<version>4.4.6</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-configuration</groupId>
+				<artifactId>commons-configuration</artifactId>
+				<version>1.10</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>commons-fileupload</groupId>
+				<artifactId>commons-fileupload</artifactId>
+				<version>1.3.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-compress</artifactId>
+				<version>1.13</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.5</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-cli</groupId>
+				<artifactId>commons-cli</artifactId>
+				<version>1.3.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-pool</groupId>
+				<artifactId>commons-pool</artifactId>
+				<version>1.6</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>1.10</version>
+			</dependency>
+
+            <dependency>
+                <groupId>commons-net</groupId>
+                <artifactId>commons-net</artifactId>
+                <version>3.5</version>
+            </dependency>
+
+			<dependency>
+				<groupId>com.googlecode.cqengine</groupId>
+				<artifactId>cqengine</artifactId>
+				<version>2.1.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.ca.apm.alm</groupId>
+				<artifactId>alm-lib</artifactId>
+				<version>1.0.8-SNAPSHOT</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>21.0</version>
+			</dependency>
+
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>2.8.0</version>
+            </dependency>
+
+			<dependency>
+				<groupId>net.lingala.zip4j</groupId>
+				<artifactId>zip4j</artifactId>
+				<version>1.3.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${jackson.json.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>${jackson.json.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson.json.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.dataformat</groupId>
+				<artifactId>jackson-dataformat-yaml</artifactId>
+				<version>${jackson.json.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.module</groupId>
+				<artifactId>jackson-module-jaxb-annotations</artifactId>
+				<version>${jackson.json.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${spring.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-oxm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-io</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jms</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-expression</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+				<groupId>commons-dbcp</groupId>
+				<artifactId>commons-dbcp</artifactId>
+				<version>1.4</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.jms</groupId>
+				<artifactId>jms-api</artifactId>
+				<version>1.1-rev-1</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>3.1.0</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.activemq</groupId>
+				<artifactId>activemq-client</artifactId>
+				<version>${activemq.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.activemq</groupId>
+				<artifactId>activemq-broker</artifactId>
+				<version>${activemq.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.activemq</groupId>
+				<artifactId>activemq-spring</artifactId>
+				<version>${activemq.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.codehaus.groovy</groupId>
+				<artifactId>groovy-all</artifactId>
+                <version>2.4.5</version>
+                <classifier>indy</classifier>
+			</dependency>
+
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>1.4.192</version>
+			</dependency>
+
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.12</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>2.0.31-beta</version>
+			</dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>2.0.2-beta</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.kubek2k</groupId>
+                <artifactId>springockito</artifactId>
+                <version>1.0.9</version>
+                <exclusions>
+                    <!-- We exclude mockito-all because it is built with some dependencies (Hamcrest, Objenesis)
+                    packaged in. We want to avoid that in favour of explicit dependencies on the mockito-core
+                    artifact. -->
+                    <exclusion>
+                        <groupId>org.mockito</groupId>
+                        <artifactId>mockito-all</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+				<groupId>org.apache.maven.surefire</groupId>
+				<artifactId>surefire-junit47</artifactId>
+				<version>2.19</version>
+			</dependency>
+
+			<dependency>
+				<groupId>net.sourceforge.htmlunit</groupId>
+				<artifactId>htmlunit</artifactId>
+				<version>2.26</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-csv</artifactId>
+                <version>1.2</version>
+            </dependency>
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.5</version>
+			</dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>4.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.2.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>2.6</version>
+            </dependency>
+
+			<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>9.4-1200-jdbc41</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-simple</artifactId>
+                    </exclusion>
+                </exclusions>
+			</dependency>
+
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-java</artifactId>
+                <version>${selenium.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-api</artifactId>
+                <version>${selenium.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-firefox-driver</artifactId>
+                <version>${selenium.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-chrome-driver</artifactId>
+                <version>${selenium.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-ie-driver</artifactId>
+                <version>${selenium.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-remote-driver</artifactId>
+                <version>${selenium.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.github.bonigarcia</groupId>
+                <artifactId>webdrivermanager</artifactId>
+                <version>1.4.6</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.codeborne</groupId>
+                <artifactId>phantomjsdriver</artifactId>
+                <version>1.4.0</version>
+            </dependency>
+
+			<dependency>
+				<groupId>xalan</groupId>
+				<artifactId>xalan</artifactId>
+				<version>${apm.xalan.version}</version>
+			</dependency>
+
+            <dependency>
+                <groupId>xalan</groupId>
+                <artifactId>serializer</artifactId>
+                <version>${apm.xalan.version}</version>
+            </dependency>
+
+			<dependency>
+				<groupId>xerces</groupId>
+				<artifactId>xercesImpl</artifactId>
+				<version>${apm.xerces.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>4.3.11.Final</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-c3p0</artifactId>
+				<version>4.3.11.Final</version>
+			</dependency>
+
+            <dependency>
+                <groupId>com.mchange</groupId>
+                <artifactId>c3p0</artifactId>
+                <version>0.9.5.2</version>
+            </dependency>
+
+			<dependency>
+				<groupId>xml-apis</groupId>
+				<artifactId>xml-apis</artifactId>
+				<version>1.4.01</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.xbean</groupId>
+				<artifactId>xbean-spring</artifactId>
+				<version>4.4</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>org.codehaus.groovy.modules.http-builder</groupId>
+				<artifactId>http-builder</artifactId>
+				<version>0.7.1</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>net.sourceforge.nekohtml</groupId>
+				<artifactId>nekohtml</artifactId>
+				<version>1.9.22</version>
+			</dependency>
+
+			<dependency>
+				<groupId>net.java.dev.jna</groupId>
+				<artifactId>jna-platform</artifactId>
+				<version>4.2.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>net.java.dev.jna</groupId>
+				<artifactId>jna</artifactId>
+				<version>4.2.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>net.sf.dozer</groupId>
+				<artifactId>dozer</artifactId>
+				<version>5.5.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.freemarker</groupId>
+				<artifactId>freemarker</artifactId>
+				<version>2.3.23</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-core</artifactId>
+				<version>${maven.core.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-aether-provider</artifactId>
+				<version>${maven.core.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.eclipse.aether</groupId>
+				<artifactId>aether-impl</artifactId>
+				<version>1.0.0.v20140518</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.eclipse.aether</groupId>
+				<artifactId>aether-api</artifactId>
+				<version>1.0.0.v20140518</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.eclipse.aether</groupId>
+				<artifactId>aether-spi</artifactId>
+				<version>1.0.0.v20140518</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.eclipse.aether</groupId>
+				<artifactId>aether-util</artifactId>
+				<version>1.0.0.v20140518</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.eclipse.aether</groupId>
+				<artifactId>aether-connector-basic</artifactId>
+				<version>1.0.0.v20140518</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.eclipse.aether</groupId>
+				<artifactId>aether-transport-file</artifactId>
+				<version>1.0.0.v20140518</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.eclipse.aether</groupId>
+				<artifactId>aether-transport-wagon</artifactId>
+				<version>1.0.0.v20140518</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.eclipse.aether</groupId>
+				<artifactId>aether-transport-http</artifactId>
+				<version>1.0.0.v20140518</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.zeroturnaround</groupId>
+				<artifactId>zt-exec</artifactId>
+				<version>1.9</version>
+			</dependency>
+
+            <dependency>
+                <groupId>org.zeroturnaround</groupId>
+                <artifactId>zt-process-killer</artifactId>
+                <version>1.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>5.2.2.Final</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>1.1.0.Final</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.bval</groupId>
+                <artifactId>bval-jsr303</artifactId>
+                <version>0.5</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>1.8.7</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>1.8.7</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty</artifactId>
+                <version>3.5.13.Final</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>0.9.10</version>
+            </dependency>
+
+			<dependency>
+				<groupId>org.javassist</groupId>
+				<artifactId>javassist</artifactId>
+				<version>3.20.0-GA</version>
+			</dependency>
+
+            <dependency>
+                <groupId>javax.mail</groupId>
+                <artifactId>mail</artifactId>
+                <version>1.5.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.mail-api</groupId>
+                <artifactId>javax.mail</artifactId>
+                <version>1.5.5</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.sun.mail</groupId>
+                <artifactId>javax.mail</artifactId>
+                <version>1.5.5</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.glassfish</groupId>
+                <artifactId>javax.el</artifactId>
+                <version>3.0.1-b08</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.codehaus.gpars</groupId>
+                <artifactId>gpars</artifactId>
+                <version>1.2.1</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.jdom</groupId>
+                <artifactId>jdom</artifactId>
+                <version>2.0.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.chewiebug</groupId>
+                <artifactId>gcviewer</artifactId>
+                <version>1.34</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-server</artifactId>
+                <version>9.4.3.v20170317</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-servlet</artifactId>
+                <version>9.4.3.v20170317</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-io</artifactId>
+                <version>9.4.3.v20170317</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-util</artifactId>
+                <version>9.4.3.v20170317</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.flex</groupId>
+                <artifactId>spring-flex-core</artifactId>
+                <version>1.5.2.RELEASE</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.adobe.blazeds</groupId>
+                <artifactId>blazeds-core</artifactId>
+                <version>4.0.0.14931</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ca.apm.systemtest.fld</groupId>
+                <artifactId>jmeter-amf</artifactId>
+                <version>1.6-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.jmeter</groupId>
+                <artifactId>ApacheJMeter</artifactId>
+                <version>${jmeter.version}</version>
+                <!-- Version 2.13 of jMeter has broken dependencies. This disables them -->
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-math3</groupId>
+                        <artifactId>commons-math3</artifactId>
+                    </exclusion>
+
+                    <exclusion>
+                        <groupId>commons-pool2</groupId>
+                        <artifactId>commons-pool2</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.jmeter</groupId>
+                <artifactId>ApacheJMeter_components</artifactId>
+                <version>${jmeter.version}</version>
+                <!-- Version 2.13 of jMeter has broken dependencies. This disables them -->
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-math3</groupId>
+                        <artifactId>commons-math3</artifactId>
+                    </exclusion>
+
+                    <exclusion>
+                        <groupId>commons-pool2</groupId>
+                        <artifactId>commons-pool2</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.jmeter</groupId>
+                <artifactId>ApacheJMeter_core</artifactId>
+                <version>${jmeter.version}</version>
+                <!-- Version 2.13 of jMeter has broken dependencies. This disables them -->
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-math3</groupId>
+                        <artifactId>commons-math3</artifactId>
+                    </exclusion>
+
+                    <exclusion>
+                        <groupId>commons-pool2</groupId>
+                        <artifactId>commons-pool2</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.jmeter</groupId>
+                <artifactId>ApacheJMeter_mail</artifactId>
+                <version>${jmeter.version}</version>
+                <!-- Version 2.13 of jMeter has broken dependencies. This disables them -->
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-math3</groupId>
+                        <artifactId>commons-math3</artifactId>
+                    </exclusion>
+
+                    <exclusion>
+                        <groupId>commons-pool2</groupId>
+                        <artifactId>commons-pool2</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.jmeter</groupId>
+                <artifactId>ApacheJMeter_http</artifactId>
+                <version>${jmeter.version}</version>
+                <!-- Version 2.13 of jMeter has broken dependencies. This disables them -->
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-math3</groupId>
+                        <artifactId>commons-math3</artifactId>
+                    </exclusion>
+
+                    <exclusion>
+                        <groupId>commons-pool2</groupId>
+                        <artifactId>commons-pool2</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.jmeter</groupId>
+                <artifactId>ApacheJMeter_java</artifactId>
+                <version>${jmeter.version}</version>
+                <!-- Version 2.13 of jMeter has broken dependencies. This disables them -->
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-math3</groupId>
+                        <artifactId>commons-math3</artifactId>
+                    </exclusion>
+
+                    <exclusion>
+                        <groupId>commons-pool2</groupId>
+                        <artifactId>commons-pool2</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- The following two dependencies replace the ones removed from org.apache.jmeter:ApacheJMeter* above. -->
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-math3</artifactId>
+                <version>3.5</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>2.4.2</version>
+            </dependency>
+
+            <!-- ^^^ -->
+
+            <dependency>
+                <groupId>org.apache.flex.blazeds</groupId>
+                <artifactId>flex-messaging-core</artifactId>
+                <version>${blazeds.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.blazeds</groupId>
+                <artifactId>flex-messaging-remoting</artifactId>
+                <version>${blazeds.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flex.blazeds</groupId>
+                <artifactId>flex-messaging-common</artifactId>
+                <version>${blazeds.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.activation</groupId>
+                <artifactId>activation</artifactId>
+                <version>1.1.1</version>
+            </dependency>
+
+			<dependency>
+				<groupId>joda-time</groupId>
+				<artifactId>joda-time</artifactId>
+				<version>2.9.1</version>
+			</dependency>
+
+			<dependency>
+				<artifactId>jfreechart</artifactId>
+				<groupId>org.jfree</groupId>
+				<version>1.0.19</version>
+			</dependency>
+
+            <dependency>
+                <groupId>com.ca.tas.libs.util</groupId>
+                <artifactId>restClient</artifactId>
+                <version>${version.tas}</version>
+            </dependency>
+			<dependency>
+				<groupId>com.hazelcast</groupId>
+				<artifactId>hazelcast</artifactId>
+				<version>${hazelcast.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.hazelcast</groupId>
+				<artifactId>hazelcast-client</artifactId>
+				<version>${hazelcast.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.hazelcast</groupId>
+				<artifactId>hazelcast-spring</artifactId>
+				<version>${hazelcast.version}</version>
+			</dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-jdk15on</artifactId>
+                <version>${bc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
+                <version>${bc.version}</version>
+            </dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.19.1</version>
+					<!-- We cannot inherit because the parent pom.xml does exclude Functional group using the excludedGroups tag. This results in class loader error during testing: [ERROR] java.lang.RuntimeException: 
+						Unable to load category: Functional -->
+					<inherited>false</inherited>
+					<configuration>
+						<skip>true</skip>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<artifactId>maven-enforcer-plugin</artifactId>
+                    <version>1.4.1</version>
+					<executions>
+						<execution>
+							<id>enforce-banned-dependencies</id>
+							<goals>
+								<goal>enforce</goal>
+							</goals>
+							<configuration>
+								<rules>
+									<bannedDependencies>
+										<searchTransitive>true</searchTransitive>
+										<excludes>
+											<exclude>commons-logging</exclude>
+											<exclude>org.slf4j:1.5*</exclude>
+											<exclude>org.slf4j:1.6*</exclude>
+											<exclude>org.bitbucket.bradleysmithllc.maven-repository-launcher</exclude>
+											<exclude>org.jboss.netty</exclude>
+											<exclude>io.tesla.maven</exclude>
+                                            <exclude>org.mockito:mockito-all</exclude>
+										</excludes>
+									</bannedDependencies>
+									<requireJavaVersion>
+										<version>[1.8.0,)</version>
+									</requireJavaVersion>
+									<requireUpperBoundDeps />
+									<!-- dependencyConvergence / -->
+								</rules>
+								<fail>true</fail>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>2.6</version>
+				</plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>2.4</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-eclipse-plugin</artifactId>
+					<version>2.10</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>3.0.0</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>2.2</version>
+				</plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>2.17</version>
+                    <configuration>
+                        <configLocation>coding-standards/eclipse/apm-9-8-checkstyle6.0-java-style.xml</configLocation>
+                        <encoding>UTF-8</encoding>
+                        <consoleOutput>true</consoleOutput>
+                        <failsOnError>false</failsOnError>
+                        <linkXRef>false</linkXRef>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.puppycrawl.tools</groupId>
+                            <artifactId>checkstyle</artifactId>
+                            <version>6.11.2</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.ca.apm.tools</groupId>
+                            <artifactId>coding-standards</artifactId>
+                            <version>1.0.0-SNAPSHOT</version>
+                            <classifier>dist</classifier>
+                        </dependency>
+                    </dependencies>
+                    <executions>
+                        <execution>
+                            <id>validate</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>com.ca.tas.plugins</groupId>
+                    <artifactId>tas-maven-plugin</artifactId>
+                    <version>${version.tas}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.bouncycastle</groupId>
+                            <artifactId>bcpkix-jdk15on</artifactId>
+                            <version>${bc.version}</version>
+                        </dependency>
+
+                        <dependency>
+                            <groupId>org.bouncycastle</groupId>
+                            <artifactId>bcprov-jdk15on</artifactId>
+                            <version>${bc.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+			</plugin>
+        </plugins>
+	</build>
+</project>

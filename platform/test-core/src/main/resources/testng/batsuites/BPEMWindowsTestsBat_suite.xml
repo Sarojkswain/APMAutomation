@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<!--
+	@Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.BPEMWindowsTestbed, executeOn=momMachine}],
+	  owner = balra06,
+	  size = COLOSSAL,
+	  description = 'BPEM TestNg XML suite for all windows tests'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="BPEMWindowsTests" configfailurepolicy="continue">
+	<groups>
+    	<run>
+      		<include name="BAT"/>
+      		<include name="Bat"/>
+      		<include name="bat"/>
+    	</run>
+	</groups>
+	<test name="BPEMWindowsTests" preserve-order="true">		
+		<classes>
+			<class name="com.ca.apm.tests.bpem.BPEMTests">
+			</class>
+		</classes>
+	</test>
+</suite>
+		

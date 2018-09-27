@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+	    {name=com.ca.apm.tests.testbed.IACentOS66Testbed, executeOn=machine1}],
+	  owner = kurma05,
+	  size = BIG,
+	  description = 'Infrastructure Agent Tests'),
+	  snapshotPolicy = SnapshotPolicy.ALWAYS,
+      snapshot = SnapshotMode.LIVE
+-->	
+<suite name="InfrastructureAgent_CentOS66" configfailurepolicy="continue">
+	<parameter name="testngEmailEnabled" value="true" />
+	
+	<test name="InfrastructureAgent_CentOS66" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.tests.test.IATests">
+				 <methods>
+				 	<include name="testInstallHostExtension" />
+				 	<include name="testHostMonitoring" />
+				 	<include name="testReInstallHostExtension" />
+				 	<include name="testForceStartHostExtension" />
+				 	<include name="testAppHostCorrelation" />
+				 </methods>
+			</class>
+		</classes>    	   
+	</test>
+	<listeners>    	
+   	    <listener class-name="org.uncommons.reportng.HTMLReporter" />    	
+   		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+ 	</listeners>
+</suite>

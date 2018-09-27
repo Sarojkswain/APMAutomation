@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+	<transformation id="props">
+		<set-property name="analytics.server.uri" value="http://${#prelertHost}:${#prelertPort}/prelertApi/prelert.svc/" />
+		<set-property name="analytics.metricfeed.expr.0" value="analytics.metricfeed.domain.0, analytics.metricfeed.process.0, analytics.metricfeed.metric.0" />
+		<set-property name="analytics.metricfeed.domain.0" value=".*" />
+		<set-property name="analytics.metricfeed.process.0" value="Custom Metric Host (Virtual)\\|Custom Metric Process (Virtual)\\|Custom Business Application Agent (Virtual)" />
+		<set-property name="analytics.metricfeed.metric.0" value="By Frontend\\|[^|]+\\|Health:.+" />
+		<set-property name="analytics.metricfeed.expr.1" value="analytics.metricfeed.domain.1, analytics.metricfeed.process.1, analytics.metricfeed.metric.1" />
+		<set-property name="analytics.metricfeed.domain.1" value=".*" />
+		<set-property name="analytics.metricfeed.process.1" value="Custom Metric Host (Virtual)\\|Custom Metric Process (Virtual)\\|Custom Business Application Agent (Virtual)" />
+		<set-property name="analytics.metricfeed.metric.1" value="By Frontend\\|[^|]+\\|Backend Calls\\|[^|]+:.+" />
+		<set-property name="analytics.metricfeed.expr.2" value="analytics.metricfeed.domain.2, analytics.metricfeed.process.2, analytics.metricfeed.metric.2" />
+		<set-property name="analytics.metricfeed.domain.2" value=".*" />
+		<set-property name="analytics.metricfeed.process.2" value=".*\\|CEM\\|(.*)" />
+		<set-property name="analytics.metricfeed.metric.2" value="Business Service\\|[^|]+\\|Business Transactions\\|[^|]+:.+" />
+		<set-property name="analytics.metricfeed.expr.3" value="analytics.metricfeed.domain.3, analytics.metricfeed.process.3, analytics.metricfeed.metric.3" />
+		<set-property name="analytics.metricfeed.domain.3" value=".*" />
+		<set-property name="analytics.metricfeed.process.3" value="Custom Metric Host (Virtual)\\|Custom Metric Process (Virtual)\\|Custom Business Application Agent (Virtual)" />
+		<set-property name="analytics.metricfeed.metric.3 " value="By Business Service\\|[^|]+\\|[^|]+\\|[^|]+:.+" />
+		<set-property name="analytics.metricfeed.expr.4" value="analytics.metricfeed.domain.4, analytics.metricfeed.process.4, analytics.metricfeed.metric.4" />
+		<set-property name="analytics.metricfeed.domain.4" value=".*" />
+		<set-property name="analytics.metricfeed.process.4" value=".*\\|StressTestProcess\\|1ComplexAgent.*" />
+		<set-property name="analytics.metricfeed.metric.4" value="Agent Stats\\|Resources:.+" />
+		<set-property name="analytics.metricfeed.expr.5" value="analytics.metricfeed.domain.5, analytics.metricfeed.process.5, analytics.metricfeed.metric.5" />
+		<set-property name="analytics.metricfeed.domain.5" value=".*" />
+		<set-property name="analytics.metricfeed.process.5" value=".*\\|StressTestProcess\\|2ComplexAgent.*" />
+		<set-property name="analytics.metricfeed.metric.5" value="Frontends\\|Apps\\|[^|]+:.+" />
+		<set-property name="analytics.metricfeed.expr.6" value="analytics.metricfeed.domain.6, analytics.metricfeed.process.6, analytics.metricfeed.metric.6" />
+		<set-property name="analytics.metricfeed.domain.6" value=".*" />
+		<set-property name="analytics.metricfeed.process.6" value=".*\\|StressTestProcess\\|1PortletAgent.*" />
+		<set-property name="analytics.metricfeed.metric.6" value="Frontends\\|Apps\\|[^|]+\\|URLs\\|.+\\|Called Backends\\|[^|]+:.+" />
+		<set-property name="analytics.metricfeed.expr.7" value="analytics.metricfeed.domain.7, analytics.metricfeed.process.7, analytics.metricfeed.metric.7" />
+		<set-property name="analytics.metricfeed.domain.7" value=".*" />
+		<set-property name="analytics.metricfeed.process.7" value=".*\\|StressTestProcess\\|2PortletAgent.*" />
+		<set-property name="analytics.metricfeed.metric.7" value="Business Segment\\|[^|]+\\|[^|]+\\|[^|]+:.+" />
+		<set-property name="analytics.metricfeed.expr.8" value="analytics.metricfeed.domain.8, analytics.metricfeed.process.8, analytics.metricfeed.metric.8" />
+		<set-property name="analytics.metricfeed.domain.8" value=".*" />
+		<set-property name="analytics.metricfeed.process.8" value=".*\\|StressTestProcess\\|FLDABAagent.*" />
+		<set-property name="analytics.metricfeed.metric.8" value="EJB\\|Session.*:.*" />
+	</transformation>
+	
+	<files id="files">
+		<file>${#emPlugin.pluginConfiguration.currentInstallDir}/config/Analytics.properties</file>
+	</files>
+	
+	<binding id="binding">
+		<transformation-ref id="props" />
+		<files-ref id="files" /> 
+	</binding>
+</configuration>

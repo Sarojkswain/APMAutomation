@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:flex="http://www.springframework.org/schema/flex"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/flex 
+		http://www.springframework.org/schema/flex/spring-flex-1.0.xsd">
+ 
+	<flex:message-broker>
+		<flex:message-service default-channels="my-streaming-amf,my-longpolling-amf,my-polling-amf,my-amf" />
+		<flex:secured />
+	</flex:message-broker>
+	
+	
+	<!-- Register AMF channel -->
+	<flex:message-broker>
+		<flex:remoting-service default-channels="my-amf" />
+	</flex:message-broker>
+
+	<!-- Register messages interceptor -->
+	<flex:message-broker>
+		<flex:message-interceptor ref="myMessageInterceptor"/>
+	</flex:message-broker>
+	<bean id="myMessageInterceptor" class="com.ca.fld.flex.sample.FlexInterceptor"/>
+
+	<!-- Register destination for 'echoService' -->
+	<bean id="echoService" class="com.ca.fld.flex.sample.EchoService" /> 
+	<bean id="echo" class="org.springframework.flex.remoting.RemotingDestinationExporter">
+		<property name="messageBroker" ref="_messageBroker"/>
+		<property name="service" ref="echoService"/>
+		<property name="destinationId" value="echoService"/>
+		<property name="includeMethods" value="echo"/>
+		<property name="channels" value="my-amf"/>
+	</bean>
+
+</beans>

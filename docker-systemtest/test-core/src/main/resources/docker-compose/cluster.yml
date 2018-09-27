@@ -1,0 +1,27 @@
+version: '2'
+services:
+  ## Introscope image
+  em:
+    image: ${IMAGE_REGISTRY}/apm-em:${PROJECT_VERSION}
+    links:
+      - db:docker-db
+    ports:
+      - "5001:5001"
+      - "8081:8081"
+    environment:
+      - HEAP_XMX=${ENV_MEMORY}
+    #volumes:
+      #- ~/docker-introscope/transfer/xmltv:/transfer/xmltv
+      #- ~/docker-introscope/transfer/modules:/transfer/modules
+
+  ## DB image
+  db:
+    image: ${IMAGE_REGISTRY}/apm-db:${PROJECT_VERSION}
+
+  ## WV image
+  wv:
+    image: ${IMAGE_REGISTRY}/apm-wv:${PROJECT_VERSION}
+    links:
+      - em:docker-em
+    ports:
+      - "8082:8080"

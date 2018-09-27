@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TeamCenterRegressionChromeSuite - one suite">
+	<parameter name="enterpriseTeamCenterUrl"  value="http://127.0.0.1:8081"/>
+	<parameter name="enterpriseTeamCenterWebviewUrl" value="http://127.0.0.1:9000"/>
+	<parameter name="followerWebviewUrl"  value="http://127.0.0.1:9001"/>
+	<parameter name="followerApiUrl"  value="http://127.0.0.1:8082"/>
+	
+	<test name="RegisterTest">
+		<classes>
+			<class name="com.ca.apm.test.em.agc.RegisterSteps">
+				<methods>
+					<include name="beforeSuite"/>
+					<include name="beforeClass"/>
+					
+					<include name="registerTest"/>
+					
+					<include name="afterTest"/>
+					<include name="afterMethod"/>
+					<include name="afterSuite"/>
+					<include name="beforeMethod"/>
+					<include name="afterClass"/>
+					
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

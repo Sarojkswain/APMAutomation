@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2014 CA.  All rights reserved.
+  ~
+  ~ This software and all information contained therein is confidential and
+  ~ proprietary and shall not be duplicated, used, disclosed or disseminated in
+  ~ any way except as authorized by the applicable license agreement, without
+  ~ the express written permission of CA. All authorized reproductions must be
+  ~ marked with this language.
+  ~
+  ~ EXCEPT AS SET FORTH IN THE APPLICABLE LICENSE AGREEMENT, TO THE EXTENT
+  ~ PERMITTED BY APPLICABLE LAW, CA PROVIDES THIS SOFTWARE WITHOUT WARRANTY OF
+  ~ ANY KIND, INCLUDING WITHOUT LIMITATION, ANY IMPLIED WARRANTIES OF
+  ~ MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  IN NO EVENT WILL CA BE
+  ~ LIABLE TO THE END USER OR ANY THIRD PARTY FOR ANY LOSS OR DAMAGE, DIRECT OR
+  ~ INDIRECT, FROM THE USE OF THIS SOFTWARE, INCLUDING WITHOUT LIMITATION, LOST
+  ~ PROFITS, BUSINESS INTERRUPTION, GOODWILL, OR LOST DATA, EVEN IF CA IS
+  ~ EXPRESSLY ADVISED OF SUCH LOSS OR DAMAGE.
+  -->
+
+<codaSuite xmlns="http://www.ca.com/2013/tasCodaSuite">
+	<name>qa/EM/92/SupportabilityMetrics/suite/sm_sap_testsuite_smoke_with_onerror.xml</name>
+	<testBeds>
+		<testbedConfigs>
+			<testBedName>com.ca.tas.test.emsap.sm.smoke.SupportabilityMetricsSmokeTestBed</testBedName>
+		</testbedConfigs>
+	</testBeds>
+	<genericProperties>
+		<properties key="coda.logic.mercurial.branch" value="{codaLogicMercurialBranch}" />
+		<properties key="testvariant.files" value="" />
+		<!-- CA Introscope -->
+		<properties key="overrides.versions.introscope.build.number"
+			value="{artifactVersion}" />
+		<properties key="overrides.versions.introscope.build.suffix"
+			value="{fullProductVersion}" />
+		<properties key="overrides.versions.introscope.code.name"
+			value="default" />
+		<properties key="overrides.versions.osgi" value="{productVersion}" />
+		<properties key="overrides.versions.osgi.build.number"
+			value="{artifactVersion}" />
+		<properties key="overrides.versions.internal.build.suffix"
+			value="{fullProductVersion}" />
+		<!-- CA Agent -->
+		<properties key="overrides.versions.agent.build.number"
+			value="{artifactVersion}" />
+		<properties key="overrides.versions.agent.build.suffix"
+			value="{fullProductVersion}" />
+		<properties key="overrides.versions.agent.code.name" value="default" />
+		<!-- Test automation -->
+		<properties key="overrides.versions.coda-projects.build.number"
+			value="{artifactVersion}" />
+		<!-- QC upload -->
+		<properties key="overrides.role_qcuploadtool.upload.results"
+			value="false" />
+
+		<!-- Machine properties -->
+		<properties key="role.st.slaveType" value="WindowsService" />
+		<properties key="role.st.install.parent.dir" value="C:/sw" />
+		<properties key="role.st.max.permsize.mb" value="256" />
+		<properties key="role.st.max.heap.mb" value="1024" />
+		<properties key="role.st.min.heap.mb" value="512" />
+		<properties key="role.st.install.dir" value="C:/sw/supportability_metrics" />
+
+		<properties key="role.emdb.slaveType" value="WindowsService" />
+		<properties key="role.emdb.install.parent.dir" value="C:/sw" />
+		<properties key="role.emdb.max.permsize.mb" value="256" />
+		<properties key="role.emdb.max.heap.mb" value="1024" />
+		<properties key="role.emdb.min.heap.mb" value="512" />
+		<properties key="role.emdb.install.dir" value="C:/sw/supportability_metrics" />
+
+		<properties key="role.mom.slaveType" value="WindowsService" />
+		<properties key="role.mom.install.parent.dir" value="C:/sw" />
+		<properties key="role.mom.max.permsize.mb" value="256" />
+		<properties key="role.mom.max.heap.mb" value="1024" />
+		<properties key="role.mom.min.heap.mb" value="512" />
+		<properties key="role.mom.install.dir" value="C:/sw/supportability_metrics" />
+
+		<properties key="role.c1.slaveType" value="WindowsService" />
+		<properties key="role.c1.install.parent.dir" value="C:/sw" />
+		<properties key="role.c1.max.permsize.mb" value="256" />
+		<properties key="role.c1.max.heap.mb" value="1024" />
+		<properties key="role.c1.min.heap.mb" value="512" />
+		<properties key="role.c1.install.dir" value="C:/sw/supportability_metrics" />
+
+		<!-- Role properties -->
+		<properties key="role.mom.mom.base" value="mom" />
+		<properties key="role.mom.momPort" value="5003" />
+		<properties key="role.c1.collector1.base" value="c1" />
+		<properties key="role.c1.c1Port" value="5004" />
+		<properties key="role.st.standalone.base" value="st" />
+		<properties key="role.st.stPort" value="5001" />
+		<properties key="role.emdb.sapem.stage.dir" value="${testbed_em.stage.dir}" />
+		<properties key="role.client01.sap.em.username" value="sapsupport" />
+		<properties key="role.client01.sap.em.password" value="a20041013b" />
+		<properties key="role.client01.Base_dir" value="C:/sw" />
+		<properties key="role.st.sap.em.username" value="sapsupport" />
+		<properties key="role.st.sap.em.password" value="a20041013b" />
+		<properties key="role.mom.sap.em.username" value="sapsupport" />
+		<properties key="role.mom.sap.em.password" value="a20041013b" />
+		<properties key="role.c1.sap.em.username" value="sapsupport" />
+		<properties key="role.c1.sap.em.password" value="a20041013b" />
+				
+	</genericProperties>
+	<type>CODA:Suite</type>
+	<owner>pospa02</owner>
+	<description>EMSAP.SMOKE test suite for Supportability Metrics capability</description>
+	<size>BIG</size>
+	<group>coda-emsap</group>
+	<executeOn>controller</executeOn>
+</codaSuite>

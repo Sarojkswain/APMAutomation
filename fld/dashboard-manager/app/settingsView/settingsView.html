@@ -1,0 +1,277 @@
+<h2 class="row">
+    <div class="col-sm-1">
+        <img class="dashboard-icon" src="img/settings2v48x48.png">
+    </div>
+    <span class="col-sm-11 text-right" style="margin-top: 15px;">
+        Load Orchestrator Settings
+    </span>
+</h2>
+
+<h1 class="page-header">
+</h1>
+<br/>
+<div>
+    <h3>Log Monitor Recipients</h3>
+    <br/>
+    <p>
+        <ul>
+            <li>There can be 2 kind of recipients: modifiable (persisted in the database) and
+                non-modifiable (hardcoded in the application context).
+            </li>
+            <li>
+                Hardcoded recipients do not change during application runtime and serve only as a fallback
+                mechanism - at least, that was the logic by the time I took over the task to implement API
+                for persisting log monitor recipients.
+            </li>
+            <li>
+                In regard to persisted recipients you can edit the following info for each of them:
+                <dl class="dl-horizontal">
+                    <dt>name</dt><dd>non-mandatory, can be left empty.</dd>
+                    <dt>surname</dt><dd>non-mandatory, can be left empty.</dd>
+                    <dt>telephone</dt><dd>non-mandatory, can be left empty.</dd>
+                    <dt>reason</dt><dd>non-mandatory, can be left empty. What is that for there? I never got it.</dd>
+                    <dt>email addresses</dt><dd><u>mandatory</u>, can not be empty.</dd>
+                </dl>
+            </li>
+            <li>
+                You can not edit recipient's add timestamp, it is set automatically when persisted on the backend.
+            </li>
+            <li>
+                To start editing any of the editable fields listed above, just single-left-click onto corresponding
+                field in the table and it should turn into an edit box. Emails are shown with a <samp>(-)</samp> sign which is clickable
+                and functions as a remove button.
+            </li>
+            <li>
+                To finish editing field's content just navigate the focus off the field, e.g. by clicking onto some other field or blank
+                area on the page. The same logic applies to adding new emails, but be aware that if the email typed has a wrong format
+                (i.e. fails validation) and you navigate away from the edit box, its value will be discarded and you will have to re-type it
+                again. There's no way to edit already stored emails - you will have to remove the old value and re-add it with necessary
+                modifications.
+            </li>
+            <li>And the last note: at the moment editable recipients and hardcoded recipients can not co-exist. If there are no persisted
+                recipients in the system yet, the backend sends you hardcoded ones as they function as a fallback. But as soon as you
+                persist some new recipients, the backend stops using the hardcoded ones, so they disappear from the list.</li>
+        </ul>
+    </p>
+    <br/>
+    <div ng-if="initLogMonitorRecipientsFinished">
+        <table class="table table-hover">
+            <thead>
+                <tr class="row">
+                    <th class="text-left">#</th>
+                    <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">Name</th>
+                    <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">Surname</th>
+                    <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">Email(s)</th>
+                    <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">Telephone</th>
+                    <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">Add Reason</th>
+                    <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-right">Add Time</th>
+                    <th class="text-right">Action</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="recipient in logMonitorRecipientsList">
+                <tr ng-class="{ 'active' : !settingsController.isRecipientEditable(recipient) }" class="row">
+                    <td class="text-left">
+                        {{ $index + 1 }}<span ng-if="recipient.id === -1 || recipient.dirty">*</span>
+                    </td>
+                    <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left"
+                        ng-click="settingsController.toggleRecipientNameMode(recipient, true)">
+                        <div ng-if="!recipient.isNameEditable">
+                            <span ng-if="recipient.name">{{ recipient.name }}</span>
+                            <span ng-if="!recipient.name"><code>N\A</code></span>
+                        </div>
+                        <div ng-if="recipient.isNameEditable">
+                            <input type="text"
+                                   ng-model="recipient.name"
+                                   ng-value="recipient.name"
+                                   focus="true"
+                                   ng-blur="settingsController.toggleRecipientNameMode(recipient, false)"
+                                   ng-change="settingsController.setRecipientDirty(recipient)">
+                        </div>
+                    </td>
+                    <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left"
+                        ng-click="settingsController.toggleRecipientSurnameMode(recipient, true)">
+                        <div ng-if="!recipient.isSurnameEditable">
+                            <span ng-if="recipient.surname">{{ recipient.surname }}</span>
+                            <span ng-if="!recipient.surname"><code>N\A</code></span>
+                        </div>
+                        <div ng-if="recipient.isSurnameEditable">
+                            <input type="text"
+                                   ng-model="recipient.surname"
+                                   ng-value="recipient.surname"
+                                   focus="true"
+                                   ng-blur="settingsController.toggleRecipientSurnameMode(recipient, false)"
+                                   ng-change="settingsController.setRecipientDirty(recipient)">
+                        </div>
+                    </td>
+                    <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left"
+                        ng-click="settingsController.toggleRecipientEmailsMode(recipient, true)">
+                        <div ng-if="recipient.areEmailsEditable" ng-form name="recipientEmailForm{{ $index }}">
+                            <input type="email"
+                                   focus="true"
+                                   name="emailInput"
+                                   ng-model="recipient.tmpEmail"
+                                   ng-value="recipient.tmpEmail"
+                                   ng-blur="settingsController.saveEmailIfValid(recipient, recipient.tmpEmail)">
+                        </div>
+                        <div>
+                            <div ng-repeat="email in recipient.emailAddresses track by $index">
+                                <a ng-if="settingsController.isRecipientEditable(recipient) && !recipient.areEmailsEditable"
+                                   class="remove-email"
+                                   title="Remove"
+                                   ng-click="settingsController.removeEmail(recipient, $index, $event)">
+                                    <span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
+                                </a>
+                                <span> {{ email }}</span>
+                                <br/>
+                            </div>
+                        </div>
+                        <div ng-if="!recipient.areEmailsEditable && (!recipient.emailAddresses || recipient.emailAddresses.length === 0)">
+                            <span><code>N\A</code></span>
+                        </div>
+                    </td>
+                    <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right"
+                        ng-click="settingsController.toggleRecipientTelephoneMode(recipient, true)">
+                        <div ng-if="!recipient.isTelephoneEditable">
+                            <span ng-if="recipient.telephone">{{ recipient.telephone }}</span>
+                            <span ng-if="!recipient.telephone"><code>N\A</code></span>
+                        </div>
+                        <div ng-if="recipient.isTelephoneEditable">
+                            <input type="text"
+                                   ng-model="recipient.telephone"
+                                   ng-value="recipient.telephone"
+                                   focus="true"
+                                   ng-blur="settingsController.toggleRecipientTelephoneMode(recipient, false)"
+                                   ng-change="settingsController.setRecipientDirty(recipient)">
+                        </div>
+                    </td>
+                    <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right"
+                        ng-click="settingsController.toggleRecipientReasonMode(recipient, true)">
+                        <div ng-if="!recipient.isReasonEditable">
+                            <span ng-if="recipient.reason && settingsController.isRecipientEditable(recipient)">
+                                {{ recipient.reason }}
+                            </span>
+                            <span ng-if="recipient.reason && !settingsController.isRecipientEditable(recipient)">
+                                <samp>{{ recipient.reason }}</samp>
+                            </span>
+                            <span ng-if="!recipient.reason">
+                                <code>N\A</code>
+                            </span>
+                        </div>
+                        <div ng-if="recipient.isReasonEditable">
+                            <input type="text"
+                                   ng-model="recipient.reason"
+                                   ng-value="recipient.reason"
+                                   focus="true"
+                                   ng-blur="settingsController.toggleRecipientReasonMode(recipient, false)"
+                                   ng-change="settingsController.setRecipientDirty(recipient)">
+                        </div>
+                    </td>
+                    <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-right">
+                        <span>{{ recipient.timestamp | date : 'yyyy-MM-dd HH:mm:ss Z' }}</span>
+                        <span ng-if="!recipient.timestamp"><code>N\A</code></span>
+                    </td>
+                    <td class="text-right">
+                        <div>
+                        <button type="button"
+                                class="btn btn-primary log-monitor-recipient-action-button"
+                                aria-label="Delete"
+                                title="Delete"
+                                ng-if="settingsController.isRecipientEditable(recipient) && !recipient.saveInProgress"
+                                ng-click="settingsController.deleteRecipient(recipient, $index)">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button>
+                        </div>
+                        <div>
+                        <button type="button"
+                                class="btn btn-primary log-monitor-recipient-action-button"
+                                aria-label="Discard changes"
+                                title="Discard changes"
+                                ng-if="recipient.dirty && !recipient.saveInProgress"
+                                ng-click="settingsController.discardChanges(recipient)">
+                            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+                        </button>
+                        </div>
+                        <div>
+                        <button type="button"
+                                class="btn btn-primary log-monitor-recipient-action-button"
+                                aria-label="Save"
+                                title="Save"
+                                ng-if="recipient.id >= 0 && recipient.dirty && !recipient.saveInProgress"
+                                ng-click="settingsController.updateRecipient(recipient)">
+                            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                        </button>
+                        </div>
+                        <div>
+                        <button type="button"
+                                class="btn btn-success log-monitor-recipient-action-button"
+                                aria-label="Add"
+                                title="Add"
+                                ng-if="recipient.id === -1 && !recipient.saveInProgress"
+                                ng-click="settingsController.addRecipient(recipient, $index)">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        </button>
+                        </div>
+                        <span ng-if="!settingsController.isRecipientEditable(recipient)"><samp>&lt;UNMODIFIABLE&gt;</samp></span>
+                        <uib-progressbar
+                                ng-if="recipient.saveInProgress"
+                                class="progress-striped node-progress-bar active"
+                                max="1"
+                                value="1"
+                                type="info">
+                            <i>Saving</i>
+                        </uib-progressbar>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div ng-show="!initLogMonitorRecipientsFinished">
+        <div class="text-center">
+            <img src="img/spinner64x64.gif">
+        </div>
+    </div>
+    <div ng-show="initLogMonitorRecipientsFailed">
+        <div class="text-center">
+            <img src="img/skull64x64.png">
+            <div class="inline-error-text">Oops... something wrong happened, see console</div>
+        </div>
+    </div>
+    <div>
+        <button type="button"
+                class="btn btn-primary"
+                aria-label="Add new row"
+                title="Add new row"
+                ng-click="settingsController.addNewRecipient()">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+        <button type="button"
+                class="btn btn-primary"
+                aria-label="Remove all rows"
+                title="Remove all rows"
+                ng-if="settingsController.hasEditableRecipients(logMonitorRecipientsList)"
+                ng-click="settingsController.removeAllRecipients()">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        </button>
+    </div>
+</div>
+<br/>
+<br/>
+<div>
+    <h3>Left-hand dashboard navigation panel</h3>
+    <br/>
+    <form class="form-horizontal">
+        <div class="form-group row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"
+                               placeholder="Hide optional dashboard icons in the left-hand navigation panel"
+                               ng-model="globalAppSettings.hideOptionalDashboardIconsInNavPanel"
+                               ng-change="settingsController.saveHideOptDashbIconsFlag(globalAppSettings.hideOptionalDashboardIconsInNavPanel)">
+                        Hide optional dashboard icons
+                    </label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

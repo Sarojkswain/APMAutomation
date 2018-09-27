@@ -1,0 +1,30 @@
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{ modalOptions.headerText }}</h3>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div ng-class="{ 'form-group' : true, 'has-feedback' : modalOptions.isRequired, 'has-success' : modalOptions.isRequired && textInput, 'has-error' : modalOptions.isRequired && !textInput }">
+                <label class="control-label" for="inputFieldId">{{ modalOptions.label }}</label>
+                <input type="text"
+                       class="form-control"
+                       id="inputFieldId"
+                       placeholder="{{ modalOptions.placeholder }}"
+                       ng-model="textInput"
+                       value="{{ textInput }}"
+                       focus="true">
+                        <span ng-show="modalOptions.isRequired" ng-class="{ 'glyphicon form-control-feedback' : true, 'glyphicon-ok' : textInput, 'glyphicon-remove' : !textInput }"
+                              aria-hidden="true"></span>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"
+                ng-click="singleTextModalController.onCancel()">{{ modalOptions.cancelButtonText }}
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                ng-click="singleTextModalController.onOk()" ng-disabled="modalOptions.isRequired && !textInput">
+            {{ modalOptions.okButtonText }}
+        </button>
+    </div>
+</div>

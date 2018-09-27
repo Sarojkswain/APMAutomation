@@ -1,0 +1,7 @@
+{
+  "id": "fldMetrics",
+  "type": "homepage",
+  "displayName": "FLD Extension",
+  "files": ["extensions/fldMetrics/FldMetricsDirective.js"],
+  "template": "<fld-metrics-example context=\"context\" is-disabled=\"isDisabled\"></fld-metrics-example>"
+}

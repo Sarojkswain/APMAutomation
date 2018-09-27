@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:hz="http://www.hazelcast.com/schema/spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	  http://www.hazelcast.com/schema/spring https://hazelcast.com/schema/spring/hazelcast-spring-3.6.xsd
+	  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.h2.Driver" />
+		<property name="url" value="jdbc:h2:~/fld/controller" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+		<property name="defaultAutoCommit" value="false" />
+		<property name="maxTotal" value="10" />
+		<property name="maxIdle" value="2" />
+		<property name="initialSize" value="2" />
+	</bean>
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan">
+			<list>
+				<value>com.ca.apm.systemtest.fld.flow.controller.model</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+	<context:annotation-config />
+    <context:component-scan base-package="com.ca.apm.systemtest.fld.flow.controller.service" />
+    <context:component-scan base-package="com.ca.apm.systemtest.fld.flow.controller.dao" />
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:loadmon_config.properties</value>
+				<value>file:${LOADMON}/loadmon_config.properties</value>
+				<value>/WEB-INF/fld_reporting_config.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="templateResolver"
+		class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+		<property name="prefix" value="/WEB-INF/templates/" />
+		<property name="suffix" value=".html" />
+		<property name="templateMode" value="HTML" />
+		<property name="cacheable" value="true" />
+	</bean>
+
+	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+		<property name="templateResolver" ref="templateResolver" />
+		<property name="enableSpringELCompiler" value="true" />
+	</bean>
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="mail.ca.com" />
+	</bean>
+
+	<bean class="com.ca.apm.systemtest.fld.flow.controller.MarkerFileMonitor">
+		<constructor-arg value="${loadmon.marker.dir:c:\fld\markers}" />
+		<constructor-arg value="true" />
+	</bean>
+
+	<hz:hazelcast id="instance">
+		<hz:config>
+			<hz:group password="quality" name="fld" />
+			<hz:network port="5701" public-address="0.0.0.0"></hz:network>
+		</hz:config>
+	</hz:hazelcast>
+
+</beans>

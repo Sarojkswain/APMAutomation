@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+	<transformation id="props">
+		<set-property name="lax.nl.java.option.additional" value="-Djava.awt.headless=true -Dmail.mime.charset=UTF-8 -Dorg.owasp.esapi.resources=./config/esapi -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -Xss512k -Dcom.wily.assert=false -showversion -XX:CMSInitiatingOccupancyFraction=50 -XX:+HeapDumpOnOutOfMemoryError -Xms16384m -Xmx16384m -verbose:gc -Xloggc:${#emPlugin.pluginConfiguration.currentGcLogFile} -Dappmap.user=admin -Dappmap.token=f47ac10b-58cc-4372-a567-0e02b2c3d479" />
+	</transformation>
+	
+	<files id="files">
+		<file>${#emPlugin.pluginConfiguration.currentInstallDir}/Introscope_Enterprise_Manager.lax</file>
+	</files>
+	
+	<binding id="binding">
+		<transformation-ref id="props" />
+		<files-ref id="files" /> 
+	</binding>
+</configuration>

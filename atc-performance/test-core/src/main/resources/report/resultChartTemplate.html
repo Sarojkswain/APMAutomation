@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>ATC Performance</title>
+
+        <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="atcPerfResultChartGenerator.css" type="text/css" media="all" />
+
+        <script src="https://www.amcharts.com/lib/3/amcharts.js" type="text/javascript"></script>
+        <script src="https://www.amcharts.com/lib/3/serial.js" type="text/javascript"></script>
+        <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js" type="text/javascript"></script>
+        <script src="https://www.amcharts.com/lib/3/themes/dark.js" type="text/javascript"></script>
+
+        <script src="atcPerfResultChartGenerator.js" type="text/javascript"></script>
+
+        <script src="test-chrome-data.js" type="text/javascript"></script>
+        <script src="test-firefox-data.js" type="text/javascript"></script>
+        <script src="test-ie-data.js" type="text/javascript"></script>
+        <script src="test-edge-data.js" type="text/javascript"></script>
+
+        <script type="text/javascript">
+            AmCharts.ready(function () {
+                var chromeData = [];
+                if (typeof CHROME_METRICS !== 'undefined') {
+                    chromeData = CHROME_METRICS;
+                }
+
+                var firefoxData = [];
+                if (typeof FIREFOX_METRICS !== 'undefined') {
+                    firefoxData = FIREFOX_METRICS;
+                }
+
+                var ieData = [];
+                if (typeof IE_METRICS !== 'undefined') {
+                    var ieData =  IE_METRICS;
+                }
+
+                var edgeData = [];
+                if (typeof EDGE_METRICS !== 'undefined') {
+                    var edgeData = EDGE_METRICS;
+                }
+
+                buildCharts(chromeData, firefoxData, ieData, edgeData);
+            });
+        </script>
+    </head>
+    <body>
+
+    <div id="mainDiv">
+        <div id="contentContainer">
+            <h1 class="title">
+                <a href="report-index.html" class="home-icon">
+                    <img src="homeIcon.png"/>
+                </a>
+                SCENARIO_TITLE
+            </h1>
+
+            <div id="screenshotsContainer">
+                <div>
+                    <a href="SCREENSHOT_BEFORE.png" target="_blank">
+                        <img src="SCREENSHOT_BEFORE.png" class="screenshotImage">
+                    </a>
+                </div>
+                <div class="transitionArrow">
+                    <img src="loopIcon.png"/>
+                </div>
+                <div>
+                    <a href="SCREENSHOT_AFTER.png" target="_blank">
+                        <img src="SCREENSHOT_AFTER.png" class="screenshotImage">
+                    </a>
+                </div>
+            </div>
+
+            <div id="testDescriptionContainer">
+                <h3>Test description</h3>
+                <p>
+                    TEST_DESCRIPTION
+                </p>
+            </div>
+            <div id="samplesChartContainer">
+                <h2>Cycles</h2>
+                <div id="samplesChartDiv"></div>
+            </div>
+
+            <div id="averagesChartContainer">
+                <h2>Averages</h2>
+                <div id="averagesChartDiv"></div>
+            </div>
+
+            <div id="errorsContainer">
+                <h2>Errors</h2>
+                <div id="errorsDiv"></div>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>

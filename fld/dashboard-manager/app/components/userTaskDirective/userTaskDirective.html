@@ -1,0 +1,104 @@
+<div ng-controller="UserTaskDirectiveController as controller">
+    <table class="table table-hover">
+        <thead>
+        <tr class="row">
+            <th class="col-md-4 text-left">Task Description</th>
+            <th class="col-md-8 text-right">Task Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="row" ng-repeat="formParam in userTaskFormData">
+            <td class="col-md-4 text-left"><h4>{{ controller.getLocalizedParamName(formParam.name) }}</h4></td>
+            <td class="col-md-8 text-right">
+                <div ng-class="{ 'form-group has-feedback' : true, 'has-success' : !formParam.required || formParam.value,
+                'has-error' : formParam.required && !formParam.value }">
+                    <div ng-if="formParam.writable">
+                        <div ng-switch on="formParam.type">
+                            <div ng-switch-when="enum" class="enumTypeParameter">
+                                <div class="btn-group" uib-dropdown>
+                                    <button type="button"
+                                            ng-class="{ 'btn dropdown-toggle' : true, 'btn-danger' : formParam.required && !controller.enumParamHasValue(formParam), 'btn-success' : formParam.required && controller.enumParamHasValue(formParam) }"
+                                            uib-dropdown-toggle>
+                                        {{ controller.getEnumParamValueLabel(formParam) }} <span class="caret"></span>
+                                    </button>
+                                    <input type="hidden" value="{{ formParam.value }}"
+                                           ng-model="formParam.value" ng-required="formParam.required">
+                                    <ul class="dropdown-menu" role="menu" ng-model="formParam.value">
+                                        <li ng-repeat="enumLabel in controller.getEnumValueLabels(formParam)">
+                                            <a href="" ng-click="controller.updateEnumParam(formParam, enumLabel)">
+                                                {{ enumLabel }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div ng-switch-when="boolean" class="booleanTypeParameter">
+                                <div class="btn-group" uib-dropdown>
+                                    <button type="button"
+                                            ng-class="{ 'btn-danger' : formParam.required && !controller.paramHasValue(formParam), 'btn-success' : formParam.required && controller.paramHasValue(formParam) }"
+                                            class="btn dropdown-toggle"
+                                            uib-dropdown-toggle>
+                                        {{ controller.getValueTextForBooleanParameter(formParam) }}<span class="caret"></span>
+                                    </button>
+                                    <input type="hidden" value="{{ formParam.value }}" ng-model="formParam.value" ng-required="formParam.required">
+                                    <ul class="dropdown-menu" role="menu"
+                                        ng-model="formParam.value">
+                                        <li><a href="" ng-click="controller.updateBooleanParameter(formParam, true)">True</a></li>
+                                        <li><a href="" ng-click="controller.updateBooleanParameter(formParam, false)">False</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div ng-switch-when="long">
+                                <input type="number"
+                                       class="form-control"
+                                       placeholder="Long Value"
+                                       ng-model="formParam.value"
+                                       value="{{ formParam.value }}"
+                                       ng-change="controller.setHasChanges(true)"
+                                       focus="{{ $first && hasFocus ? true : false }}"
+                                       ng-required="formParam.required">
+                            <span ng-class="{ 'glyphicon-ok' : controller.paramHasValue(formParam), 'glyphicon-remove' : !controller.paramHasValue(formParam) }"
+                                  class="glyphicon form-control-feedback configParamFeedbackIcon"
+                                  aria-hidden="true"
+                                  ng-show="formParam.required">
+                            </span>
+                            </div>
+                            <div ng-switch-when="node" class="nodeTypeParameter">
+                                <div class="btn-group" uib-dropdown>
+                                    <button type="button"
+                                            class="btn dropdown-toggle"
+                                            ng-class="{ 'btn-danger' : formParam.required && !controller.paramHasValue(formParam), 'btn-success' : formParam.required && controller.paramHasValue(formParam) }"
+                                            uib-dropdown-toggle>
+                                        {{ controller.getValueTextForNodeParameter(formParam) }} <span class="caret"></span>
+                                    </button>
+                                    <input type="hidden"
+                                           value="{{ formParam.value }}"
+                                           ng-model="formParam.value"
+                                           ng-required="formParam.required">
+                                    <ul class="dropdown-menu" role="menu" ng-model="formParam.value">
+                                        <li ng-repeat="node in nodeList">
+                                            <a href="" ng-click="controller.updateNodeParameter(formParam, node)">{{ node.name }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div ng-switch-when="string">
+                                <input type="text" class="form-control" placeholder="Value"
+                                       ng-model="formParam.value" value="{{ formParam.value }}"
+                                       ng-change="controller.setHasChanges(true)"
+                                       focus="{{ $first && hasFocus ? true : false }}" ng-required="formParam.required">
+                                <span ng-class="{ 'glyphicon form-control-feedback' : true, 'glyphicon-ok' : formParam.required && formParam.value, 'glyphicon-remove' : formParam.required && !formParam.value }"
+                                    aria-hidden="true">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="!formParam.writable && formParam.readable">
+                        <span>{{ formParam.value }}</span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

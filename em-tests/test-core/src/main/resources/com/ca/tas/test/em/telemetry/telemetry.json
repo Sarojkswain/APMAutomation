@@ -1,0 +1,23 @@
+{
+  "metrics": [{
+    "metricName": "Java Version",
+    "metricSelector": "Enterprise Manager:Java Version",
+    "frequency": {
+      "hours" : "2"
+    }
+  },
+  {
+    "metricName": "Harvest Duration (ms)",
+    "metricSelector": "Enterprise Manager|Tasks:Harvest Duration (ms)",
+    "frequency": {
+      "minutes" : "1"
+    }
+  },
+  {
+    "metricName": "Number of Historical Metrics",
+    "metricSelector": "Enterprise Manager|Connections:Number of Historical Metrics",
+    "frequency": {
+      "minutes" : "2"
+    }
+  }]
+}

@@ -1,0 +1,8 @@
+AUTO =
+   (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = kurma05-S151798.ca.com)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = AUTO.ca.com) 
+    )
+  )

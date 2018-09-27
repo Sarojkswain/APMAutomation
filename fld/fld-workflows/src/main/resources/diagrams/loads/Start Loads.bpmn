@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="fld.start.loads" name="Start Loads" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="fld.tomcat6.node" name="fld.tomcat6.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.tomcat6.serverId" name="fld.tomcat6.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="timNodes" name="timNodes" type="string" variable="timNodes" default="fldtim01c,fldtim02c,fldtim03c,fldtim04c,fldtim05c"></activiti:formProperty>
+        <activiti:formProperty id="fld.tim.btstats.wait" name="fld.tim.btstats.wait" type="string" default="7"></activiti:formProperty>
+        <activiti:formProperty id="fld.db.host" name="fld.db.host" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.db.password" name="fld.db.password" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.db.username" name="fld.db.username" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.entity.alerts.nodeName" name="fld.entity.alerts.nodeName" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.entity.alerts.version" name="fld.entity.alerts.version" type="string" default="99.99.sys-SNAPSHOT"></activiti:formProperty>
+        <activiti:formProperty id="fld.entity.alerts.buildFileName" name="fld.entity.alerts.buildFileName" type="string" default="build.xml"></activiti:formProperty>
+        <activiti:formProperty id="fld.entity.alerts.target" name="fld.entity.alerts.target" type="string" default="entity-alert-metrics"></activiti:formProperty>
+        <activiti:formProperty id="fld.entity.alerts.hostName" name="fld.entity.alerts.hostName" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.entity.alerts.port" name="fld.entity.alerts.port" type="string" default="5001"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent2" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT60S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+    <sequenceFlow id="flow3" sourceRef="call.start.tomcat" targetRef="timerintermediatecatchevent2"></sequenceFlow>
+    <callActivity id="call.start.tomcat" name="Start Tomcat 6" calledElement="fld.start.tomcat">
+      <extensionElements>
+        <activiti:in source="fld.tomcat6.node" target="node"></activiti:in>
+        <activiti:in source="fld.tomcat6.serverId" target="serverId"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT5S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow2" sourceRef="parallelgateway1" targetRef="call.start.tomcat"></sequenceFlow>
+    <callActivity id="fld.tim.btstats" name="Start generating TIMs' BT stats" calledElement="fld.tim.btstats">
+      <extensionElements>
+        <activiti:in sourceExpression="start" target="action"></activiti:in>
+        <activiti:in source="timNodes" target="timNodes"></activiti:in>
+        <activiti:in sourceExpression="0" target="timBtStatsDelay"></activiti:in>
+        <activiti:in source="fld.db.host" target="timBtStatsDbHost"></activiti:in>
+        <activiti:in sourceExpression="/opt/CA/APM/tim/data/out/btstats/" target="timBtStatsOutdir"></activiti:in>
+        <activiti:in source="fld.db.password" target="timBtStatsDbPassword"></activiti:in>
+        <activiti:in source="fld.db.username" target="timBtStatsDbUser"></activiti:in>
+        <activiti:in source="fld.tim.btstats.wait" target="timBtStatsWait"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <intermediateCatchEvent id="timerintermediatecatchevent3" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT5S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow6" sourceRef="timerintermediatecatchevent3" targetRef="parallelgateway3"></sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="timerintermediatecatchevent2" targetRef="fld.tim.btstats"></sequenceFlow>
+    <parallelGateway id="parallelgateway1" name="Fork Loads"></parallelGateway>
+    <sequenceFlow id="flow7" sourceRef="timerintermediatecatchevent1" targetRef="parallelgateway1"></sequenceFlow>
+    <callActivity id="call.fld.entity.alerts" name="Entity Alerts" calledElement="fld.entity.alerts">
+      <extensionElements>
+        <activiti:in source="fld.entity.alerts.nodeName" target="nodeName"></activiti:in>
+        <activiti:in source="fld.entity.alerts.version" target="version"></activiti:in>
+        <activiti:in source="fld.entity.alerts.buildFileName" target="buildFileName"></activiti:in>
+        <activiti:in source="fld.entity.alerts.target" target="target"></activiti:in>
+        <activiti:in source="fld.entity.alerts.hostName" target="hostName"></activiti:in>
+        <activiti:in source="fld.entity.alerts.port" target="port"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <sequenceFlow id="flow8" sourceRef="parallelgateway1" targetRef="call.fld.entity.alerts"></sequenceFlow>
+    <parallelGateway id="parallelgateway3" name="Parallel Gateway"></parallelGateway>
+    <sequenceFlow id="flow9" sourceRef="parallelgateway3" targetRef="endevent1"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent4" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT5S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow10" sourceRef="call.fld.entity.alerts" targetRef="timerintermediatecatchevent4"></sequenceFlow>
+    <sequenceFlow id="flow11" sourceRef="timerintermediatecatchevent4" targetRef="parallelgateway3"></sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="fld.tim.btstats" targetRef="timerintermediatecatchevent3"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.start.loads">
+    <bpmndi:BPMNPlane bpmnElement="fld.start.loads" id="BPMNPlane_fld.start.loads">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="90.0" y="130.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="960.0" y="130.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent2" id="BPMNShape_timerintermediatecatchevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="550.0" y="130.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="call.start.tomcat" id="BPMNShape_call.start.tomcat">
+        <omgdc:Bounds height="55.0" width="105.0" x="356.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="160.0" y="130.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="fld.tim.btstats" id="BPMNShape_fld.tim.btstats">
+        <omgdc:Bounds height="65.0" width="121.0" x="651.0" y="115.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent3" id="BPMNShape_timerintermediatecatchevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="810.0" y="130.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway1" id="BPMNShape_parallelgateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="220.0" y="127.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="call.fld.entity.alerts" id="BPMNShape_call.fld.entity.alerts">
+        <omgdc:Bounds height="55.0" width="105.0" x="356.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway3" id="BPMNShape_parallelgateway3">
+        <omgdc:Bounds height="40.0" width="40.0" x="880.0" y="127.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent4" id="BPMNShape_timerintermediatecatchevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="810.0" y="240.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="125.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="147.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="461.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="550.0" y="147.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="260.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="356.0" y="147.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="845.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="880.0" y="147.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="585.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="651.0" y="147.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="195.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="220.0" y="147.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="240.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="240.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="356.0" y="257.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="920.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="960.0" y="147.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="461.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="810.0" y="257.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="845.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="900.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="900.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="772.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="810.0" y="147.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

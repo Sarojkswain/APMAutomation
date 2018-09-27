@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:property-placeholder location="classpath:fake-workstation-plugin.properties"/>
+	<context:annotation-config/>
+	<bean id="runPlugin" class="com.ca.apm.systemtest.fld.plugin.run.RunPluginImpl" />
+	<bean id="artifactManager" class="com.ca.apm.systemtest.fld.plugin.downloader.ArtifactManagerImpl" />
+	<bean id="fakeWorkstationPlugin" class="com.ca.apm.systemtest.fld.plugin.fakeWorkstation.FakeWorkstationPluginImpl" />
+	<bean id="configurationManager" class="com.ca.apm.systemtest.fld.plugin.cm.ConfigurationManagerImpl">
+		<property name="configFilePath" value="target/conf" />
+	</bean>
+
+	<bean class="com.ca.apm.systemtest.fld.plugin.downloadMethod.HttpURLDownloaderImpl"/>
+	<bean class="com.ca.apm.systemtest.fld.plugin.downloadMethod.ArtifactoryLiteDownloadMethodImpl"/>
+
+</beans>

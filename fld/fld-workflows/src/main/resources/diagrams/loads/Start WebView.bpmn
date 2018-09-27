@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="fld.run.webview.load" name="Start WebView Load" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="wv01Node" name="wv01Node" type="string" variable="wv01Node" required="true"></activiti:formProperty>
+        <activiti:formProperty id="wv02Node" name="wv02Node" type="string" variable="wv02Node"></activiti:formProperty>
+        <activiti:formProperty id="wv03Node" name="wv03Node" type="string" variable="wv03Node"></activiti:formProperty>
+        <activiti:formProperty id="wv04Node" name="wv04Node" type="string" variable="wv04Node"></activiti:formProperty>
+        <activiti:formProperty id="wv05Node" name="wv05Node" type="string" variable="wv05Node"></activiti:formProperty>
+        <activiti:formProperty id="wv06Node" name="wv06Node" type="string" variable="wv06Node"></activiti:formProperty>
+        <activiti:formProperty id="webViewNode" name="webViewNode" type="string" variable="webViewNode" required="true"></activiti:formProperty>
+        <activiti:formProperty id="webViewUser" name="webViewUser" type="string" variable="webViewUser" default="Admin6" required="true"></activiti:formProperty>
+        <activiti:formProperty id="webViewPassword" name="webViewPassword" type="string" variable="webViewPassword" default="Admin6"></activiti:formProperty>
+        <activiti:formProperty id="urlsList" name="urlsList" type="string" variable="urlsList" default="fld-urls.csv" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+    <scriptTask id="download.webview.urls" name="Download URLs" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>// Setup a connection to pull data in with REST
+def url = new URL("http://localhost:8080/LoadOrchestrator/getResource?resourceName=" + urlsList);
+def connection = url.openConnection();
+connection.setRequestMethod("GET");
+connection.connect();
+// Get the list (CSV) of WebView URLS to call
+def tempStr = connection.content.text;
+
+def tmpNodesDefinitionsArray = tempStr.split();
+def list = [];
+
+tmpNodesDefinitionsArray.each {
+  list.add(it);
+}
+
+execution.setVariable('nodesDefinitionArray', list);
+println "Saved $list to execution";
+def seleniumSessions = new HashMap();
+execution.setVariable('seleniumSessions', seleniumSessions);
+</script>
+    </scriptTask>
+    <sequenceFlow id="flow2" sourceRef="timerintermediatecatchevent1" targetRef="download.webview.urls"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent2" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow3" sourceRef="download.webview.urls" targetRef="timerintermediatecatchevent2"></sequenceFlow>
+    <subProcess id="sub.process.open.webview" name="Login and Open WebView URL">
+      <multiInstanceLoopCharacteristics isSequential="true" activiti:collection="nodesDefinitionArray" activiti:elementVariable="tmpNodeDefinitionStr"></multiInstanceLoopCharacteristics>
+      <startEvent id="startevent2" name="Start"></startEvent>
+      <intermediateCatchEvent id="timerintermediatecatchevent3" name="TimerCatchEvent">
+        <timerEventDefinition>
+          <timeDuration>PT1S</timeDuration>
+        </timerEventDefinition>
+      </intermediateCatchEvent>
+      <sequenceFlow id="flow4" sourceRef="startevent2" targetRef="timerintermediatecatchevent3"></sequenceFlow>
+      <serviceTask id="service.task.login" name="Login" activiti:delegateExpression="${fldWebViewJobs.loginDelegate}"></serviceTask>
+      <sequenceFlow id="flow7" sourceRef="timerintermediatecatchevent3" targetRef="service.task.login"></sequenceFlow>
+      <intermediateCatchEvent id="timerintermediatecatchevent4" name="TimerCatchEvent">
+        <timerEventDefinition>
+          <timeDuration>PT15S</timeDuration>
+        </timerEventDefinition>
+      </intermediateCatchEvent>
+      <sequenceFlow id="flow8" sourceRef="service.task.login" targetRef="timerintermediatecatchevent4"></sequenceFlow>
+      <serviceTask id="service.task.open.page" name="Open Page" activiti:delegateExpression="${fldWebViewJobs.openPageDelegate}"></serviceTask>
+      <sequenceFlow id="flow10" sourceRef="timerintermediatecatchevent4" targetRef="service.task.open.page"></sequenceFlow>
+      <intermediateCatchEvent id="timerintermediatecatchevent5" name="TimerCatchEvent">
+        <timerEventDefinition>
+          <timeDuration>PT1S</timeDuration>
+        </timerEventDefinition>
+      </intermediateCatchEvent>
+      <sequenceFlow id="flow11" sourceRef="service.task.open.page" targetRef="timerintermediatecatchevent5"></sequenceFlow>
+      <endEvent id="endevent2" name="End"></endEvent>
+      <sequenceFlow id="flow12" sourceRef="timerintermediatecatchevent5" targetRef="endevent2"></sequenceFlow>
+    </subProcess>
+    <sequenceFlow id="flow6" sourceRef="timerintermediatecatchevent2" targetRef="sub.process.open.webview"></sequenceFlow>
+    <userTask id="usertask1" name="Wait for Stop">
+      <extensionElements>
+        <activiti:formProperty id="user.action" name="User Action" type="enum">
+          <activiti:value id="close.webviews" name="Close WebViews"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow13" sourceRef="sub.process.open.webview" targetRef="usertask1"></sequenceFlow>
+    <endEvent id="endevent3" name="End"></endEvent>
+    <sequenceFlow id="flow14" sourceRef="usertask1" targetRef="logout.and.close.webview"></sequenceFlow>
+    <subProcess id="logout.and.close.webview" name="Logout and Close WebView Sessions">
+      <multiInstanceLoopCharacteristics isSequential="true" activiti:collection="seleniumSessionIds" activiti:elementVariable="sessionId"></multiInstanceLoopCharacteristics>
+      <startEvent id="startevent3" name="Start"></startEvent>
+      <intermediateCatchEvent id="timerintermediatecatchevent6" name="TimerCatchEvent">
+        <timerEventDefinition>
+          <timeDuration>PT1S</timeDuration>
+        </timerEventDefinition>
+      </intermediateCatchEvent>
+      <sequenceFlow id="flow16" sourceRef="startevent3" targetRef="timerintermediatecatchevent6"></sequenceFlow>
+      <serviceTask id="logout.and.close" name="Logout and Close" activiti:delegateExpression="${fldWebViewJobs.logoutAndCloseDelegate}"></serviceTask>
+      <sequenceFlow id="flow17" sourceRef="timerintermediatecatchevent6" targetRef="logout.and.close"></sequenceFlow>
+      <endEvent id="endevent4" name="End"></endEvent>
+      <sequenceFlow id="flow18" sourceRef="logout.and.close" targetRef="endevent4"></sequenceFlow>
+    </subProcess>
+    <sequenceFlow id="flow15" sourceRef="logout.and.close.webview" targetRef="endevent3"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.run.webview.load">
+    <bpmndi:BPMNPlane bpmnElement="fld.run.webview.load" id="BPMNPlane_fld.run.webview.load">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="80.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="180.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="download.webview.urls" id="BPMNShape_download.webview.urls">
+        <omgdc:Bounds height="55.0" width="105.0" x="280.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent2" id="BPMNShape_timerintermediatecatchevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="435.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sub.process.open.webview" id="BPMNShape_sub.process.open.webview">
+        <omgdc:Bounds height="151.0" width="765.0" x="70.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent2" id="BPMNShape_startevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="114.0" y="260.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent3" id="BPMNShape_timerintermediatecatchevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="184.0" y="260.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="service.task.login" id="BPMNShape_service.task.login">
+        <omgdc:Bounds height="55.0" width="105.0" x="284.0" y="250.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent4" id="BPMNShape_timerintermediatecatchevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="454.0" y="260.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="service.task.open.page" id="BPMNShape_service.task.open.page">
+        <omgdc:Bounds height="55.0" width="105.0" x="544.0" y="250.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent5" id="BPMNShape_timerintermediatecatchevent5">
+        <omgdc:Bounds height="35.0" width="35.0" x="694.0" y="260.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="774.0" y="260.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="400.0" y="431.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="435.0" y="800.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="logout.and.close.webview" id="BPMNShape_logout.and.close.webview">
+        <omgdc:Bounds height="161.0" width="765.0" x="70.0" y="540.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent3" id="BPMNShape_startevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="110.0" y="605.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent6" id="BPMNShape_timerintermediatecatchevent6">
+        <omgdc:Bounds height="35.0" width="35.0" x="180.0" y="605.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="logout.and.close" id="BPMNShape_logout.and.close">
+        <omgdc:Bounds height="55.0" width="105.0" x="260.0" y="595.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="410.0" y="605.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="115.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="180.0" y="117.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="215.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="280.0" y="117.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="385.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="435.0" y="117.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="149.0" y="277.0"></omgdi:waypoint>
+        <omgdi:waypoint x="184.0" y="277.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="219.0" y="277.0"></omgdi:waypoint>
+        <omgdi:waypoint x="284.0" y="277.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="389.0" y="277.0"></omgdi:waypoint>
+        <omgdi:waypoint x="454.0" y="277.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="489.0" y="277.0"></omgdi:waypoint>
+        <omgdi:waypoint x="544.0" y="277.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="649.0" y="277.0"></omgdi:waypoint>
+        <omgdi:waypoint x="694.0" y="277.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="729.0" y="277.0"></omgdi:waypoint>
+        <omgdi:waypoint x="774.0" y="277.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="452.0" y="135.0"></omgdi:waypoint>
+        <omgdi:waypoint x="452.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="452.0" y="361.0"></omgdi:waypoint>
+        <omgdi:waypoint x="452.0" y="431.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="452.0" y="486.0"></omgdi:waypoint>
+        <omgdi:waypoint x="452.0" y="540.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="145.0" y="622.0"></omgdi:waypoint>
+        <omgdi:waypoint x="180.0" y="622.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="215.0" y="622.0"></omgdi:waypoint>
+        <omgdi:waypoint x="260.0" y="622.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="365.0" y="622.0"></omgdi:waypoint>
+        <omgdi:waypoint x="410.0" y="622.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="452.0" y="701.0"></omgdi:waypoint>
+        <omgdi:waypoint x="452.0" y="800.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

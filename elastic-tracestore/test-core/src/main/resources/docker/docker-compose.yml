@@ -1,0 +1,99 @@
+version: '2'
+# This docker-compose.yml brings up the Jarvis MVP on dockers.
+# Note that on low end machines you may have to bump up WAIT_BEFORE_CREATING_TOPIC for kafka service
+# as topic creation might fail in kafka if zookeeper & kafka startup are not complete.
+services:
+    zookeeper:
+        image: oerth-scx.ca.com:4443/analytics/zookeeper:3.4.8
+        environment:
+            - ZOOKEEPER_SERVERS=0.0.0.0
+        ports:
+            - "2181:2181"
+            - "2888:2888"
+            - "3888:3888"
+    elasticsearch:
+        image: oerth-scx.ca.com:4443/analytics/elasticsearch:2.4.2
+        environment:
+            - ES_CLUSTER=jarvis-docker
+        ports:
+            - "9200:9200"
+            - "9300:9300"
+    kafka:
+        links:
+            - zookeeper
+        image: oerth-scx.ca.com:4443/analytics/kafka:0.9.0.0
+        environment:
+            - KAFKA_HOST=kafka
+            - ZOOKEEPER_HOST=zookeeper
+            - MESSAGE_MAX_BYTES=31457280
+            - REPLICA_FETCH_MAX_BYTES=31457280
+            - GROUP_MAX_SESSION_TIMEOUT_MS=300000
+            - AUTO_CREATE_TOPICS_ENABLE=false
+            - WAIT_BEFORE_STARTING_KAFKA=60 # wait for zookeeper to come up
+            - WAIT_BEFORE_CREATING_TOPIC=120 # wait for kafka to connect to zookeeper
+        ports:
+            - "9092:9092"
+        depends_on:
+            - zookeeper
+    onboarding:
+        image: oerth-scx.ca.com:4443/analytics/jarvis_onboarding:1.1.0_hotfix_1
+        links:
+            - elasticsearch
+        environment:
+            - ES_CLUSTER=jarvis-docker
+            - ES_HOST=elasticsearch
+        ports:
+            - "8080:8080"
+        depends_on:
+            - elasticsearch
+    ingestion:
+        image: oerth-scx.ca.com:4443/analytics/jarvis_ingestion:1.1.0
+        links:
+            - kafka
+            - elasticsearch
+        environment:
+            - ES_CLUSTER=jarvis-docker
+            - ES_HOST=elasticsearch
+            - KAFKA_HOST=kafka:9092
+        ports:
+            - "8081:8080"
+        depends_on:
+            - kafka
+    verifier:
+        image: oerth-scx.ca.com:4443/analytics/jarvis_verifier:1.1.0
+        links:
+            - zookeeper
+            - kafka
+            - elasticsearch
+        environment:
+            - ES_CLUSTER=jarvis-docker
+            - ES_HOST=elasticsearch:9300
+            - KAFKA_HOST=kafka:9092
+            - ZOOKEEPER_HOST=zookeeper:2181
+        depends_on:
+            - kafka
+    indexer:
+        image: oerth-scx.ca.com:4443/analytics/jarvis_indexer:1.1.0
+        links:
+            - zookeeper
+            - elasticsearch
+        environment:
+            - ES_CLUSTER=jarvis-docker
+            - ES_HOST=elasticsearch:9300
+            - ES_PING=elasticsearch:9200
+            - KAFKA_HOST=zookeeper:2181
+        depends_on:
+            - kafka
+            - elasticsearch
+    das:
+        image: oerth-scx.ca.com:4443/analytics/jarvis_das:1.1.0
+        links:
+            - elasticsearch
+        environment:
+            - ES_CLUSTER=jarvis-docker
+            - ES_HOST=elasticsearch
+        ports:
+            - "8082:8080"
+        depends_on:
+            - elasticsearch
+

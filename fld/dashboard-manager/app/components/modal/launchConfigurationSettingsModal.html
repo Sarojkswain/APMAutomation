@@ -1,0 +1,26 @@
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{ modalOptions.headerText }}</h3>
+    </div>
+    <div class="modal-body">
+        <form name="workflowParametersModalForm">
+            <workflow-parameters hasfocus="true"></workflow-parameters>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"
+                ng-click="workflowParametersModalController.onCancel()">
+            {{ modalOptions.cancelButtonText }}
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="workflowParametersModalController.onSaveAndRun()" ng-disabled="!workflowParametersModalController.hasChanges() || !workflowParametersModalForm.$valid">
+            {{ modalOptions.saveAndRunButtonText }}
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="workflowParametersModalController.onSaveDontRun()" ng-disabled="!workflowParametersModalController.hasChanges() || !workflowParametersModalForm.$valid">
+            {{ modalOptions.saveDontRunButtonText }}
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="workflowParametersModalController.onRunDontSave()" ng-disabled="!workflowParametersModalForm.$valid">
+            {{ modalOptions.runDontSaveButtonText }}
+        </button>
+
+    </div>
+</div>

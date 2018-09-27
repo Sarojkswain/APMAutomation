@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!-- @Tas(testBed = [{name=com.ca.apm.tests.testbed.AgentControllabilityLinuxStandaloneTestbed,
+	executeOn=emMachine}], owner = balra06, size = BIG, description = 'InMemoryDataCache
+    TestNg XML suite for all InMemoryDataCache tests'), snapshotPolicy 
+	= SnapshotPolicy.ON_FAILURE, snapshot = SnapshotMode.LIVE -->
+<suite name="InMemoryDataCacheLinuxTests" configfailurepolicy="continue">
+	<groups>
+    	<run>
+      		<include name="BAT"/>
+      		<include name="Bat"/>
+      		<include name="bat"/>
+    	</run>
+	</groups>
+	<test name="InMemoryDataCacheLinuxTests" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.tests.bpem.InMemoryDataCacheTests">
+			</class>
+		</classes>
+	</test>
+</suite>
+		

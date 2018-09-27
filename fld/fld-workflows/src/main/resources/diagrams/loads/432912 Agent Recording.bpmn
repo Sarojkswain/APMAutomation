@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="fld.agentrecording" name="Agent Recording" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="user" name="user" type="string" variable="user" default="cemadmin" required="true"></activiti:formProperty>
+        <activiti:formProperty id="password" name="password" type="string" variable="password" default="quality" required="true"></activiti:formProperty>
+        <activiti:formProperty id="tesshost" name="tesshost" type="string" variable="tesshost" default="sqw64xeoserv30" required="true"></activiti:formProperty>
+        <activiti:formProperty id="clientIp" name="clientIp" type="string" variable="clientIp" default="10.130.94.241" required="true"></activiti:formProperty>
+        <activiti:formProperty id="nodeName" name="nodeName" type="string" variable="nodeName" default="localhost"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <intermediateCatchEvent id="sleep" name="Sleep">
+      <timerEventDefinition>
+        <timeDuration>PT15S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <scriptTask id="scripttask1" name="Open Window" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>def  plugin = agentProxyFactory.createProxy(nodeName).plugins.seleniumPluginChrome;
+
+def sessionId = plugin.startSession();
+execution.setVariable('sessionId', sessionId);
+
+def windowId = plugin.openUrl(sessionId, "http://"+tesshost+":8081/wily/cem/tess/app/admin/recordingSessionList.html?pId=1");
+execution.setVariable('windowId', windowId);
+</script>
+    </scriptTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="scripttask1"></sequenceFlow>
+    <scriptTask id="scripttask2" name="Login" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import com.ca.apm.systemtest.fld.plugin.selenium.SeleniumPlugin.SelectionBy;
+
+def  plugin = agentProxyFactory.createProxy(nodeName).plugins.seleniumPluginChrome;
+
+plugin.fillTextField(sessionId, windowId, SelectionBy.ID, "loginForm:loginId_userName", user);
+plugin.fillTextField(sessionId, windowId, SelectionBy.ID, "loginForm:loginId_passWord", password);
+plugin.submitForm(sessionId, windowId, SelectionBy.ID, "loginForm:loginId_passWord");
+</script>
+    </scriptTask>
+    <sequenceFlow id="flow2" sourceRef="scripttask1" targetRef="scripttask2"></sequenceFlow>
+    <scriptTask id="scripttask3" name="Start Recording" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import com.ca.apm.systemtest.fld.plugin.selenium.SeleniumPlugin.SelectionBy;
+
+def  plugin = agentProxyFactory.createProxy(nodeName).plugins.seleniumPluginChrome;
+
+plugin.click(sessionId, windowId, SelectionBy.NAME, "new"); 
+plugin.click(sessionId, windowId, SelectionBy.ID, "selectedMonitorTypes1");
+plugin.fillTextField(sessionId, windowId, SelectionBy.ID, "clientIpAddressString", clientIp);
+plugin.click(sessionId, windowId, SelectionBy.NAME, "_finish");
+</script>
+    </scriptTask>
+    <sequenceFlow id="flow3" sourceRef="scripttask2" targetRef="scripttask3"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="scripttask3" targetRef="sleep"></sequenceFlow>
+    <scriptTask id="scripttask4" name="Stop Recording" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import com.ca.apm.systemtest.fld.plugin.selenium.SeleniumPlugin.SelectionBy;
+
+def  plugin = agentProxyFactory.createProxy(nodeName).plugins.seleniumPluginChrome;
+plugin.click(sessionId, windowId, SelectionBy.NAME, "stop");
+plugin.click(sessionId, windowId, SelectionBy.NAME, "done");</script>
+    </scriptTask>
+    <sequenceFlow id="flow8" sourceRef="sleep" targetRef="scripttask4"></sequenceFlow>
+    <scriptTask id="scripttask5" name="Close Window" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>def  plugin = agentProxyFactory.createProxy(nodeName).plugins.seleniumPluginChrome
+
+try {
+	plugin.closeSession(sessionId)
+} catch (e) {}</script>
+    </scriptTask>
+    <sequenceFlow id="flow9" sourceRef="scripttask4" targetRef="scripttask5"></sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="scripttask5" targetRef="sleep2"></sequenceFlow>
+    <intermediateCatchEvent id="sleep2" name="Sleep2">
+      <timerEventDefinition>
+        <timeDuration>PT8H</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow11" sourceRef="sleep2" targetRef="scripttask1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.agentrecording">
+    <bpmndi:BPMNPlane bpmnElement="fld.agentrecording" id="BPMNPlane_fld.agentrecording">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="365.0" y="70.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="365.0" y="730.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sleep" id="BPMNShape_sleep">
+        <omgdc:Bounds height="35.0" width="35.0" x="560.0" y="478.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="330.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask2" id="BPMNShape_scripttask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="330.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask3" id="BPMNShape_scripttask3">
+        <omgdc:Bounds height="71.0" width="105.0" x="330.0" y="400.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask4" id="BPMNShape_scripttask4">
+        <omgdc:Bounds height="55.0" width="105.0" x="330.0" y="530.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask5" id="BPMNShape_scripttask5">
+        <omgdc:Bounds height="55.0" width="105.0" x="330.0" y="631.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sleep2" id="BPMNShape_sleep2">
+        <omgdc:Bounds height="35.0" width="35.0" x="120.0" y="451.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="382.0" y="105.0"></omgdi:waypoint>
+        <omgdi:waypoint x="382.0" y="160.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="382.0" y="215.0"></omgdi:waypoint>
+        <omgdi:waypoint x="382.0" y="280.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="382.0" y="335.0"></omgdi:waypoint>
+        <omgdi:waypoint x="382.0" y="400.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="435.0" y="435.0"></omgdi:waypoint>
+        <omgdi:waypoint x="577.0" y="478.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="577.0" y="513.0"></omgdi:waypoint>
+        <omgdi:waypoint x="382.0" y="530.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="382.0" y="585.0"></omgdi:waypoint>
+        <omgdi:waypoint x="382.0" y="631.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="330.0" y="658.0"></omgdi:waypoint>
+        <omgdi:waypoint x="137.0" y="658.0"></omgdi:waypoint>
+        <omgdi:waypoint x="137.0" y="486.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="137.0" y="451.0"></omgdi:waypoint>
+        <omgdi:waypoint x="137.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="330.0" y="187.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

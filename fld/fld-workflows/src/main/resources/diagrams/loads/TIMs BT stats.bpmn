@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="fld.tim.btstats" name="TIMs BT stats" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="action" name="Action (start/stop)" type="enum" variable="action" required="true">
+          <activiti:value id="start" name="start"></activiti:value>
+          <activiti:value id="stop" name="stop"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="timNodes" name="timNodes" type="string" variable="timNodes" default="fldtim01c,fldtim02c,fldtim03c,fldtim04c,fldtim05c"></activiti:formProperty>
+        <activiti:formProperty id="timBtStatsDelay" name="timBtStatsDelay" type="string" variable="timBtStatsDelay" default="0"></activiti:formProperty>
+        <activiti:formProperty id="timBtStatsDbHost" name="timBtStatsDbHost" type="string" variable="timBtStatsDbHost" default="flddb01c"></activiti:formProperty>
+        <activiti:formProperty id="timBtStatsOutdir" name="timBtStatsOutdir" type="string" variable="timBtStatsOutdir" default="/opt/CA/APM/tim/data/out/btstats/"></activiti:formProperty>
+        <activiti:formProperty id="timBtStatsDbPassword" name="timBtStatsDbPassword" type="string" variable="timBtStatsDbPassword" default="password"></activiti:formProperty>
+        <activiti:formProperty id="timBtStatsTemplate" name="timBtStatsTemplate" type="string" variable="timBtStatsTemplate"></activiti:formProperty>
+        <activiti:formProperty id="timBtStatsDbUser" name="timBtStatsDbUser" type="string" variable="timBtStatsDbUser" default="cemadmin"></activiti:formProperty>
+        <activiti:formProperty id="timBtStatsWait" name="timBtStatsWait" type="string" variable="timBtStatsWait" default="7"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT3S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+    <serviceTask id="btstats.tim.init" name="Prepare TIM nodes list" activiti:class="com.ca.apm.systemtest.fld.plugin.tim.jobs.TimBTStatsJobDelegate"></serviceTask>
+    <sequenceFlow id="flow2" sourceRef="timerintermediatecatchevent1" targetRef="btstats.tim.init"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent2" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT3S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow3" sourceRef="btstats.tim.init" targetRef="timerintermediatecatchevent2"></sequenceFlow>
+    <subProcess id="subprocess1" name="Sub Process">
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="nodeList" activiti:elementVariable="node"></multiInstanceLoopCharacteristics>
+      <startEvent id="startevent2" name="Start"></startEvent>
+      <endEvent id="endevent2" name="End"></endEvent>
+      <scriptTask id="scripttask1" name="Start/stop generating BT stats" scriptFormat="groovy" activiti:autoStoreVariables="false">
+        <script>import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+def log = LoggerFactory.getLogger("TIMs BT stats");
+
+def timPlugin = agentProxyFactory.createProxy(node).plugins.timPlugin;
+
+timPlugin.setFldScriptsWorkDir("./fld-scripts");
+
+def startScript = timPlugin.getFldScriptsWorkDir() + "/fld/loads/tim-btstats/start_generate-btstats.sh";
+def stopScript = timPlugin.getFldScriptsWorkDir() + "/fld/loads/tim-btstats/stop_generate-btstats.sh";
+
+def scriptToRun = (action != null &amp;&amp; "start".equals(action.toString())) ? startScript : stopScript;
+log.info("scriptToRun = " + scriptToRun);
+
+if ( timPlugin.isScriptAvailable(scriptToRun) )
+{
+  log.info("Script is available: " + scriptToRun);
+}
+else
+{
+  // obtain start/stop scripts
+  log.info("Download fld-scripts to node {}", node);
+  timPlugin.prepareFldScripts("com.ca.apm.systemtest.fld", "fld-scripts", "99.99.aquarius-SNAPSHOT", "dist", "zip");
+}
+
+// start/stop generating BT stats
+Integer exitCode = timPlugin.executeScript(true, scriptToRun,
+  "-delay", timBtStatsDelay, "-dsn", timBtStatsDbHost, "-outdir", timBtStatsOutdir, "-password", timBtStatsDbPassword, "-user", timBtStatsDbUser, "-wait", timBtStatsWait);
+log.info("node" + node + ", scriptToRun: " + scriptToRun + ", exitCode = " + exitCode);
+</script>
+      </scriptTask>
+      <sequenceFlow id="flow6" sourceRef="startevent2" targetRef="scripttask1"></sequenceFlow>
+      <sequenceFlow id="flow7" sourceRef="scripttask1" targetRef="endevent2"></sequenceFlow>
+    </subProcess>
+    <sequenceFlow id="flow4" sourceRef="timerintermediatecatchevent2" targetRef="subprocess1"></sequenceFlow>
+    <sequenceFlow id="flow5" sourceRef="subprocess1" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.tim.btstats">
+    <bpmndi:BPMNPlane bpmnElement="fld.tim.btstats" id="BPMNPlane_fld.tim.btstats">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="30.0" y="145.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="850.0" y="145.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="110.0" y="145.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="btstats.tim.init" id="BPMNShape_btstats.tim.init">
+        <omgdc:Bounds height="55.0" width="121.0" x="180.0" y="135.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent2" id="BPMNShape_timerintermediatecatchevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="340.0" y="145.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="subprocess1" id="BPMNShape_subprocess1">
+        <omgdc:Bounds height="205.0" width="381.0" x="420.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent2" id="BPMNShape_startevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="450.0" y="145.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="740.0" y="145.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
+        <omgdc:Bounds height="55.0" width="151.0" x="530.0" y="135.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="65.0" y="162.0"></omgdi:waypoint>
+        <omgdi:waypoint x="110.0" y="162.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="145.0" y="162.0"></omgdi:waypoint>
+        <omgdi:waypoint x="180.0" y="162.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="301.0" y="162.0"></omgdi:waypoint>
+        <omgdi:waypoint x="340.0" y="162.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="485.0" y="162.0"></omgdi:waypoint>
+        <omgdi:waypoint x="530.0" y="162.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="681.0" y="162.0"></omgdi:waypoint>
+        <omgdi:waypoint x="740.0" y="162.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="375.0" y="162.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="162.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="801.0" y="162.0"></omgdi:waypoint>
+        <omgdi:waypoint x="850.0" y="162.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

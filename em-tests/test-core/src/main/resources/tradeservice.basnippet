@@ -1,0 +1,290 @@
+<script type="text/javascript">try {
+    /**
+     * CA Wily Introscope(R) Version 10.3.0.1 Build 990001
+     * Copyright (c) 2016 CA. All Rights Reserved.
+     * Introscope(R) is a registered trademark of CA.
+     */
+    if ( navigator && navigator.userAgent ) {
+        var BrowserAgentSnippet = {
+            // Used to adjust start time of txn trace components
+            gapTimeInMillis : 0,
+            // Used to set id property of big JS script tag
+            cmdJSId : "x-apm-brtm-cmdJS",
+            // APM Browser Agent uses the URL in the current browser window as the URL from which the Browser Agent
+            // instrumentation source code is downloaded. If this is of concern, then change
+            // "instrumentationLocation" to an absolute URL of your choice, reaching your application server.
+            // For example: "http://localhost:5080/myPath/"
+            instrumentationLocation : window.location.protocol + "//" + window.location.host +
+                                      window.location.pathname,
+            userAgents : {
+                CHROME : { name : "Chrome", ver : 30 },
+                EDGE : { name : "Edge", ver : 12 },
+                FIREFOX : { name : "Firefox", ver : 30 },
+                IE : { name : "IE", ver : 11 },
+                SAFARI : { name : "Safari", ver : 8 },
+                UNSUPPORTED : { name : "Unsupported", ver : -1 }
+            },
+            storageKeys : {
+                INSTRUMENTED : "x-apm-brtm-instrumented",
+                PATHNAME : window.location.pathname
+            },
+            /**
+             * Extracts the major version from the given User Agent string and regex pattern
+             * @param userAgt
+             * @param regExp
+             * @returns Number
+             */
+            getMajorVersion : function ( userAgt, regExp ) {
+                var matchArr = userAgt.match(regExp);
+                if ( matchArr && matchArr.length > 1 ) {
+                    var majVer = matchArr[1].split(".");
+                    if ( majVer && majVer.length > 0 ) {
+                        return parseInt(majVer[0]);
+                    }
+                }
+                return 0;
+            },
+            /**
+             * Extracts user agent name and major version from the user agent string and checks if the user agent is
+             * supported or not
+             * @param userAgt
+             * @returns Object
+             */
+            getBrowserInfo : function ( userAgt ) {
+                var version = -1;
+                // Sanity
+                if ( !userAgt || typeof userAgt !== 'string' ) {
+                    return {
+                        name : BrowserAgentSnippet.userAgents.UNSUPPORTED.name,
+                        ver : BrowserAgentSnippet.userAgents.UNSUPPORTED.ver, isSupported : false
+                    };
+                }
+                // Opera
+                if ( /opera|opr/i.test(userAgt) ) {
+                    return {
+                        name : BrowserAgentSnippet.userAgents.UNSUPPORTED.name,
+                        ver : BrowserAgentSnippet.userAgents.UNSUPPORTED.ver, isSupported : false
+                    };
+                }
+                // MS Edge
+                if ( /edge/i.test(userAgt) ) {
+                    version = this.getMajorVersion(userAgt, /(?:edge)\/(\d+(\.\d+)?)/i);
+                    if ( version >= BrowserAgentSnippet.userAgents.EDGE.ver ) {
+                        return { name : BrowserAgentSnippet.userAgents.EDGE.name, ver : version, isSupported : true };
+                    }
+                }
+                // IE
+                if ( /msie|trident/i.test(userAgt) ) {
+                    version = this.getMajorVersion(userAgt, /(?:msie |rv:)(\d+(\.\d+)?)/i);
+                    if ( version >= BrowserAgentSnippet.userAgents.IE.ver ) {
+                        return { name : BrowserAgentSnippet.userAgents.IE.name, ver : version, isSupported : true };
+                    }
+                }
+                // Chrome
+                if ( /chrome|crios|crmo/i.test(userAgt) ) {
+                    version = this.getMajorVersion(userAgt, /(?:chrome|crios|crmo)\/(\d+(\.\d+)?)/i);
+                    if ( version >= BrowserAgentSnippet.userAgents.CHROME.ver ) {
+                        return { name : BrowserAgentSnippet.userAgents.CHROME.name, ver : version, isSupported : true };
+                    }
+                }
+                // Firefox
+                if ( /firefox|iceweasel/i.test(userAgt) ) {
+                    version = this.getMajorVersion(userAgt, /(?:firefox|iceweasel)[ \/](\d+(\.\d+)?)/i);
+                    if ( version >= BrowserAgentSnippet.userAgents.FIREFOX.ver ) {
+                        return {
+                            name : BrowserAgentSnippet.userAgents.FIREFOX.name, ver : version, isSupported : true
+                        };
+                    }
+                }
+                // Safari
+                if ( /safari/i.test(userAgt) ) {
+                    version = this.getMajorVersion(userAgt, /version\/(\d+(\.\d+)?)/i);
+                    if ( version >= BrowserAgentSnippet.userAgents.SAFARI.ver ) {
+                        return { name : BrowserAgentSnippet.userAgents.SAFARI.name, ver : version, isSupported : true };
+                    }
+                }
+                return {
+                    name : BrowserAgentSnippet.userAgents.UNSUPPORTED.name,
+                    ver : BrowserAgentSnippet.userAgents.UNSUPPORTED.ver, isSupported : false
+                };
+            }
+        };
+        // Core snippet business logic
+        (function () {
+            var startTime = new Date().getTime();
+            var cookieNames = {
+                // Request Cookie to Agent. Stores Browser Name
+                PLATFORM : "x-apm-brtm-bt-p",
+                // Request cookie to agent. Stores browser major version
+                PLATFORMVER : "x-apm-brtm-bt-pv",
+                // Response Cookie from Agent
+                // Stores server time (ms) when the response was sent. Used to calculate client server gap time
+                SERVERTIME : "x-apm-brtm-servertime",
+                // Request Cookie to Agent
+                // Stores client server gap time (s)
+                GAPTIME : "x-apm-brtm-gaptime"
+            };
+            /**
+             * Given a name, obtain the corresponding cookie value
+             * @param name - name of the cookie
+             * @returns {*}
+             */
+            var getRawCookie = function ( name ) {
+                if ( this.document.cookie.length > 0 ) {
+                    var cs = this.document.cookie.indexOf(name + "=");
+                    if ( cs !== -1 ) {
+                        cs = cs + name.length + 1;
+                        var ce = this.document.cookie.indexOf(";", cs);
+                        if ( ce === -1 ) {
+                            ce = this.document.cookie.length;
+                        }
+                        return decodeURIComponent(this.document.cookie.substring(cs, ce));
+                    } else {
+                        return null;
+                    }
+                } else {
+                    return null;
+                }
+            };
+            /**
+             * Adds pathname and preload to instrumented object in sessionStorage
+             * @param pathname
+             * @param preload
+             */
+            var pushToInstrumented = function ( pathname, preload ) {
+                if ( typeof pathname !== 'string' || typeof preload !== 'boolean' ) {
+                    console.log("pushToInstrumented: invalid parameters");
+                    return;
+                }
+
+                var instrumented = JSON.parse(sessionStorage.getItem(BrowserAgentSnippet.storageKeys.INSTRUMENTED));
+                if ( !instrumented ) {
+                    instrumented = {};
+                }
+                instrumented[pathname] = { "preload" : preload };
+                sessionStorage.setItem(BrowserAgentSnippet.storageKeys.INSTRUMENTED, JSON.stringify(instrumented));
+            };
+
+            // Check if platform cookie is already set. If so, check is platform cookie is supported.
+            // If not, parse user agent and set platform cookie.
+            var platformCookie = getRawCookie(cookieNames.PLATFORM);
+            if ( platformCookie ) {
+                if ( platformCookie === BrowserAgentSnippet.userAgents.UNSUPPORTED.name ) {
+                    console.log("BrowserAgentSnippet: Unsupported browser.");
+                    return;
+                }
+            } else {
+                var browserInfo = BrowserAgentSnippet.getBrowserInfo(navigator.userAgent);
+                // Set user agent cookies
+                document.cookie = cookieNames.PLATFORM + "=" + browserInfo.name + "; path=/";
+                document.cookie = cookieNames.PLATFORMVER + "=" + browserInfo.ver + "; path=/";
+                if ( !browserInfo.isSupported ) {
+                    var httpRequest = null;
+                    if ( window.XMLHttpRequest ) { // Mozilla, Safari, IE7+ ...
+                        httpRequest = new XMLHttpRequest();
+                    } else if ( window.ActiveXObject ) { // IE 6 and older
+                        httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    if ( httpRequest ) {
+                        var postURL = window.location.protocol + "//" + window.location.host +
+                                      window.location.pathname + "?WilyCmd=cmdMetrics";
+                        httpRequest.open('POST', postURL, true);
+                        httpRequest.setRequestHeader('Content-Type',
+                                                     'application/x-www-form-urlencoded; charset=utf-8');
+                        var postData = "UB=true"; // Unsupported Browser
+                        httpRequest.send(postData);
+                    }
+                    console.log("BrowserAgentSnippet: Unsupported browser. Sending UB sustainability metric.");
+                    return;
+                }
+            }
+
+            // Calculate client server gap time servertime cookie
+            var serverTimeCookie = getRawCookie(cookieNames.SERVERTIME);
+            if ( serverTimeCookie ) {
+                BrowserAgentSnippet.gapTimeInMillis = startTime - serverTimeCookie;
+                document.cookie =
+                    cookieNames.GAPTIME + "=" + Math.ceil(BrowserAgentSnippet.gapTimeInMillis / 1000) + "; path=/";
+                console.log("Client Server gap time is " + BrowserAgentSnippet.gapTimeInMillis + " ms");
+            } else {
+                console.log("Cannot get servertime cookie.");
+            }
+
+            window.addEventListener("beforeunload", function () {
+                if ( window.Storage ) {
+                    sessionStorage.removeItem(BrowserAgentSnippet.storageKeys.INSTRUMENTED);
+                }
+            });
+            // Page hide event is used in browsers that do not support the window event
+            // onbeforeunload event (e.g. Mobile Safari and Google Chrome)
+            window.addEventListener("pagehide", function () {
+                if ( window.Storage ) {
+                    sessionStorage.removeItem(BrowserAgentSnippet.storageKeys.INSTRUMENTED);
+                }
+            });
+
+            // Download big js    
+            var insertSnippet = function ( isAsync, cmd ) {
+                var cmdPrefix = "?WilyCmd=";
+                var type = "text/javascript";
+                var browserAgentSnippet = document.createElement('script');
+                browserAgentSnippet.setAttribute("id", BrowserAgentSnippet.cmdJSId);
+                browserAgentSnippet.type = type;
+                browserAgentSnippet.async = isAsync;
+                browserAgentSnippet.src = BrowserAgentSnippet.instrumentationLocation + cmdPrefix + cmd;
+                var snip = document.getElementsByTagName('script')[0];
+                snip.parentNode.insertBefore(browserAgentSnippet, snip);
+            };
+
+            // bigJS request logic
+            if ( !window.Storage ) {
+                insertSnippet(true, "cmdJS");
+                return;
+            }
+
+            var instrumented = JSON.parse(sessionStorage.getItem(BrowserAgentSnippet.storageKeys.INSTRUMENTED));
+            var visibilityState = document.visibilityState;
+
+            if ( !instrumented ) {
+                // page visit or first preload
+                pushToInstrumented(BrowserAgentSnippet.storageKeys.PATHNAME, visibilityState === 'prerender');
+                insertSnippet(true, "cmdJS");
+            }
+            else {
+                if ( !instrumented[BrowserAgentSnippet.storageKeys.PATHNAME] ) {
+                    if ( visibilityState === 'prerender' ) {
+                        // preload phase
+                        // remove any other preloaded urls
+                        for ( key in instrumented ) {
+                            if ( instrumented[key].preload == true ) {
+                                instrumented[key] = undefined;
+                            }
+                        }
+                        sessionStorage.setItem(BrowserAgentSnippet.storageKeys.INSTRUMENTED,
+                                               JSON.stringify(instrumented));
+                        pushToInstrumented(BrowserAgentSnippet.storageKeys.PATHNAME, true);
+                        insertSnippet(true, "cmdJS");
+                    }
+                }
+                else {
+                    if ( visibilityState !== 'prerender' &&
+                         instrumented[BrowserAgentSnippet.storageKeys.PATHNAME].preload == true ) {
+                        // page visit after preload
+                        pushToInstrumented(BrowserAgentSnippet.storageKeys.PATHNAME, false);
+                        insertSnippet(true, "cmdJS");
+                    }
+                    else {
+                        // multiple snippets
+                        console.log("Multiple snippets on page, preventing additional cmdJS insertions...");
+                        return;
+                    }
+                }
+            }
+        })();
+    }
+} catch ( e ) {
+    // Log it in the console, if present
+    if ( window.console ) {
+        console.log("BrowserAgent Snippet: " + e.message);
+    }
+}</script>

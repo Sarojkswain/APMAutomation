@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+	<transformation id="props">
+		<set-property name="introscope.enterprisemanager.query.datapointlimit" value="1000000" />
+		<set-property name="introscope.enterprisemanager.query.returneddatapointlimit" value="100000" />
+		<set-property name="transport.outgoingMessageQueueSize" value="10000" />
+		<set-property name="transport.override.isengard.high.concurrency.pool.min.size" value="15" />
+		<set-property name="transport.override.isengard.high.concurrency.pool.max.size" value="15" />
+	</transformation>
+	
+	<files id="files">
+		<file>${#emPlugin.pluginConfiguration.currentInstallDir}/config/IntroscopeEnterpriseManager.properties</file>
+	</files>
+	
+	<binding id="binding">
+		<transformation-ref id="props" />
+		<files-ref id="files" /> 
+	</binding>
+</configuration>

@@ -1,0 +1,80 @@
+{
+  "settings": {
+    "index.mapper.dynamic": false,
+    "number_of_shards": 1,
+    "number_of_replicas": 0
+  },
+  "mappings": {
+    "detail": {
+      "dynamic": "false",
+      "_all": {
+        "enabled": false
+      },
+      "properties": {
+        "agent": {
+          "type": "text"
+        },
+        "corKeys": {
+          "type": "text"
+        },
+        "description": {
+          "type": "text"
+        },
+        "flags": {
+          "type": "long"
+        },
+        "id": {
+          "type": "text"
+        },
+        "root": {
+          "properties": {
+            "agentName": {
+              "type": "text"
+            },
+            "description": {
+              "type": "text"
+            },
+            "duration": {
+              "type": "long"
+            },
+            "parameters": {
+              "properties": {
+                "Application Name": {
+                  "type": "text"
+                },
+                "Context Path": {
+                  "type": "text"
+                },
+                "Resource Name": {
+                  "type": "text"
+                },
+                "TxnTraceId": {
+                  "type": "text"
+                },
+                "URL": {
+                  "type": "text"
+                },
+                "URL Query": {
+                  "type": "text"
+                }
+              }
+            },
+            "resource": {
+              "type": "text"
+            },
+            "startTime": {
+              "type": "date",
+              "format": "epoch_millis"
+            }
+          }
+        },
+        "type": {
+          "type": "text"
+        },
+        "userId": {
+          "type": "text"
+        }
+      }
+    }
+  }
+}

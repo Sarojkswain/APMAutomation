@@ -1,0 +1,13 @@
+{
+  "id" : null,
+  "processKey" : "fld.stop.fake.workstation.load",
+  "name" : "Stop FW Loads",
+  "config" : [ ],
+  "monitors" : [ ],
+  "active" : false,
+  "suspended" : false,
+  "processStarted" : null,
+  "processEnded" : null,
+  "iconName" : "serviceManager",
+  "executions" : null
+}

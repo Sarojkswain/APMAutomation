@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2014 CA.  All rights reserved.
+  ~
+  ~ This software and all information contained therein is confidential and
+  ~ proprietary and shall not be duplicated, used, disclosed or disseminated in
+  ~ any way except as authorized by the applicable license agreement, without
+  ~ the express written permission of CA. All authorized reproductions must be
+  ~ marked with this language.
+  ~
+  ~ EXCEPT AS SET FORTH IN THE APPLICABLE LICENSE AGREEMENT, TO THE EXTENT
+  ~ PERMITTED BY APPLICABLE LAW, CA PROVIDES THIS SOFTWARE WITHOUT WARRANTY OF
+  ~ ANY KIND, INCLUDING WITHOUT LIMITATION, ANY IMPLIED WARRANTIES OF
+  ~ MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  IN NO EVENT WILL CA BE
+  ~ LIABLE TO THE END USER OR ANY THIRD PARTY FOR ANY LOSS OR DAMAGE, DIRECT OR
+  ~ INDIRECT, FROM THE USE OF THIS SOFTWARE, INCLUDING WITHOUT LIMITATION, LOST
+  ~ PROFITS, BUSINESS INTERRUPTION, GOODWILL, OR LOST DATA, EVEN IF CA IS
+  ~ EXPRESSLY ADVISED OF SUCH LOSS OR DAMAGE.
+  -->
+
+<codaSuite xmlns="http://www.ca.com/2013/tasCodaSuite">
+	<name>APMRegression/common/apmbase/sap_integration/sap_rtv_TAS.xml</name>
+	<testBeds>
+		<testbedConfigs>
+			<testBedName>com.ca.tas.test.sapem.regression.SAPRTVTestBed</testBedName>
+		</testbedConfigs>
+	</testBeds>
+	<genericProperties>
+		<properties key="coda.logic.mercurial.branch" value="{codaLogicMercurialBranch}" />
+		<properties key="testvariant.files" value="" />
+		<!-- CA Introscope -->
+		<properties key="overrides.versions.introscope.build.number" value="{artifactVersion}" />
+		<properties key="overrides.versions.introscope.build.suffix" value="{fullProductVersion}" />
+		<properties key="overrides.versions.introscope.code.name" value="default" />
+		<properties key="overrides.versions.osgi" value="{productVersion}" />
+		<properties key="overrides.versions.internal.build.suffix" value="{fullProductVersion}" />
+		<properties key="overrides.versions.em.tess.jar" value="{codaLogicMercurialBranch}" />
+		<!-- CA Agent -->
+		<properties key="overrides.versions.agent.build.number"	value="{artifactVersion}" />
+		<properties key="overrides.versions.agent.build.suffix" value="{fullProductVersion}" />
+		<properties key="overrides.versions.agent.code.name" value="default" />
+		<!-- Test automation -->
+		<properties key="overrides.versions.coda-projects.build.number"	value="{artifactVersion}" />
+		<!-- QC upload -->
+		<properties key="overrides.role_qcuploadtool.upload.results" value="false" />
+
+		<!-- Machine properties -->
+		<properties key="role.sapem01.slaveType" value="WindowsService" />
+		<properties key="role.sapem01.install.parent.dir" value="C:/sw" />
+		<properties key="role.client01_full1.install.parent.dir" value="C:/sw" />
+
+		<!-- Role properties -->
+		<properties key="role.sapem01.sapem.stage.dir" value="C:/sw/stagedir/${role.name}" />
+		<properties key="role.sapem01.sapem.install.parent.dir"	value="C:/sw/em" />
+		<properties key="role.sapem01.max.permsize.mb" value="256" />
+		<properties key="role.sapem01.max.heap.mb" value="512" />
+		<properties key="role.sapem01.min.heap.mb" value="512" />
+		<properties key="role.sapem01.sap.port" value="6001" />
+
+		<properties key="role.webapp02.wls.home" value="C:/Oracle/Middleware/wlserver_10.3" />
+		<properties key="role.webapp02.wls.port" value="7011" />
+		<!-- why we are not using the default JDK provided by WLS installation? -->
+		<properties key="role.webapp02.java.home" value="C:/Progra~1/Java/jdk1.7.0_51" />
+
+		<properties key="role.client01_full.existdir.name" value="C:/" />
+		<properties key="role.client01_deep.existdir.name" value="C:/" />
+		
+		<properties key="test.result.regex" value=".*junitreports.(?!TEST-).*\.xml"/>
+
+	</genericProperties>
+	<type>CODA:Suite</type>
+	<owner>pospa02</owner>
+	<description>SAPEM.REGRESSION test suite</description>
+	<size>BIG</size>
+	<group>coda-sapem</group>
+	<executeOn>controller</executeOn>
+</codaSuite>

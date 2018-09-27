@@ -1,0 +1,83 @@
+# connect(adminServerName='AdminServer', url='t3://localhost:${LISTEN_PORT}')
+connect('weblogic', 'welcome123', 't3://localhost:${LISTEN_PORT}')
+
+edit()
+startEdit()
+undo('true', 'y')
+
+cd('/')
+jms=ls('/JMSServers');
+if (jms.find('FldJmsServer') == -1):
+	print 'Creating JMS Server - FldJmsServer'
+	cmo.createJMSServer('FldJmsServer')
+	cd('/JMSServers/FldJmsServer')
+	cmo.setTemporaryTemplateResource(None)
+	cmo.setTemporaryTemplateName(None)
+	cmo.addTarget(getMBean('/Servers/AdminServer'))
+else:
+	print 'Using existing JMS Server - FldJmsServer'
+
+cd('/')
+jmsr=ls('/JMSSystemResources');
+if (jmsr.find('FldSystemResource') == -1):
+	print 'Creating JMS Module - FldSystemResource'
+	cmo.createJMSSystemResource('FldSystemResource')
+	cd('/JMSSystemResources/FldSystemResource')
+	cmo.addTarget(getMBean('/Servers/AdminServer'))
+	cmo.createSubDeployment('FldSubDeploy')
+	cd('/JMSSystemResources/FldSystemResource/SubDeployments/FldSubDeploy')
+	cmo.addTarget(getMBean('/JMSServers/FldJmsServer'))
+else:
+	print 'Using existing JMS Module - FldSystemResource'
+
+cd('/')
+jmscf=ls('/JMSSystemResources/FldSystemResource/JMSResource/FldSystemResource/ConnectionFactories');
+if (jmscf.find('${JMS_CONFACTORY_NAME}') == -1):
+	print 'Creating Connection Factory - ${JMS_CONFACTORY_NAME}'
+	cd('/JMSSystemResources/FldSystemResource/JMSResource/FldSystemResource')
+	cmo.createConnectionFactory('${JMS_CONFACTORY_NAME}')
+	cd('/JMSSystemResources/FldSystemResource/JMSResource/FldSystemResource/ConnectionFactories/${JMS_CONFACTORY_NAME}')
+	cmo.setJNDIName('jms/${JMS_CONFACTORY_NAME}')
+	# set('SubDeploymentName','FldSubDeploy')
+	cd('/JMSSystemResources/FldSystemResource/JMSResource/FldSystemResource/ConnectionFactories/${JMS_CONFACTORY_NAME}/SecurityParams/${JMS_CONFACTORY_NAME}')
+	cmo.setAttachJMSXUserId(false)
+	cd('/JMSSystemResources/FldSystemResource/JMSResource/FldSystemResource/ConnectionFactories/${JMS_CONFACTORY_NAME}/ClientParams/${JMS_CONFACTORY_NAME}')
+	cmo.setClientIdPolicy('Restricted')
+	cmo.setSubscriptionSharingPolicy('Exclusive')
+	#cmo.setMessagesMaximum(10)
+	cd('/JMSSystemResources/FldSystemResource/JMSResource/FldSystemResource/ConnectionFactories/${JMS_CONFACTORY_NAME}/TransactionParams/${JMS_CONFACTORY_NAME}')
+	cmo.setXAConnectionFactoryEnabled(true)
+	cd('/JMSSystemResources/FldSystemResource/JMSResource/FldSystemResource/ConnectionFactories/${JMS_CONFACTORY_NAME}')
+	cmo.setDefaultTargetingEnabled(true)
+else:
+	print 'Using existing Connection Factory - ${JMS_CONFACTORY_NAME}'
+
+jmsq=ls('/JMSSystemResources/FldSystemResource/JMSResource/FldSystemResource/Queues');
+for queue in '${JMS_QUEUE_NAMES}'.split(','):
+	if (queue != ''):
+		cd('/JMSSystemResources/FldSystemResource/JMSResource/FldSystemResource/Queues')
+		if (jmsq.find(queue) != -1):
+			print 'Deleting old Queue - ', queue
+			cmo.destroyQueue(getMBean(queue));
+		print 'Creating Queue - ', queue
+		cmo.createQueue(queue)
+		cd('/JMSSystemResources/FldSystemResource/JMSResource/FldSystemResource/Queues/' + queue)
+		set('JNDIName','jms/' + queue)
+		set('SubDeploymentName','FldSubDeploy')
+
+jmsq=ls('/JMSSystemResources/FldSystemResource/JMSResource/FldSystemResource/Topics');
+for topic in '${JMS_TOPIC_NAMES}'.split(','):
+	if (topic != ''):
+		cd('/JMSSystemResources/FldSystemResource/JMSResource/FldSystemResource/Topics')
+		if (jmsq.find(topic) != -1):
+			print 'Deleting old topic - ', topic
+			cmo.destroyTopic(getMBean(topic));
+		print 'Creating topic - ', topic
+		cmo.createTopic(topic)
+		cd('/JMSSystemResources/FldSystemResource/JMSResource/FldSystemResource/Topics/' + topic)
+		set('JNDIName','jms/' + topic)
+		set('SubDeploymentName','FldSubDeploy')
+
+print 'JMS Resources are Successfully Created'
+activate()
+print 'JMS Resources are Activated!!!'

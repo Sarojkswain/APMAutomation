@@ -1,0 +1,27 @@
+{
+  "id" : null,
+  "processKey" : "monitor.inside.subprocess.main",
+  "name" : "test",
+  "config" : [ ],
+  "monitors" : [ {
+    "key" : "proc",
+    "name" : "proc"
+  }, {
+    "key" : "sub-proc",
+    "name" : "sub-proc"
+  }, {
+    "key" : "sub-sub-proc",
+    "name" : "sub-sub-proc"
+  }, {
+    "key" : "non-existing",
+    "name" : "non-existing"
+  } ],
+  "hideNonRequiredConfigParameters" : false,
+  "active" : false,
+  "suspended" : false,
+  "processStarted" : null,
+  "processEnded" : null,
+  "processInstanceId" : null,
+  "iconName" : "info",
+  "executions" : null
+}

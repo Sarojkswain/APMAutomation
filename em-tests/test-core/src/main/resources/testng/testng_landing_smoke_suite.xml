@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!-- @Tas(testBed = [ 
+    {name=com.ca.apm.testbed.atc.TeamCenterRegressionTestBed, executeOn=endUserMachine}],
+    owner = shadm01,
+    size = BIG,
+    description = 'Acceptance / Smoke suite to be executed before SAAS build. Extracted from langing_regression suites',
+    snapshotMode = 'LIVE') -->
+<suite name="testNgLandingSmokeTestSuite" configfailurepolicy="continue">
+    <test name="testNgSmokeTests" preserve-order="false">
+        <classes>
+            <class name="com.ca.apm.test.atc.SetupRegressionTest"/>
+
+            <class name="com.ca.apm.test.atc.landing.BreadcrumbTest"/>
+            <!--<class name="com.ca.apm.test.atc.landing.UrlSharingTest" />-->
+            <class name="com.ca.apm.test.atc.landing.SortingAndDragAndDropTest">
+                <methods>
+                    <include name="testTopPageElements"/>
+                    <include name="test2ndLevelBuinessViewElements"/>
+                    <include name="testSortingOptionIsAppliedInTopPage"/>
+                    <include name="testDragAndDropTilesInTopPage"/>
+                </methods>
+            </class>
+
+            <class name="com.ca.apm.test.atc.landing.FoldingTest"/>
+            <!--<class name="com.ca.apm.test.atc.landing.LandingPageHelpLinksTest" />-->
+            <!--<class name="com.ca.apm.test.atc.landing.TileInteractionTest"/>-->
+            <class name="com.ca.apm.test.atc.landing.TimePersistenceTest">
+                <methods>
+                    <include name="testTimeRangesInHomePage"/>
+                    <include name="testPreserveTimeFromHomeToMapAndBackLast30MinutesLive"/>
+                    <include name="testPreserveTimeDuringDrilldownLast2HoursLive"/>
+                    <include name="testPreserveTimeDuringDrilldownLast8MinutesHistoric"/>
+                    <include name="testPreserveTimeFromHomeToDashboardAndBackLast24HoursHistoric"/>
+                </methods>
+            </class>
+
+            <class name="com.ca.apm.test.atc.landing.TopNavigationTest"/>
+            <!--<class name="com.ca.apm.test.atc.landing.ConfigurationPageTest"/>-->
+            <!---->
+
+        </classes>
+    </test>
+</suite>

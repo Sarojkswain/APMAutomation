@@ -1,0 +1,198 @@
+##############################################################################
+#
+# Introscope Silent Installation Response File
+#
+# Sample Response File
+# CA Wily Introscope(R) Version 99.99.installerBugs Release 99.99.0.installerBugs
+# Copyright (c) 2016 CA. All Rights Reserved.
+# Introscope(R) is a registered trademark of CA.
+#
+##############################################################################
+
+##############################################################################
+# How to install silently and use this file: 
+#
+# Introscope can be installed in silent mode (i.e. requiring no interaction 
+# with a GUI or console). Introscope installations of version 8.x or higher 
+# can be upgraded in silent mode. Silent installations and upgrades use the 
+# settings specified in a response file. 
+#
+# Silent installations and upgrades can be performed as follows:
+#
+# Edit this file to reflect your preferred settings.
+# Place this file in any directory. 
+# If upgrading, ensure that your existing installation is fully backed up
+# and all Introscope processes are shut down.
+# Select the appropriate command format from the list below,
+# and enter it at the command line to invoke the installer:
+#
+#   installer.exe -f <absolute path to response file>
+#   installer.bin -f <absolute path to response file>
+#   java -classpath installer.jar install -f <absolute path to response file>
+#
+# Note for upgrades only: 
+# The upgrade procedure is not reversible. CA APM recommends creating a full 
+# backup of your Introscope installation before initiating an upgrade.
+# 
+##############################################################################
+
+
+
+#######################
+# General Settings
+#
+# ================
+
+# Specify the location of CA End User License Agreement (EULA)
+# file. This agreement must be acknowledged and accepted 
+# by the end user in order for installation to proceed. To acknowledge  
+# and accept the agreement:
+#   - open it in a text editor and read the terms and conditions 
+#   - edit the end of the file to indicate acceptance of the license 
+#   - save the changes
+#   - specify the agreement's location using the property below
+# The CA EULA location may be specified with an absolute or relative path.
+# Relative paths will be resolved relative to the installer launch directory.
+# On Windows, backslashes must be escaped.
+#    Example Windows value: C:\\Documents and Settings\\ca-eula.txt
+#    Example Unix value:    /home/myuser/ca-eula.txt
+
+ca-eulaFile=C:\\testmycode\\ca-eula.txt
+
+  
+# Directory where Introscope is to be installed.
+# The directory path must be absolute, not relative.
+# On all platforms, the path must end with a file separator.
+# On Windows, backslashes must be escaped.
+# Example Windows install directory: C:\\IntroscopeSilentInstall\\
+# Example Unix install directory: /IntroscopeSilentInstall/
+# Left blank, this property will default to one of the following values: 
+# On Windows...
+#    C:\\Program Files\\CA APM\\Introscope99.99.0.installerBugs\\ 
+#        (Exact name and drive letter of program files directory may vary 
+#        depending on OS configuration) 
+# On Unix...
+#    /root/Introscope99.99.0.installerBugs/
+#        (Under the logged-in-end-user's home directory. Exact directory may vary 
+#        depending on user account.)
+USER_INSTALL_DIR=C:\\Introscope9.7.0.22\\
+
+# Introscope features to install. Must be a comma-delimited list.
+# Example: Enterprise Manager,WebView
+# The APM database stores Business Services and Application Dependency Map information.
+# This database is deployed on a PostgreSQL database.
+# If you want to install APM database only, use,
+# silentInstallChosenFeatures=Database
+# To install database along with EM add "Database" to the property below
+# Ensure that you also specify databaseDir, dbAdminUser and dbAdminPassword properties
+# below if you want to install APM database.
+silentInstallChosenFeatures=Enterprise Manager,WebView,Database
+
+########################
+# Upgrade Settings
+#
+# ================
+
+# To perform a silent upgrade of an existing Introscope 8.x or later installation,
+# configure this responsefile as follows:
+#   1) Set the upgrade property in this section to true. 
+#   2) Set the USER_INSTALL_DIR property, in the above section, such that it
+#      points to a valid Introscope 8.x or 9.x directory, using valid syntax. 
+#   3) Set the externalComponentPackage and eulaFile properties, in the above 
+#      section, such that they point to a valid component package and license
+#      agreement, using valid syntax. The installer will recognize the license 
+#      agreement as valid only if you have edited it to indicate acceptance 
+#      of the agreement.
+#   4) Optionally, to rename the Introscope install directory during an upgrade,
+#      uncomment the install dir property in this section and set it
+#      to the new value.
+#   5) Optionally, to change Windows service names and service display names 
+#      during an upgrade, go to the "Windows Service Settings" sections 
+#      of this file and:
+#        a) set the switches to true
+#        b) set the service and display names to their new values
+# The upgrade procedure is not reversible. CA APM recommends creating a full 
+# backup of your Introscope installation before initiating an upgrade.
+shouldUpgrade=true
+
+# To rename the Introscope install directory during an upgrade,
+# uncomment this property and specify a new name and location 
+# for the upgraded directory.
+# Use the same syntax as for the USER_INSTALL_DIR property:
+# append a trailing slash; escape backslashes on Windows.
+#      Example Windows value: C:\\IntroscopeSilentlyUpgradedInstall\\
+#      Example Unix value: /IntroscopeSilentlyUpgradedInstall/
+#upgradedInstallDir=
+
+
+#####################################################
+# APM Database Settings
+#--------------------------------------------
+
+# The APM database can be on PostgreSQL or Oracle
+# Set one of the propeties to true depending on whether you choose Postgres or Oracle
+chosenDatabaseIsPostgres=true
+chosenDatabaseIsOracle=false
+
+# APM Database (on PostgreSQL) details (set these if you are using PostgreSQL database)
+# The APM database can be installed on Linux, Solaris and Windows platforms.
+# If you are pointing to an existing database, enter the details of that database here
+#dbHost=127.0.0.1
+#dbPort=5432
+#dbName=cemdb
+#dbUser=admin
+#dbPassword=quality
+
+# Enter the PostgreSQL superuser name and password
+# You can skip these two properties if you are pointing to an existing database
+#dbAdminUser=postgres
+#dbAdminPassword=wilyc@1mage
+
+# PostgreSQL install directory. You can enter an absolute path or a path relative to APM install Directory
+# $defaultDatabaseDir$  defaults to /opt/PostgreSQL-<version> on Linux, Solaris and C:\Program Files\CA APM\PostgreSQL-<version> on Windows
+# If you are running CA APM, it is recommended that you put the APM database on its own disk or partition.
+# If you are upgrading APM Database, enter the location of existing PostgreSQL home.
+# databaseDir=$defaultDatabaseDir$
+
+# Set the following property if you are upgrading APM Database. You can enter an absolute path or a path relative to APM install Directory
+# APM sometimes bundles a newer version of PostgreSQL, which must reside in a different directory (if it differs by Major version like 8.4 and 9.2.x).
+# If PostgreSQL differs by minor version (eg: 9.2.4 and 9.2.15) then the old PostgreSQL directory is used and this property is ignored.
+# Please enter a directory which is different from the existing PostgreSQL install directory or upgrade process will fail.
+# $defaultDatabaseDir$ defaults to /opt/PostgreSQL-<version> on Linux, Solaris and C:\Program Files\CA APM\PostgreSQL-<version> on Windows
+# newPgInstallDir=$defaultDatabaseDir$
+#newPgInstallDir=C:\\Database\\
+
+# For PostgreSQL DB installation on Windows platform only.
+# Set the DB install script execution timeout wait time (in milliseconds).
+dbInstallScriptTimeoutInMillis=240000
+
+# Set validateDatabase to true if you already have a PostgreSQL installed and are going to create new APM database or if you are upgrading your database.
+# Set validateDatabase to false if you are installing PostgreSQL.
+# validateDatabase=true
+validateDatabase=true
+
+# set upgradeSchema to true only if you want to upgrade APM Database.
+# Schema can be upgraded only on Linux and Windows.
+# upgradeSchema=true
+upgradeSchema=true
+
+# Oracle properties (set these if you are using Oracle database.)
+# Set 'useExistingSchemaForOracle' property to true if the schema already exists 
+# for EM to connect. Set this property to false (default) if you want to create new schema
+# on a Oracle Database.
+#useExistingSchemaForOracle=false
+#oracleDbHost=
+#oracleDbPort=
+#oracleDbSidName=
+#oracleDbUsername=
+#oracleDbPassword=
+
+###############################
+# InstallAnywhere Settings
+# 
+# ========================
+
+# Installer UI mode. Do not edit.
+INSTALLER_UI=silent
+
+

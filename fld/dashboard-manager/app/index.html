@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="fldDashboardApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="fldDashboardApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="fldDashboardApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="fldDashboardApp" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>FLD Load Orchestrator</title>
+    <meta name="description" content="FLD Dashboard UI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="logo.ico">
+
+    <!-- Bootstrap core CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="fldDashboardApp.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/codemirror/theme/dracula.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/codemirror/addon/hint/show-hint.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/codemirror/addon/display/fullscreen.css">
+</head>
+<body ng-controller="FLDApplicationController as appCtrl" ng-cloak>
+
+<nav id="topMenuBarElement" class="navbar navbar-default navbar-fixed-top" role="navigation" ng-show="appCtrl.isTopMenuBarVisible()">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/"><span><img src="img/logo32x32.png" class="fld-logo-nav"></span><span>FLD Load Orchestrator</span></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="toggleNavBarVisibilityMenuItem">
+                    <a ng-click="appCtrl.toggleNavBarVisibility()" title="{{ appCtrl.isNavBarVisible() ? 'Hide navigation panel' : 'Show navigation panel' }}">
+                        <span class="glyphicon" ng-class="{ 'glyphicon-align-justify' : appCtrl.isNavBarVisible(), 'glyphicon-list' : !appCtrl.isNavBarVisible() }"></span>
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="appCtrl.toggleConsoleVisibility()"
+                       ng-class="{ 'console-visible' : appCtrl.isConsoleVisible() }"
+                       title="Console">
+                        <span ng-if="!appCtrl.isConsoleVisible()" class="glyphicon glyphicon-console"></span>
+                        <span ng-if="appCtrl.isConsoleVisible()" class="glyphicon glyphicon-list-alt"></span>
+                        <span class="topMenuItemText"> Alerts</span>
+                        <span class="badge"
+                              ng-class="{ 'badge-danger'  : appCtrl.hasUnreadErrorConsoleMessages(),
+                                          'badge-warning' : !appCtrl.hasUnreadErrorConsoleMessages() && appCtrl.hasUnreadWarningConsoleMessages(),
+                                          'badge-info'    : appCtrl.hasOnlyUnreadInfoConsoleMessages()}"
+                              ng-show="appCtrl.hasUnreadConsoleMessages()">{{ appCtrl.getNumOfUnreadConsoleMessages() }}</span>
+                    </a>
+                </li>
+                <li ng-class="{ active : appCtrl.isNavBarItemSelected('/dashboardList') }" class="dashboardListMenuItem">
+                    <a href="#/dashboardList" title="Dashboard List">
+                        <span class="glyphicon glyphicon-dashboard"></span><span class="topMenuItemText"> Dashboards</span>
+                    </a>
+                </li>
+                <li ng-class="{ active : appCtrl.isNavBarItemSelected('/groovyConsole') }">
+                    <a href="#/groovyConsole" title="Groovy Console">
+                        <span style="font-size: 15px;"><b>G</b></span><span class="topMenuItemText"> Groovy Console</span>
+                    </a>
+                </li>
+                <li ng-class="{ active : appCtrl.isNavBarItemSelected('/nodeList') }">
+                    <a href="#/nodeList" title="Node List">
+                        <span class="glyphicon glyphicon-globe"></span><span class="topMenuItemText"> Nodes</span>
+                    </a>
+                </li>
+                <li ng-class="{ active : appCtrl.isNavBarItemSelected('/settings') }">
+                    <a href="#/settings" title="Settings">
+                        <span class="glyphicon glyphicon-cog"></span><span class="topMenuItemText"> Settings</span>
+                    </a>
+                </li>
+                <li ng-class="{ active : appCtrl.isNavBarItemSelected('/uploadProcess') }">
+                    <a href="#/uploadProcess" title="Upload Workflows And Resources">
+                        <span class="glyphicon glyphicon-briefcase"></span><span class="topMenuItemText"> Workflows</span>
+                    </a>
+                </li>
+                <li ng-class="{ active : appCtrl.isNavBarItemSelected('/uploadAgent') }">
+                    <a href="#/uploadAgent" title="Upload Or Download LO Agent Distribution">
+                        <span class="glyphicon glyphicon-sunglasses"></span><span class="topMenuItemText"> Agent</span>
+                    </a>
+                </li>
+                <!--<li ng-class="{ active : appCtrl.isNavBarItemSelected('/help') }">-->
+                    <!--<a href="#/help" title="Help">-->
+                        <!--<span><img src="img/phone16x16.png"></span><span class="topMenuItemText"> Help</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar" ng-show="appCtrl.isNavBarVisible()" id="sidebarPanel">
+            <div class="row text-center newDashboardButton">
+                <div class="col-md-12 leftHandNavigationPanelButtons">
+                    <a class="btn btn-primary" title="Create New Dashboard" href="#/dashboardEditView/new" ng-disabled="appCtrl.isInEditMode()">
+                        <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                    </a>
+                    <a class="btn btn-primary" title="Import Dashboard" ng-click="appCtrl.showImportDashboardDialog()">
+                        <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+                    </a>
+                    <a class="btn btn-primary" title="Remove all dashboards" ng-click="appCtrl.showDeleteAllDashboardsDialogue()" ng-disabled="appCtrl.isInDashboardView()">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+            <navigation-sidebar-dashboards></navigation-sidebar-dashboards>
+        </div>
+
+        <div class="main"
+             ng-class="{ 'col-xs-12 col-sm-offset-3 col-sm-9 col-md-offset-2 col-md-10' : appCtrl.isNavBarVisible(),
+                         'col-xs-12 col-sm-12 col-md-12' : !appCtrl.isNavBarVisible() }">
+            <div ng-view>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="appCtrl.isConsoleVisible()">
+        <div class="col-sm-12 col-md-12 col-xs-12 panel panel-default console-panel">
+            <div class="panel-heading">
+                <div class="text-left console-header-title">
+                    <img src="img/console16x16.png"> Console
+                </div>
+                <div class="text-right">
+                    <a ng-click="appCtrl.toggleConsoleAutoRefresh()"
+                       ng-if="!appCtrl.isConsoleAutoRefreshOn()"
+                       title="Auto-Refresh Console"
+                       class="console-button">
+                        <span class="glyphicon glyphicon-play"></span>
+                    </a>
+                    <a ng-click="appCtrl.toggleConsoleAutoRefresh()"
+                       ng-if="appCtrl.isConsoleAutoRefreshOn()"
+                       title="Pause Console Auto-Refresh"
+                       class="console-button">
+                        <span class="glyphicon glyphicon-pause"></span>
+                    </a>
+                    <a ng-click="appCtrl.renderAlertMessages()"
+                       title="Refresh Console"
+                       class="console-button">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                    </a>
+                    <a ng-click="appCtrl.cleanConsole()"
+                       title="Clean Console"
+                       class="console-button">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                    <a ng-click="appCtrl.toggleConsoleVisibility()"
+                       title="Close Console"
+                       class="console-button">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body console-panel-body">
+                <div id="alert-console-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Libs and dependencies -->
+
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="bower_components/codemirror/lib/codemirror.js"></script>
+<script type="text/javascript" src="bower_components/codemirror/mode/javascript/javascript.js"></script>
+<script type="text/javascript" src="bower_components/codemirror/mode/groovy/groovy.js"></script>
+<script type="text/javascript" src="bower_components/codemirror/addon/edit/matchbrackets.js"></script>
+<script type="text/javascript" src="bower_components/codemirror/addon/edit/closebrackets.js"></script>
+<script type="text/javascript" src="bower_components/codemirror/addon/hint/show-hint.js"></script>
+<script type="text/javascript" src="bower_components/codemirror/addon/hint/anyword-hint.js"></script>
+<script type="text/javascript" src="bower_components/codemirror/addon/hint/css-hint.js"></script>
+<script type="text/javascript" src="bower_components/codemirror/addon/hint/html-hint.js"></script>
+<script type="text/javascript" src="bower_components/codemirror/addon/hint/javascript-hint.js"></script>
+<script type="text/javascript" src="bower_components/codemirror/addon/hint/sql-hint.js"></script>
+<script type="text/javascript" src="bower_components/codemirror/addon/hint/xml-hint.js"></script>
+<script type="text/javascript" src="bower_components/codemirror/addon/display/fullscreen.js"></script>
+<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+<script type="text/javascript" src="bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
+<script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+<script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script type="text/javascript" src="bower_components/es5-shim/es5-shim.min.js"></script>
+<script type="text/javascript" src="bower_components/es5-shim/es5-sham.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-file-upload/angular-file-upload.js"></script>
+<script type="text/javascript" src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+
+<!-- LO app modules -->
+
+<script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="homeView/homeView.js"></script>
+<script type="text/javascript" src="notFoundView/notFoundView.js"></script>
+<script type="text/javascript" src="dashboardView/dashboardView.js"></script>
+<script type="text/javascript" src="dashboardEditView/dashboardEditView.js"></script>
+<script type="text/javascript" src="components/version/version.js"></script>
+<script type="text/javascript" src="components/version/version-directive.js"></script>
+<script type="text/javascript" src="components/version/interpolate-filter.js"></script>
+<script type="text/javascript" src="components/dashboardListNavigationView/dashboardListNavigationView.js"></script>
+<script type="text/javascript" src="components/nodesListView/nodesListView.js"></script>
+<script type="text/javascript" src="components/modal/modalService.js"></script>
+<script type="text/javascript" src="components/launchConfigurationSettingsView/launchConfigurationSettingsView.js"></script>
+<script type="text/javascript" src="components/modal/singleTextBoxModal.js"></script>
+<script type="text/javascript" src="components/modal/twoTextBoxesModal.js"></script>
+<script type="text/javascript" src="components/modal/launchConfigurationSettingsModalService.js"></script>
+<script type="text/javascript" src="components/focusDirective/focus.js"></script>
+<script type="text/javascript" src="components/pictoGallery/pictoGalleryView.js"></script>
+<script type="text/javascript" src="components/userTaskDirective/userTaskDirective.js"></script>
+<script type="text/javascript" src="components/uploadDirective/uploadDirective.js"></script>
+<script type="text/javascript" src="components/modal/userTaskModalService.js"></script>
+<script type="text/javascript" src="nodeList/nodeListController.js"></script>
+<script type="text/javascript" src="uploadProcessView/uploadProcessView.js"></script>
+<script type="text/javascript" src="uploadAgentView/uploadAgentView.js"></script>
+<script type="text/javascript" src="components/modal/importDashboardConfigModal.js"></script>
+<script type="text/javascript" src="components/modal/stuckJobModalService.js"></script>
+<script type="text/javascript" src="components/processKeyDropDownDirective/processKeyDropDownDirective.js"></script>
+<script type="text/javascript" src="dashboardListView/dashboardListView.js"></script>
+<script type="text/javascript" src="groovyConsoleView/groovyConsoleView.js"></script>
+<script type="text/javascript" src="settingsView/settingsView.js"></script>
+
+<!-- Placed at the end of the document so the pages load faster -->
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>

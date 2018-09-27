@@ -1,0 +1,73 @@
+{
+  "settings": {
+    "index.mapper.dynamic": false,
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "analysis": {
+      "analyzer": {
+        "pipe_analyzer": {
+          "type": "custom",
+          "tokenizer": "pipe"
+        }
+      },
+      "tokenizer": {
+        "pipe": {
+          "type": "pattern",
+          "pattern": "[|]"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "detail": {
+      "dynamic": "false",
+      "_all": {
+        "enabled": false
+      },
+      "properties": {
+        "traceId": {
+          "type": "keyword",
+          "doc_values": false
+        },
+        "type": {
+          "type": "keyword",
+          "doc_values": false
+        },
+        "agent": {
+          "type": "text",
+          "analyzer": "pipe_analyzer"
+        },
+        "corKeys": {
+          "type": "keyword",
+          "doc_values": false
+        },
+        "callerTxnTraceId": {
+          "type": "keyword",
+          "doc_values": false
+        },
+        "userId": {
+          "type": "text"
+        },
+        "description": {
+          "type": "text"
+        },
+        "flags": {
+          "type": "long"
+        },
+        "appName": {
+          "type": "text"
+        },
+        "resource": {
+          "type": "text",
+          "analyzer": "pipe_analyzer"
+        },
+        "startTime": {
+          "type": "long"
+        },
+        "duration": {
+          "type": "long"
+        }
+      }
+    }
+  }
+}

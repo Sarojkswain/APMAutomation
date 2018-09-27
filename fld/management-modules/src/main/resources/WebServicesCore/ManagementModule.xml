@@ -1,0 +1,3490 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ManagementModule xmlns:ns1="http://www.w3.org/2005/11/its" xmlns:introscope="generated://introscope.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Editable="true" Version="4.0" IsActive="true" DescriptionContentType="text/plain" xsi:noNamespaceSchemaLocation="bundle://com.wily.introscope.em/com/wily/introscope/server/enterprise/entity/bundle/IntroscopeManagementModules4.0.xsd">
+    <Name>web services</Name>
+    <ProcessSpecifierList>
+        <ProcessSpecifier>
+            <ProcessSpecifierRegExp>(.*)</ProcessSpecifierRegExp>
+        </ProcessSpecifier>
+    </ProcessSpecifierList>
+    <DataGroups>
+        <DataGroup xsi:type="CalculatorDataGroup"/>
+        <DataGroup xsi:type="EntityDataGroup"/>
+        <DataGroup xsi:type="SnmpCollectionDataGroup"/>
+        <DataGroup xsi:type="ReportDataGroup"/>
+        <DataGroup xsi:type="DashboardDataGroup">
+            <Dashboard PixelHeight="600" PixelWidth="800" GridWidth="1" GridHeight="1" ClearAgentSpecifier="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name ns1:translate="yes">Web Services - Client Health</Name>
+                <Widget Type="Rectangle">
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16751104"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="11" YCoordinate="61"/>
+                        <CornerPoint XCoordinate="261" YCoordinate="541"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">10 SLOWEST WEB SERVICE OPERATIONS</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="2"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16751104"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="10" YCoordinate="47"/>
+                        <CornerPoint XCoordinate="264" YCoordinate="68"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveBarChart">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <AlertID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>Individual Client Operation Average Response Time (ms)</ConstructName>
+                            </AlertID>
+                            <TopNFilter IsActive="true" IsTop="true" FilterSize="10">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="3"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="21" YCoordinate="72"/>
+                        <CornerPoint XCoordinate="250" YCoordinate="531"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Web Services Client Dashboard</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="4"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="26"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="10" YCoordinate="2"/>
+                        <CornerPoint XCoordinate="422" YCoordinate="40"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveGraph">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <AlertID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>Individual Client Operation Average Response Time (ms)</ConstructName>
+                            </AlertID>
+                            <TopNFilter IsActive="false" IsTop="true" FilterSize="10">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="5"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="GraphPercentageSize">
+                        <Value xsi:type="IntegerType" Value="77"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ShowMinMax">
+                        <Value xsi:type="TextType" Value="false"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="275" YCoordinate="77"/>
+                        <CornerPoint XCoordinate="525" YCoordinate="290"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Operation Response Time (ms)</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="6"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="275" YCoordinate="56"/>
+                        <CornerPoint XCoordinate="468" YCoordinate="77"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveGraph">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <AlertID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>Individual Client Average Response Time (ms)</ConstructName>
+                            </AlertID>
+                            <TopNFilter IsActive="false" IsTop="true" FilterSize="10">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="7"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="GraphPercentageSize">
+                        <Value xsi:type="IntegerType" Value="78"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ShowMinMax">
+                        <Value xsi:type="TextType" Value="false"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="275" YCoordinate="325"/>
+                        <CornerPoint XCoordinate="525" YCoordinate="542"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Aggregate Response Time (ms)</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="8"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="275" YCoordinate="305"/>
+                        <CornerPoint XCoordinate="472" YCoordinate="326"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveGraph">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <AlertID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>Individual Client Errors Per Interval</ConstructName>
+                            </AlertID>
+                            <TopNFilter IsActive="false" IsTop="true" FilterSize="10">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="9"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="GraphPercentageSize">
+                        <Value xsi:type="IntegerType" Value="77"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ShowMinMax">
+                        <Value xsi:type="TextType" Value="false"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="542" YCoordinate="77"/>
+                        <CornerPoint XCoordinate="792" YCoordinate="290"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Total Faults Per Interval</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="542" YCoordinate="56"/>
+                        <CornerPoint XCoordinate="695" YCoordinate="77"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveGraph">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <MetricGroupingID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>Individual Client Responses Per Interval</ConstructName>
+                            </MetricGroupingID>
+                            <TopNFilter IsActive="false" IsTop="true" FilterSize="10">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="11"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="GraphPercentageSize">
+                        <Value xsi:type="IntegerType" Value="78"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ShowMinMax">
+                        <Value xsi:type="TextType" Value="false"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="542" YCoordinate="325"/>
+                        <CornerPoint XCoordinate="792" YCoordinate="542"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Total Invocations Per Interval</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="542" YCoordinate="306"/>
+                        <CornerPoint XCoordinate="731" YCoordinate="327"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777114"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LinkList">
+                        <Value xsi:type="LinkListType">
+                            <Link>
+<DashboardID>
+    <ManagementModuleName>web services</ManagementModuleName>
+    <ConstructName>Web Services - Overview</ConstructName>
+</DashboardID>
+                            </Link>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">&lt; Back to Overview</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="13"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="2"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="683" YCoordinate="16"/>
+                        <CornerPoint XCoordinate="798" YCoordinate="37"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Image">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <ImageID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>WilyCA.gif #6</ConstructName>
+                            </ImageID>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-9380973"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="14"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="601" YCoordinate="542"/>
+                        <CornerPoint XCoordinate="799" YCoordinate="600"/>
+                    </DisplayBox>
+                </Widget>
+            </Dashboard>
+            <Dashboard PixelHeight="600" PixelWidth="800" GridWidth="1" GridHeight="1" ClearAgentSpecifier="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name ns1:translate="yes">Web Services - Overview</Name>
+                <Widget Type="Rectangle">
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16751104"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="409" YCoordinate="66"/>
+                        <CornerPoint XCoordinate="792" YCoordinate="541"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Rectangle">
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16751104"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="2"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="9" YCoordinate="66"/>
+                        <CornerPoint XCoordinate="392" YCoordinate="541"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Web Services Overview</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="3"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="26"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="10" YCoordinate="2"/>
+                        <CornerPoint XCoordinate="319" YCoordinate="40"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveAlert">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <SummaryAlertID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>Individual Client Performance Alert</ConstructName>
+                            </SummaryAlertID>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="4"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TristateViewerType">
+                        <Value xsi:type="IntegerType" Value="341"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LinkList">
+                        <Value xsi:type="LinkListType">
+                            <Link>
+<DashboardID>
+    <ManagementModuleName>web services</ManagementModuleName>
+    <ConstructName>Web Services - Client Health</ConstructName>
+</DashboardID>
+                            </Link>
+                        </Value>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="31" YCoordinate="87"/>
+                        <CornerPoint XCoordinate="179" YCoordinate="235"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveGraph">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <AlertID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>Individual Client Average Response Time (ms)</ConstructName>
+                            </AlertID>
+                            <TopNFilter IsActive="false" IsTop="true" FilterSize="10">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="5"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="GraphPercentageSize">
+                        <Value xsi:type="IntegerType" Value="81"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ShowMinMax">
+                        <Value xsi:type="TextType" Value="false"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="18" YCoordinate="286"/>
+                        <CornerPoint XCoordinate="192" YCoordinate="532"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Response Time (ms)</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="6"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="19" YCoordinate="266"/>
+                        <CornerPoint XCoordinate="147" YCoordinate="287"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveBarChart">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <AlertID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>Individual Client Average Response Time (ms)</ConstructName>
+                            </AlertID>
+                            <TopNFilter IsActive="true" IsTop="true" FilterSize="10">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="7"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="209" YCoordinate="286"/>
+                        <CornerPoint XCoordinate="382" YCoordinate="532"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">CLIENT PERFORMANCE SUMMARY</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="8"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="14"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16751104"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="9" YCoordinate="49"/>
+                        <CornerPoint XCoordinate="258" YCoordinate="72"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777114"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LinkList">
+                        <Value xsi:type="LinkListType">
+                            <Link>
+<DashboardID>
+    <ManagementModuleName>web services</ManagementModuleName>
+    <ConstructName>Web Services - Client Health</ConstructName>
+</DashboardID>
+                            </Link>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Details &gt;</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="9"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="2"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="344" YCoordinate="49"/>
+                        <CornerPoint XCoordinate="398" YCoordinate="70"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveBarChart">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <AlertID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>Individual Producer Average Response Time (ms)</ConstructName>
+                            </AlertID>
+                            <TopNFilter IsActive="true" IsTop="true" FilterSize="10">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="609" YCoordinate="286"/>
+                        <CornerPoint XCoordinate="782" YCoordinate="532"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveAlert">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <SummaryAlertID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>Individual Producer Performance Alert</ConstructName>
+                            </SummaryAlertID>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="11"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TristateViewerType">
+                        <Value xsi:type="IntegerType" Value="341"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LinkList">
+                        <Value xsi:type="LinkListType">
+                            <Link>
+<DashboardID>
+    <ManagementModuleName>web services</ManagementModuleName>
+    <ConstructName>Web Services - Producer Health</ConstructName>
+</DashboardID>
+                            </Link>
+                        </Value>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="431" YCoordinate="87"/>
+                        <CornerPoint XCoordinate="580" YCoordinate="236"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes"></TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="566" YCoordinate="434"/>
+                        <CornerPoint XCoordinate="572" YCoordinate="456"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveGraph">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <AlertID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>Individual Producer Average Response Time (ms)</ConstructName>
+                            </AlertID>
+                            <TopNFilter IsActive="false" IsTop="true" FilterSize="10">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="13"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="GraphPercentageSize">
+                        <Value xsi:type="IntegerType" Value="81"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ShowMinMax">
+                        <Value xsi:type="TextType" Value="false"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="418" YCoordinate="286"/>
+                        <CornerPoint XCoordinate="592" YCoordinate="532"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Response Time (ms)</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="14"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="420" YCoordinate="266"/>
+                        <CornerPoint XCoordinate="548" YCoordinate="287"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">PRODUCER PERFORMANCE SUMMARY</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="14"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16751104"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="409" YCoordinate="50"/>
+                        <CornerPoint XCoordinate="683" YCoordinate="73"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Group">
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="18"/>
+                    </WidgetProperty>
+                    <Widget Type="Label">
+                        <WidgetProperty Name="Text">
+                            <TextValue ns1:translate="yes">Average Client</TextValue>
+                        </WidgetProperty>
+                        <WidgetProperty Name="FontName">
+                            <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="FillColor">
+                            <Value xsi:type="ColorType" Value="-14434"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="FrameColor">
+                            <Value xsi:type="ColorType" Value="-16777216"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="CanHaveLinks">
+                            <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="ID">
+                            <Value xsi:type="IntegerType" Value="16"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="FontSize">
+                            <Value xsi:type="IntegerType" Value="12"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="TextColor">
+                            <Value xsi:type="ColorType" Value="-16777216"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="ArrowMode">
+                            <Value xsi:type="IntegerType" Value="0"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="TextAlign">
+                            <Value xsi:type="IntegerType" Value="0"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="FontStyle">
+                            <Value xsi:type="IntegerType" Value="1"/>
+                        </WidgetProperty>
+                        <DisplayBox>
+                            <OriginPoint XCoordinate="19" YCoordinate="252"/>
+                            <CornerPoint XCoordinate="114" YCoordinate="273"/>
+                        </DisplayBox>
+                    </Widget>
+                    <Widget Type="Label">
+                        <WidgetProperty Name="Text">
+                            <TextValue ns1:translate="yes">Average Producer</TextValue>
+                        </WidgetProperty>
+                        <WidgetProperty Name="FontName">
+                            <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="FillColor">
+                            <Value xsi:type="ColorType" Value="-14434"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="FrameColor">
+                            <Value xsi:type="ColorType" Value="-16777216"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="CanHaveLinks">
+                            <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="ID">
+                            <Value xsi:type="IntegerType" Value="17"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="FontSize">
+                            <Value xsi:type="IntegerType" Value="12"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="TextColor">
+                            <Value xsi:type="ColorType" Value="-16777216"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="ArrowMode">
+                            <Value xsi:type="IntegerType" Value="0"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="TextAlign">
+                            <Value xsi:type="IntegerType" Value="0"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="FontStyle">
+                            <Value xsi:type="IntegerType" Value="1"/>
+                        </WidgetProperty>
+                        <DisplayBox>
+                            <OriginPoint XCoordinate="420" YCoordinate="252"/>
+                            <CornerPoint XCoordinate="535" YCoordinate="273"/>
+                        </DisplayBox>
+                    </Widget>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="19" YCoordinate="252"/>
+                        <CornerPoint XCoordinate="535" YCoordinate="273"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Rectangle">
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-103"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-13210"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="19"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="221" YCoordinate="75"/>
+                        <CornerPoint XCoordinate="382" YCoordinate="247"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">The response time</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="20"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="266" YCoordinate="82"/>
+                        <CornerPoint XCoordinate="353" YCoordinate="101"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">RED =</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="21"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-65536"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="230" YCoordinate="82"/>
+                        <CornerPoint XCoordinate="268" YCoordinate="101"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">or more Web Services</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="22"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="230" YCoordinate="105"/>
+                        <CornerPoint XCoordinate="336" YCoordinate="124"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">requested by the monitored</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="23"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="230" YCoordinate="117"/>
+                        <CornerPoint XCoordinate="361" YCoordinate="136"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">application(s) has exceeded</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="24"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="230" YCoordinate="130"/>
+                        <CornerPoint XCoordinate="359" YCoordinate="149"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Investigating the slow Web</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="25"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="230" YCoordinate="162"/>
+                        <CornerPoint XCoordinate="358" YCoordinate="181"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Service(s) will include drill</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="26"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="230" YCoordinate="174"/>
+                        <CornerPoint XCoordinate="352" YCoordinate="193"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">dashboard to pinpoint </TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="27"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="230" YCoordinate="200"/>
+                        <CornerPoint XCoordinate="339" YCoordinate="219"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">the location of the external</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="28"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="230" YCoordinate="213"/>
+                        <CornerPoint XCoordinate="355" YCoordinate="232"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">a defined threshold.</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="29"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="230" YCoordinate="143"/>
+                        <CornerPoint XCoordinate="325" YCoordinate="162"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Web Service(s)</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="30"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="230" YCoordinate="226"/>
+                        <CornerPoint XCoordinate="305" YCoordinate="245"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">down from the client health</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="31"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="230" YCoordinate="187"/>
+                        <CornerPoint XCoordinate="359" YCoordinate="206"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">and/or error rate of one</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="32"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="230" YCoordinate="93"/>
+                        <CornerPoint XCoordinate="345" YCoordinate="112"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Rectangle">
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-103"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-13210"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="33"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="621" YCoordinate="75"/>
+                        <CornerPoint XCoordinate="782" YCoordinate="247"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">The response time</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="34"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="666" YCoordinate="82"/>
+                        <CornerPoint XCoordinate="753" YCoordinate="101"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">RED =</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="35"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-65536"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="630" YCoordinate="82"/>
+                        <CornerPoint XCoordinate="668" YCoordinate="101"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">or more Web Services</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="36"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="630" YCoordinate="105"/>
+                        <CornerPoint XCoordinate="736" YCoordinate="124"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">provided by the monitored</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="37"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="630" YCoordinate="117"/>
+                        <CornerPoint XCoordinate="758" YCoordinate="136"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">application(s) has exceeded</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="38"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="630" YCoordinate="130"/>
+                        <CornerPoint XCoordinate="759" YCoordinate="149"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Investigating the slow Web</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="39"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="630" YCoordinate="162"/>
+                        <CornerPoint XCoordinate="758" YCoordinate="181"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Service(s) will include drill</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="40"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="630" YCoordinate="174"/>
+                        <CornerPoint XCoordinate="752" YCoordinate="193"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">dashboard to determine </TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="41"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="630" YCoordinate="200"/>
+                        <CornerPoint XCoordinate="746" YCoordinate="219"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">the component(s) responsible</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="42"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="630" YCoordinate="213"/>
+                        <CornerPoint XCoordinate="769" YCoordinate="232"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">a defined threshold.</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="43"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="630" YCoordinate="143"/>
+                        <CornerPoint XCoordinate="725" YCoordinate="162"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">for the slowdown</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="44"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="630" YCoordinate="226"/>
+                        <CornerPoint XCoordinate="715" YCoordinate="245"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">down from the producer health</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="45"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="630" YCoordinate="187"/>
+                        <CornerPoint XCoordinate="778" YCoordinate="206"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">and/or error rate of one</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="46"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="630" YCoordinate="93"/>
+                        <CornerPoint XCoordinate="745" YCoordinate="112"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777114"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LinkList">
+                        <Value xsi:type="LinkListType">
+                            <Link>
+<DashboardID>
+    <ManagementModuleName>web services</ManagementModuleName>
+    <ConstructName>Web Services - Producer Health</ConstructName>
+</DashboardID>
+                            </Link>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Details &gt;</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="47"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="2"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="744" YCoordinate="49"/>
+                        <CornerPoint XCoordinate="798" YCoordinate="70"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Image">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <ImageID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>WilyCA.gif #5</ConstructName>
+                            </ImageID>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-9380973"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="48"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="602" YCoordinate="542"/>
+                        <CornerPoint XCoordinate="800" YCoordinate="600"/>
+                    </DisplayBox>
+                </Widget>
+            </Dashboard>
+            <Dashboard PixelHeight="600" PixelWidth="800" GridWidth="1" GridHeight="1" ClearAgentSpecifier="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name ns1:translate="yes">Web Services - Producer Health</Name>
+                <Widget Type="LiveGraph">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <MetricGroupingID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>Individual Producer Responses Per Interval</ConstructName>
+                            </MetricGroupingID>
+                            <TopNFilter IsActive="false" IsTop="true" FilterSize="10">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="GraphPercentageSize">
+                        <Value xsi:type="IntegerType" Value="78"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ShowMinMax">
+                        <Value xsi:type="TextType" Value="false"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="542" YCoordinate="326"/>
+                        <CornerPoint XCoordinate="792" YCoordinate="543"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveGraph">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <AlertID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>Individual Producer Average Response Time (ms)</ConstructName>
+                            </AlertID>
+                            <TopNFilter IsActive="false" IsTop="true" FilterSize="10">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="2"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="GraphPercentageSize">
+                        <Value xsi:type="IntegerType" Value="78"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ShowMinMax">
+                        <Value xsi:type="TextType" Value="false"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LinkList">
+                        <Value xsi:type="LinkListType"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="275" YCoordinate="326"/>
+                        <CornerPoint XCoordinate="525" YCoordinate="543"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Rectangle">
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16751104"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="3"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="11" YCoordinate="62"/>
+                        <CornerPoint XCoordinate="261" YCoordinate="542"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Web Services Producer Dashboard</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="4"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="26"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="10" YCoordinate="2"/>
+                        <CornerPoint XCoordinate="463" YCoordinate="40"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveGraph">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <AlertID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>Individual Client Operation Average Response Time (ms)</ConstructName>
+                            </AlertID>
+                            <TopNFilter IsActive="false" IsTop="true" FilterSize="10">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="5"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="GraphPercentageSize">
+                        <Value xsi:type="IntegerType" Value="57"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ShowMinMax">
+                        <Value xsi:type="TextType" Value="false"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="275" YCoordinate="78"/>
+                        <CornerPoint XCoordinate="525" YCoordinate="291"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Aggregate Response Time (ms)</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="6"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="275" YCoordinate="306"/>
+                        <CornerPoint XCoordinate="472" YCoordinate="327"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777114"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LinkList">
+                        <Value xsi:type="LinkListType">
+                            <Link>
+<DashboardID>
+    <ManagementModuleName>web services</ManagementModuleName>
+    <ConstructName>Web Services - Overview</ConstructName>
+</DashboardID>
+                            </Link>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">&lt; Back to Overview</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="7"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="2"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="683" YCoordinate="18"/>
+                        <CornerPoint XCoordinate="798" YCoordinate="39"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">10 SLOWEST WEB SERVICE OPERATIONS</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="8"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16751104"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="10" YCoordinate="48"/>
+                        <CornerPoint XCoordinate="264" YCoordinate="69"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveBarChart">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <AlertID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>Individual Producer Operation Average Response Time (ms)</ConstructName>
+                            </AlertID>
+                            <TopNFilter IsActive="true" IsTop="true" FilterSize="10">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="9"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="21" YCoordinate="73"/>
+                        <CornerPoint XCoordinate="251" YCoordinate="531"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Total Invocations Per Interval</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="542" YCoordinate="306"/>
+                        <CornerPoint XCoordinate="731" YCoordinate="327"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Group">
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="13"/>
+                    </WidgetProperty>
+                    <Widget Type="LiveGraph">
+                        <WidgetProperty Name="DataProvider">
+                            <Value xsi:type="DataProviderType">
+<AlertID>
+    <ManagementModuleName>web services</ManagementModuleName>
+    <ConstructName>Individual Producer Errors Per Interval</ConstructName>
+</AlertID>
+<TopNFilter IsActive="false" IsTop="true" FilterSize="10">
+    <IncludeList/>
+    <ExcludeList/>
+</TopNFilter>
+                            </Value>
+                        </WidgetProperty>
+                        <WidgetProperty Name="CanHaveLinks">
+                            <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="ID">
+                            <Value xsi:type="IntegerType" Value="11"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="GraphPercentageSize">
+                            <Value xsi:type="IntegerType" Value="77"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="Frequency">
+                            <Value xsi:type="IntegerType" Value="15"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="Scale">
+                            <Value xsi:type="ScaleType">
+<ScaleMin>0.0</ScaleMin>
+<ScaleMax>5.0</ScaleMax>
+<ScaleDefaultMin>0.0</ScaleDefaultMin>
+<ScaleDefaultMax>5.0</ScaleDefaultMax>
+<ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+<ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+<ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+<ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                            </Value>
+                        </WidgetProperty>
+                        <WidgetProperty Name="ShowMinMax">
+                            <Value xsi:type="TextType" Value="false"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="LabelsVisible">
+                            <Value xsi:type="TextType" Value="true"/>
+                        </WidgetProperty>
+                        <DisplayBox>
+                            <OriginPoint XCoordinate="542" YCoordinate="78"/>
+                            <CornerPoint XCoordinate="793" YCoordinate="291"/>
+                        </DisplayBox>
+                    </Widget>
+                    <Widget Type="Label">
+                        <WidgetProperty Name="Text">
+                            <TextValue ns1:translate="yes">Total Faults Per Interval</TextValue>
+                        </WidgetProperty>
+                        <WidgetProperty Name="FontName">
+                            <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="FillColor">
+                            <Value xsi:type="ColorType" Value="-14434"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="FrameColor">
+                            <Value xsi:type="ColorType" Value="-16777216"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="CanHaveLinks">
+                            <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="ID">
+                            <Value xsi:type="IntegerType" Value="12"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="FontSize">
+                            <Value xsi:type="IntegerType" Value="12"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="TextColor">
+                            <Value xsi:type="ColorType" Value="-16777216"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="ArrowMode">
+                            <Value xsi:type="IntegerType" Value="0"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="TextAlign">
+                            <Value xsi:type="IntegerType" Value="0"/>
+                        </WidgetProperty>
+                        <WidgetProperty Name="FontStyle">
+                            <Value xsi:type="IntegerType" Value="1"/>
+                        </WidgetProperty>
+                        <DisplayBox>
+                            <OriginPoint XCoordinate="542" YCoordinate="57"/>
+                            <CornerPoint XCoordinate="695" YCoordinate="78"/>
+                        </DisplayBox>
+                    </Widget>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="542" YCoordinate="57"/>
+                        <CornerPoint XCoordinate="793" YCoordinate="291"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Operation Response Time (ms)</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Trebuchet MS"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="14"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="275" YCoordinate="57"/>
+                        <CornerPoint XCoordinate="468" YCoordinate="78"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveGraph">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <AlertID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>Individual Producer Operation Average Response Time (ms)</ConstructName>
+                            </AlertID>
+                            <TopNFilter IsActive="false" IsTop="true" FilterSize="10">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="GraphPercentageSize">
+                        <Value xsi:type="IntegerType" Value="77"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ShowMinMax">
+                        <Value xsi:type="TextType" Value="false"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="275" YCoordinate="78"/>
+                        <CornerPoint XCoordinate="525" YCoordinate="291"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Image">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <ImageID>
+<ManagementModuleName>web services</ManagementModuleName>
+<ConstructName>WilyCA.gif #4</ConstructName>
+                            </ImageID>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-9380973"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="16"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="603" YCoordinate="543"/>
+                        <CornerPoint XCoordinate="801" YCoordinate="601"/>
+                    </DisplayBox>
+                </Widget>
+            </Dashboard>
+        </DataGroup>
+        <DataGroup xsi:type="MapEntityMetricGroupingDataGroup"/>
+        <DataGroup xsi:type="MetricGroupingDataGroup">
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Individual Producer Operation Responses Per Interval</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>WebServices\|Producer\|(.*)\|(.*):Responses Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Individual Client Operation Responses Per Interval</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>WebServices\|Client\|(.*)\|(.*):Responses Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Individual Producer Operation Average Response Time (ms)</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>WebServices\|Producer\|(.*)\|(.*):Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Individual Client Responses Per Interval</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>WebServices\|Client\|[^|]+:Responses Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Individual Producer Average Response Time (ms)</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>WebServices\|Producer\|[^|]+:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Individual Client Operation Errors Per Interval</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>WebServices\|Client\|(.*)\|(.*):Errors Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Individual Client Operation Average Response Time (ms)</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>WebServices\|Client\|(.*)\|(.*):Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Individual Client Average Response Time (ms)</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>WebServices\|Client\|[^|]+:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Individual Producer Responses Per Interval</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>WebServices\|Producer\|[^|]+:Responses Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Individual Producer Operation Errors Per Interval</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>WebServices\|Producer\|(.*)\|(.*):Errors Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+        </DataGroup>
+        <DataGroup xsi:type="UnmonitoredComponentGroupDataGroup"/>
+        <DataGroup xsi:type="TriageMapAlertDataGroup"/>
+        <DataGroup xsi:type="ActionDataGroup"/>
+        <DataGroup xsi:type="AlertDataGroup">
+            <AlertBase xsi:type="AlertType" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Individual Client Errors Per Interval</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>web services</ManagementModuleName>
+                    <ConstructName>Individual Client Operation Errors Per Interval</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>10</CautionTargetValue>
+                <DangerTargetValue>15</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Individual Producer Errors Per Interval</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>web services</ManagementModuleName>
+                    <ConstructName>Individual Producer Operation Errors Per Interval</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>10</CautionTargetValue>
+                <DangerTargetValue>15</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Individual Producer Operation Average Response Time (ms)</Name>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>web services</ManagementModuleName>
+                    <ConstructName>Individual Producer Operation Average Response Time (ms)</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>2000</CautionTargetValue>
+                <DangerTargetValue>5000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Individual Client Average Response Time (ms)</Name>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>true</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>web services</ManagementModuleName>
+                    <ConstructName>Individual Client Average Response Time (ms)</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>2500</CautionTargetValue>
+                <DangerTargetValue>5500</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Individual Client Operation Average Response Time (ms)</Name>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>true</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>web services</ManagementModuleName>
+                    <ConstructName>Individual Client Operation Average Response Time (ms)</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>2000</CautionTargetValue>
+                <DangerTargetValue>5000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Individual Producer Average Response Time (ms)</Name>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>true</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>web services</ManagementModuleName>
+                    <ConstructName>Individual Producer Average Response Time (ms)</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>2000</CautionTargetValue>
+                <DangerTargetValue>5000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="SummaryAlertType" LogicalOperator="or" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Individual Producer Performance Alert</Name>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <AlertList>
+                    <AlertID>
+                        <ManagementModuleName>web services</ManagementModuleName>
+                        <ConstructName>Individual Producer Errors Per Interval</ConstructName>
+                    </AlertID>
+                    <AlertID>
+                        <ManagementModuleName>web services</ManagementModuleName>
+                        <ConstructName>Individual Producer Average Response Time (ms)</ConstructName>
+                    </AlertID>
+                </AlertList>
+            </AlertBase>
+            <AlertBase xsi:type="SummaryAlertType" LogicalOperator="or" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Individual Client Performance Alert</Name>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <AlertList>
+                    <AlertID>
+                        <ManagementModuleName>web services</ManagementModuleName>
+                        <ConstructName>Individual Client Average Response Time (ms)</ConstructName>
+                    </AlertID>
+                    <AlertID>
+                        <ManagementModuleName>web services</ManagementModuleName>
+                        <ConstructName>Individual Client Errors Per Interval</ConstructName>
+                    </AlertID>
+                </AlertList>
+            </AlertBase>
+        </DataGroup>
+        <DataGroup xsi:type="ImageDataGroup">
+            <Image IsActive="true" DescriptionContentType="text/plain">
+                <Name>WilyCA.gif #6</Name>
+            </Image>
+            <Image IsActive="true" DescriptionContentType="text/plain">
+                <Name>WilyCA.gif #4</Name>
+            </Image>
+            <Image IsActive="true" DescriptionContentType="text/plain">
+                <Name>WilyCA.gif #5</Name>
+            </Image>
+        </DataGroup>
+        <DataGroup xsi:type="introscope:AlertDowntimeScheduleDataGroup"/>
+    </DataGroups>
+</ManagementModule>

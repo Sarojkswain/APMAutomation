@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <signal id="alertSignal" name="alert"></signal>
+  <process id="fld.agentcontrollability" name="Agent Controllability" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="momNode" name="momNode" type="string" variable="momNode" required="true"></activiti:formProperty>
+        <activiti:formProperty id="momPort" name="momPort" type="string" variable="momPort" default="5001"></activiti:formProperty>
+        <activiti:formProperty id="wurlitzerNode" name="wurlitzerNode" type="string" variable="wurlitzerNode" required="true"></activiti:formProperty>
+        <activiti:formProperty id="wurlitzerVersion" name="wurlitzerVersion" type="string" variable="wurlitzerVersion" default="99.99.sys-SNAPSHOT"></activiti:formProperty>
+        <activiti:formProperty id="emInstallDir" name="emInstallDir" type="string" variable="emInstallDir" default="c:\sw\wily\em" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <scriptTask id="scripttask_get_wurlitzer" name="Get Wurlitzer" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>def proxy = agentProxyFactory.createProxy(wurlitzerNode);
+def wPlugin = proxy.plugins.wurlitzerPlugin;
+
+wPlugin.downloadWurlitzer(wurlitzerVersion);
+def wurlitzerHome = wPlugin.unzipWurlitzerZip();
+execution.setVariable('wurlitzerHome', wurlitzerHome);
+</script>
+    </scriptTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <scriptTask id="scripttask_setup_wurlitzer" name="Update config" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+def log = LoggerFactory.getLogger("updateWurlitzerConfiguration") 
+
+def script = """
+                def props = new Properties()
+                def path = "_WURLITZER_HOME_/scripts/xml/appmap-btc-miniagent/"
+                def file = new File(path + "mini-agent.properties")
+                
+                file.withInputStream { 
+                    stream -&gt; props.load(stream) 
+                }
+
+                props.setProperty("introscope.agent.enterprisemanager.transport.tcp.host.DEFAULT", "_MOM_NODE_")
+                props.setProperty("introscope.agent.enterprisemanager.transport.tcp.port.DEFAULT", "_MOM_PORT_")
+
+                file.withOutputStream {
+                    stream -&gt; props.store(stream, null)
+                }
+                
+                file = new File(path + "agent-host-names.txt")
+                file.withOutputStream {
+                    stream -&gt; stream &lt;&lt; "_WURLITZER_NODE_.ca.com"
+                }
+"""
+
+def proxy = agentProxyFactory.createProxy(wurlitzerNode);
+def emPlugin = proxy.plugins.emPlugin
+
+def replacedScript = script.replace("_MOM_NODE_", momNode).replace("_MOM_PORT_", momPort).replace("_WURLITZER_NODE_", wurlitzerNode).replace("_WURLITZER_HOME_", wurlitzerHome.toString().replaceAll("\\\\", "/"))
+log.info("executing script:\n" + replacedScript)
+
+emPlugin.runGroovyScript(replacedScript, null, null)</script>
+    </scriptTask>
+    <sequenceFlow id="flow12" sourceRef="scripttask_get_wurlitzer" targetRef="scripttask_setup_wurlitzer"></sequenceFlow>
+    <scriptTask id="scripttask_start_wurlitzer" name="Start Wurlitzer" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>def proxy = agentProxyFactory.createProxy(wurlitzerNode)
+def wPlugin = proxy.plugins.wurlitzerPlugin
+
+def id = wPlugin.executeBuildFileWithTarget("build.xml", "disallowedagents")
+execution.setVariable('wurlitzerId', id);
+            </script>
+    </scriptTask>
+    <sequenceFlow id="flow13" sourceRef="scripttask_setup_wurlitzer" targetRef="scripttask_start_wurlitzer"></sequenceFlow>
+    <scriptTask id="scripttask_stop_wurlitzer" name="Stop Wurlitzer" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>def proxy = agentProxyFactory.createProxy(wurlitzerNode)
+def wPlugin = proxy.plugins.wurlitzerPlugin
+
+wPlugin.stop(wurlitzerId)</script>
+    </scriptTask>
+    <scriptTask id="scripttask_delete_wurlitzer" name="Delete Wurlitzer" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>def proxy = agentProxyFactory.createProxy(wurlitzerNode)
+def wPlugin = proxy.plugins.wurlitzerPlugin
+
+wPlugin.deleteTempDir()
+</script>
+    </scriptTask>
+    <sequenceFlow id="flow15" sourceRef="scripttask_stop_wurlitzer" targetRef="scripttask_delete_wurlitzer"></sequenceFlow>
+    <sequenceFlow id="flow16" sourceRef="scripttask_delete_wurlitzer" targetRef="endevent1"></sequenceFlow>
+    <subProcess id="subprocess1" name="Sub Process">
+      <scriptTask id="scripttask_set_exclusion" name="Set exclusion" scriptFormat="groovy" activiti:autoStoreVariables="false">
+        <script>import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+def log = LoggerFactory.getLogger("update exclusion configuration")
+
+def script = """
+
+                def file = new File("_EM_INSTALL_DIR_/config/loadbalancing.xml")
+                
+                file.withOutputStream {
+                    stream -&gt; stream &lt;&lt; content
+                }
+                return 0
+                """;
+
+def exclusion = """
+        def content = '&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;\\n' +
+                '&lt;loadbalancing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="loadbalancing0.1.xsd"&gt;\\n' +
+                '  &lt;agent-collector name="Exclude all WurlitzerBTC Agents"&gt;\\n' +
+                '    &lt;agent-specifier&gt;.*\\\\|.*\\\\|Wurlitzer_Disallowed_Agent.*&lt;/agent-specifier&gt;\\n' +
+                '    &lt;include&gt;&lt;/include&gt;\\n' +
+                '  &lt;/agent-collector&gt;\\n' +
+                '&lt;/loadbalancing&gt;'
+        """;
+
+        def inclusion = """
+                def content = '&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;\\n' +
+                '&lt;loadbalancing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="loadbalancing0.1.xsd"&gt;\\n' +
+                '&lt;/loadbalancing&gt;'
+        """;
+
+script = script.replace("_EM_INSTALL_DIR_",emInstallDir.toString().replaceAll("\\\\", "/"))
+
+if (agentExclusionIsSet)
+        script = inclusion + script
+else
+        script = exclusion + script
+
+log.info("groovy script: \n" + script)
+
+def proxy = agentProxyFactory.createProxy(momNode)
+def emPlugin = proxy.plugins.emPlugin
+
+emPlugin.runGroovyScript(script, null, null)
+execution.setVariable('agentExclusionIsSet', !agentExclusionIsSet)
+
+log.info("agentExclusinoIsSet: " + agentExclusionIsSet);
+</script>
+      </scriptTask>
+      <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
+        <timerEventDefinition>
+          <timeDuration>PT3M</timeDuration>
+        </timerEventDefinition>
+      </intermediateCatchEvent>
+      <intermediateCatchEvent id="timerintermediatecatchevent2" name="TimerCatchEvent">
+        <timerEventDefinition>
+          <timeDuration>PT60M</timeDuration>
+        </timerEventDefinition>
+      </intermediateCatchEvent>
+      <sequenceFlow id="flow10" sourceRef="timerintermediatecatchevent2" targetRef="exclusivegateway4"></sequenceFlow>
+      <scriptTask id="scripttask_test_exclusion" name="Test exclusion" scriptFormat="groovy" activiti:autoStoreVariables="false">
+        <script>import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+def log = LoggerFactory.getLogger("test exclusion")
+
+def script = """
+def process = 'java -jar CLWorkstation.jar get historical data from agents matching "Custom Metric Host \\\\(Virtual\\\\)\\\\|Custom Metric Process \\\\(Virtual\\\\)\\\\|Custom Metric Agent \\\\(Virtual\\\\)" and metrics matching "Enterprise Manager\\\\|Connections:Number of Disallowed Agents" for past 1 minutes  with frequency of 60 seconds'.execute(null, new File("_EM_INSTALL_DIR_/lib"))
+
+process.waitFor();
+def output = process.inputStream.getText()
+
+return output.trim().split(",").last()
+"""
+
+def proxy = agentProxyFactory.createProxy(momNode)
+def emPlugin = proxy.plugins.emPlugin
+
+script = script.replace("_EM_INSTALL_DIR_",emInstallDir.toString().replaceAll("\\\\", "/"))
+
+def testResult = emPlugin.runGroovyScript(script, null, null)
+log.info("test result: " + testResult)
+
+if (agentExclusionIsSet)
+	execution.setVariable('testResult', testResult == "1")
+else
+	execution.setVariable('testResult', testResult == "0")
+</script>
+      </scriptTask>
+      <sequenceFlow id="flow9" sourceRef="exclusivegateway2" targetRef="timerintermediatecatchevent2">
+        <conditionExpression xsi:type="tFormalExpression"><![CDATA[${agentExclusionIsSet == true}]]></conditionExpression>
+      </sequenceFlow>
+      <startEvent id="startevent2" name="Start"></startEvent>
+      <sequenceFlow id="flow19" sourceRef="startevent2" targetRef="scripttask_set_exclusion"></sequenceFlow>
+      <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+      <sequenceFlow id="flow26" sourceRef="scripttask_test_exclusion" targetRef="exclusivegateway2"></sequenceFlow>
+      <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
+      <sequenceFlow id="flow31" sourceRef="scripttask_set_exclusion" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+      <sequenceFlow id="flow32" sourceRef="timerintermediatecatchevent1" targetRef="scripttask_test_exclusion"></sequenceFlow>
+      <sequenceFlow id="flow33" sourceRef="exclusivegateway2" targetRef="exclusivegateway4">
+        <conditionExpression xsi:type="tFormalExpression"><![CDATA[${agentExclusionIsSet == false}]]></conditionExpression>
+      </sequenceFlow>
+      <sequenceFlow id="flow35" sourceRef="exclusivegateway4" targetRef="scripttask_set_exclusion"></sequenceFlow>
+    </subProcess>
+    <boundaryEvent id="boundaryevent1" attachedToRef="subprocess1" cancelActivity="true">
+      <signalEventDefinition signalRef="alertSignal"></signalEventDefinition>
+    </boundaryEvent>
+    <dataObject id="agentExclusionIsSet" name="agentExclusionIsSet" itemSubjectRef="xsd:boolean">
+      <extensionElements>
+        <activiti:value>false</activiti:value>
+      </extensionElements>
+    </dataObject>
+    <sequenceFlow id="flow34" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
+    <sequenceFlow id="flow38" sourceRef="usertask1" targetRef="signalintermediatethrowevent1"></sequenceFlow>
+    <intermediateThrowEvent id="signalintermediatethrowevent1" name="SignalThrowEvent">
+      <signalEventDefinition signalRef="alertSignal"></signalEventDefinition>
+    </intermediateThrowEvent>
+    <sequenceFlow id="flow39" sourceRef="startevent1" targetRef="scripttask_get_wurlitzer"></sequenceFlow>
+    <sequenceFlow id="flow40" sourceRef="scripttask_start_wurlitzer" targetRef="subprocess1"></sequenceFlow>
+    <sequenceFlow id="flow41" sourceRef="boundaryevent1" targetRef="scripttask_stop_wurlitzer"></sequenceFlow>
+    <userTask id="usertask1" name="Signal shutdown">
+      <extensionElements>
+        <activiti:formProperty id="nextAction" name="nextAction" type="enum" variable="nextAction">
+          <activiti:value id="shutdown" name="shutdown"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.agentcontrollability">
+    <bpmndi:BPMNPlane bpmnElement="fld.agentcontrollability" id="BPMNPlane_fld.agentcontrollability">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="470.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask_get_wurlitzer" id="BPMNShape_scripttask_get_wurlitzer">
+        <omgdc:Bounds height="55.0" width="105.0" x="590.0" y="10.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="470.0" y="594.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask_setup_wurlitzer" id="BPMNShape_scripttask_setup_wurlitzer">
+        <omgdc:Bounds height="55.0" width="105.0" x="590.0" y="111.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask_start_wurlitzer" id="BPMNShape_scripttask_start_wurlitzer">
+        <omgdc:Bounds height="55.0" width="105.0" x="590.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask_stop_wurlitzer" id="BPMNShape_scripttask_stop_wurlitzer">
+        <omgdc:Bounds height="55.0" width="105.0" x="590.0" y="420.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask_delete_wurlitzer" id="BPMNShape_scripttask_delete_wurlitzer">
+        <omgdc:Bounds height="55.0" width="105.0" x="590.0" y="520.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="subprocess1" id="BPMNShape_subprocess1">
+        <omgdc:Bounds height="456.0" width="261.0" x="85.0" y="139.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask_set_exclusion" id="BPMNShape_scripttask_set_exclusion">
+        <omgdc:Bounds height="55.0" width="105.0" x="160.0" y="249.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="270.0" y="389.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent2" id="BPMNShape_timerintermediatecatchevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="133.0" y="389.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask_test_exclusion" id="BPMNShape_scripttask_test_exclusion">
+        <omgdc:Bounds height="55.0" width="105.0" x="160.0" y="499.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent2" id="BPMNShape_startevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="195.0" y="169.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="130.0" y="450.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway4" id="BPMNShape_exclusivegateway4">
+        <omgdc:Bounds height="40.0" width="40.0" x="130.0" y="320.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryevent1" id="BPMNShape_boundaryevent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="332.0" y="357.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="signalintermediatethrowevent1" id="BPMNShape_signalintermediatethrowevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="220.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="310.0" y="10.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="642.0" y="65.0"></omgdi:waypoint>
+        <omgdi:waypoint x="642.0" y="111.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="642.0" y="166.0"></omgdi:waypoint>
+        <omgdi:waypoint x="642.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="642.0" y="475.0"></omgdi:waypoint>
+        <omgdi:waypoint x="642.0" y="520.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="642.0" y="575.0"></omgdi:waypoint>
+        <omgdi:waypoint x="487.0" y="594.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="150.0" y="389.0"></omgdi:waypoint>
+        <omgdi:waypoint x="150.0" y="360.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="150.0" y="450.0"></omgdi:waypoint>
+        <omgdi:waypoint x="150.0" y="424.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="212.0" y="204.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="249.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="160.0" y="526.0"></omgdi:waypoint>
+        <omgdi:waypoint x="150.0" y="490.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
+        <omgdi:waypoint x="212.0" y="304.0"></omgdi:waypoint>
+        <omgdi:waypoint x="283.0" y="343.0"></omgdi:waypoint>
+        <omgdi:waypoint x="287.0" y="389.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
+        <omgdi:waypoint x="287.0" y="424.0"></omgdi:waypoint>
+        <omgdi:waypoint x="287.0" y="464.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="499.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
+        <omgdi:waypoint x="150.0" y="450.0"></omgdi:waypoint>
+        <omgdi:waypoint x="221.0" y="408.0"></omgdi:waypoint>
+        <omgdi:waypoint x="150.0" y="360.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
+        <omgdi:waypoint x="150.0" y="320.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="304.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow34" id="BPMNEdge_flow34">
+        <omgdi:waypoint x="470.0" y="37.0"></omgdi:waypoint>
+        <omgdi:waypoint x="415.0" y="37.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
+        <omgdi:waypoint x="310.0" y="37.0"></omgdi:waypoint>
+        <omgdi:waypoint x="255.0" y="37.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
+        <omgdi:waypoint x="505.0" y="37.0"></omgdi:waypoint>
+        <omgdi:waypoint x="590.0" y="37.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
+        <omgdi:waypoint x="590.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="346.0" y="367.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">
+        <omgdi:waypoint x="347.0" y="387.0"></omgdi:waypoint>
+        <omgdi:waypoint x="642.0" y="420.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

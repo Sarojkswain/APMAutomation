@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ManagementModule xmlns:ns1="http://www.w3.org/2005/11/its" xmlns:introscope="generated://introscope.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Editable="true" Version="4.0" IsActive="true" DescriptionContentType="text/plain" xsi:noNamespaceSchemaLocation="bundle://com.wily.introscope.em/com/wily/introscope/server/enterprise/entity/bundle/IntroscopeManagementModules4.0.xsd">
+    <Name>AlertStateLoadMM</Name>
+    <DataGroups>
+        <DataGroup xsi:type="DashboardDataGroup">
+            <Dashboard PixelHeight="600" PixelWidth="800" GridWidth="4" GridHeight="4" ClearAgentSpecifier="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name ns1:translate="yes">AlertStateLoadDash</Name>
+                <Description ns1:translate="yes"></Description>
+                <Widget Type="LiveGraph">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <MetricGroupingID>
+<ManagementModuleName>AlertStateLoadMM</ManagementModuleName>
+<ConstructName>TomcatX</ConstructName>
+                            </MetricGroupingID>
+                            <TopNFilter IsActive="false" IsTop="true" FilterSize="10">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="30"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="HistoricalQueryRange">
+                        <Value xsi:type="HistoricalQueryRangeType">
+                            <StartCookie>33</StartCookie>
+                            <StartTime>1480588848000</StartTime>
+                            <EndCookie>33</EndCookie>
+                            <EndTime>1480590048000</EndTime>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ShowMinMax">
+                        <Value xsi:type="TextType" Value="false"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="GraphPercentageSize">
+                        <Value xsi:type="IntegerType" Value="67"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="32" YCoordinate="140"/>
+                        <CornerPoint XCoordinate="632" YCoordinate="364"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveAlert">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <AlertID>
+<ManagementModuleName>AlertStateLoadMM</ManagementModuleName>
+<ConstructName>TomcatXAlert</ConstructName>
+                            </AlertID>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="2"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TristateViewerType">
+                        <Value xsi:type="IntegerType" Value="340"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="36" YCoordinate="384"/>
+                        <CornerPoint XCoordinate="264" YCoordinate="460"/>
+                    </DisplayBox>
+                </Widget>
+            </Dashboard>
+        </DataGroup>
+        <DataGroup xsi:type="SnmpCollectionDataGroup"/>
+        <DataGroup xsi:type="DifferentialControlDataGroup"/>
+        <DataGroup xsi:type="MetricGroupingDataGroup">
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>TomcatX</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>.*</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|.*:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>SimpleAlert</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp></MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+        </DataGroup>
+        <DataGroup xsi:type="ReportDataGroup"/>
+        <DataGroup xsi:type="ActionDataGroup"/>
+        <DataGroup xsi:type="TriageMapAlertDataGroup"/>
+        <DataGroup xsi:type="introscope:AlertDowntimeScheduleDataGroup"/>
+        <DataGroup xsi:type="AlertDataGroup">
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>TomcatXAlert</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>AlertStateLoadMM</ManagementModuleName>
+                    <ConstructName>TomcatX</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>50</CautionTargetValue>
+                <DangerTargetValue>100</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="false" DescriptionContentType="text/plain">
+                <Name>SimpleAlert</Name>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>AlertStateLoadMM</ManagementModuleName>
+                    <ConstructName>SimpleAlert</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>0</CautionTargetValue>
+                <DangerTargetValue>0</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+        </DataGroup>
+        <DataGroup xsi:type="ImageDataGroup"/>
+        <DataGroup xsi:type="MapEntityMetricGroupingDataGroup"/>
+        <DataGroup xsi:type="CalculatorDataGroup"/>
+        <DataGroup xsi:type="EntityDataGroup"/>
+        <DataGroup xsi:type="UnmonitoredComponentGroupDataGroup"/>
+    </DataGroups>
+</ManagementModule>

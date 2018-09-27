@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.EMControlScriptsWindowsTestbed, executeOn=testMachine}],
+	  owner = gamsa03,
+	  size = BIG,
+	  description = 'EM Property Configuration test suite for Windows'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="EM_Windows_ServiceWrapper_Tests" configfailurepolicy="continue">
+	<groups>
+    	<run>
+      		<include name="BAT"/>
+      		<include name="Bat"/>
+      		<include name="bat"/>
+    	</run>
+	</groups>
+	<test name="VerifyEMServicePersistence" preserve-order="true" enabled="true">
+  		<classes>    
+     		<class name="com.ca.apm.tests.ControlScriptsTests.test.WindowsServiceWrapperTest">
+	 			<methods>	 					
+	 				<include name="verify_ALM_280559_ServicePersistence"/>
+	 			</methods>
+	 		</class>
+	 	</classes>
+	</test>	 											
+</suite>
+		

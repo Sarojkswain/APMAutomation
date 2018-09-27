@@ -1,0 +1,8 @@
+version: '2'
+services:
+
+webview:
+    image: ${IMAGE_REGISTRY}apm-wv:${PROJECT_VERSION}
+    mem_limit: 1000m
+    ports:
+      - "8080:8080"

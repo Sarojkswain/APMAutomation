@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <signal id="fld.end.entity.alerts.load.signal" name="fld.end.entity.alerts.load.signal" activiti:scope="global"></signal>
+  <process id="fld.stop.loads" name="Stop Loads" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="timNodes" name="timNodes" type="string" variable="timNodes" default="fldtim01c,fldtim02c,fldtim03c,fldtim04c,fldtim05c"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="parallelgateway1"></sequenceFlow>
+    <callActivity id="fld.tim.btstats" name="Stop generating TIMs' BT stats" calledElement="fld.tim.btstats">
+      <extensionElements>
+        <activiti:in sourceExpression="stop" target="action"></activiti:in>
+        <activiti:in source="timNodes" target="timNodes"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <sequenceFlow id="flow2" sourceRef="fld.tim.btstats" targetRef="endevent1"></sequenceFlow>
+    <parallelGateway id="parallelgateway1" name="Parallel Gateway"></parallelGateway>
+    <sequenceFlow id="flow3" sourceRef="parallelgateway1" targetRef="fld.tim.btstats"></sequenceFlow>
+    <intermediateThrowEvent id="signalintermediatethrowevent1" name="Send signal to end Entity Alerts load">
+      <signalEventDefinition signalRef="fld.end.entity.alerts.load.signal"></signalEventDefinition>
+    </intermediateThrowEvent>
+    <sequenceFlow id="flow4" sourceRef="parallelgateway1" targetRef="signalintermediatethrowevent1"></sequenceFlow>
+    <sequenceFlow id="flow5" sourceRef="signalintermediatethrowevent1" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.stop.loads">
+    <bpmndi:BPMNPlane bpmnElement="fld.stop.loads" id="BPMNPlane_fld.stop.loads">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="20.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="370.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="fld.tim.btstats" id="BPMNShape_fld.tim.btstats">
+        <omgdc:Bounds height="65.0" width="111.0" x="200.0" y="75.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway1" id="BPMNShape_parallelgateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="100.0" y="87.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="signalintermediatethrowevent1" id="BPMNShape_signalintermediatethrowevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="238.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="55.0" y="107.0"></omgdi:waypoint>
+        <omgdi:waypoint x="100.0" y="107.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="311.0" y="107.0"></omgdi:waypoint>
+        <omgdi:waypoint x="370.0" y="107.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="140.0" y="107.0"></omgdi:waypoint>
+        <omgdi:waypoint x="200.0" y="107.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="120.0" y="127.0"></omgdi:waypoint>
+        <omgdi:waypoint x="120.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="238.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="273.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="387.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="387.0" y="125.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ~ Copyright (c) 2014 CA. All rights reserved. ~ ~ This software and all information contained therein is confidential and ~ proprietary and shall not be duplicated, used, disclosed or disseminated 
+	in ~ any way except as authorized by the applicable license agreement, without ~ the express written permission of CA. All authorized reproductions must be ~ marked with this language. ~ ~ EXCEPT AS SET 
+	FORTH IN THE APPLICABLE LICENSE AGREEMENT, TO THE EXTENT ~ PERMITTED BY APPLICABLE LAW, CA PROVIDES THIS SOFTWARE WITHOUT WARRANTY OF ~ ANY KIND, INCLUDING WITHOUT LIMITATION, ANY IMPLIED WARRANTIES OF 
+	~ MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL CA BE ~ LIABLE TO THE END USER OR ANY THIRD PARTY FOR ANY LOSS OR DAMAGE, DIRECT OR ~ INDIRECT, FROM THE USE OF THIS SOFTWARE, INCLUDING 
+	WITHOUT LIMITATION, LOST ~ PROFITS, BUSINESS INTERRUPTION, GOODWILL, OR LOST DATA, EVEN IF CA IS ~ EXPRESSLY ADVISED OF SUCH LOSS OR DAMAGE. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>tas-tests</artifactId>
+		<groupId>com.ca.apm.systemtest.fld</groupId>
+		<version>99.99.dev_SaaS_fix-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>tas-tests-core</artifactId>
+	<packaging>jar</packaging>
+
+	<name>FLD Tas Tests - Core</name>
+	<description>Module for defining testbeds, test and custom roles.</description>
+	
+	<properties>
+		<fld.em.version>99.99.sys-SNAPSHOT</fld.em.version>
+		<fld.api.version>V107</fld.api.version><!-- API version from AGCRegistrationRequest.java constant  -->
+		<fld.oracle>false</fld.oracle>
+		<report.email>filja01@ca.com</report.email>
+		<logmonitor.emails>filja01@ca.com,keyja01@ca.com</logmonitor.emails>
+		<domain.config.version>10.3</domain.config.version>
+		<db.targetrelease.version>99.99.0.0</db.targetrelease.version>
+		<backup.skip>false</backup.skip>
+		<backup.host>fldcoll12c</backup.host>
+		<backup.user>root</backup.user>
+		<backup.pass>Phox9tai</backup.pass>
+		<machine.template.overrides></machine.template.overrides>
+		<config.smtp.host>mail.ca.com</config.smtp.host>
+		<tess.smtp.host>mail.ca.com</tess.smtp.host>
+		<fld.docker>false</fld.docker>
+		<dotnetagent.agent2EmConnectionType>HTTPS</dotnetagent.agent2EmConnectionType><!-- [SOCKET, SSL, HTTP, HTTPS] -->
+		<dotnetagent.emNeedClientAuth>true</dotnetagent.emNeedClientAuth>
+		<weblogic.docker.deploy>false</weblogic.docker.deploy>
+		<websphere.docker.deploy>false</websphere.docker.deploy>
+		<jboss.docker.deploy>false</jboss.docker.deploy>
+		<tomcat.docker.deploy>false</tomcat.docker.deploy>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.ca.apm.systemtest.fld</groupId>
+			<artifactId>fld-roles</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ca.apm.systemtest.fld</groupId>
+			<artifactId>tas-tests-flows</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ca.tas</groupId>
+			<artifactId>automation-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.ca.tas</groupId>
+			<artifactId>automation-roles</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>jaxb-api</artifactId>
+					<groupId>javax.xml.bind</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+            <groupId>com.ca.tas</groupId>
+            <artifactId>automation-flows</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.jms</groupId>
+			<artifactId>jms-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<classifier>indy</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ca.apm.systemtest</groupId>
+			<artifactId>load-monitor-common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.teiid</groupId>
+			<artifactId>teiid</artifactId>
+			<classifier>jdbc</classifier>
+			<version>9.0.4</version>
+		</dependency>
+		<dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        <dependency>
+        	<groupId>org.apache.activemq</groupId>
+        	<artifactId>activemq-client</artifactId>
+        </dependency>
+        <dependency>
+        	<groupId>org.apache.activemq</groupId>
+        	<artifactId>activemq-broker</artifactId>
+        </dependency>
+        <dependency>
+        	<groupId>org.apache.activemq</groupId>
+        	<artifactId>activemq-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+        </dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>3.0.0</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<phase>generate-resources</phase>
+						<goals><goal>write-project-properties</goal></goals>
+						<configuration>
+							<outputFile>${project.build.outputDirectory}/fld.properties</outputFile>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.ca.tas.plugins</groupId>
+				<artifactId>tas-maven-plugin</artifactId>
+				<version>${version.tas}</version>
+				<configuration>
+					<resmanApiUrl>${resman.url}</resmanApiUrl>
+					<resmanUser>${resman.user}</resmanUser>
+					<resmanPassword>${resman.password}</resmanPassword>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>index</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.ca.tas.plugins</groupId>
+				<artifactId>resman-maven-plugin</artifactId>
+				<version>${version.tas}</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<appendAssemblyId>true</appendAssemblyId>
+					<descriptor>src/assembly/jar.xml</descriptor>
+					<archive>
+						<manifest>
+							<mainClass>com.ca.tas.client.deployment.Deploy</mainClass>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<id>pack-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-shade-plugin</artifactId> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <phase>package</phase> -->
+			<!-- <goals> -->
+			<!-- <goal>shade</goal> -->
+			<!-- </goals> -->
+			<!-- <configuration> -->
+			<!-- <useBaseVersion>true</useBaseVersion> -->
+			<!-- <shadedArtifactAttached>true</shadedArtifactAttached> -->
+			<!-- <shadedClassifierName>jar-with-dependencies</shadedClassifierName> -->
+			<!-- <filters> -->
+			<!-- <filter> -->
+			<!-- <artifact>*:*</artifact> -->
+			<!-- <excludes> -->
+			<!-- <exclude>META-INF/*.SF</exclude> -->
+			<!-- <exclude>META-INF/*.DSA</exclude> -->
+			<!-- <exclude>META-INF/*.RSA</exclude> -->
+			<!-- </excludes> -->
+			<!-- </filter> -->
+			<!-- </filters> -->
+
+			<!-- <transformers> -->
+			<!-- <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"> -->
+			<!-- <manifestEntries> -->
+			<!-- <Main-Class>com.ca.tas.client.deployment.Deploy</Main-Class> -->
+			<!-- <Implementation-Title>FLD Tas Tests - Core</Implementation-Title> -->
+			<!-- <Implementation-Version>99.99.aquarius-SNAPSHOT</Implementation-Version> -->
+			<!-- <Implementation-Vendor-Id>com.ca.apm.systemtest.fld</Implementation-Vendor-Id> -->
+			<!-- </manifestEntries> -->
+			<!-- </transformer> -->
+			<!-- <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer"> -->
+			<!-- <resource>META-INF/spring.handlers</resource> -->
+			<!-- </transformer> -->
+			<!-- <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer"> -->
+			<!-- <resource>META-INF/spring.schemas</resource> -->
+			<!-- </transformer> -->
+			<!-- <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer"> -->
+			<!-- <resource>META-INF/spring.factories</resource> -->
+			<!-- </transformer> -->
+			<!-- <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer"> -->
+			<!-- <resource>META-INF/spring.tooling</resource> -->
+			<!-- </transformer> -->
+			<!-- </transformers> -->
+			<!-- </configuration> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </plugin> -->
+		</plugins>
+	</build>
+</project>

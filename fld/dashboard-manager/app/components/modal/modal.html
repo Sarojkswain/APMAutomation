@@ -1,0 +1,14 @@
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{ modalOptions.headerText }}</h3>
+    </div>
+    <div class="modal-body">
+        <p>{{ modalOptions.bodyText }}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="controller.onCancel(modalOptions.cancelButtonText)" ng-show="modalOptions.cancelButtonText">{{ modalOptions.cancelButtonText }}</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="controller.onCancelAndLeave(modalOptions.discardAndLeaveButtonText)" ng-show="modalOptions.discardAndLeaveButtonText">{{ modalOptions.discardAndLeaveButtonText }}</button>
+        <button type="button" class="btn btn-primary" ng-click="controller.onSaveAndLeave(modalOptions.saveAndLeaveButtonText)" ng-show="modalOptions.saveAndLeaveButtonText">{{ modalOptions.saveAndLeaveButtonText }}</button>
+        <button type="button" class="btn btn-primary" ng-click="controller.onSaveAndStay(modalOptions.saveAndStayButtonText)" ng-show="modalOptions.saveAndStayButtonText">{{ modalOptions.saveAndStayButtonText }}</button>
+    </div>
+</div>

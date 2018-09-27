@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1423739473739" name="">
+  <process id="cemSetEmailSettingsProcess" name="CEM Set Email Settings" isExecutable="true" isClosed="false" processType="None">
+    <startEvent id="startEvent1" name="Start" activiti:initiator="initiator">
+      <extensionElements>
+        <activiti:formProperty id="targetHost" name="targetHost" type="string" variable="targetHost" default="fldmom01c" required="true"></activiti:formProperty>
+        <activiti:formProperty id="targetPort" name="targetPort" type="string" variable="targetPort" default="8081" required="true"></activiti:formProperty>
+        <activiti:formProperty id="nodeName" name="nodeName" type="string" variable="nodeName" default="fldcontroll01c" required="true"></activiti:formProperty>
+        <activiti:formProperty id="user" name="user" type="string" variable="user" default="admin" required="true"></activiti:formProperty>
+        <activiti:formProperty id="targetEmail" name="targetEmail" type="string" variable="targetEmail" default="haiva01@ca.com" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fromEmail" name="fromEmail" type="string" variable="fromEmail" default="Team-APM-Aquarius@ca.com" required="true"></activiti:formProperty>
+        <activiti:formProperty id="smtpServer" name="smtpServer" type="string" variable="smtpServer" default="mail.ca.com" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <scriptTask id="openEmailSettingsPage" name="set email settings" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import com.ca.apm.systemtest.fld.plugin.selenium.SeleniumPlugin.SelectionBy
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+def log = LoggerFactory.getLogger("openEmailSettingsPage") 
+
+def  plugin = agentProxyFactory.createProxy(nodeName).plugins.seleniumPluginChrome
+
+log.info("filling text fields")
+plugin.fillTextField(sessionId, windowId, SelectionBy.ID, "fromAddress", fromEmail)
+plugin.fillTextField(sessionId, windowId, SelectionBy.ID, "toList", targetEmail)
+plugin.fillTextField(sessionId, windowId, SelectionBy.ID, "smtpServerHostname", smtpServer)
+
+log.info("clicking test")
+plugin.click(sessionId, windowId, SelectionBy.XPATH, "//input[@name='test']")
+log.info("waiting for caMessagesDiv")
+plugin.waitForElement(sessionId, windowId, SelectionBy.ID, "caMessagesDiv", 10)
+log.info("clicking save")
+plugin.click(sessionId, windowId, SelectionBy.XPATH, "//input[@name='save']")
+plugin.acceptAlert(sessionId, windowId)
+
+log.info("at the end")</script>
+    </scriptTask>
+    <callActivity id="callLogIntoCEM" name="log into CEM" calledElement="logIntoCEMProcess">
+      <extensionElements>
+        <activiti:in source="password" target="password"></activiti:in>
+        <activiti:in source="user" target="user"></activiti:in>
+        <activiti:in sourceExpression="http://${targetHost}:${targetPort}/wily/cem/tess/app/system/emailSettings.html?pId=1" target="pageUrl"></activiti:in>
+        <activiti:in source="nodeName" target="nodeName"></activiti:in>
+        <activiti:out source="sessionId" target="sessionId"></activiti:out>
+        <activiti:out source="windowId" target="windowId"></activiti:out>
+      </extensionElements>
+    </callActivity>
+    <sequenceFlow id="flow8" sourceRef="callLogIntoCEM" targetRef="openEmailSettingsPage"></sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="openEmailSettingsPage" targetRef="endevent1"></sequenceFlow>
+    <scriptTask id="prepPassword" name="prepare password" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+def log = LoggerFactory.getLogger("logIntoCEM") 
+
+def pass = ""
+if (binding.variables.containsKey("password")) {
+  pass = password
+}
+execution.setVariable('password', pass)
+
+log.info("at the end")</script>
+    </scriptTask>
+    <sequenceFlow id="flow11" sourceRef="startEvent1" targetRef="prepPassword"></sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="prepPassword" targetRef="callLogIntoCEM"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_cemSetEmailSettingsProcess">
+    <bpmndi:BPMNPlane bpmnElement="cemSetEmailSettingsProcess" id="BPMNPlane_cemSetEmailSettingsProcess">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="560.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="560.0" y="460.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="openEmailSettingsPage" id="BPMNShape_openEmailSettingsPage">
+        <omgdc:Bounds height="61.0" width="105.0" x="525.0" y="330.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callLogIntoCEM" id="BPMNShape_callLogIntoCEM">
+        <omgdc:Bounds height="55.0" width="105.0" x="525.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="prepPassword" id="BPMNShape_prepPassword">
+        <omgdc:Bounds height="55.0" width="105.0" x="525.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="577.0" y="285.0"></omgdi:waypoint>
+        <omgdi:waypoint x="577.0" y="330.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="577.0" y="391.0"></omgdi:waypoint>
+        <omgdi:waypoint x="577.0" y="460.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="577.0" y="125.0"></omgdi:waypoint>
+        <omgdi:waypoint x="577.0" y="150.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="577.0" y="205.0"></omgdi:waypoint>
+        <omgdi:waypoint x="577.0" y="230.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

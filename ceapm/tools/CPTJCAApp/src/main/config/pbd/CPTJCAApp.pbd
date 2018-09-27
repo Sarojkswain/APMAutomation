@@ -1,0 +1,7 @@
+TraceOneMethodOfClass: com.ca.cpt.app.JCAPutServlet doGet BlamePointTracer "CPTJCAApp|doGet"
+TraceOneMethodOfClass: com.ca.cpt.app.JCAPutServlet doGet1 BlamePointTracer "CPTJCAApp|doGet1"
+TraceOneMethodOfClass: com.ca.cpt.app.JCAPutServlet doGet2 BlamePointTracer "CPTJCAApp|doGet2"
+TraceOneMethodOfClass: com.ca.cpt.app.JCAPutServlet doGet3 BlamePointTracer "CPTJCAApp|doGet3"
+TraceOneMethodOfClass: com.ca.cpt.app.JCAPutServlet doGet4 BlamePointTracer "CPTJCAApp|doGet4"
+TraceOneMethodOfClass: com.ca.cpt.app.JCAPutServlet doGet5 BlamePointTracer "CPTJCAApp|doGet5"
+TraceOneMethodOfClass: com.ca.cpt.app.JCAPutServlet doGet6 BlamePointTracer "CPTJCAApp|doGet6"

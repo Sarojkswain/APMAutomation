@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+	@Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.AgentControllabilityLinuxStandaloneTestbed, executeOn=emMachine}],
+	  owner = dwiba01,
+	  size = BIG,
+	  description = 'SDKEMStandAloneStandalone TestNg XML suite for all Linux tests'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="SDKEMStandaloneStandaloneLinuxTests" configfailurepolicy="continue">
+	<test name="SDKEMStandaloneStandaloneLinuxTests" preserve-order="true">		
+		<classes>
+			<class name="com.ca.apm.tests.sdk.service.SDKEMStandaloneTomcatTests">
+			</class>		
+		</classes>
+	</test>
+</suite>
+		

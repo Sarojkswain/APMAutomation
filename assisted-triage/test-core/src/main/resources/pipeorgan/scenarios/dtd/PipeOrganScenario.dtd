@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 	SUBSTITUTIONS		-->
+<!ENTITY % declarationElements "(task | file | socket | serverSocket | databaseConnection | dataSource | isengardPipe | isengardMessage | isengardBean | weblogicDatabaseConnection | sessionID | isengardClientInstance )">
+<!ENTITY % contextModifyingElements "(loadLocalBean | loadRemoteBean | loadRemoteEntityBean | loadRemoteMDBean | servlet | jsp | isengard | isengardClient )">
+<!ENTITY % sequentialExecutionElements "(message | allocate | invoke | null | wait | waitFor | read | write | closeRead | closeWrite | averageRead | averageWrite | delete | query | update | execute | custom | closeResource | openResource | joinThread | webService )">
+<!ENTITY % loopingConstructElements "(iterateEvent | repeatedEvent | sustainedEvent | averageRepeatedEvent | averageSustainedEvent | timeWindowEvent | custom )">
+<!ENTITY % nonForkingActionElements "(%declarationElements; | %contextModifyingElements; | %sequentialExecutionElements; | %loopingConstructElements;)">
+<!ENTITY % forkingActionElements "(process | thread )">
+<!ENTITY % nonForkingActionElementSequence "(%nonForkingActionElements;, %nonForkingActionElements;*)">
+<!ENTITY % forkingActionElementSequence "(%forkingActionElements;, %forkingActionElements;*)">
+
+<!--	SCENARIOS			-->
+<!ELEMENT scenario (%forkingActionElements; | %nonForkingActionElementSequence;)*>
+<!ATTLIST scenario milestones (yes|no|sub) #IMPLIED>
+
+<!--	PROCESSES			-->
+<!ELEMENT process (thread | %nonForkingActionElementSequence;)*>
+<!ATTLIST process milestones (yes|no|sub) #IMPLIED>
+
+<!--	THREADS				-->
+<!ELEMENT thread %nonForkingActionElementSequence;>
+<!ATTLIST thread name CDATA #IMPLIED>
+<!ATTLIST thread count CDATA #IMPLIED>
+<!ATTLIST thread delay CDATA #IMPLIED>
+<!ATTLIST thread milestones (yes|no|sub) #IMPLIED>
+
+<!--	TASK INVOCATION		-->
+<!ELEMENT invoke EMPTY>
+<!ATTLIST invoke task CDATA #REQUIRED>
+<!ATTLIST invoke metric CDATA #IMPLIED>
+<!ATTLIST invoke tracer CDATA #IMPLIED>
+<!ATTLIST invoke milestones (yes|no|sub) #IMPLIED>
+
+<!--	TASK DEFINITIONS	-->
+<!ELEMENT task (%nonForkingActionElementSequence; | %forkingActionElementSequence;)* >
+<!ATTLIST task name CDATA #REQUIRED>
+<!ATTLIST task milestones (yes|no|sub) #IMPLIED>
+
+<!--	EVENT DEFINITIONS	-->
+<!ELEMENT iterateEvent (%nonForkingActionElementSequence; | %forkingActionElementSequence;)* >
+<!ATTLIST iterateEvent iterator CDATA #IMPLIED>
+<!ATTLIST iterateEvent count CDATA #IMPLIED>
+<!ATTLIST iterateEvent interval CDATA #IMPLIED>
+<!ATTLIST iterateEvent metric CDATA #IMPLIED>
+<!ATTLIST iterateEvent tracer CDATA #IMPLIED>
+<!ATTLIST iterateEvent threshold CDATA #IMPLIED>
+<!ATTLIST iterateEvent milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT timeWindowEvent (%nonForkingActionElementSequence; | %forkingActionElementSequence;)* >
+<!ATTLIST timeWindowEvent starttime CDATA #REQUIRED>
+<!ATTLIST timeWindowEvent endtime CDATA #REQUIRED>
+<!ATTLIST timeWindowEvent iterator CDATA #IMPLIED>
+<!ATTLIST timeWindowEvent interval CDATA #IMPLIED>
+<!ATTLIST timeWindowEvent metric CDATA #IMPLIED>
+<!ATTLIST timeWindowEvent tracer CDATA #IMPLIED>
+<!ATTLIST timeWindowEvent threshold CDATA #IMPLIED>
+<!ATTLIST timeWindowEvent milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT repeatedEvent %nonForkingActionElementSequence;>
+<!ATTLIST repeatedEvent count CDATA #IMPLIED>
+<!ATTLIST repeatedEvent iterator CDATA #IMPLIED>
+<!ATTLIST repeatedEvent interval CDATA #IMPLIED>
+<!ATTLIST repeatedEvent metric CDATA #IMPLIED>
+<!ATTLIST repeatedEvent tracer CDATA #IMPLIED>
+<!ATTLIST repeatedEvent threshold CDATA #IMPLIED>
+<!ATTLIST repeatedEvent milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT sustainedEvent %nonForkingActionElementSequence;>
+<!ATTLIST sustainedEvent iterator CDATA #IMPLIED>
+<!ATTLIST sustainedEvent duration CDATA #IMPLIED>
+<!ATTLIST sustainedEvent interval CDATA #IMPLIED>
+<!ATTLIST sustainedEvent metric CDATA #IMPLIED>
+<!ATTLIST sustainedEvent tracer CDATA #IMPLIED>
+<!ATTLIST sustainedEvent threshold CDATA #IMPLIED>
+<!ATTLIST sustainedEvent milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT averageRepeatedEvent %nonForkingActionElementSequence;>
+<!ATTLIST averageRepeatedEvent iterator CDATA #IMPLIED>
+<!ATTLIST averageRepeatedEvent count CDATA #IMPLIED>
+<!ATTLIST averageRepeatedEvent interval CDATA #IMPLIED>
+<!ATTLIST averageRepeatedEvent variance CDATA #IMPLIED>
+<!ATTLIST averageRepeatedEvent period CDATA #IMPLIED>
+<!ATTLIST averageRepeatedEvent metric CDATA #IMPLIED>
+<!ATTLIST averageRepeatedEvent tracer CDATA #IMPLIED>
+<!ATTLIST averageRepeatedEvent threshold CDATA #IMPLIED>
+<!ATTLIST averageRepeatedEvent milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT averageSustainedEvent %nonForkingActionElementSequence;>
+<!ATTLIST averageSustainedEvent iterator CDATA #IMPLIED>
+<!ATTLIST averageSustainedEvent duration CDATA #IMPLIED>
+<!ATTLIST averageSustainedEvent interval CDATA #IMPLIED>
+<!ATTLIST averageSustainedEvent variance CDATA #IMPLIED>
+<!ATTLIST averageSustainedEvent period CDATA #IMPLIED>
+<!ATTLIST averageSustainedEvent metric CDATA #IMPLIED>
+<!ATTLIST averageSustainedEvent tracer CDATA #IMPLIED>
+<!ATTLIST averageSustainedEvent threshold CDATA #IMPLIED>
+<!ATTLIST averageSustainedEvent milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT null EMPTY>
+<!ATTLIST null metric CDATA #IMPLIED>
+<!ATTLIST null tracer CDATA #IMPLIED>
+<!ATTLIST null threshold CDATA #IMPLIED>
+<!ATTLIST null milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT wait EMPTY>
+<!ATTLIST wait duration CDATA #IMPLIED>
+<!ATTLIST wait metric CDATA #IMPLIED>
+<!ATTLIST wait tracer CDATA #IMPLIED>
+<!ATTLIST wait threshold CDATA #IMPLIED>
+<!ATTLIST wait milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT waitFor EMPTY>
+<!ATTLIST waitFor time CDATA #IMPLIED>
+<!ATTLIST waitFor class CDATA #IMPLIED>
+<!ATTLIST waitFor metric CDATA #IMPLIED>
+<!ATTLIST waitFor tracer CDATA #IMPLIED>
+<!ATTLIST waitFor threshold CDATA #IMPLIED>
+<!ATTLIST waitFor milestones (yes|no|sub) #IMPLIED>
+
+
+<!ELEMENT joinThread EMPTY>
+<!ATTLIST joinThread name CDATA #REQUIRED>
+<!ATTLIST joinThread metric CDATA #IMPLIED>
+<!ATTLIST joinThread tracer CDATA #IMPLIED>
+<!ATTLIST joinThread threshold CDATA #IMPLIED>
+<!ATTLIST joinThread milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT message (#PCDATA)>
+<!ATTLIST message metric CDATA #IMPLIED>
+<!ATTLIST message tracer CDATA #IMPLIED>
+<!ATTLIST message threshold CDATA #IMPLIED>
+<!ATTLIST message milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT file EMPTY>
+<!ATTLIST file path CDATA #IMPLIED>
+<!ATTLIST file name CDATA #REQUIRED>
+<!ATTLIST file root CDATA #IMPLIED>
+<!ATTLIST file delete CDATA #IMPLIED>
+<!ATTLIST file milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT socket EMPTY>
+<!ATTLIST socket name CDATA #REQUIRED>
+<!ATTLIST socket host CDATA #IMPLIED>
+<!ATTLIST socket port CDATA #IMPLIED>
+<!ATTLIST socket milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT serverSocket EMPTY>
+<!ATTLIST serverSocket name CDATA #REQUIRED>
+<!ATTLIST serverSocket port CDATA #IMPLIED>
+<!ATTLIST serverSocket milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT delete EMPTY>
+<!ATTLIST delete stream CDATA #REQUIRED>
+<!ATTLIST delete milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT read EMPTY>
+<!ATTLIST read amount CDATA #REQUIRED>
+<!ATTLIST read stream CDATA #REQUIRED>
+<!ATTLIST read metric CDATA #IMPLIED>
+<!ATTLIST read createStream CDATA #IMPLIED>
+<!ATTLIST read tracer CDATA #IMPLIED>
+<!ATTLIST read threshold CDATA #IMPLIED>
+<!ATTLIST read milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT write (#PCDATA)>
+<!ATTLIST write amount CDATA #IMPLIED>
+<!ATTLIST write stream CDATA #REQUIRED>
+<!ATTLIST write metric CDATA #IMPLIED>
+<!ATTLIST write tracer CDATA #IMPLIED>
+<!ATTLIST write threshold CDATA #IMPLIED>
+<!ATTLIST write milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT custom (%nonForkingActionElementSequence; | %forkingActionElementSequence;)* >
+<!ATTLIST custom class CDATA #REQUIRED>
+<!ATTLIST custom args CDATA #REQUIRED>
+<!ATTLIST custom milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT closeRead EMPTY>
+<!ATTLIST closeRead stream CDATA #REQUIRED>
+<!ATTLIST closeRead milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT closeWrite EMPTY>
+<!ATTLIST closeWrite stream CDATA #REQUIRED>
+<!ATTLIST closeWrite milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT averageRead EMPTY>
+<!ATTLIST averageRead stream CDATA #REQUIRED>
+<!ATTLIST averageRead amount CDATA #REQUIRED>
+<!ATTLIST averageRead variance CDATA #IMPLIED>
+<!ATTLIST averageRead createStream CDATA #IMPLIED>
+<!ATTLIST averageRead period CDATA #IMPLIED>
+<!ATTLIST averageRead metric CDATA #IMPLIED>
+<!ATTLIST averageRead tracer CDATA #IMPLIED>
+<!ATTLIST averageRead threshold CDATA #IMPLIED>
+<!ATTLIST averageRead milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT averageWrite EMPTY>
+<!ATTLIST averageWrite stream CDATA #REQUIRED>
+<!ATTLIST averageWrite amount CDATA #REQUIRED>
+<!ATTLIST averageWrite variance CDATA #IMPLIED>
+<!ATTLIST averageWrite period CDATA #IMPLIED>
+<!ATTLIST averageWrite metric CDATA #IMPLIED>
+<!ATTLIST averageWrite tracer CDATA #IMPLIED>
+<!ATTLIST averageWrite threshold CDATA #IMPLIED>
+<!ATTLIST averageWrite milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT allocate EMPTY>
+<!ATTLIST allocate amount CDATA #IMPLIED>
+<!ATTLIST allocate metric CDATA #IMPLIED>
+<!ATTLIST allocate tracer CDATA #IMPLIED>
+<!ATTLIST allocate threshold CDATA #IMPLIED>
+<!ATTLIST allocate milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT query (#PCDATA)>
+<!ATTLIST query connection CDATA #REQUIRED>
+<!ATTLIST query resultset CDATA #REQUIRED>
+<!ATTLIST query metric CDATA #IMPLIED>
+<!ATTLIST query tracer CDATA #IMPLIED>
+<!ATTLIST query threshold CDATA #IMPLIED>
+<!ATTLIST query connection CDATA #REQUIRED>
+<!ATTLIST query milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT update (#PCDATA)>
+<!ATTLIST update connection CDATA #REQUIRED>
+<!ATTLIST update resultset CDATA #REQUIRED>
+<!ATTLIST update metric CDATA #IMPLIED>
+<!ATTLIST update tracer CDATA #IMPLIED>
+<!ATTLIST update threshold CDATA #IMPLIED>
+<!ATTLIST update connection CDATA #REQUIRED>
+<!ATTLIST update milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT execute (#PCDATA)>
+<!ATTLIST execute connection CDATA #REQUIRED>
+<!ATTLIST execute resultset CDATA #REQUIRED>
+<!ATTLIST execute metric CDATA #IMPLIED>
+<!ATTLIST execute tracer CDATA #IMPLIED>
+<!ATTLIST execute threshold CDATA #IMPLIED>
+<!ATTLIST execute connection CDATA #REQUIRED>
+<!ATTLIST execute milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT closeResource (#PCDATA)>
+<!ATTLIST closeResource stream CDATA #REQUIRED>
+<!ATTLIST closeResource metric CDATA #IMPLIED>
+<!ATTLIST closeResource tracer CDATA #IMPLIED>
+<!ATTLIST closeResource milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT openResource (#PCDATA)>
+<!ATTLIST openResource stream CDATA #REQUIRED>
+<!ATTLIST openResource metric CDATA #IMPLIED>
+<!ATTLIST openResource tracer CDATA #IMPLIED>
+<!ATTLIST openResource milestones (yes|no|sub) #IMPLIED>
+
+
+<!ELEMENT databaseConnection EMPTY>
+<!ATTLIST databaseConnection name CDATA #REQUIRED>
+<!ATTLIST databaseConnection user CDATA #REQUIRED>
+<!ATTLIST databaseConnection password CDATA #REQUIRED>
+<!ATTLIST databaseConnection driver CDATA #REQUIRED>
+<!ATTLIST databaseConnection dsn CDATA #REQUIRED>
+<!ATTLIST databaseConnection milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT sessionID EMPTY>
+<!ATTLIST sessionID session_name   CDATA #REQUIRED>
+<!ATTLIST sessionID uri CDATA #IMPLIED>
+<!ATTLIST sessionID protocol CDATA #IMPLIED>
+<!ATTLIST sessionID host CDATA #IMPLIED>
+<!ATTLIST sessionID port CDATA #IMPLIED>
+<!ATTLIST sessionID contextroot CDATA #IMPLIED>
+
+<!ELEMENT dataSource EMPTY>
+<!ATTLIST dataSource name CDATA #REQUIRED>
+<!ATTLIST dataSource jndiname CDATA #REQUIRED>
+<!ATTLIST dataSource milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT weblogicDatabaseConnection EMPTY>
+<!ATTLIST weblogicDatabaseConnection name CDATA #REQUIRED>
+<!ATTLIST weblogicDatabaseConnection poolname CDATA #REQUIRED>
+<!ATTLIST weblogicDatabaseConnection wait (true|false) #REQUIRED>
+<!ATTLIST weblogicDatabaseConnection milestones (yes|no|sub) #IMPLIED>
+
+
+<!ELEMENT loadLocalBean %nonForkingActionElementSequence;>
+<!ATTLIST loadLocalBean metric CDATA #IMPLIED>
+<!ATTLIST loadLocalBean bean CDATA #REQUIRED>
+<!ATTLIST loadLocalBean tracer CDATA #IMPLIED>
+<!ATTLIST loadLocalBean threshold CDATA #IMPLIED>
+<!ATTLIST loadLocalBean provider CDATA #IMPLIED>
+<!ATTLIST loadLocalBean milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT loadRemoteBean %nonForkingActionElementSequence;>
+<!ATTLIST loadRemoteBean metric CDATA #IMPLIED>
+<!ATTLIST loadRemoteBean bean CDATA #REQUIRED>
+<!ATTLIST loadRemoteBean tracer CDATA #IMPLIED>
+<!ATTLIST loadRemoteBean threshold CDATA #IMPLIED>
+<!ATTLIST loadRemoteBean provider CDATA #IMPLIED>
+<!ATTLIST loadRemoteBean milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT loadRemoteEntityBean (#PCDATA)>
+<!ATTLIST loadRemoteEntityBean metric CDATA #IMPLIED>
+<!ATTLIST loadRemoteEntityBean bean CDATA #REQUIRED>
+<!ATTLIST loadRemoteEntityBean connection CDATA #REQUIRED>
+<!ATTLIST loadRemoteEntityBean tracer CDATA #IMPLIED>
+<!ATTLIST loadRemoteEntityBean threshold CDATA #IMPLIED>
+<!ATTLIST loadRemoteEntityBean provider CDATA #IMPLIED>
+<!ATTLIST loadRemoteEntityBean milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT loadRemoteMDBean %nonForkingActionElementSequence;>
+<!ATTLIST loadRemoteMDBean metric CDATA #IMPLIED>
+<!ATTLIST loadRemoteMDBean bean CDATA #REQUIRED>
+<!ATTLIST loadRemoteMDBean tracer CDATA #IMPLIED>
+<!ATTLIST loadRemoteMDBean threshold CDATA #IMPLIED>
+<!ATTLIST loadRemoteMDBean provider CDATA #IMPLIED>
+<!ATTLIST loadRemoteMDBean milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT isengard (%nonForkingActionElementSequence; | %forkingActionElementSequence;)*>
+<!ATTLIST isengard milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT servlet (%nonForkingActionElementSequence; | %forkingActionElementSequence;)*>
+<!ATTLIST servlet session_name CDATA #IMPLIED>
+<!ATTLIST servlet protocol CDATA #IMPLIED>
+<!ATTLIST servlet host CDATA #IMPLIED>
+<!ATTLIST servlet port CDATA #IMPLIED>
+<!ATTLIST servlet contextroot CDATA #IMPLIED>
+<!ATTLIST servlet metric CDATA #IMPLIED>
+<!ATTLIST servlet tracer CDATA #IMPLIED>
+<!ATTLIST servlet threshold CDATA #IMPLIED>
+<!ATTLIST servlet uri CDATA #IMPLIED>
+<!ATTLIST servlet Accept CDATA #IMPLIED>
+<!ATTLIST servlet Accept-Charset CDATA #IMPLIED>
+<!ATTLIST servlet Accept-Encoding CDATA #IMPLIED>
+<!ATTLIST servlet Accept-Language CDATA #IMPLIED>
+<!ATTLIST servlet Accept-Ranges CDATA #IMPLIED>
+<!ATTLIST servlet Age CDATA #IMPLIED>
+<!ATTLIST servlet Allow CDATA #IMPLIED>
+<!ATTLIST servlet Authorization CDATA #IMPLIED>
+<!ATTLIST servlet Cache-Control CDATA #IMPLIED>
+<!ATTLIST servlet Connection CDATA #IMPLIED>
+<!ATTLIST servlet Content-Encoding CDATA #IMPLIED>
+<!ATTLIST servlet Content-Language CDATA #IMPLIED>
+<!ATTLIST servlet Content-Length CDATA #IMPLIED>
+<!ATTLIST servlet Content-Location CDATA #IMPLIED>
+<!ATTLIST servlet Content-MD5 CDATA #IMPLIED>
+<!ATTLIST servlet Content-Range CDATA #IMPLIED>
+<!ATTLIST servlet Content-Type CDATA #IMPLIED>
+<!ATTLIST servlet Cookie CDATA #IMPLIED>
+<!ATTLIST servlet Date CDATA #IMPLIED>
+<!ATTLIST servlet ETag CDATA #IMPLIED>
+<!ATTLIST servlet Expect CDATA #IMPLIED>
+<!ATTLIST servlet Expires CDATA #IMPLIED>
+<!ATTLIST servlet From CDATA #IMPLIED>
+<!ATTLIST servlet Host CDATA #IMPLIED>
+<!ATTLIST servlet If-Match CDATA #IMPLIED>
+<!ATTLIST servlet If-Modified-Since CDATA #IMPLIED>
+<!ATTLIST servlet If-None-Match CDATA #IMPLIED>
+<!ATTLIST servlet If-Range CDATA #IMPLIED>
+<!ATTLIST servlet If-Unmodified-Since CDATA #IMPLIED>
+<!ATTLIST servlet Last-Modified CDATA #IMPLIED>
+<!ATTLIST servlet Location CDATA #IMPLIED>
+<!ATTLIST servlet Max-Forwards CDATA #IMPLIED>
+<!ATTLIST servlet Pragma CDATA #IMPLIED>
+<!ATTLIST servlet Proxy-Authenticate CDATA #IMPLIED>
+<!ATTLIST servlet Proxy-Authorization CDATA #IMPLIED>
+<!ATTLIST servlet Range CDATA #IMPLIED>
+<!ATTLIST servlet Byte-Ranges CDATA #IMPLIED>
+<!ATTLIST servlet Referer CDATA #IMPLIED>
+<!ATTLIST servlet Retry-After CDATA #IMPLIED>
+<!ATTLIST servlet Server CDATA #IMPLIED>
+<!ATTLIST servlet TE CDATA #IMPLIED>
+<!ATTLIST servlet Trailer CDATA #IMPLIED>
+<!ATTLIST servlet Transfer-Encoding CDATA #IMPLIED>
+<!ATTLIST servlet Upgrade CDATA #IMPLIED>
+<!ATTLIST servlet User-Agent CDATA #IMPLIED>
+<!ATTLIST servlet Vary CDATA #IMPLIED>
+<!ATTLIST servlet Via CDATA #IMPLIED>
+<!ATTLIST servlet Warning CDATA #IMPLIED>
+<!ATTLIST servlet WWW-Authenticate CDATA #IMPLIED>
+<!ATTLIST servlet SetSessionID CDATA #IMPLIED>
+<!ATTLIST servlet milestones (yes|no|sub) #IMPLIED>
+<!ATTLIST servlet parameter_uri CDATA #IMPLIED>
+
+<!ELEMENT jsp (%nonForkingActionElementSequence; | %forkingActionElementSequence;)*>
+<!ATTLIST jsp metric CDATA #IMPLIED>
+<!ATTLIST jsp tracer CDATA #IMPLIED>
+<!ATTLIST jsp threshold CDATA #IMPLIED>
+<!ATTLIST jsp uri CDATA #IMPLIED>
+<!ATTLIST jsp milestones (yes|no|sub) #IMPLIED>
+
+
+<!ELEMENT isengardPipe EMPTY>
+<!ATTLIST isengardPipe name CDATA #REQUIRED>
+<!ATTLIST isengardPipe hubname CDATA #IMPLIED>
+<!ATTLIST isengardPipe milestones (yes|no|sub) #IMPLIED>
+
+
+<!ELEMENT isengardMessage EMPTY>
+<!ATTLIST isengardMessage name CDATA #REQUIRED>
+<!ATTLIST isengardMessage classname CDATA #REQUIRED>
+<!ATTLIST isengardMessage props CDATA #IMPLIED>
+<!ATTLIST isengardMessage milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT isengardBean EMPTY>
+<!ATTLIST isengardBean name CDATA #REQUIRED>
+<!ATTLIST isengardBean classname CDATA #REQUIRED>
+<!ATTLIST isengardBean publish CDATA #IMPLIED>
+<!ATTLIST isengardBean subscription CDATA #IMPLIED>
+<!ATTLIST isengardBean service CDATA #IMPLIED>
+<!ATTLIST isengardBean milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT isengardClientInstance EMPTY>
+<!ATTLIST isengardClientInstance name CDATA #REQUIRED>
+<!ATTLIST isengardClientInstance host CDATA #REQUIRED>
+<!ATTLIST isengardClientInstance port CDATA #REQUIRED>
+<!ATTLIST isengardClientInstance groupname CDATA #REQUIRED>
+<!ATTLIST isengardClientInstance credentials CDATA #REQUIRED>
+<!ATTLIST isengardClientInstance milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT isengardClient (%nonForkingActionElementSequence; | %forkingActionElementSequence;)*>
+<!ATTLIST isengardClient client CDATA #REQUIRED>
+<!ATTLIST isengardClient milestones (yes|no|sub) #IMPLIED>
+
+<!ELEMENT webService (%nonForkingActionElementSequence; | %forkingActionElementSequence;)*>
+<!ATTLIST webService uri CDATA #IMPLIED>
+<!ATTLIST webService appserver (wls|was|dynamic) #IMPLIED>
+<!ATTLIST webService milestones (yes|no|sub) #IMPLIED>

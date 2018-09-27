@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<!--
+	@Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.AgentControllability1Collector1TomcatAgentWindowsTestbed, executeOn=momMachine}],
+	  owner = gamsa03,
+	  size = COLOSSAL,
+	  description = 'Cluster TestNg XML suite for all windows tests'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="ClusterOneCollectorOneAgentTests" configfailurepolicy="continue">
+	<groups>
+    	<run>
+      		<include name="BAT"/>
+      		<include name="Bat"/>
+      		<include name="bat"/>
+    	</run>
+	</groups>
+	<test name="ClusterOneCollectorOneAgentTests" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.tests.cluster.ClusterOneCollectorOneAgentTests">
+			</class>
+		</classes>
+	</test>
+</suite>
+		

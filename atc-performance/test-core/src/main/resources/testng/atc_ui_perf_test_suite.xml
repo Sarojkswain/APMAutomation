@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [{name=com.ca.apm.atc.performance.tests.testbed.ATCPerformanceTestBed, executeOn=SELENIUM_GRID_MACHINE}],
+	owner = sinal04,
+	size = BIG,
+	snapshotPolicy = ON_FAILURE,
+	snapshot = DEAD,
+	description = 'ATC UI performance test suite')
+-->
+<suite name="atcUIPerformanceTests" parallel="classes" thread-count="4" verbose="10">
+    <test name="atcUiPerfTest">
+        <groups>
+            <run>
+                <include name="CHROME" />
+                <include name="FIREFOX" />
+                <include name="IE" />
+                <include name="EDGE" />
+            </run>
+        </groups>
+        <packages>
+            <package name="com.ca.apm.atc.performance.tests.test" />
+        </packages>
+    </test>
+</suite>

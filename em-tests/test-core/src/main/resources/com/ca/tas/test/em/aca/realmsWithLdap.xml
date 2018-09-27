@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<realms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="0.1" xsi:noNamespaceSchemaLocation="realms0.1.xsd">
+    <realm active="true" id="LDAP" descriptor="LDAP Realm">
+        <property name="groupMemberQuery">
+            <value>(&amp;(objectClass=groupOfUniqueNames)(uniquemember={0}))</value>
+        </property>
+        <property name="bindAuthentication">
+            <value>simple</value>
+        </property>
+        <property name="bindPassword">
+            <value>dpqw9cmHgdXcOODlUHbsjw==</value>
+        </property>
+        <property name="userObjectQuery">
+            <value>(&amp;(cn={0}))</value>
+        </property>
+        <property name="groupObjectQuery">
+            <value>(&amp;(objectClass=groupOfUniqueNames)(cn={0}))</value>
+        </property>
+        <property name="groupNameAttribute">
+            <value>cn</value>
+        </property>
+        <property name="usernameAttribute">
+            <value>cn</value>
+        </property>
+        <property name="disallowEmptyPassword">
+            <value>true</value>
+        </property>
+        <property name="disableNestedGroupSearch">
+            <value>false</value>
+        </property>
+        <property name="url">
+            <value>ldap://zeus.ca.com:389</value>
+        </property>
+        <property name="useSSL">
+            <value>false</value>
+        </property>
+        <property name="bindName">
+            <value>cn=admin,dc=apm,dc=ca,dc=com</value>
+        </property>
+        <property name="scopeDepth">
+            <value>subtree</value>
+        </property>
+        <property name="baseDN">
+            <value>dc=apm,dc=ca,dc=com</value>
+        </property>
+        <property name="plainTextPasswords">
+            <value>false</value>
+        </property>
+    </realm>
+    <realm descriptor="Local Users and Groups Realm" id="Local Users and Groups" active="true">
+        <property name="usersFile">
+            <value>users.xml</value>
+        </property>
+    </realm>
+</realms>

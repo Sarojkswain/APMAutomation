@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jms="http://www.springframework.org/schema/jms" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+	<context:property-placeholder location="classpath:${fld.agent.property.file:fld-agent.properties}"/>
+	<context:component-scan base-package="com.ca.apm.systemtest.fld.monitor, com.ca.apm.systemtest.fld.agent"/>
+	<aop:aspectj-autoproxy/>
+	
+	<!-- Import our plugins -->
+	<import resource="classpath*:fld-plugin.xml" />
+	
+	<!-- Define a connection factory to ActiveMQ -->
+	<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="${activemq.broker.url}"/>
+	</bean>
+	
+	<bean id="configurationManager" class="com.ca.apm.systemtest.fld.plugin.cm.ConfigurationManagerImpl" />
+	
+	<bean id="agent" class="com.ca.apm.systemtest.fld.agent.Agent" />
+		
+	<bean id="agentListener" class="com.ca.apm.systemtest.fld.agent.AgentJmsListener">
+		<property name="nodeName" value="${fld.agent.node.name}" />
+	</bean>
+	
+	<bean id="pluginRepository" class="com.ca.apm.systemtest.fld.agent.DefaultPluginRepositoryImpl" />
+	
+	<bean id="jmsDestinationResolver" class="org.springframework.jms.support.destination.BeanFactoryDestinationResolver" />
+	
+	<jms:listener-container destination-resolver="jmsDestinationResolver">
+		<jms:listener destination="fld.agent.command" response-destination="fld.agent.response" ref="agentListener" method="handleMessage" selector="fldTarget='${fld.agent.node.name}'"/>
+	</jms:listener-container>
+	
+	<bean name="fld.agent.command" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="fld.agent.command" />
+	</bean>
+	
+	<bean name="fld.agent.response" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="fld.agent.response" />
+	</bean>
+	
+	<bean name="fld.admin" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg value="fld.admin" />
+	</bean>
+	
+	<bean name="fld.admin.response" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg value="fld.admin.response" />
+	</bean>
+	
+	<bean name="fld.agent.control" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg value="fld.agent.control" />
+	</bean>
+	
+	<jms:listener-container destination-type="topic" destination-resolver="jmsDestinationResolver" >
+		<jms:listener destination="fld.admin" response-destination="fld.admin.response" ref="agentListener" method="receiveHeartbeat" />
+	</jms:listener-container>
+
+	<bean class="com.ca.apm.systemtest.fld.plugin.downloadMethod.HttpURLDownloaderImpl"/>
+    <bean class="com.ca.apm.systemtest.fld.plugin.downloadMethod.TrussDownloadMethodImpl"/>
+    <bean class="com.ca.apm.systemtest.fld.plugin.downloadMethod.ArtifactoryDownloadMethod"/>
+    <bean class="com.ca.apm.systemtest.fld.plugin.downloadMethod.ArtifactoryLiteDownloadMethodImpl"/>
+    <bean class="com.ca.apm.systemtest.fld.plugin.downloadMethod.HttpDownloadMethod"/>
+
+	<bean id="artifactManager" class="com.ca.apm.systemtest.fld.plugin.downloader.ArtifactManagerImpl">
+	</bean>
+
+	
+	<!-- START - FLD REMOTE LOGGER -->	
+	<bean id="jmsConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+		<constructor-arg ref="connectionFactory" />
+    </bean>
+	
+	<bean id="fldRemoteLoggerQueue" class="org.apache.activemq.command.ActiveMQQueue">
+	    <constructor-arg index="0" value="fld.remote.logger.queue" />
+  	</bean>
+  	
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+	</bean>
+	
+	<bean id="loggerMessageSender" class="com.ca.apm.systemtest.fld.monitor.LoggerMessageSender">
+		<property name="queue" ref="fldRemoteLoggerQueue" />
+  		<property name="jmsTemplate" ref="jmsTemplate" />
+  		<property name="nodeName" value="${fld.agent.node.name}" />
+	</bean>
+	<!-- END - FLD REMOTE LOGGER -->	
+	
+	
+	<!-- START - Log Monitor Plugin -->
+	<bean id="logMonitorQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg index="0" value="${logmonitor.queue:com.ca.apm.systemtest.fld.plugin.logmonitor}"/>
+	</bean>
+	
+	<bean id="logMonitorProducer" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="defaultDestination" ref="logMonitorQueue" />
+	</bean>
+	<!-- END - Log Monitor Plugin -->
+
+
+    <bean id="agentUpdateCleaner" class="com.ca.apm.systemtest.fld.agent.AgentUpdateCleaner"/>
+
+    <task:annotation-driven executor="agentTaskExecutor" scheduler="agentTaskScheduler"/>
+    <task:executor id="agentTaskExecutor" pool-size="5" queue-capacity="100" rejection-policy="CALLER_RUNS"/>
+    <task:scheduler id="agentTaskScheduler" pool-size="5"/>
+</beans>

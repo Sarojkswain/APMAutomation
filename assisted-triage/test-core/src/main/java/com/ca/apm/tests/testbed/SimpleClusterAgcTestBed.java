@@ -1,0 +1,137 @@
+/*
+ * Copyright (c) 2016 CA. All rights reserved.
+ * 
+ * This software and all information contained therein is confidential and
+ * proprietary and shall not be duplicated, used, disclosed or disseminated in
+ * any way except as authorized by the applicable license agreement, without
+ * the express written permission of CA. All authorized reproductions must be
+ * marked with this language.
+ * 
+ * EXCEPT AS SET FORTH IN THE APPLICABLE LICENSE AGREEMENT, TO THE EXTENT
+ * PERMITTED BY APPLICABLE LAW, CA PROVIDES THIS SOFTWARE WITHOUT WARRANTY OF
+ * ANY KIND, INCLUDING WITHOUT LIMITATION, ANY IMPLIED WARRANTIES OF
+ * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL CA BE
+ * LIABLE TO THE END USER OR ANY THIRD PARTY FOR ANY LOSS OR DAMAGE, DIRECT OR
+ * INDIRECT, FROM THE USE OF THIS SOFTWARE, INCLUDING WITHOUT LIMITATION, LOST
+ * PROFITS, BUSINESS INTERRUPTION, GOODWILL, OR LOST DATA, EVEN IF CA IS
+ * EXPRESSLY ADVISED OF SUCH LOSS OR DAMAGE.
+ */
+
+package com.ca.apm.tests.testbed;
+
+import static com.ca.tas.testbed.ITestbedMachine.TEMPLATE_CO66;
+
+import java.util.Arrays;
+import java.util.HashSet;
+
+import com.ca.apm.automation.action.flow.commandline.RunCommandFlow;
+import com.ca.apm.automation.action.flow.em.DeployEMFlowContext.EmRoleEnum;
+import com.ca.apm.systemtest.fld.role.AGCRegisterRole;
+import com.ca.tas.resolver.ITasResolver;
+import com.ca.tas.role.EmRole;
+import com.ca.tas.role.IRole;
+import com.ca.tas.testbed.ITestbed;
+import com.ca.tas.testbed.ITestbedFactory;
+import com.ca.tas.testbed.ITestbedMachine;
+import com.ca.tas.testbed.TestBedUtils;
+import com.ca.tas.testbed.Testbed;
+import com.ca.tas.tests.annotations.TestBedDefinition;
+
+/**
+ * Deploys simple cluster with a MOM and Collector where MOM is also
+ * AGC and have a simple cluster and stand alone register as providers.
+ */
+@TestBedDefinition
+public class SimpleClusterAgcTestBed implements ITestbedFactory {
+
+    public static final String MOM_MASTER_MACHINE = "momMaster";
+    public static final String MOM_MASTER_ROLE = "momMasterRole";
+    public static final String COLL_MACHINE_M = "collEmM";
+    public static final String COLL_ROLE_M = "collRoleM";
+
+    public static final String SA_PROVIDER_MACHINE = "saProvider";
+    public static final String SA_PROVIDER_ROLE = "saProviderRole";
+
+    public static final String MOM_PROVIDER_MACHINE = "momProvider";
+    public static final String MOM_PROVIDER_ROLE = "momProviderRole";
+    public static final String COLL_MACHINE = "collEm";
+    public static final String COLL_ROLE = "collRole";
+
+    public static final String ADMIN_TOKEN = "f47ac10b-58cc-4372-a567-0e02b2c3d479";
+    public static final String ADMIN_TOKEN_CMDLINE = "-Dappmap.token=" + ADMIN_TOKEN
+        + " -Dappmap.user=admin";
+
+    @Override
+    public ITestbed create(ITasResolver arg0) {
+
+        ITestbed testbed = new Testbed(this.getClass().getSimpleName());
+
+        EmRole collRoleM =
+            new EmRole.LinuxBuilder(COLL_ROLE_M, arg0).emClusterRole(EmRoleEnum.COLLECTOR)
+                .emLaxNlJavaOption(Arrays.asList(ADMIN_TOKEN_CMDLINE)).nostartWV().build();
+        ITestbedMachine collMachineM =
+            TestBedUtils.createWindowsMachine(COLL_MACHINE_M, ITestbedMachine.TEMPLATE_CO66,
+                collRoleM);
+        EmRole momMasterRole =
+            new EmRole.LinuxBuilder(MOM_MASTER_ROLE, arg0)
+                .configProperty("introscope.apmserver.teamcenter.master", "true")
+                .emLaxNlJavaOption(Arrays.asList(ADMIN_TOKEN_CMDLINE)).nostartWV().build();
+        ITestbedMachine momMasterMachine =
+            TestBedUtils.createWindowsMachine(MOM_MASTER_MACHINE, ITestbedMachine.TEMPLATE_CO66,
+                momMasterRole);
+        testbed.addMachine(momMasterMachine, collMachineM);
+
+        EmRole saProviderRole =
+            new EmRole.LinuxBuilder(SA_PROVIDER_ROLE, arg0).nostartWV()
+                .emLaxNlJavaOption(Arrays.asList(ADMIN_TOKEN_CMDLINE)).build();
+        ITestbedMachine saProviderMachine =
+            TestBedUtils.createWindowsMachine(SA_PROVIDER_MACHINE, TEMPLATE_CO66, saProviderRole);
+        testbed.addMachine(saProviderMachine);
+
+        EmRole collRole =
+            new EmRole.LinuxBuilder(COLL_ROLE, arg0).emClusterRole(EmRoleEnum.COLLECTOR)
+                .emLaxNlJavaOption(Arrays.asList(ADMIN_TOKEN_CMDLINE)).nostartWV().build();
+        ITestbedMachine collMachine =
+            TestBedUtils
+                .createWindowsMachine(COLL_MACHINE, ITestbedMachine.TEMPLATE_CO66, collRole);
+        EmRole momProviderRole =
+            new EmRole.LinuxBuilder(MOM_PROVIDER_ROLE, arg0).emClusterRole(EmRoleEnum.MANAGER)
+                .emCollector(collRole).emLaxNlJavaOption(Arrays.asList(ADMIN_TOKEN_CMDLINE))
+                .nostartWV().build();
+        ITestbedMachine momProviderMachine =
+            TestBedUtils.createWindowsMachine(MOM_PROVIDER_MACHINE, ITestbedMachine.TEMPLATE_CO66,
+                momProviderRole);
+        testbed.addMachine(momProviderMachine, collMachine);
+
+        final String agcHost = arg0.getHostnameById(MOM_MASTER_ROLE);
+        final EmRole saProv = (EmRole) testbed.getRoleById(SA_PROVIDER_ROLE);
+        final EmRole momProv = (EmRole) testbed.getRoleById(MOM_PROVIDER_ROLE);
+
+        AGCRegisterRole agcRegisterSa =
+            new AGCRegisterRole.Builder("agcSaRegister", arg0).agcHostName(agcHost)
+                .agcEmWvPort("8081").agcWvPort("8082")
+                .hostName(arg0.getHostnameById(SA_PROVIDER_ROLE)).emWvPort("8081")
+                .wvHostName(arg0.getHostnameById(SA_PROVIDER_ROLE)).wvPort("8082")
+                .startCommand(RunCommandFlow.class, saProv.getEmRunCommandFlowContext())
+                .stopCommand(RunCommandFlow.class, saProv.getEmStopCommandFlowContext())
+                .build();
+
+        agcRegisterSa.after(new HashSet<IRole>(Arrays.asList(testbed.getMachineById(
+            SA_PROVIDER_MACHINE).getRoles())));
+
+        AGCRegisterRole agcRegisterMom =
+            new AGCRegisterRole.Builder("agcMomRegister", arg0).agcHostName(agcHost)
+                .agcEmWvPort("8081").agcWvPort("8082")
+                .hostName(arg0.getHostnameById(MOM_PROVIDER_ROLE)).emWvPort("8081")
+                .wvHostName(arg0.getHostnameById(MOM_PROVIDER_ROLE)).wvPort("8082")
+                .startCommand(RunCommandFlow.class, momProv.getEmRunCommandFlowContext())
+                .stopCommand(RunCommandFlow.class, momProv.getEmStopCommandFlowContext())
+                .build();
+        agcRegisterMom.after(new HashSet<IRole>(Arrays.asList(testbed.getMachineById(
+            MOM_PROVIDER_MACHINE).getRoles())));
+
+        momMasterMachine.addRole(agcRegisterSa, agcRegisterMom);
+
+        return testbed;
+    }
+}

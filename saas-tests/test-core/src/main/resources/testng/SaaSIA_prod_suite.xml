@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+	    {name=com.ca.apm.saas.testbed.SaasIATestbed, executeOn=machine1}],
+	  owner = kurma05,
+	  size = BIG,
+	  description = 'Infrastructure Agent Tests'),
+	  snapshotPolicy = SnapshotPolicy.ALWAYS,
+      snapshot = SnapshotMode.LIVE
+-->	
+<suite name="InfrastructureAgent" configfailurepolicy="continue">
+	<parameter name="instance" value="production" />				
+	<parameter name="testngEmailEnabled" value="true" />
+		
+	<test name="InfrastructureAgentTests_Production" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.saas.test.SaaSIATests">
+				 <methods>
+				 	<include name="testInfrastructureAgentBom" />
+				 	<include name="testInfrastructureAgentInstall" />
+				 	<include name="testInfrastructureAgentConnected" />
+				 	<include name="testInfrastructureAgentMap" />
+				 	<include name="testInfrastructureAgentCorrelation" />
+				 </methods>
+			</class>
+		</classes>    	   
+	</test>
+	<listeners>    	
+   	    <listener class-name="org.uncommons.reportng.HTMLReporter" />    	
+   		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+ 	</listeners>
+</suite>
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.StandaloneOnlyEMLinuxTestbed, executeOn=emMachine}],
+	  owner = tuuja01,
+	  size = BIG,
+	  description = 'EM Webserver Tests'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="EM WEbServer Linux Tests" configfailurepolicy="continue">
+	<test name="Verify_ALM_280556_TT_47266_EM_WebServer_Hot_deploy_from_webapps_doesnot_work" preserve-order="true" enabled="true">
+  		<classes>    
+     		<class name="com.ca.apm.tests.emwebserver.EmWebServerTests">
+				<methods>	 					
+	 				<include name="Verify_ALM_280556_TT_47266_EM_WebServer_Hot_deploy_from_webapps_doesnot_work"/>
+					<include name="Verify_ALM_305718_Run_simple_WebApp_TT41233"/>
+					<include name="Verify_ALM_280557_Test_webapps_after_EMRestart_TT42074"/>
+					<include name="Verify_ALM_449142_Check_Jetty_server_version"/>
+					<include name="Verify_ALM_392312_Invalid_webserver_max_threads_value"/>
+	 			</methods>
+	 		</class>
+	 	</classes>
+	</test>	 	
+
+</suite>
+		

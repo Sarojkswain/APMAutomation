@@ -1,0 +1,6 @@
+readTemplate('${WEBLOGIC_HOME}wl_server_10.3/common/templates/domains/wls.jar')
+cd('/Security/base_domain/User/weblogic')
+set('Password', 'welcome123')
+cd('Server/AdminServer')
+set('ListenPort',${LISTEN_PORT})
+writeDomain('${WEBLOGIC_HOME}user_projects/domains/${INSTANCE_NAME}')

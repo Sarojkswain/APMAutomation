@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <message id="stopWebView" name="stopWebView"></message>
+  <process id="fld.loadwebview" name="Load WebView" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="scriptFileUrl" name="CSV file URL" type="string" variable="scriptFileUrl" default="http://localhost:8080/orchestrator/urls.csv" required="true"></activiti:formProperty>
+        <activiti:formProperty id="webviewHost" name="Webview host and port" type="string" variable="webviewHost" default="fldwebview01c.ca.com:8080" required="true"></activiti:formProperty>
+        <activiti:formProperty id="login" name="Login" type="string" variable="login" default="Admin"></activiti:formProperty>
+        <activiti:formProperty id="password" name="Password" type="string" variable="password" default="none"></activiti:formProperty>
+        <activiti:formProperty id="wurlitzerNode" name="Wurlitzer node" type="string" variable="wurlitzerNode" default="none" required="true"></activiti:formProperty>
+        <activiti:formProperty id="wurlitzerScenario" name="Wurlitzer scenario" type="string" variable="wurlitzerScenario" default="scripts/xml/appmap-stress/load-test/scenarios/001-agent-001-app-0001-backend.appmap.xml"></activiti:formProperty>
+        <activiti:formProperty id="baseUrl" name="Artifactory base URL" type="string" variable="baseUrl" default="http://artifactory-emea-cz.ca.com:8081/artifactory/simple/apm-integration-local/"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <scriptTask id="scriptStartWurlitzer" name="Start wurlitzer" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>if (wurlitzerNode != "none") {
+def proxy = agentProxyFactory.createProxy(wurlitzerNode)
+def wPlugin = proxy.plugins.wurlitzerPlugin
+
+wPlugin.downloadWurlitzer(null);
+wPlugin.unzipWurlitzerZip();
+wPlugin.downloadWurlitzer(null);
+wPlugin.unzipWurlitzerZip();
+wPlugin.setBuiltInScenario(wurlitzerScenario);
+def id = wPlugin.execute();
+execution.setVariable('wurlitzerId', id);
+}</script>
+    </scriptTask>
+    <scriptTask id="scriptStartWebView" name="Start webView" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="urls" activiti:elementVariable="url"></multiInstanceLoopCharacteristics>
+      <script>import com.ca.apm.systemtest.fld.plugin.selenium.SeleniumPlugin;
+
+def String URL_KEY = "url";
+def String USERNAME_KEY = "username";
+def String PASSWORD_KEY = "password";
+
+// Other Userfull keys
+// def String LOGIN_FRAME_ELEM_KEY = "login-frame-elem";
+// def String USER_ELEM_KEY = "user-elem";
+// def String PASS_ELEM_KEY = "pass-elem";
+// def String LOGIN_BUTTON_ELEM_KEY = "login-button-elem";
+// def String CLICK_ELEM_KEY = "click-elem";
+
+def node = url[0].trim();
+def plugType = url[1].trim();
+def fullUrl = url[2].trim().replaceAll("WEBVIEW_HOST_NAME", webviewHost);
+
+HashMap&lt;String, String&gt; params=new HashMap&lt;&gt;();
+params.put(URL_KEY, fullUrl);
+params.put(USERNAME_KEY, login);
+params.put(PASSWORD_KEY, 'none'.equals(password) ? '' : password);
+
+def nodeProxy = agentProxyFactory.createProxy(node);
+
+SeleniumPlugin plugin = null;
+if ("ff".equals(plugType)) {
+	plugin = nodeProxy.plugins['seleniumPluginFirefox'];
+} else if ("ch".equals(plugType)) {
+	plugin = nodeProxy.plugins['seleniumPluginChrome'];
+} else if ("ie".equals(plugType)) {
+	plugin = nodeProxy.plugins['seleniumPluginIE'];
+} else {
+	System.out.println("Not plugin of type "+plugType+" (only ch,ff,ie available)");
+}
+
+String execId=plugin.executeSeleniumTest("fld-scripts", "com.ca.apm.systemtest.fld.scripts.OpenUrlWithLogin", params, true);
+System.out.println("Executing openUrl with execId: " + execId);
+execs.add(execId);
+plugins.put(execId, url);
+</script>
+    </scriptTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="scriptStartWurlitzer"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="scriptStartWurlitzer" targetRef="scriptParseCSV"></sequenceFlow>
+    <scriptTask id="scriptDelete" name="Delete fld-scripts" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="nodes" activiti:elementVariable="node"></multiInstanceLoopCharacteristics>
+      <script>import com.ca.apm.systemtest.fld.plugin.selenium.SeleniumPlugin;
+
+def nodeProxy = agentProxyFactory.createProxy(node);
+def selenium=nodeProxy.getPlugin(SeleniumPlugin.class);
+// selenium.deleteTempDirectory("fld-scripts");
+</script>
+    </scriptTask>
+    <sequenceFlow id="flow5" sourceRef="scriptDelete" targetRef="endevent1"></sequenceFlow>
+    <scriptTask id="scriptParseCSV" name="Download and parse CSV" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import com.ca.apm.systemtest.fld.plugin.selenium.SeleniumPlugin;
+import com.ca.apm.systemtest.fld.server.util.LoadWebViewUtil;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+urls=LoadWebViewUtil.logInfo("URL to download csv: {}", scriptFileUrl);
+urls=LoadWebViewUtil.downloadAndParseCsv(scriptFileUrl);
+uniqNodes = urls.collect({it[0]}).unique();
+
+LoadWebViewUtil.logInfo("Nodes to deploy {}", uniqNodes);
+
+execution.setVariable("urls", urls);
+execution.setVariable("nodes", uniqNodes);
+def plugins = new HashMap&lt;String,String[]&gt;();
+def execs = new ArrayList&lt;String&gt;();
+execution.setVariable("plugins", plugins);
+execution.setVariable("execs", execs);</script>
+    </scriptTask>
+    <sequenceFlow id="flow6" sourceRef="scriptDownload" targetRef="scriptStartWebView"></sequenceFlow>
+    <scriptTask id="scriptDownload" name="Download fld-scripts to agents" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="nodes" activiti:elementVariable="node"></multiInstanceLoopCharacteristics>
+      <script>import com.ca.apm.systemtest.fld.server.util.LoadWebViewUtil;
+import com.ca.apm.systemtest.fld.plugin.selenium.SeleniumPlugin;
+import com.ca.apm.systemtest.fld.proxy.AgentProxy;
+
+LoadWebViewUtil.logInfo("Download script to node {}", node);
+def nodeProxy = agentProxyFactory.createProxy(node);
+SeleniumPlugin selenium=nodeProxy.getPlugin(SeleniumPlugin.class);
+
+LoadWebViewUtil.logInfo("Base URL {}", baseUrl);
+selenium.createTempDirectory("fld-scripts");
+selenium.fetchTempArtifact("fld-scripts", baseUrl, "com.ca.apm.systemtest.fld", "fld-scripts", "99.99.aquarius-SNAPSHOT", "dist", "zip")
+</script>
+    </scriptTask>
+    <sequenceFlow id="flow7" sourceRef="scriptParseCSV" targetRef="scriptDownload"></sequenceFlow>
+    <scriptTask id="scriptShouldStop" name="shouldStop()" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="execs" activiti:elementVariable="execId"></multiInstanceLoopCharacteristics>
+      <script>import com.ca.apm.systemtest.fld.plugin.selenium.SeleniumPlugin;
+
+def url=plugins.get(execId);
+def node = url[0].trim();
+def plugType = url[1].trim();
+
+def nodeProxy = agentProxyFactory.createProxy(node);
+SeleniumPlugin plugin = null;
+if ("ff".equals(plugType)) {
+	plugin = nodeProxy.plugins['seleniumPluginFirefox'];
+} else if ("ch".equals(plugType)) {
+	plugin = nodeProxy.plugins['seleniumPluginChrome'];
+} else if ("ie".equals(plugType)) {
+	plugin = nodeProxy.plugins['seleniumPluginIE'];
+} else {
+	System.out.println("Not plugin of type "+plugType+" (only ch,ff,ie available)");
+}
+
+plugin.shouldStop(execId);
+</script>
+    </scriptTask>
+    <sequenceFlow id="flow9" sourceRef="scriptShouldStop" targetRef="scriptDelete"></sequenceFlow>
+    <userTask id="cont" name="Wait for user input">
+      <extensionElements>
+        <activiti:formProperty id="cont" name="Continue" type="boolean" variable="cont" default="true" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow10" sourceRef="scriptStartWebView" targetRef="cont"></sequenceFlow>
+    <sequenceFlow id="flow11" sourceRef="cont" targetRef="scriptShouldStop"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.loadwebview">
+    <bpmndi:BPMNPlane bpmnElement="fld.loadwebview" id="BPMNPlane_fld.loadwebview">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="70.0" y="57.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="60.0" y="250.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scriptStartWurlitzer" id="BPMNShape_scriptStartWurlitzer">
+        <omgdc:Bounds height="55.0" width="105.0" x="210.0" y="48.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scriptStartWebView" id="BPMNShape_scriptStartWebView">
+        <omgdc:Bounds height="55.0" width="105.0" x="690.0" y="140.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scriptDelete" id="BPMNShape_scriptDelete">
+        <omgdc:Bounds height="55.0" width="105.0" x="190.0" y="240.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scriptParseCSV" id="BPMNShape_scriptParseCSV">
+        <omgdc:Bounds height="64.0" width="151.0" x="400.0" y="43.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scriptDownload" id="BPMNShape_scriptDownload">
+        <omgdc:Bounds height="60.0" width="186.0" x="650.0" y="43.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scriptShouldStop" id="BPMNShape_scriptShouldStop">
+        <omgdc:Bounds height="55.0" width="141.0" x="405.0" y="240.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="cont" id="BPMNShape_cont">
+        <omgdc:Bounds height="55.0" width="135.0" x="675.0" y="240.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="105.0" y="74.0"></omgdi:waypoint>
+        <omgdi:waypoint x="210.0" y="75.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="315.0" y="75.0"></omgdi:waypoint>
+        <omgdi:waypoint x="400.0" y="75.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="190.0" y="267.0"></omgdi:waypoint>
+        <omgdi:waypoint x="95.0" y="267.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="743.0" y="103.0"></omgdi:waypoint>
+        <omgdi:waypoint x="742.0" y="140.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="551.0" y="75.0"></omgdi:waypoint>
+        <omgdi:waypoint x="650.0" y="73.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="405.0" y="267.0"></omgdi:waypoint>
+        <omgdi:waypoint x="295.0" y="267.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="742.0" y="195.0"></omgdi:waypoint>
+        <omgdi:waypoint x="742.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="675.0" y="267.0"></omgdi:waypoint>
+        <omgdi:waypoint x="546.0" y="267.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!-- @Tas(testBed = [{name=com.ca.apm.tests.testbed.AgentControllability3Collectors3TomcatAgentLinuxTestbed,
+	executeOn=momMachine}], owner = jamsa07, size = BIG, description = 'Control
+	Scripts TestNg XML suite for all Control scripts tests'), snapshotPolicy 
+	= SnapshotPolicy.ON_FAILURE, snapshot = SnapshotMode.LIVE -->
+<suite name="ACCHTTP_Tests" configfailurepolicy="continue">
+	<test name="ACC HTTP 3COLLECTORS 3AGENTS LINUX" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.tests.agentcontrollability.http.AccHttpTestsThreeCollectorsThreeAgents">
+			</class>
+		</classes>
+	</test>
+</suite>
+		

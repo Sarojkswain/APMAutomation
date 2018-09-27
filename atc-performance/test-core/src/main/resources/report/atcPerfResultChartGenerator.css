@@ -1,0 +1,126 @@
+body {
+    font-family: "CA Sans Web",Tahoma,Arial,Verdana;
+    font-size: 18px;
+    background-color: #30303d;
+    color: #fff;
+}
+
+#samplesChartContainer {
+    margin-top: 50px;
+}
+
+#samplesChartDiv {
+    width: 100%;
+    height: 580px;
+}
+
+#averagesChartContainer {
+    margin-top: 50px;
+}
+
+#averagesChartDiv {
+    width: 100%;
+    height: 580px;
+}
+
+li > a,
+li > a:link,
+a.emAddrLink:link
+{
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+li > a:hover,
+a.emAddrLink:hover
+{
+    color: #FEFAE0;
+    text-decoration: underline;
+}
+
+li > a:visited,
+a.emAddrLink:visited
+{
+    color: #FEFA00;
+    text-decoration: none;
+}
+
+#screenshots {
+    /*float: left;*/
+    /*width: 800px;*/
+    /*margin: 0 auto;*/
+}
+
+#screenshotsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*height: 500px;*/
+}
+
+#mainDiv {
+    width: 100%;
+}
+
+#contentContainer {
+    margin: 0 auto;
+    width: 1340px;
+}
+
+.screenshotImage {
+    max-width: 600px;
+}
+
+h1.title {
+    text-align: center;
+}
+
+a.home-icon {
+    position: absolute;
+    left: 10px;
+}
+
+.transitionArrow {
+    width: 90px;
+    line-height: 400px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.errorBrowserHeader {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.chromeBrowser {
+    color: #b0de09;
+}
+
+.firefoxBrowser {
+    color: #ff9500;
+}
+
+.ieBrowser {
+    color: #0d8ecf;
+}
+
+.edgeBrowser {
+    color: #c4383f;
+}
+
+@font-face {
+    font-family: "CA Sans Web";
+    font-style: normal;
+    font-weight: normal;
+    src: url("ca_sans_web-regular.eot?#iefix") format("embedded-opentype"), url("ca_sans_web-regular.woff") format("woff"), url("ca_sans_web-regular.svg#svgFontName") format("svg");
+}
+
+a.errorScreenshot:link
+{
+    /*text-decoration: none;*/
+}
+
+a.errorScreenshot:visited
+{
+    /*text-decoration: none;*/
+}

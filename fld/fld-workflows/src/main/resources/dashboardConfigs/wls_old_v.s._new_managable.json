@@ -1,0 +1,281 @@
+{
+  "id" : null,
+  "processKey" : "fld.powerpack.linkedtestsForBothVersions.managable",
+  "name" : "WLS 10.1 v.s. 10.2 managable",
+  "config" : [ {
+    "formId" : "node",
+    "type" : "node",
+    "name" : "Application Node",
+    "value" : "WebLogicAppServerNode",
+    "required" : true
+  }, {
+    "formId" : "jmeterNode",
+    "type" : "node",
+    "name" : "Jmeter: Node ",
+    "value" : "Jmeter4WLS",
+    "required" : true
+  }, {
+    "formId" : "loNode",
+    "type" : "node",
+    "name" : "Load Orchestrator Node",
+    "value" : "AQPP-LO01",
+    "required" : true
+  }, {
+    "formId" : "processName",
+    "type" : "string",
+    "name" : "Monitoring Process Name (java)",
+    "value" : "java*",
+    "required" : true
+  }, {
+    "formId" : "logDir",
+    "type" : "string",
+    "name" : "Agent Log Location",
+    "value" : "c:/temp/agent/wl_server_101_vs_102",
+    "required" : false
+  }, {
+    "formId" : "momNode",
+    "type" : "node",
+    "name" : "Mom Node",
+    "value" : "AQPP-EM01",
+    "required" : true
+  }, {
+    "formId" : "serverId",
+    "type" : "string",
+    "name" : "Server Id",
+    "value" : "wl_server",
+    "required" : true
+  }, {
+    "formId" : "artifactSpecificationOld",
+    "type" : "string",
+    "name" : "Introscope Agent Download Specification (Previous Version)",
+    "value" : "truss:10.0.0:991100:10.0.0.27",
+    "required" : false
+  }, {
+    "formId" : "artifactSpecificationNew",
+    "type" : "string",
+    "name" : "Introscope Agent Download Specification (Newer Version)",
+    "value" : "truss:10.1.0:991200:10.1.0.36",
+    "required" : false
+  }, {
+    "formId" : "momPort",
+    "type" : "long",
+    "name" : "Mom Port",
+    "value" : 5001,
+    "required" : true
+  }, {
+    "formId" : "testWarmupInSeconds",
+    "type" : "long",
+    "name" : "Test Warmup Period (in seconds)",
+    "value" : 200,
+    "required" : true
+  }, {
+    "formId" : "testDurationInSeconds",
+    "type" : "long",
+    "name" : "Test Duration (in seconds)",
+    "value" : 2500,
+    "required" : true
+  }, {
+    "formId" : "brtmExtension",
+    "type" : "boolean",
+    "name" : "Include BRTM Extension",
+    "value" : true,
+    "required" : false
+  }, {
+    "formId" : "agentName",
+    "type" : "string",
+    "name" : "Agent Name",
+    "value" : "wl_server_agent",
+    "required" : true
+  }, {
+    "formId" : "dbCleanupHost",
+    "type" : "string",
+    "name" : "Db Cleanup: Host Name",
+    "value" : "",
+    "required" : false
+  }, {
+    "formId" : "dbCleanupPort",
+    "type" : "long",
+    "name" : "Db Cleanup: Port Number",
+    "required" : false
+  }, {
+    "formId" : "testNumberOfCVUS",
+    "type" : "long",
+    "name" : "Jmeter: Concurrent Users Count",
+    "value" : 400,
+    "required" : true
+  }, {
+    "formId" : "jMeterScenarioUrl",
+    "type" : "string",
+    "name" : "Jmeter: Scenario Url",
+    "value" : "http://aqpp-lo01.ca.com:8080/LoadOrchestrator/getResource?resourceName=stocktrader-jmeter.jmx",
+    "required" : true
+  }, {
+    "formId" : "logDirServer",
+    "type" : "string",
+    "name" : "Mapped Server Log Location",
+    "value" : "c:/temp/server/wl_server_101_vs_102",
+    "required" : true
+  }, {
+    "formId" : "logsArchiveFolder",
+    "type" : "string",
+    "name" : "On-Server Logs Archive Folder",
+    "value" : "c:/temp/archive/wl_server_101_vs_102",
+    "required" : false
+  }, {
+    "formId" : "appServerHost",
+    "type" : "string",
+    "name" : "Jmeter: Host Of The Test Load Application ",
+    "value" : "aqpp-wls02.ca.com",
+    "required" : true
+  }, {
+    "formId" : "appServerPort",
+    "type" : "long",
+    "name" : "Jmeter: Test Load Application Port",
+    "value" : 7001,
+    "required" : true
+  }, {
+    "formId" : "jmxPort",
+    "type" : "long",
+    "name" : "Monitoring: JMX Port",
+    "value" : 1099,
+    "required" : false
+  }, {
+    "formId" : "delayAfterServerStart",
+    "type" : "long",
+    "name" : "Delay After App Server Starts (in seconds)",
+    "value" : 120,
+    "required" : false
+  }, {
+    "formId" : "agentInstallationDir",
+    "type" : "string",
+    "name" : "Agent Installation Folder",
+    "value" : "c:/sw/wily",
+    "required" : false
+  }, {
+    "formId" : "jmxMetrics",
+    "type" : "string",
+    "name" : "Monitoring: Jmx Metrics",
+    "value" : "java.lang:type=Memory|HeapMemoryUsage/used,max;java.lang:type=GarbageCollector,name=Copy|CollectionCount|CollectionTime;java.lang:type=GarbageCollector,name=MarkSweepCompact|CollectionCount|CollectionTime",
+    "required" : false
+  }, {
+    "formId" : "reportResultsFileTemplateUrl",
+    "type" : "string",
+    "name" : "Results Report File Template Url",
+    "value" : "http://aqpp-lo01.ca.com:8080/LoadOrchestrator/getResource?resourceName=report_with_charts_template.xls",
+    "required" : false
+  }, {
+    "formId" : "serverType",
+    "type" : "enum",
+    "name" : "Server Type (Websphere, Weblogic, ...)",
+    "typeInformation" : "{webspherePP=Websphere, webspherePortalPP=Websphere Portal, weblogicPP=Weblogic, weblogicportalPP=Weblogic Portal, sharePointPP=Share Point}",
+    "value" : "weblogicPP",
+    "required" : true
+  }, {
+    "formId" : "applicationType",
+    "type" : "enum",
+    "name" : "Application Type",
+    "typeInformation" : "{none=None, trade6=Trade6, wily2web=Wily2web, stockTrader=StockTrader}",
+    "value" : "stockTrader",
+    "required" : true
+  }, {
+    "formId" : "reCreateDbScriptArchiveUrl",
+    "type" : "string",
+    "name" : "DB Recreation Script Archive URL",
+    "value" : "http://artifactory-emea-cz.ca.com:8081/artifactory/apm-third-party/com/ca/apm/binaries/ibm/stocktrader/stocktrader_trade6_tradedb_dbscript.zip",
+    "required" : false
+  }, {
+    "formId" : "typePerfLogFileName",
+    "type" : "string",
+    "name" : "TypePerf Log File Name",
+    "value" : "wl_server_101_vs_102_typePerf.csv",
+    "required" : false
+  }, {
+    "formId" : "jmxLogFileName",
+    "type" : "string",
+    "name" : "JMX Log File Name",
+    "value" : "wl_server_101_vs_102_jmx.csv",
+    "required" : false
+  }, {
+    "formId" : "resultsGroupingNeeded",
+    "type" : "boolean",
+    "name" : "Group Test Results?",
+    "value" : true,
+    "required" : false
+  }, {
+    "formId" : "javaProcessName",
+    "type" : "string",
+    "name" : "Java Process Name Pattern",
+    "value" : "weblogic",
+    "required" : false
+  }, {
+    "formId" : "samplesCount",
+    "type" : "long",
+    "name" : "Number Of Samples",
+    "value" : 1050,
+    "required" : false
+  }, {
+    "formId" : "sampleIntervalMillis",
+    "type" : "long",
+    "name" : "Sample Interval (in milliseconds)",
+    "value" : 1001,
+    "required" : false
+  }, {
+    "formId" : "resultReportFileName",
+    "type" : "string",
+    "name" : "Final Result Report File Name",
+    "value" : "ppPerfTestRunReport.xls",
+    "required" : false
+  }, {
+    "formId" : "cleanAgentDownloads",
+    "type" : "boolean",
+    "name" : "Clean Agent Downloads Before Run",
+    "value" : true,
+    "required" : false
+  }, {
+    "formId" : "processInstanceName",
+    "type" : "string",
+    "name" : "Process Instance Name",
+    "required" : false
+  }, {
+    "formId" : "processCommandLinePattern",
+    "type" : "string",
+    "name" : "Monitored Process's Command Line Pattern",
+    "value" : "-Dcom.sun.management.jmxremote.port=1099",
+    "required" : false
+  }, {
+    "formId" : "runTypePerfMonitoring",
+    "type" : "boolean",
+    "name" : "Run TypePerf Monitoring",
+    "value" : true,
+    "required" : true
+  }, {
+    "formId" : "runJmxMonitoring",
+    "type" : "boolean",
+    "name" : "Run JMX Monitoring?",
+    "value" : true,
+    "required" : true
+  }, {
+    "formId" : "runJstatMonitoring",
+    "type" : "boolean",
+    "name" : "Run Jstat Monitoring?",
+    "value" : false,
+    "required" : true
+  }, {
+    "formId" : "typePerfCounters",
+    "type" : "string",
+    "name" : "Performance Counters (sep. by comma)",
+    "value" : "\\Processor(_Total)\\% Processor Time",
+    "required" : false
+  } ],
+  "monitors" : [ ],
+  "hideNonRequiredConfigParameters" : false,
+  "active" : false,
+  "suspended" : false,
+  "hasWaitingUserTasks" : false,
+  "hasStuckJobs" : false,
+  "processStarted" : null,
+  "processEnded" : null,
+  "processInstanceId" : null,
+  "iconName" : "physicalEducation",
+  "executions" : null
+}

@@ -1,0 +1,3072 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ManagementModule xmlns:ns1="http://www.w3.org/2005/11/its" xmlns:introscope="generated://introscope.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Editable="true" Version="4.0" IsActive="true" DescriptionContentType="text/plain" xsi:noNamespaceSchemaLocation="bundle://com.wily.introscope.em/com/wily/introscope/server/enterprise/entity/bundle/IntroscopeManagementModules4.0.xsd">
+    <Name>Default</Name>
+    <Description></Description>
+    <ProcessSpecifierList>
+        <ProcessSpecifier>
+            <ProcessSpecifierRegExp>(.*)\|(.*)\|(.*)</ProcessSpecifierRegExp>
+        </ProcessSpecifier>
+    </ProcessSpecifierList>
+    <DataGroups>
+        <DataGroup xsi:type="MapEntityMetricGroupingDataGroup"/>
+        <DataGroup xsi:type="ActionDataGroup">
+            <Action IsActive="false" DescriptionContentType="text/plain">
+                <Name>Send SNMP Alert</Name>
+                <ActionName>SNMP Alert Action</ActionName>
+                <ConcreteClassData>
+                    <ParameterList/>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="false" DescriptionContentType="text/plain">
+                <Name>Call Script</Name>
+                <ActionName>ShellCommandAction</ActionName>
+                <ConcreteClassData>
+                    <ShellCommandData>
+                        <ShellCommand>shellCommand</ShellCommand>
+                        <Parameters>PASS_TEXT_TO_SHELL</Parameters>
+                    </ShellCommandData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>Trace Transaction</Name>
+                <Description>Action that will collect transaction traces when an alert threshold is violated.</Description>
+                <ActionName>TransactionTraceAction</ActionName>
+                <ConcreteClassData>
+                    <BTFilterData>
+                        <TTThreshold>100</TTThreshold>
+                        <TTDuration>1</TTDuration>
+                        <isTraceAll>false</isTraceAll>
+                        <isBusinessSegment>false</isBusinessSegment>
+                    </BTFilterData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="false" DescriptionContentType="text/plain">
+                <Name>Send eMail</Name>
+                <Description>Email action mapped to all danger alerts in the Default Management Module out-of-the-box. To enable:
+1. Configure your mail server using the link below.
+2. Check the Active Checkbox.
+3. Click Apply.
+</Description>
+                <ActionName>SendSMTPMailAction</ActionName>
+                <ConcreteClassData>
+                    <EmailData>
+                        <SMTPHost>myMailServer.host.domain</SMTPHost>
+                        <SMTPSender>sender@host.domain</SMTPSender>
+                        <SMTPRecipient>recipient@host.domain</SMTPRecipient>
+                        <SendShortText>false</SendShortText>
+                        <SendPlainText>false</SendPlainText>
+                        <SubjectText>CA APM Alert from ${EM_Host}: ${Alert_Name} in ${Alert_State} state</SubjectText>
+                        <BodyText>Alert Name: ${Alert_Name}
+Time Triggered: ${Alert_Time}
+Alert Status: ${Alert_State}
+
+Problem Details:
+${Problem_Detail_List}
+
+Link to more information about the Alert:
+${URL_Alert_Info}
+
+Links to the problem metrics or associated alerts:
+${URL_Detail_List}</BodyText>
+                        <SMTPSecureType>NONE</SMTPSecureType>
+                    </EmailData>
+                </ConcreteClassData>
+            </Action>
+        </DataGroup>
+        <DataGroup xsi:type="TriageMapAlertDataGroup"/>
+        <DataGroup xsi:type="CalculatorDataGroup"/>
+        <DataGroup xsi:type="EntityDataGroup"/>
+        <DataGroup xsi:type="introscope:AlertDowntimeScheduleDataGroup">
+            <AlertDowntimeSchedules IsActive="true" DescriptionContentType="text/plain">
+                <Name>ACME Prod Maintenance Downtime</Name>
+                <Description>ACME Prod Maintenance Downtime</Description>
+                <DowntimePolicy xsi:type="introscope:AlertListDowntimePolicy">
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Heap Used Percent</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Response Time Variance Intensity</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Transaction Errors</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Frontend Response Time</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>SQL Response Time</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>WebService Server Errors</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Browser Page Load Complete Time</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>WebService Server Response Time</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Transaction Response Time 95th</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>CPU Idle</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>WebService Client Errors</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Frontend Errors</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Frontend Stalls</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Backend Response Time</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>JMS Response Time</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Transaction Response Time Variance Intensity</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Servlet Stalls</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>System</ManagementModuleName>
+                        <ConstructName>Triage Map Backend Calls Status</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Servlet Errors</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>CPU Utilization</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>WebService Client Response Time</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Servlet Response Time</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>SQL Errors</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                    <Alerts xsi:type="AlertIDType">
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Backend Errors</ConstructName>
+                        <DomainName>SuperDomain</DomainName>
+                    </Alerts>
+                </DowntimePolicy>
+                <Schedule>
+                    <Type>WEEKLY</Type>
+                    <Duration>60</Duration>
+                    <Seconds>0</Seconds>
+                    <Minutes>0</Minutes>
+                    <Hours>2</Hours>
+                    <DayOfMonth>?</DayOfMonth>
+                    <Month>*</Month>
+                    <DayOfWeek>SUN</DayOfWeek>
+                </Schedule>
+            </AlertDowntimeSchedules>
+        </DataGroup>
+        <DataGroup xsi:type="SnmpCollectionDataGroup"/>
+        <DataGroup xsi:type="DashboardDataGroup">
+            <Dashboard PixelHeight="600" PixelWidth="1000" GridWidth="1" GridHeight="1" ClearAgentSpecifier="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name ns1:translate="yes">Welcome to APM Dashboards</Name>
+                <Name xml:lang="zh-TW">Welcome to APM Dashboards</Name>
+                <Name xml:lang="zh">Welcome to APM Dashboards</Name>
+                <Name xml:lang="ko">Welcome to APM Dashboards</Name>
+                <Name xml:lang="ja">Welcome to APM Dashboards</Name>
+                <Description ns1:translate="yes"></Description>
+                <Widget Type="RoundRectangle">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-3355444"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArcHeight">
+                        <Value xsi:type="IntegerType" Value="8"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArcWidth">
+                        <Value xsi:type="IntegerType" Value="8"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="509" YCoordinate="446"/>
+                        <CornerPoint XCoordinate="989" YCoordinate="591"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="RoundRectangle">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-3355444"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArcHeight">
+                        <Value xsi:type="IntegerType" Value="8"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArcWidth">
+                        <Value xsi:type="IntegerType" Value="8"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="2"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="10" YCoordinate="446"/>
+                        <CornerPoint XCoordinate="486" YCoordinate="591"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="RoundRectangle">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-723724"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-3355444"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArcHeight">
+                        <Value xsi:type="IntegerType" Value="8"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArcWidth">
+                        <Value xsi:type="IntegerType" Value="8"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="3"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="392" YCoordinate="14"/>
+                        <CornerPoint XCoordinate="989" YCoordinate="436"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="RoundRectangle">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14662049"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArcHeight">
+                        <Value xsi:type="IntegerType" Value="8"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArcWidth">
+                        <Value xsi:type="IntegerType" Value="8"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="4"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="12" YCoordinate="17"/>
+                        <CornerPoint XCoordinate="375" YCoordinate="439"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Welcome to APM Dashboards</TextValue>
+                        <TextValue xml:lang="zh-TW">歡迎使用 APM</TextValue>
+                        <TextValue xml:lang="zh">欢迎使用 APM。</TextValue>
+                        <TextValue xml:lang="ko">APM 시작</TextValue>
+                        <TextValue xml:lang="ja">APM へようこそ</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="WrapText">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="20"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Verdana"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="5"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="23" YCoordinate="30"/>
+                        <CornerPoint XCoordinate="353" YCoordinate="62"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">The Console allows APM data to be organized into custom dashboards. Custom dashboards can be used to:</TextValue>
+                        <TextValue xml:lang="zh-TW">針對 E.P.I.C. 策略更進一步</TextValue>
+                        <TextValue xml:lang="zh">针对 E.P.I.C. 策略更进一步</TextValue>
+                        <TextValue xml:lang="ko">E.P.I.C. 전략을 향한 일보 전진</TextValue>
+                        <TextValue xml:lang="ja">E.P.I.C. 戦略への第一歩</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="WrapText">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="14"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Verdana"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="6"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="23" YCoordinate="65"/>
+                        <CornerPoint XCoordinate="354" YCoordinate="134"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Image">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <ImageID>
+<ManagementModuleName>Default</ManagementModuleName>
+<ConstructName>caret.png #5 #3</ConstructName>
+                            </ImageID>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-9380973"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="7"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="17" YCoordinate="135"/>
+                        <CornerPoint XCoordinate="45" YCoordinate="161"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Image">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <ImageID>
+<ManagementModuleName>Default</ManagementModuleName>
+<ConstructName>caret.png #2 #6 #4</ConstructName>
+                            </ImageID>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-9380973"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="8"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="17" YCoordinate="202"/>
+                        <CornerPoint XCoordinate="45" YCoordinate="228"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Image">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <ImageID>
+<ManagementModuleName>Default</ManagementModuleName>
+<ConstructName>caret.png #3 #7 #5</ConstructName>
+                            </ImageID>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-9380973"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="9"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="17" YCoordinate="269"/>
+                        <CornerPoint XCoordinate="45" YCoordinate="295"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Group APM data into application or role specific views based on your organization.</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="WrapText">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="14"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Verdana"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="10"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="51" YCoordinate="136"/>
+                        <CornerPoint XCoordinate="344" YCoordinate="196"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Example Application Dashboard</TextValue>
+                        <TextValue xml:lang="zh-TW">了解作法</TextValue>
+                        <TextValue xml:lang="zh">了解如何</TextValue>
+                        <TextValue xml:lang="ko">유용한 작업 정보</TextValue>
+                        <TextValue xml:lang="ja">学習方法</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="WrapText">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="20"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Verdana"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-14596514"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="11"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="496" YCoordinate="24"/>
+                        <CornerPoint XCoordinate="884" YCoordinate="56"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Rectangle">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LinkList">
+                        <Value xsi:type="LinkListType">
+                            <Link>
+<WebURL>
+    <Name>Twitter</Name>
+    <URL>https://twitter.com/CAinc</URL>
+</WebURL>
+                            </Link>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="717" YCoordinate="74"/>
+                        <CornerPoint XCoordinate="783" YCoordinate="137"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Rectangle">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="13"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LinkList">
+                        <Value xsi:type="LinkListType">
+                            <Link>
+<WebURL>
+    <Name>YouTube</Name>
+    <URL>https://www.youtube.com/playlist?list=PLO7SodxCJyn6Vf9RxaYGnIqewy-Sru9Wl</URL>
+</WebURL>
+                            </Link>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="786" YCoordinate="77"/>
+                        <CornerPoint XCoordinate="841" YCoordinate="137"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Rectangle">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="14"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LinkList">
+                        <Value xsi:type="LinkListType">
+                            <Link>
+<WebURL>
+    <Name>LinkedIn</Name>
+    <URL>https://www.linkedin.com/groups/CA-APM-Global-User-Group-1139147/about</URL>
+</WebURL>
+                            </Link>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="847" YCoordinate="77"/>
+                        <CornerPoint XCoordinate="910" YCoordinate="137"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveGraph">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <MetricGroupingID>
+<ManagementModuleName>Default</ManagementModuleName>
+<ConstructName>Frontend Response Time</ConstructName>
+                            </MetricGroupingID>
+                            <TopNFilter IsActive="true" IsTop="true" FilterSize="5">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ShowMinMax">
+                        <Value xsi:type="TextType" Value="false"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="GraphPercentageSize">
+                        <Value xsi:type="IntegerType" Value="67"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="false"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="427" YCoordinate="214"/>
+                        <CornerPoint XCoordinate="681" YCoordinate="416"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveBarChart">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <MetricGroupingID>
+<ManagementModuleName>Default</ManagementModuleName>
+<ConstructName>Frontend Response Time</ConstructName>
+                            </MetricGroupingID>
+                            <TopNFilter IsActive="true" IsTop="true" FilterSize="5">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="16"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="706" YCoordinate="215"/>
+                        <CornerPoint XCoordinate="960" YCoordinate="413"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Image">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <ImageID>
+<ManagementModuleName>Default</ManagementModuleName>
+<ConstructName>Picture1.png</ConstructName>
+                            </ImageID>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-9380973"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="17"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="490" YCoordinate="54"/>
+                        <CornerPoint XCoordinate="897" YCoordinate="165"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveAlert">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <AlertID>
+<ManagementModuleName>Default</ManagementModuleName>
+<ConstructName>Response Time Variance Intensity</ConstructName>
+                            </AlertID>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="18"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TristateViewerType">
+                        <Value xsi:type="IntegerType" Value="341"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="771" YCoordinate="120"/>
+                        <CornerPoint XCoordinate="817" YCoordinate="164"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveAlert">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <AlertID>
+<ManagementModuleName>Default</ManagementModuleName>
+<ConstructName>Response Time Variance Intensity</ConstructName>
+                            </AlertID>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="19"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TristateViewerType">
+                        <Value xsi:type="IntegerType" Value="341"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="480" YCoordinate="120"/>
+                        <CornerPoint XCoordinate="526" YCoordinate="164"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveAlert">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <AlertID>
+<ManagementModuleName>Default</ManagementModuleName>
+<ConstructName>Response Time Variance Intensity</ConstructName>
+                            </AlertID>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="20"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TristateViewerType">
+                        <Value xsi:type="IntegerType" Value="341"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="616" YCoordinate="120"/>
+                        <CornerPoint XCoordinate="662" YCoordinate="164"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">This custom dashboard example and all
+default alert configurations are part of the</TextValue>
+                        <TextValue xml:lang="zh-TW">了解作法</TextValue>
+                        <TextValue xml:lang="zh">了解如何</TextValue>
+                        <TextValue xml:lang="ko">유용한 작업 정보</TextValue>
+                        <TextValue xml:lang="ja">学習方法</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="WrapText">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="16"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Verdana"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-14596514"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="21"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="54" YCoordinate="482"/>
+                        <CornerPoint XCoordinate="442" YCoordinate="551"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Default Management Module</TextValue>
+                        <TextValue xml:lang="zh-TW">了解作法</TextValue>
+                        <TextValue xml:lang="zh">了解如何</TextValue>
+                        <TextValue xml:lang="ko">유용한 작업 정보</TextValue>
+                        <TextValue xml:lang="ja">学習方法</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="WrapText">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="16"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Verdana"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-14662049"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="22"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="59" YCoordinate="524"/>
+                        <CornerPoint XCoordinate="447" YCoordinate="551"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Top 5 URL Response Times</TextValue>
+                        <TextValue xml:lang="zh-TW">了解作法</TextValue>
+                        <TextValue xml:lang="zh">了解如何</TextValue>
+                        <TextValue xml:lang="ko">유용한 작업 정보</TextValue>
+                        <TextValue xml:lang="ja">学習方法</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="WrapText">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="14"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Verdana"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-14596514"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="23"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="502" YCoordinate="177"/>
+                        <CornerPoint XCoordinate="890" YCoordinate="209"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Image">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <ImageID>
+<ManagementModuleName>Default</ManagementModuleName>
+<ConstructName>caret.png #3 #7 #5 #2</ConstructName>
+                            </ImageID>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-9380973"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="24"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="17" YCoordinate="344"/>
+                        <CornerPoint XCoordinate="45" YCoordinate="370"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Overlay APM data onto layouts built using the included pallete of shapes or by importing your own diagrams.</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="WrapText">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="14"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Verdana"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="25"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="51" YCoordinate="272"/>
+                        <CornerPoint XCoordinate="343" YCoordinate="332"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">How to Create Dashboards</TextValue>
+                        <TextValue xml:lang="zh-TW">了解作法</TextValue>
+                        <TextValue xml:lang="zh">了解如何</TextValue>
+                        <TextValue xml:lang="ko">유용한 작업 정보</TextValue>
+                        <TextValue xml:lang="ja">学習方法</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="WrapText">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="16"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Verdana"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-14596514"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="26"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LinkList">
+                        <Value xsi:type="LinkListType">
+                            <Link Default="true">
+<WebURL>
+    <Name>Create and Edit Dashboards</Name>
+    <URL>https://docops.ca.com/rest/ca/product/latest/topic?hid=HID_Create_and_edit_dashboards&amp;space=APMDEVOPS103&amp;language=&amp;format=rendered</URL>
+</WebURL>
+                            </Link>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="627" YCoordinate="517"/>
+                        <CornerPoint XCoordinate="879" YCoordinate="544"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">How to Use Management Modules</TextValue>
+                        <TextValue xml:lang="zh-TW">了解作法</TextValue>
+                        <TextValue xml:lang="zh">了解如何</TextValue>
+                        <TextValue xml:lang="ko">유용한 작업 정보</TextValue>
+                        <TextValue xml:lang="ja">学習方法</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="WrapText">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="16"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Verdana"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-14596514"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="27"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LinkList">
+                        <Value xsi:type="LinkListType">
+                            <Link Default="true">
+<WebURL>
+    <Name>Create and Use Management Modules</Name>
+    <URL>https://docops.ca.com/rest/ca/product/latest/topic?hid=HID_Create_and_Use_Management_Modules&amp;space=APMDEVOPS103&amp;language=&amp;format=rendered</URL>
+</WebURL>
+                            </Link>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="627" YCoordinate="488"/>
+                        <CornerPoint XCoordinate="938" YCoordinate="515"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Image">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <ImageID>
+<ManagementModuleName>Default</ManagementModuleName>
+<ConstructName>gear.png</ConstructName>
+                            </ImageID>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-9380973"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Helvetica"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="28"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="550" YCoordinate="478"/>
+                        <CornerPoint XCoordinate="625" YCoordinate="553"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Visualize APM metrics and alerts as simple indicators, graphs, bar charts, or text. </TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="WrapText">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="14"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Verdana"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="29"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="51" YCoordinate="206"/>
+                        <CornerPoint XCoordinate="342" YCoordinate="267"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="Label">
+                    <WidgetProperty Name="FillColor">
+                        <Value xsi:type="ColorType" Value="-14434"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ArrowMode">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Text">
+                        <TextValue ns1:translate="yes">Create triage workflows by linking custom dashboards to other dashboards or external resources.</TextValue>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FrameColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="WrapText">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="14"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="Verdana"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="30"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="51" YCoordinate="346"/>
+                        <CornerPoint XCoordinate="343" YCoordinate="409"/>
+                    </DisplayBox>
+                </Widget>
+            </Dashboard>
+        </DataGroup>
+        <DataGroup xsi:type="DifferentialControlDataGroup">
+            <DifferentialControl IsActive="true" DescriptionContentType="text/plain">
+                <Name>Differential Analysis Control</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Differential Analysis Metrics</ConstructName>
+                </MetricGroupingID>
+                <WesternElectricRuleSet>
+                    <Rule1>true</Rule1>
+                    <Rule2>true</Rule2>
+                    <Rule3>true</Rule3>
+                    <Rule4>true</Rule4>
+                </WesternElectricRuleSet>
+                <EvaluationWindowCellCount>20</EvaluationWindowCellCount>
+                <EvaluationWindowCellDecay>20</EvaluationWindowCellDecay>
+                <CautionThresholdLevel>5</CautionThresholdLevel>
+                <DangerThresholdLevel>4</DangerThresholdLevel>
+            </DifferentialControl>
+        </DataGroup>
+        <DataGroup xsi:type="AlertDataGroup">
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>CICS Average Transaction Lifetime</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>CICS Average Transaction Lifetime</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>800</CautionTargetValue>
+                <DangerTargetValue>1000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>WebService Client Errors</Name>
+                <Description>Alert triggered when the threshold is exceeded for webservice (either SOAP or REST) client-side errors.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>WebService Client Errors</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>0</CautionTargetValue>
+                <DangerTargetValue>1</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="false" DescriptionContentType="text/plain">
+                <Name>Transaction Errors NEW</Name>
+                <Description>Alert triggered when the threshold is exceeded for transaction errors.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Transaction Errors NEW</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>0</CautionTargetValue>
+                <DangerTargetValue>1</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>JMS Response Time</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>JMS Response Time</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>15</CautionTargetValue>
+                <DangerTargetValue>20</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Backend Response Time</Name>
+                <Description>Alert triggered when the threshold is exceeded for non-SQL or non-webservice backend response times.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Backend Response Time</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>1500</CautionTargetValue>
+                <DangerTargetValue>3000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Frontend Stalls</Name>
+                <Description>Alert triggered when the threshold is exceeded for frontend url group stalls. A stall is a frontend request that has not completed within a specified time (30 seconds by default). Stalls indicate a stuck thread, usually due to infinite loop, deadlock, or constrained resources.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Frontend Stalls</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>1</CautionTargetValue>
+                <DangerTargetValue>5</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>WebService Server Errors</Name>
+                <Description>Alert triggered when the threshold is exceeded for webservice server-side errors.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>WebService Server Errors</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>0</CautionTargetValue>
+                <DangerTargetValue>1</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Transaction Errors</Name>
+                <Description>Alert triggered when the threshold is exceeded for transaction errors.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Transaction Errors</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>0</CautionTargetValue>
+                <DangerTargetValue>1</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Servlet Response Time</Name>
+                <Description>Alert triggered when the threshold is exceeded for servlet response times.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Servlet Response Time</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>2000</CautionTargetValue>
+                <DangerTargetValue>4000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="false" DescriptionContentType="text/plain">
+                <Name>Response Time Variance Intensity OLD</Name>
+                <Description>Alert triggered when the threshold is exceeded for response time variance intensity. Variance intensity is a measure of stability from 10-40.
+10       : stable
+11 - 20 : relatively stable
+20 - 30 : moderately unstable
+30 - 40 : severely unstable</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>600</CautionActionDelay>
+                <DangerActionDelay>600</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Response Time Variance Intensity OLD</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>22</CautionTargetValue>
+                <DangerTargetValue>30</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>CPU Utilization</Name>
+                <Description>Alert triggered when the threshold is exceeded for CPU utilization.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>CPU Utilization</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>60</CautionTargetValue>
+                <DangerTargetValue>80</DangerTargetValue>
+                <CautionMinNumPerPeriod>4</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>4</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>4</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>4</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Transaction Response Time Variance Intensity</Name>
+                <Description>Alert triggered when the threshold is exceeded for response time variance intensity. Variance intensity is a measure of stability from 10-40.
+10       : stable
+11 - 20 : relatively stable
+20 - 30 : moderately unstable
+30 - 40 : severely unstable</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>600</CautionActionDelay>
+                <DangerActionDelay>600</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Transaction Response Time Variance Intensity</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>22</CautionTargetValue>
+                <DangerTargetValue>30</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Servlet Stalls</Name>
+                <Description>Alert triggered when the threshold is exceeded for servlet stalls. A stall is a servlet request that has not completed within a specified time (30 seconds by default). Stalls indicate a stuck thread, usually due to infinite loop, deadlock, or constrained resources.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Servlet Stalls</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>1</CautionTargetValue>
+                <DangerTargetValue>5</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Backend Errors</Name>
+                <Description>Alert triggered when the threshold is exceeded for non-SQL or non-webservice backend errors.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Backend Errors</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>0</CautionTargetValue>
+                <DangerTargetValue>1</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>SQL Errors</Name>
+                <Description>Alert triggered when the threshold is exceeded for SQL errors.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>SQL Errors</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>0</CautionTargetValue>
+                <DangerTargetValue>1</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="false" DescriptionContentType="text/plain">
+                <Name>Browser Page Load Complete Time NEW</Name>
+                <Description>Alert triggered when the threshold is exceeded for the browser to load all components and the page is complete.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Browser Page Load Complete Time NEW</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>3000</CautionTargetValue>
+                <DangerTargetValue>6000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Servlet Errors</Name>
+                <Description>Alert triggered when the threshold is exceeded for servlet errors.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Servlet Errors</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>0</CautionTargetValue>
+                <DangerTargetValue>1</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Frontend Errors</Name>
+                <Description>Alert triggered when the threshold is exceeded for frontend url group errors.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Frontend Errors</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>0</CautionTargetValue>
+                <DangerTargetValue>1</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Transaction Response Time 95th</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Transaction Response Time 95th</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>2500</CautionTargetValue>
+                <DangerTargetValue>4000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Frontend Response Time</Name>
+                <Description>Alert triggered when the threshold is exceeded for frontend url group response times.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Trace Transaction</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Frontend Response Time</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>2000</CautionTargetValue>
+                <DangerTargetValue>4000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Heap Used Percent</Name>
+                <Description>Alert triggered when the threshold is exceeded for the percentage of heap used.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Heap Used Percent</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>60</CautionTargetValue>
+                <DangerTargetValue>80</DangerTargetValue>
+                <CautionMinNumPerPeriod>16</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>16</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>16</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>16</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Response Time Variance Intensity</Name>
+                <Description>Alert triggered when the threshold is exceeded for response time variance intensity. Variance intensity is a measure of stability from 10-40.
+10       : stable
+11 - 20 : relatively stable
+20 - 30 : moderately unstable
+30 - 40 : severely unstable</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>600</CautionActionDelay>
+                <DangerActionDelay>600</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Response Time Variance Intensity</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>22</CautionTargetValue>
+                <DangerTargetValue>30</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>WebService Client Response Time</Name>
+                <Description>Alert triggered when the threshold is exceeded for webservice (either SOAP or REST) client-side response times.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>WebService Client Response Time</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>1500</CautionTargetValue>
+                <DangerTargetValue>3000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Browser Page Load Complete Time</Name>
+                <Description>Alert triggered when the threshold is exceeded for the browser to load all components and the page is complete.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Browser Page Load Complete Time</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>2500</CautionTargetValue>
+                <DangerTargetValue>4000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>SQL Response Time</Name>
+                <Description>Alert triggered when the threshold is exceeded for SQL response times.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>SQL Response Time</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>200</CautionTargetValue>
+                <DangerTargetValue>500</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>CPU Idle</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>CPU Idle</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>1</AlertCompareOperator>
+                <CautionTargetValue>10</CautionTargetValue>
+                <DangerTargetValue>10</DangerTargetValue>
+                <CautionMinNumPerPeriod>4</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>4</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>4</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>4</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>WebService Server Response Time</Name>
+                <Description>Alert triggered when the threshold is exceeded for webservice server-side response times.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>WebService Server Response Time</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>1500</CautionTargetValue>
+                <DangerTargetValue>3000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="false" DescriptionContentType="text/plain">
+                <Name>Transaction Response Time NEW</Name>
+                <Description>Alert triggered when the threshold is exceeded for transaction response times.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Transaction Response Time NEW</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>2000</CautionTargetValue>
+                <DangerTargetValue>4000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="false" DescriptionContentType="text/plain">
+                <Name>Transaction Response Time</Name>
+                <Description>Alert triggered when the threshold is exceeded for transaction response times.</Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>Default</ManagementModuleName>
+                        <ConstructName>Send eMail</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>Default</ManagementModuleName>
+                    <ConstructName>Transaction Response Time</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>2000</CautionTargetValue>
+                <DangerTargetValue>2800</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+        </DataGroup>
+        <DataGroup xsi:type="UnmonitoredComponentGroupDataGroup"/>
+        <DataGroup xsi:type="MetricGroupingDataGroup">
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Transaction Response Time</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Business Application Agent \(Virtual\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>By Business Service\|((?!\|Browser).)*:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Servlet Stalls</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets\|[^|]*:Stall Count</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Frontend Stalls</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|[^|]+\|URLs\|[^|]+:Stall Count</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>WebService Server Response Time</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>WebServices\|Server\|[^|]+\|[^|]+:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>WebService Client Errors</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>WebServices\|Client\|[^|]+\|[^|]+:Errors Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Backends\|WebService at [^|]*\|Paths\|[^|]*:Errors Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Frontend Response Time</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|[^|]+\|URLs\|[^|]+:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|[^|]+\|[^|]+\|[^|]+\|[^|]+\|URLs\|[^|]+:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>SQL Errors</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Backends\|[^|]*\|SQL\|.*:Errors Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>CICS Average Transaction Lifetime</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>CICS Regions\|.*:Average Lifetime Per Transaction \(�s\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>CPU Idle</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>CPU\|.*:Idle %</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Transaction Response Time 95th</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Business Application Agent \(Virtual\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>By Business Service\|((?!\|Browser).)*:Average Response Time 95th Percentile \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Response Time Variance Intensity</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Variance\|Default\|Differential Analysis Control\|(?!By Frontend|By Business Service).*:Average Response Time \(ms\) Variance Intensity</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Response Time Variance Intensity OLD</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Variance\|Default\|Differential Analysis Control\|.*Average Response Time \(ms\) Variance Intensity</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Frontend Errors</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|[^|]+\|URLs\|[^|]+:Errors Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Transaction Errors</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Business Application Agent \(Virtual\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>By Business Service\|((?!\|Browser).)*:Errors Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>WebService Client Response Time</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>WebServices\|Client\|[^|]+\|[^|]+:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Backends\|WebService at [^|]*\|Paths\|[^|]*:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Heap Used Percent</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>GC Monitor:Percentage of Java Heap Used</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Backend Errors</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Backends\|[^|]*\|[^|]*:Errors Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Differential Analysis Metrics</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|[^|]+\|URLs\|[^|]+:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Business Service\|[^|]+\|Business Transactions\|[^|]+:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets\|(?!AxisServlet)[^|]+:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>WebServices\|Client\|[^|]+\|[^|]+:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>By Frontend\|[^|]+\|Health:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>By Business Service\|[^|]+\|[^|]+\|[^|]+:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>ASP.NET\|[^|]+:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>WebServices\|Server\|[^|]+\|[^|]+:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Business Segment\|[^|]+\|[^|]+\|[^|]+:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Backends\|WebService at [^|]+\|Paths\|[^|]+:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>CPU Utilization</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>CPU\|Processor.*:Utilization % \(aggregate\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>PerfMon\|Processor\|[0-9]*:% Processor Time</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Browser Page Load Complete Time</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Business Application Agent \(Virtual\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>By Business Service\|.*\|Browser:Average Page Load Complete Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Servlet Response Time</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets\|[^|]*:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Browser Page Load Complete Time NEW</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Business Segment\|.*\|Browser:Average Page Load Complete Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Transaction Response Time NEW</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Business Segment\|((?!\|Browser).)*:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>JMS Response Time</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>.*\|Messaging Services.*\|Queues\|.*:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>SQL Response Time</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Backends\|[^|]*\|SQL\|.*:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>WebService Server Errors</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>WebServices\|Server\|[^|]+\|[^|]+:Errors Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Backend Response Time</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Backends\|[^|]*\|[^|]*:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Backends\|[^|]*\|[^|]*\|[^|]*\|[^|]*:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Backends\|[^|]*:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Transaction Response Time Variance Intensity</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Business Application Agent \(Virtual\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Variance\|Default\|Differential Analysis Control\|By Business Service.*:Average Response Time \(ms\) Variance Intensity</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Servlet Errors</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets\|[^|]*:Errors Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Transaction Errors NEW</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Business Segment\|((?!\|Browser).)*:Errors Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+        </DataGroup>
+        <DataGroup xsi:type="ReportDataGroup"/>
+        <DataGroup xsi:type="ImageDataGroup">
+            <Image IsActive="true" DescriptionContentType="text/plain">
+                <Name>caret.png #3 #7 #5 #2</Name>
+            </Image>
+            <Image IsActive="true" DescriptionContentType="text/plain">
+                <Name>Picture1.png</Name>
+            </Image>
+            <Image IsActive="true" DescriptionContentType="text/plain">
+                <Name>caret.png #5 #3</Name>
+            </Image>
+            <Image IsActive="true" DescriptionContentType="text/plain">
+                <Name>caret.png #3 #7 #5</Name>
+            </Image>
+            <Image IsActive="true" DescriptionContentType="text/plain">
+                <Name>gear.png</Name>
+            </Image>
+            <Image IsActive="true" DescriptionContentType="text/plain">
+                <Name>caret.png #2 #6 #4</Name>
+            </Image>
+        </DataGroup>
+    </DataGroups>
+</ManagementModule>

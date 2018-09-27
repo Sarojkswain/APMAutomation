@@ -1,0 +1,165 @@
+<h2 class="row">
+    <div class="col-sm-1">
+        <img class="dashboard-icon" src="img/network48x48.png">
+    </div>
+    <span class="col-sm-11 text-right" style="margin-top: 15px;">
+        Node List
+    </span>
+</h2>
+<h1 class="page-header">
+</h1>
+<div>
+    <p>
+        <h4>Legend</h4>
+        <span class="outdatedAgent glyphicon glyphicon-alert">&nbsp;1</span> - node runs a lower (out of date) version of the LO agent
+        <br/>
+        <span class="upToDateAgent glyphicon glyphicon-ok">&nbsp;2</span> - node runs the same version (up to date) of the LO agent which was last uploaded to LO.
+        <b>Note:</b> it might not necessarily be the ever latest version of the LO agent available.
+        <br/>
+        <span class="fresherAgent glyphicon glyphicon-arrow-up">&nbsp;3</span> - this is a fresher version of the LO agent which is even higher than the one last uploaded to LO.
+    </p>
+    <br/>
+    <p ng-show="latestAgentVersion">
+        Latest Load Orchestrator's Uploaded Agent Version: <b>{{ latestAgentVersion }}</b>
+    </p>
+    <br/>
+    <table class="table table-hover" ng-if="initNodesFinished">
+        <thead>
+        <tr class="row">
+            <th></th>
+            <th>#</th>
+            <th class="text-center">Available</th>
+            <th class="text-left">Name</th>
+            <th class="text-left">Agent Version</th>
+            <th class="text-right">Hostname</th>
+            <th class="text-right">IP4</th>
+            <th class="text-right">Last Heartbeat Response</th>
+            <th class="text-right">Last Heartbeat Request</th>
+            <th class="text-right">Time Offset (ms)</th>
+            <th class="text-right">Delete</th>
+        </tr>
+        </thead>
+        <tbody ng-repeat="node in nodeList">
+            <tr class="row">
+                <td class="text-right nodeDetailColumn">
+                    <a ng-click="nodeListController.toggleNodePlugins(node.name)"
+                       class="pointerBullet workflowDetailBulletUp"
+                       title="Click to see node agent plugins"
+                       data-toggle="button"
+                       ng-show="node.isAvailable && !node.isAgentUpdating">
+                        <span class="glyphicon "
+                              ng-class="{ 'glyphicon-menu-down' : nodePluginsExpanded[node.name], 'glyphicon-menu-right' : !nodePluginsExpanded[node.name] }"
+                              aria-hidden="true">
+                        </span>
+                    </a>
+                </td>
+                <td>{{ $index }}</td>
+                <td class="text-center nodeDetailColumn">
+                    <uib-progressbar
+                            ng-if="node.isAvailable && node.isAgentUpdating"
+                            class="progress-striped node-progress-bar active"
+                            max="14"
+                            value="14"
+                            type="info">
+                        <i>Updating..</i>
+                    </uib-progressbar>
+                    <img ng-if="!node.isAvailable || !node.isAgentUpdating"
+                         ng-src="{{ node.isAvailable ? 'img/thumbUp32x32.png' : 'img/tomb32x32.png' }}"/>
+                </td>
+                <td class="text-left nodeDetailColumn">{{ node.name }}</td>
+                <td class="text-left nodeDetailColumn">
+                    <span ng-class="{ 'outdatedAgent glyphicon glyphicon-alert' : latestAgentVersion &&
+                                                                                  node.version &&
+                                                                                  latestAgentVersion.localeCompare(node.version.toString()) > 0,
+                                      'fresherAgent glyphicon glyphicon-arrow-up' : latestAgentVersion &&
+                                                                                    node.version &&
+                                                                                    latestAgentVersion.localeCompare(node.version.toString()) < 0,
+                                      'upToDateAgent glyphicon glyphicon-ok' : latestAgentVersion &&
+                                                                               node.version &&
+                                                                               !latestAgentVersion.localeCompare(node.version.toString()) }">
+                        {{ node.version }}
+                    </span>&nbsp;
+                </td>
+                <td class="text-right nodeDetailColumn">{{ node.hostName }}</td>
+                <td class="text-right nodeDetailColumn">{{ node.ip4 }}</td>
+                <td class="text-right nodeDetailColumn">{{ node.lastHeartbeat | date : 'yyyy-MM-dd HH:mm:ss Z' }}</td>
+                <td class="text-right nodeDetailColumn">{{ node.lastHeartbeatRequest | date : 'yyyy-MM-dd HH:mm:ss Z' }}</td>
+                <td class="text-right nodeDetailColumn">
+                    {{ node.ntpTimeOffset }}
+                </td>
+                <td class="text-right">
+                    <button type="button"
+                            class="btn btn-primary"
+                            aria-label="Delete"
+                            ng-click="nodeListController.deleteNodeById(node.id)">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                </td>
+            </tr>
+
+            <tr class="row"
+                uib-collapse="!nodePluginsExpanded[node.name]">
+                <td colspan="8">
+                    <table class="table table-condensed" ng-show="showNodePlugins[node.name] && showNodePlugins[node.name].show">
+                        <thead>
+                        <tr>
+                            <th class="text-left">Name</th>
+                            <th class="text-right">Operations</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="plugin in nodeListController.getNodePlugins(node.name)">
+                            <td class="text-left"><h4>{{ plugin.name }}</h4></td>
+                            <td class="text-right">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">API&nbsp;&nbsp;</th>
+                                            <th class="text-left">&nbsp;&nbsp;Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="operation in plugin.operations">
+                                            <td class="text-left">
+                                                <a class="run-plugin-operation"
+                                                   ng-click="nodeListController.runPluginOperation(node, plugin, operation)">
+                                                    <span class="glyphicon glyphicon-play-circle"></span>
+                                                </a>&nbsp;
+                                                <b>
+                                                    <code>{{ operation.javaReturnType }}</code>
+                                                </b>&nbsp;
+                                                <samp>
+                                                    {{ formatPluginAPIOperationString(operation) }}
+                                                </samp>
+                                            </td>
+                                            <td class="text-left">
+                                                {{ operation.description }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center" ng-show="showNodePlugins[node.name] && !showNodePlugins[node.name].show">
+                        <img ng-src="{{ showNodePlugins[node.name].imgUrl }}">
+                        <div ng-show="showNodePlugins[node.name].failed" class="inline-error-text">Oops... something wrong happened, see console</div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-show="!initNodesFinished">
+        <div class="text-center">
+            <img src="img/spinner64x64.gif">
+        </div>
+    </div>
+    <div ng-show="initNodesFailed">
+        <div class="text-center">
+            <img src="img/skull64x64.png">
+            <div class="inline-error-text">Oops... something wrong happened, see console</div>
+        </div>
+    </div>
+
+</div>

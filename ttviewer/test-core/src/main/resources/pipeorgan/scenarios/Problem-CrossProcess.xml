@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE scenario SYSTEM "./dtd/PipeOrganScenario.dtd">
+
+<!-- Normal Scenario for CrossProcess Transaction. Servlet on agent1 calls webservice on agent2. -->
+
+<scenario>
+	<iterateEvent count="4" interval="100">
+      	
+		<servlet milestones="no" uri="ExecutorServlet_11" port="8080"
+			host="localhost"
+			x-apm-bt="t=4F2504E0-4F89-9B0C-0305E82C2301;d=2b6f0cc904d137be2e1730235f5664094b831186;v=1.0;n=TMobile;l=3g;g=94015-1523;a=Tomcat Example$bs=PipeOrganApp;bt=CrossProcess_Transaction;p=iOS;pv=8.1"
+			contextroot="/pipeorgan">
+				<webService
+					uri="http://crossMachine:8080/pipeorgan/services/PipeOrganWebService_11"
+					requestsize="10">
+					<message>Entered Web Service </message>
+					<custom class="com.wily.tools.pipeorgan.extensions.VariableWait"
+						args="minduration=60,maxduration=100,outlierduration=100" />
+					<message>Exiting Web Service</message>
+				</webService>
+		</servlet>
+		</servlet>
+	</iterateEvent>
+</scenario>

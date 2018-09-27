@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="logIntoCEMProcess" name="log into CEM process" isExecutable="true">
+    <startEvent id="logIntoCEMStart" name="log into CEM start" activiti:initiator="initiator">
+      <extensionElements>
+        <activiti:formProperty id="password" name="password" type="string" variable="password" required="true"></activiti:formProperty>
+        <activiti:formProperty id="user" name="user" type="string" variable="user" required="true"></activiti:formProperty>
+        <activiti:formProperty id="pageUrl" name="pageUrl" type="string" variable="pageUrl" required="true"></activiti:formProperty>
+        <activiti:formProperty id="nodeName" name="nodeName" type="string" variable="nodeName" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <scriptTask id="logIntoCEM" name="log into CEM" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import com.ca.apm.systemtest.fld.plugin.selenium.SeleniumPlugin.SelectionBy;
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+def log = LoggerFactory.getLogger("logIntoCEM") 
+
+def  plugin = agentProxyFactory.createProxy(nodeName).plugins.seleniumPluginChrome;
+
+log.info("starting session")
+
+def sessionId = plugin.startSession();
+execution.setVariable('sessionId', sessionId);
+
+log.info("got session {}", sessionId)
+
+log.info("opening URL {}", pageUrl)
+def windowId = plugin.openUrl(sessionId, pageUrl)
+execution.setVariable('windowId', windowId)
+log.info("got window {}", windowId)
+
+def pass = "";
+if (binding.variables.containsKey("password")) {
+  pass = password;
+}
+
+plugin.fillTextField(sessionId, windowId, SelectionBy.ID, "loginForm:loginId_userName", user);
+plugin.fillTextField(sessionId, windowId, SelectionBy.ID, "loginForm:loginId_passWord", pass);
+plugin.submitForm(sessionId, windowId, SelectionBy.ID, "loginForm:loginId_passWord");
+
+log.info("at the end")
+</script>
+    </scriptTask>
+    <sequenceFlow id="flow1" sourceRef="logIntoCEMStart" targetRef="logIntoCEM"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow2" sourceRef="logIntoCEM" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_logIntoCEMProcess">
+    <bpmndi:BPMNPlane bpmnElement="logIntoCEMProcess" id="BPMNPlane_logIntoCEMProcess">
+      <bpmndi:BPMNShape bpmnElement="logIntoCEMStart" id="BPMNShape_logIntoCEMStart">
+        <omgdc:Bounds height="35.0" width="35.0" x="570.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="logIntoCEM" id="BPMNShape_logIntoCEM">
+        <omgdc:Bounds height="55.0" width="105.0" x="535.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="570.0" y="300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="587.0" y="95.0"></omgdi:waypoint>
+        <omgdi:waypoint x="587.0" y="170.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="587.0" y="225.0"></omgdi:waypoint>
+        <omgdi:waypoint x="587.0" y="300.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?> 
+<agent-clusters xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="agentclusters0.1.xsd" version="0.1" >
+	
+	<agent-cluster name="TD2" domain="SuperDomain" tgtDomain="TestDomain2">
+		<agent-specifier>.*\\.*\\|.*Tomcat-.*</agent-specifier>
+		<metric-specifier>Frontends\\|.*</metric-specifier>
+	</agent-cluster>
+	
+	<agent-cluster name="TD1" domain="SuperDomain" tgtDomain="TestDomain1">
+		<agent-specifier>.*\\.*\\|.*Tomcat.*</agent-specifier>
+		<metric-specifier>Frontends\\|.*</metric-specifier>
+	</agent-cluster>
+</agent-clusters>

@@ -1,0 +1,632 @@
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+}
+
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+  border: 0;
+}
+
+.navbar, .navbar-default {
+  background-image: linear-gradient(to bottom, #fff 0, #C5C5C5 100%) !important;
+}
+
+.dashboardListMenuItem {
+  display: block;
+}
+.toggleNavBarVisibilityMenuItem {
+  display: none !important;
+}
+.topMenuItemText {
+  display: inline;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 49px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    /*border-right: 1px solid #eee;*/
+  }
+  .dashboardListMenuItem {
+    display: none !important;
+  }
+  .toggleNavBarVisibilityMenuItem {
+    display: block !important;
+  }
+  .topMenuItemText {
+    display: none !important;
+  }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+
+/*
+ * Main content
+ */
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.newDashboardButton {
+  margin-bottom: 20px;
+}
+
+.dashboard-icon {
+  width : auto;
+  height: auto;
+}
+
+.leftHandNavigationPanelButtons {
+  float: left;
+}
+
+.leftHandNavigationPanelButtons > a {
+  margin-bottom: 3px;
+}
+
+.dashboardTopButtonPanel {
+  /*margin-bottom: 50px;*/
+}
+
+.dashboardTopButtonColumn {
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.dashboardTopButtonColumn > a,
+.dashboardTopButtonColumn > button
+{
+  margin-bottom: 3px;
+}
+
+.workflowParametersHeader {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #eee;
+}
+
+.monitoringValuesHeader {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #eee;
+}
+
+.dashboardEditTitle {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.nodeSearchButton {
+  cursor: pointer;
+}
+
+.modal-backdrop {
+  height: 10000%; /* dirty hack */
+}
+
+.valueWidgetGray {
+  line-height: 120px;
+  height: 120px;
+  width: 100%;
+  display: block;
+  background-color: rgb(238, 238, 238);
+}
+
+.valueWidgetRed {
+  line-height: 120px;
+  height: 120px;
+  width: 100%;
+  display: block;
+  background-color: rgb(255, 130, 130);
+}
+
+.valueWidgetGreen {
+  line-height: 120px;
+  height: 120px;
+  width: 100%;
+  display: block;
+  background-color: rgb(107, 226, 143);
+}
+
+.valueWidgetYellow {
+  line-height: 120px;
+  height: 120px;
+  width: 100%;
+  display: block;
+  background-color: rgb(255, 228, 138);
+}
+
+.userTaskInputAlert {
+  color: rgb(179, 132, 14);
+  font-size: 42px;
+}
+
+.monitorStatus {
+  text-align: center;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.monitorLabel {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
+}
+
+.valueWidgetCloseLink {
+  margin-bottom: 25px;
+}
+
+.thumbnail div:hover {
+  text-decoration: none;
+  background-color: rgb(200, 200, 200);
+}
+
+.fld-logo-nav {
+  margin-right: 10px;
+}
+
+.new-label {
+  display: inline;
+  padding: .2em .6em .3em !important;
+  font-size: 25% !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  color: #fff !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  vertical-align: top !important;
+  border-radius: .25em !important;
+}
+
+.booleanTypeParameter {
+  text-align: right;
+}
+
+.nodeTypeParameter {
+  text-align: right;
+}
+
+.enumTypeParameter {
+  text-align: right;
+}
+
+.logPanel {
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: #fefefe;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+}
+
+.logFilterPanel {
+  min-height: 20px;
+  padding: 19px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+}
+
+.logContentPanel {
+  min-height: 20px;
+  padding: 19px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #ffffff;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+}
+
+.popover {
+  max-width: 100%; /*Max Width of the popover (depending on the container!)*/
+}
+
+table.noBorder,
+td.noBorder,
+tr.noBorder,
+th.noBorder,
+tbody.noBorder,
+thead.noBorder {
+  border-style: hidden !important;
+}
+
+.processInstanceIdFilterHighlight {
+  background-color: #e2c9a4 !important;
+}
+
+.categoryFilterHighlight {
+  background-color: #D0EDC2 !important;
+}
+
+.tagFilterHighlight {
+  background-color: #FFFFCC !important;
+}
+
+.levelFilterHighlight {
+  background-color: #B2FFFF !important;
+}
+
+.logsContainer {
+  margin-top: 30px;
+}
+
+.processProgressImageContainer {
+  margin-top: 30px;
+}
+
+.collapsibleProcessWorkflowPanel {
+  margin-top: 10px;
+}
+
+.processLaunchConfigProperty {
+  float: left;
+}
+
+.dashboardProperty {
+  float: left;
+}
+
+.expandBulletWhite {
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.hideNonRequiredConfiItemsCheckbox {
+  height: 20px;
+  width: 20px;
+}
+
+.hide-non-required-config-items {
+  background-color: #f5f5f5;
+}
+
+.file-drop-zone {
+  border: dotted 3px lightgray;
+}
+
+.nv-file-over {
+  border: dotted 3px #cb4d36;/* Default class applied to drop zones on over */
+}
+
+.file-over-highlight {
+  border: solid 4px #428bca !important;
+}
+
+.logTableEvenRowHighlight {
+  background-color: #F4EED6;
+}
+
+.logTableOddRowHighlight {
+  background-color: #D6F0F4;
+}
+
+.logTable {
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+.exceptionLogEntry {
+  background-color: rgb(255, 130, 130);
+}
+
+.processRunsDropDown,
+.processRunsDropDown > button,
+.processRunsDropDown > button > div,
+.processRunsDropDown > ul
+{
+  width: 100%;
+}
+
+.processKeyDropDown,
+.processKeyDropDown > button,
+.processKeyDropDown > button > div,
+.processKeyDropDown > ul
+{
+  width: 100%;
+}
+
+.logsAjaxDownload {
+  width: 100%;
+  height: 100%;
+  position: relative; /*required for z-index*/
+  z-index: 1000; /*puts on top of everything*/
+  /*background: url("img/spinner64x64.gif") no-repeat center center;*/
+  opacity: .5;
+}
+
+.filterSummaryValue {
+  float: left;
+}
+
+.underlinedBlock {
+  padding-bottom: 9px;
+  margin: 40px 0 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.dashboardNavigationName {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.groovyConsole {
+  width: 100%;
+  min-height: 500px;
+  background-color: #f3f5e9;
+  border: 1px solid #cccccc;
+  overflow-y: auto;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.nav, .pagination, .carousel, .panel-title a {
+  cursor: pointer;
+}
+
+.selectableConfigItemsSwitcher {
+  margin-bottom: 10px;
+}
+
+#selectableConfigItemsContainer {
+  cursor: pointer;
+}
+
+#selectableConfigItems {
+  cursor: pointer;
+}
+
+table.editableConfigItemsPanel {
+  margin-top: 30px;
+}
+
+table.readOnlyConfigItems {
+  table-layout: fixed;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.075)
+}
+
+table.readOnlyConfigItems > thead > tr > th,
+table.readOnlyConfigItems > tbody > tr > td {
+  padding: 10px 15px 10px 8px;
+  border-bottom: 1px solid #ddd;
+  overflow-x: hidden;
+}
+
+td.formPropertiesTable {
+  padding-left: 50px !important;
+}
+
+td.procDefinitionDetailOptions {
+  padding-right:  20px;
+}
+
+a.pointerBullet {
+  cursor: pointer;
+}
+
+a.workflowDetailBulletUp {
+  color: #000000;
+}
+
+a.workflowDetailBulletDown {
+  color: #aaaaaa;
+}
+
+.configParamFeedbackIcon {
+  top: 0px !important;
+}
+
+.modalTable {
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+.breakingWordModalHeader {
+  word-wrap: break-word;
+}
+
+td.nodeDetailColumn {
+  vertical-align: middle !important;
+}
+
+.dashboardConfigUploader table td:nth-child(1) {
+  max-width: 200px;
+  word-wrap: break-word;
+}
+
+.agentUploader table td:nth-child(1) {
+  max-width: 500px;
+  word-wrap: break-word;
+}
+
+.workflowUploader table td:nth-child(1) {
+  max-width: 500px;
+  word-wrap: break-word;
+}
+
+.node-progress-bar {
+  margin-bottom: 1px;
+}
+
+.outdatedAgent {
+  font-size: 110% !important;
+  color: rgb(255, 130, 130);
+}
+
+.upToDateAgent {
+  font-size: 110% !important;
+  color: rgb(34, 127, 64);
+}
+
+.fresherAgent {
+  font-size: 110% !important;
+  color: rgb(34, 127, 64);
+  font-weight: bold;
+}
+
+.unavailableNode {
+  color: rgb(255, 130, 130);
+  padding: 3px 20px;
+}
+
+.console-panel {
+  z-index: 1001;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: block;
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+  margin-bottom: 0px !important;
+  box-shadow: 1px 1px 25px;
+}
+
+.console-panel-body {
+  height: 300px;
+  overflow-y: auto;
+}
+
+.console-header-title {
+  float: left;
+}
+
+.console-visible {
+  /*color: #ffffff !important;*/
+  /*background-color: #C5C5C5 !important;*/
+}
+
+.alert-red {
+  color: #a94442;
+}
+
+.alert-log-message {
+  border-bottom: 1px dashed #C5C5C5;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.badge-danger {
+  background-color: #a94442 !important;
+}
+
+.badge-warning {
+  background-color: #E0C429 !important;
+}
+
+a.console-button {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a.remove-email {
+  cursor: pointer;
+  text-decoration: none;
+  color: #a94442;
+}
+
+a.run-plugin-operation {
+  color: #008000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.log-monitor-recipient-action-button {
+  padding: 2px 5px !important;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.inline-error-text {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}

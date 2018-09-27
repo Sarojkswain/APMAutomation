@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!-- @Tas(testBed = [ 
+    {name=com.ca.apm.testbed.atc.TeamCenterRegressionTestBed, executeOn=endUserMachine}],
+    owner = shadm01,
+    size = BIG,
+    description = 'Acceptance / Smoke suite to be executed before SAAS build. Extracted from regression2',
+    snapshotMode = 'LIVE') -->
+<suite name="testNgSmoke2TestSuite" configfailurepolicy="continue">
+    <test name="testNgSmokeTests" preserve-order="false">
+        <classes>
+            <class name="com.ca.apm.test.atc.SetupRegressionTest"/>
+
+            <!-- The single tests here are too big, CRUD-like that test everything-everything-->
+            <!--<class name="com.ca.apm.test.atc.universe.UniverseTest"/>-->
+
+            <class name="com.ca.apm.test.atc.universe.UniverseAuthorizationTest">
+                <methods>
+                    <include name="testNoAuthorization"/>
+                    <include name="testUserReadAuthorization"/>
+                    <include name="testUserManageAuthorization"/>
+                </methods>
+            </class>
+
+            <!--<class name="com.ca.apm.test.atc.filtersnavigation.DragAndDropTest" />-->
+            <!--<class name="com.ca.apm.test.atc.filtersnavigation.CreateFilter"/>-->
+            <!--<class name="com.ca.apm.test.atc.filtersnavigation.DeleteFilter" />-->
+            <!--<class name="com.ca.apm.test.atc.filtersnavigation.DisableFilter" />-->
+            <!--<class name="com.ca.apm.test.atc.filtersnavigation.EditFilter" />-->
+            <!--<class name="com.ca.apm.test.atc.filtersnavigation.FilterFilter" />-->
+
+            <class name="com.ca.apm.test.atc.filtersnavigation.Sorting"/>
+            <class name="com.ca.apm.test.atc.changedetection.ChangeEventsTest">
+                <methods>
+                    <include name="testTogglingEvents"/>
+                </methods>
+            </class>
+
+            <class name="com.ca.apm.test.atc.grouping.SemanticGroupingTest">
+                <methods>
+                    <include name="testAddPerspective"/>
+                    <include name="testSwitchPerspective"/>
+                    <include name="testAddMultiLevelPerspective"/>
+                </methods>
+            </class>
+
+            <!--<class name="com.ca.apm.test.atc.grouping.TemporaryPerspectiveTest" />-->
+            <!--<class name="com.ca.apm.test.atc.levelofdetail.LevelsOfDetailTest" />-->
+            <!--<class name="com.ca.apm.test.atc.permalink.FiltersPermalinkTest" />-->
+            <!--<class name="com.ca.apm.test.atc.permalink.TimelinePermalink" />-->
+            <!--<class name="com.ca.apm.test.atc.search.SearchTest" />-->
+            <!--<class name="com.ca.apm.test.atc.status.StatusTest"/>-->
+
+            <class name="com.ca.apm.test.atc.timeline.TimelineTest">
+                <methods>
+                    <include name="testTimeRange"/>
+                    <include name="testChangeEndTime_ModeSwitched"/>
+                </methods>
+            </class>
+
+            <class name="com.ca.apm.test.atc.timeline.ZoomingTest"/> <!-- This one should be quick - measure if possible-->
+
+            <class name="com.ca.apm.test.atc.ExpandCollapseViewsTest"/>
+
+            <!--<class name="com.ca.apm.test.atc.DeepLinkingTest" />-->
+            <class name="com.ca.apm.test.atc.DetailsPanelTest"/>
+            <!--<class name="com.ca.apm.test.atc.AboutDialogTest" />-->
+            <!--<class name="com.ca.apm.test.atc.WelcomeScreenTest" />-->
+            <!--<class name="com.ca.apm.test.atc.webview.TimeResolutionTest" />-->
+            <class name="com.ca.apm.test.atc.databrushing.DatabrushingTest"> <!-- That's filters basically-->
+                <methods>
+                    <include name="testCreateCondition"/>
+                </methods>
+            </class>
+
+            <!--<class name="com.ca.apm.test.atc.externalization.ExternalizationTest" />-->
+            <class name="com.ca.apm.test.atc.trendview.ComponentViewInDashboardTest">
+                <methods>
+                    <include name="testClickOnCardsInLiveMode"/>
+                </methods>
+            </class>
+
+            <!--<class name="com.ca.apm.test.atc.changedetection.ChangeEventsHighlightingTest"/>-->
+            <class name="com.ca.apm.test.atc.trendview.DetailViewTest"/>
+            <!--<class name="com.ca.apm.test.atc.AppMapHelpLinksTest" />-->
+        </classes>
+    </test>
+</suite>

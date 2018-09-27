@@ -1,0 +1,23 @@
+TraceOneMethodOfClass: com.ca.apm.powerpack.sysview.tools.cicstestdriver.CICSTestDriver RunUOW FrontendMarker "Apps|CICSTestDriver_RunUOW"
+TraceOneMethodOfClass: com.ca.apm.powerpack.sysview.tools.cicstestdriver.CICSTestDriver RunUOWUsingCTG BlamePointTracer "CICSTestDriver|RunUOWUsingCTG"
+TraceOneMethodOfClass: com.ca.apm.powerpack.sysview.tools.cicstestdriver.Adaptors.CTGAdaptor RunUOW BlamePointTracer "CICSTestDriver|CTGAdaptor|RunUOW"
+TraceOneMethodOfClass: com.ca.apm.powerpack.sysview.tools.cicstestdriver.Adaptors.CTGAdaptor RunExtendedTransaction BlamePointTracer "CICSTestDriver|CTGAdaptor|RunExtendedTransaction"
+TraceOneMethodOfClass: com.ca.apm.powerpack.sysview.tools.cicstestdriver.Adaptors.CTGAdaptor RunNoExtendTransaction BlamePointTracer "CICSTestDriver|CTGAdaptor|RunNoExtendTransaction"
+
+
+SetTracerClassMapping: AppMapCTGNameTracer com.wily.introscope.appmap.agent.trace.AppMapApplicationNameTracer com.wily.introscope.probebuilder.validate.ResourceNameValidator
+SetTracerParameter: AppMapCTGNameTracer applicationName CTGTestApplication
+SetTracerParameter: AppMapCTGNameTracer ownerType Application
+SetTracerParameter: AppMapCTGNameTracer useblame false
+
+TraceOneMethodOfClass: com.ca.apm.powerpack.sysview.tools.cicstestdriver.CICSTestDriver RunUOW AppMapCTGNameTracer "CICSTestDriver_RunUOW"
+SetTracerOrdering: AppMapCTGNameTracer -5001
+
+SetTracerClassMapping: AppMapCTGFrontendTracer com.wily.introscope.appmap.agent.trace.AppMapEnablingTracer com.wily.introscope.probebuilder.validate.ResourceNameValidator
+SetTracerParameter: AppMapCTGFrontendTracer nodeType GenericFrontend
+SetTracerParameter: AppMapCTGFrontendTracer nodeLevel MethodClass
+SetTracerParameter: AppMapCTGFrontendTracer ownerType Application
+SetTracerParameter: AppMapCTGFrontendTracer useblame false
+
+TraceOneMethodOfClass: com.ca.apm.powerpack.sysview.tools.cicstestdriver.CICSTestDriver RunUOW AppMapCTGFrontendTracer "CICSTestDriver_RunUOW"
+SetTracerOrdering: AppMapCTGFrontendTracer -5000

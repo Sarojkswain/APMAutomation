@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="fld.cluster.mem.monitor" name="Cluster Memory Monitor" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="momHost" name="momHost" type="string" variable="momHost" required="true"></activiti:formProperty>
+        <activiti:formProperty id="c01Host" name="c01Host" type="string" variable="c01Host" required="true"></activiti:formProperty>
+        <activiti:formProperty id="c02Host" name="c02Host" type="string" variable="c02Host" required="true"></activiti:formProperty>
+        <activiti:formProperty id="c03Host" name="c03Host" type="string" variable="c03Host" required="true"></activiti:formProperty>
+        <activiti:formProperty id="c04Host" name="c04Host" type="string" variable="c04Host" required="true"></activiti:formProperty>
+        <activiti:formProperty id="c05Host" name="c05Host" type="string" variable="c05Host" required="true"></activiti:formProperty>
+        <activiti:formProperty id="c06Host" name="c06Host" type="string" variable="c06Host" required="true"></activiti:formProperty>
+        <activiti:formProperty id="c07Host" name="c07Host" type="string" variable="c07Host" required="true"></activiti:formProperty>
+        <activiti:formProperty id="c08Host" name="c08Host" type="string" variable="c08Host" required="true"></activiti:formProperty>
+        <activiti:formProperty id="c09Host" name="c09Host" type="string" variable="c09Host" required="true"></activiti:formProperty>
+        <activiti:formProperty id="c10Host" name="c10Host" type="string" variable="c10Host" required="true"></activiti:formProperty>
+        <activiti:formProperty id="wvHost" name="wvHost" type="string" variable="wvHost" required="true"></activiti:formProperty>
+        <activiti:formProperty id="group" name="group" type="string" variable="group" required="true"></activiti:formProperty>
+        <activiti:formProperty id="orchestrator" name="orchestrator" type="string" variable="orchestrator" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <parallelGateway id="parallelgateway1" name="Parallel Gateway"></parallelGateway>
+    <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
+    <sequenceFlow id="flow25" sourceRef="startevent1" targetRef="scripttask2"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT15M</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow26" sourceRef="parallelgateway2" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+    <sequenceFlow id="flow27" sourceRef="timerintermediatecatchevent1" targetRef="scripttask2"></sequenceFlow>
+    <callActivity id="callactivity1" name="MOM mem" calledElement="fld.run.mem.agent">
+      <extensionElements>
+        <activiti:in source="momHost" target="nodeName"></activiti:in>
+        <activiti:in sourceExpression="mom" target="role"></activiti:in>
+        <activiti:in source="orchestrator" target="orchestrator"></activiti:in>
+        <activiti:in source="group" target="group"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="callactivity2" name="Col01 mem" calledElement="fld.run.mem.agent">
+      <extensionElements>
+        <activiti:in source="c01Host" target="nodeName"></activiti:in>
+        <activiti:in sourceExpression="collector01" target="role"></activiti:in>
+        <activiti:in source="orchestrator" target="orchestrator"></activiti:in>
+        <activiti:in source="group" target="group"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="callactivity3" name="Col02 mem" calledElement="fld.run.mem.agent">
+      <extensionElements>
+        <activiti:in source="c02Host" target="nodeName"></activiti:in>
+        <activiti:in sourceExpression="collector02" target="role"></activiti:in>
+        <activiti:in source="orchestrator" target="orchestrator"></activiti:in>
+        <activiti:in source="group" target="group"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="callactivity4" name="Col03 mem" calledElement="fld.run.mem.agent">
+      <extensionElements>
+        <activiti:in source="c03Host" target="nodeName"></activiti:in>
+        <activiti:in sourceExpression="collector03" target="role"></activiti:in>
+        <activiti:in source="orchestrator" target="orchestrator"></activiti:in>
+        <activiti:in source="group" target="group"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="callactivity5" name="Col04 mem" calledElement="fld.run.mem.agent">
+      <extensionElements>
+        <activiti:in source="c04Host" target="nodeName"></activiti:in>
+        <activiti:in sourceExpression="collector04" target="role"></activiti:in>
+        <activiti:in source="orchestrator" target="orchestrator"></activiti:in>
+        <activiti:in source="group" target="group"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="callactivity6" name="Col05 mem" calledElement="fld.run.mem.agent">
+      <extensionElements>
+        <activiti:in source="c05Host" target="nodeName"></activiti:in>
+        <activiti:in sourceExpression="collector05" target="role"></activiti:in>
+        <activiti:in source="orchestrator" target="orchestrator"></activiti:in>
+        <activiti:in source="group" target="group"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="callactivity7" name="Col06 mem" calledElement="fld.run.mem.agent">
+      <extensionElements>
+        <activiti:in source="c06Host" target="nodeName"></activiti:in>
+        <activiti:in sourceExpression="collector06" target="role"></activiti:in>
+        <activiti:in source="orchestrator" target="orchestrator"></activiti:in>
+        <activiti:in source="group" target="group"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="callactivity8" name="Col07 mem" calledElement="fld.run.mem.agent">
+      <extensionElements>
+        <activiti:in source="c07Host" target="nodeName"></activiti:in>
+        <activiti:in sourceExpression="collector07" target="role"></activiti:in>
+        <activiti:in source="orchestrator" target="orchestrator"></activiti:in>
+        <activiti:in source="group" target="group"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="callactivity9" name="Col08 mem" calledElement="fld.run.mem.agent">
+      <extensionElements>
+        <activiti:in source="c08Host" target="nodeName"></activiti:in>
+        <activiti:in sourceExpression="collector08" target="role"></activiti:in>
+        <activiti:in source="orchestrator" target="orchestrator"></activiti:in>
+        <activiti:in source="group" target="group"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="callactivity10" name="Col09 mem" calledElement="fld.run.mem.agent">
+      <extensionElements>
+        <activiti:in source="c09Host" target="nodeName"></activiti:in>
+        <activiti:in sourceExpression="collector09" target="role"></activiti:in>
+        <activiti:in source="orchestrator" target="orchestrator"></activiti:in>
+        <activiti:in source="group" target="group"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="callactivity11" name="Col10 mem" calledElement="fld.run.mem.agent">
+      <extensionElements>
+        <activiti:in source="c10Host" target="nodeName"></activiti:in>
+        <activiti:in sourceExpression="collector10" target="role"></activiti:in>
+        <activiti:in source="orchestrator" target="orchestrator"></activiti:in>
+        <activiti:in source="group" target="group"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="callactivity12" name="WebView mem" calledElement="fld.run.mem.agent">
+      <extensionElements>
+        <activiti:in source="wvHost" target="nodeName"></activiti:in>
+        <activiti:in sourceExpression="webview" target="role"></activiti:in>
+        <activiti:in source="orchestrator" target="orchestrator"></activiti:in>
+        <activiti:in source="group" target="group"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <sequenceFlow id="flow28" sourceRef="parallelgateway1" targetRef="callactivity1"></sequenceFlow>
+    <sequenceFlow id="flow29" sourceRef="callactivity1" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow30" sourceRef="parallelgateway1" targetRef="callactivity2"></sequenceFlow>
+    <sequenceFlow id="flow31" sourceRef="callactivity2" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow32" sourceRef="parallelgateway1" targetRef="callactivity3"></sequenceFlow>
+    <sequenceFlow id="flow33" sourceRef="parallelgateway1" targetRef="callactivity4"></sequenceFlow>
+    <sequenceFlow id="flow34" sourceRef="callactivity4" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow35" sourceRef="parallelgateway1" targetRef="callactivity5"></sequenceFlow>
+    <sequenceFlow id="flow36" sourceRef="parallelgateway1" targetRef="callactivity7"></sequenceFlow>
+    <sequenceFlow id="flow37" sourceRef="callactivity5" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow38" sourceRef="parallelgateway1" targetRef="callactivity6"></sequenceFlow>
+    <sequenceFlow id="flow39" sourceRef="callactivity6" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow40" sourceRef="callactivity7" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow41" sourceRef="parallelgateway1" targetRef="callactivity8"></sequenceFlow>
+    <sequenceFlow id="flow42" sourceRef="callactivity8" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow43" sourceRef="parallelgateway1" targetRef="callactivity9"></sequenceFlow>
+    <sequenceFlow id="flow44" sourceRef="callactivity9" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow45" sourceRef="parallelgateway1" targetRef="callactivity10"></sequenceFlow>
+    <sequenceFlow id="flow46" sourceRef="callactivity10" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow47" sourceRef="parallelgateway1" targetRef="callactivity11"></sequenceFlow>
+    <sequenceFlow id="flow48" sourceRef="callactivity11" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow49" sourceRef="parallelgateway1" targetRef="callactivity12"></sequenceFlow>
+    <sequenceFlow id="flow50" sourceRef="callactivity12" targetRef="parallelgateway2"></sequenceFlow>
+    <scriptTask id="scripttask2" name="Start GC harvesting" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+def log = LoggerFactory.getLogger("ClusterMemoryMonitor")
+log.info("Start GC chart harvesting.")
+</script>
+    </scriptTask>
+    <sequenceFlow id="flow53" sourceRef="scripttask2" targetRef="parallelgateway1"></sequenceFlow>
+    <sequenceFlow id="flow54" sourceRef="callactivity3" targetRef="parallelgateway2"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.cluster.mem.monitor">
+    <bpmndi:BPMNPlane bpmnElement="fld.cluster.mem.monitor" id="BPMNPlane_fld.cluster.mem.monitor">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway1" id="BPMNShape_parallelgateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="230.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway2" id="BPMNShape_parallelgateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="910.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="575.0" y="530.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callactivity1" id="BPMNShape_callactivity1">
+        <omgdc:Bounds height="55.0" width="105.0" x="390.0" y="40.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callactivity2" id="BPMNShape_callactivity2">
+        <omgdc:Bounds height="55.0" width="105.0" x="570.0" y="67.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callactivity3" id="BPMNShape_callactivity3">
+        <omgdc:Bounds height="55.0" width="105.0" x="750.0" y="94.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callactivity4" id="BPMNShape_callactivity4">
+        <omgdc:Bounds height="55.0" width="105.0" x="390.0" y="148.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callactivity5" id="BPMNShape_callactivity5">
+        <omgdc:Bounds height="55.0" width="105.0" x="570.0" y="174.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callactivity6" id="BPMNShape_callactivity6">
+        <omgdc:Bounds height="55.0" width="105.0" x="750.0" y="202.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callactivity7" id="BPMNShape_callactivity7">
+        <omgdc:Bounds height="55.0" width="105.0" x="390.0" y="256.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callactivity8" id="BPMNShape_callactivity8">
+        <omgdc:Bounds height="55.0" width="105.0" x="570.0" y="283.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callactivity9" id="BPMNShape_callactivity9">
+        <omgdc:Bounds height="55.0" width="105.0" x="750.0" y="310.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callactivity10" id="BPMNShape_callactivity10">
+        <omgdc:Bounds height="55.0" width="105.0" x="390.0" y="364.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callactivity11" id="BPMNShape_callactivity11">
+        <omgdc:Bounds height="55.0" width="105.0" x="570.0" y="390.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callactivity12" id="BPMNShape_callactivity12">
+        <omgdc:Bounds height="55.0" width="105.0" x="750.0" y="418.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask2" id="BPMNShape_scripttask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="65.0" y="162.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="117.0" y="95.0"></omgdi:waypoint>
+        <omgdi:waypoint x="117.0" y="162.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="950.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="987.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="987.0" y="547.0"></omgdi:waypoint>
+        <omgdi:waypoint x="610.0" y="547.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
+        <omgdi:waypoint x="575.0" y="547.0"></omgdi:waypoint>
+        <omgdi:waypoint x="117.0" y="547.0"></omgdi:waypoint>
+        <omgdi:waypoint x="117.0" y="217.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
+        <omgdi:waypoint x="250.0" y="170.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="67.0"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="67.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
+        <omgdi:waypoint x="495.0" y="67.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="67.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="170.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
+        <omgdi:waypoint x="250.0" y="170.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="94.0"></omgdi:waypoint>
+        <omgdi:waypoint x="570.0" y="94.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
+        <omgdi:waypoint x="675.0" y="94.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="94.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="170.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
+        <omgdi:waypoint x="250.0" y="170.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="121.0"></omgdi:waypoint>
+        <omgdi:waypoint x="750.0" y="121.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
+        <omgdi:waypoint x="270.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="308.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow34" id="BPMNEdge_flow34">
+        <omgdi:waypoint x="495.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="878.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="910.0" y="190.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
+        <omgdi:waypoint x="270.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="318.0" y="201.0"></omgdi:waypoint>
+        <omgdi:waypoint x="570.0" y="201.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
+        <omgdi:waypoint x="250.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="283.0"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="283.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
+        <omgdi:waypoint x="675.0" y="201.0"></omgdi:waypoint>
+        <omgdi:waypoint x="872.0" y="201.0"></omgdi:waypoint>
+        <omgdi:waypoint x="910.0" y="190.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
+        <omgdi:waypoint x="250.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="229.0"></omgdi:waypoint>
+        <omgdi:waypoint x="750.0" y="229.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
+        <omgdi:waypoint x="855.0" y="229.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="229.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
+        <omgdi:waypoint x="495.0" y="283.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="283.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">
+        <omgdi:waypoint x="250.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="310.0"></omgdi:waypoint>
+        <omgdi:waypoint x="570.0" y="310.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow42" id="BPMNEdge_flow42">
+        <omgdi:waypoint x="675.0" y="310.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="310.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow43" id="BPMNEdge_flow43">
+        <omgdi:waypoint x="250.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="337.0"></omgdi:waypoint>
+        <omgdi:waypoint x="750.0" y="337.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow44" id="BPMNEdge_flow44">
+        <omgdi:waypoint x="855.0" y="337.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="337.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow45" id="BPMNEdge_flow45">
+        <omgdi:waypoint x="250.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="391.0"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="391.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow46" id="BPMNEdge_flow46">
+        <omgdi:waypoint x="495.0" y="391.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="391.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow47" id="BPMNEdge_flow47">
+        <omgdi:waypoint x="250.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="417.0"></omgdi:waypoint>
+        <omgdi:waypoint x="570.0" y="417.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow48" id="BPMNEdge_flow48">
+        <omgdi:waypoint x="675.0" y="417.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="417.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow49" id="BPMNEdge_flow49">
+        <omgdi:waypoint x="250.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="445.0"></omgdi:waypoint>
+        <omgdi:waypoint x="750.0" y="445.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow50" id="BPMNEdge_flow50">
+        <omgdi:waypoint x="855.0" y="445.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="445.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow53" id="BPMNEdge_flow53">
+        <omgdi:waypoint x="170.0" y="189.0"></omgdi:waypoint>
+        <omgdi:waypoint x="230.0" y="190.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow54" id="BPMNEdge_flow54">
+        <omgdi:waypoint x="855.0" y="121.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="121.0"></omgdi:waypoint>
+        <omgdi:waypoint x="930.0" y="170.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

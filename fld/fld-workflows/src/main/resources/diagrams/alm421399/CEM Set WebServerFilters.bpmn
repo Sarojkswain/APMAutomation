@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="fld.cem.set.webserverfiltres" name="CEM Set WebServerFiltres" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="nodeName" name="nodeName" type="string" variable="nodeName" default="FILJA01W7" required="true"></activiti:formProperty>
+        <activiti:formProperty id="tesshost" name="Tess host" type="string" variable="tesshost" default="fldmom01c.ca.com" required="true"></activiti:formProperty>
+        <activiti:formProperty id="userName" name="User name to CEM" type="string" variable="userName" default="admin" required="true"></activiti:formProperty>
+        <activiti:formProperty id="userPass" name="User pass to CEM" type="string" variable="userPass"></activiti:formProperty>
+        <activiti:formProperty id="ipRangeFrom" name="IP adress from" type="string" variable="ipRangeFrom" default="130.119.68.62" required="true"></activiti:formProperty>
+        <activiti:formProperty id="ipRangeTo" name="IP adress to" type="string" variable="ipRangeTo" default="130.119.68.62" required="true"></activiti:formProperty>
+        <activiti:formProperty id="jbossName" name="JBoss name in Filtres" type="string" variable="jbossName" default="fldtim01 - fldwls01c-jboss" required="true"></activiti:formProperty>
+        <activiti:formProperty id="wblName" name="WBL name in Filtres" type="string" variable="wblName" default="medrec" required="true"></activiti:formProperty>
+        <activiti:formProperty id="jbPort" name="JBoss Port" type="long" variable="jbPort" default="8080" required="true"></activiti:formProperty>
+        <activiti:formProperty id="wblPort" name="WBL Port" type="long" variable="wblPort" default="7011" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <scriptTask id="OpenWindowAndLogin" name="Open Window And Login" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>
+import com.ca.apm.systemtest.fld.plugin.selenium.SeleniumPlugin.SelectionBy;
+
+def proxy = agentProxyFactory.createProxy(nodeName);
+def sl = proxy.plugins.seleniumPluginChrome;
+
+def sessionId = sl.startSession();
+execution.setVariable('sessionId', sessionId);
+
+def windowId = sl.openUrl(sessionId, "http://"+tesshost+":8081/wily/cem/tess/app/admin/webServerList.html");
+execution.setVariable('windowId', windowId);
+
+// login
+sl.fillTextField(sessionId, windowId, SelectionBy.ID, "loginForm:loginId_userName", userName);
+def pass = "";
+if (binding.variables.containsKey("userPass")) {
+  pass = userPass;
+}
+sl.fillTextField(sessionId, windowId, SelectionBy.ID, "loginForm:loginId_passWord", pass);
+sl.click(sessionId, windowId, SelectionBy.ID, "loginForm:loginId_loginButton");
+      </script>
+    </scriptTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="OpenWindowAndLogin"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow2" sourceRef="OpenWindowAndLogin" targetRef="ChechFiltres"></sequenceFlow>
+    <scriptTask id="ChechFiltres" name="Chech Filtres" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>
+import com.ca.apm.systemtest.fld.plugin.selenium.SeleniumPlugin.SelectionBy;
+
+def proxy = agentProxyFactory.createProxy(nodeName);
+def sl = proxy.plugins.seleniumPluginChrome;
+
+def listFiltres = [];
+try {
+  listFiltres = sl.tableContent(sessionId, windowId, SelectionBy.ID, "webserverfilter");
+} catch (e) {} 
+
+def ipRange1 = ipRangeFrom + " - " + ipRangeTo + ":" + jbPort;
+def ipRange2 = ipRangeFrom + " - " + ipRangeTo + ":" + wblPort;
+def checkFiltres = 0;
+if (listFiltres.contains(ipRange1)){
+  checkFiltres += 1;
+}
+if (listFiltres.contains(ipRange2)){
+  checkFiltres += 2;
+} 
+execution.setVariable('checkFiltres', checkFiltres);
+
+      </script>
+    </scriptTask>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow3" sourceRef="ChechFiltres" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow4" name="Ready" sourceRef="exclusivegateway1" targetRef="CloseSession">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${checkFiltres == 3}]]></conditionExpression>
+    </sequenceFlow>
+    <scriptTask id="SetFiltres" name="Set Filtres" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>
+import com.ca.apm.systemtest.fld.plugin.selenium.SeleniumPlugin.SelectionBy;
+
+def proxy = agentProxyFactory.createProxy(nodeName);
+def sl = proxy.plugins.seleniumPluginChrome;
+
+def addFilter(sl, name, port, tim) {
+  sl.click(sessionId, windowId, SelectionBy.NAME, "new");
+  sl.fillTextField(sessionId, windowId, SelectionBy.ID, "name", name);
+  sl.fillTextField(sessionId, windowId, SelectionBy.ID, "fromIpAddressAsString", ipRangeFrom);
+  sl.fillTextField(sessionId, windowId, SelectionBy.ID, "toIpAddressAsString", ipRangeTo);
+  sl.fillTextField(sessionId, windowId, SelectionBy.ID, "port", port.toString());
+  sl.selectOption(sessionId, windowId, SelectionBy.ID, "monitor", tim);
+  sl.click(sessionId, windowId, SelectionBy.NAME, "_finish");
+}
+if (checkFiltres.mod(2) == 0) {
+  addFilter(sl, jbossName, jbPort, "700000000000000010");
+}
+if (checkFiltres.mod(2) &lt;= 1) {
+  addFilter(sl, wblName, wblPort, "700000000000000011");
+}
+      </script>
+    </scriptTask>
+    <sequenceFlow id="flow5" name="Add filtres" sourceRef="exclusivegateway1" targetRef="SetFiltres">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${checkFiltres < 3}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="SetFiltres" targetRef="CloseSession"></sequenceFlow>
+    <scriptTask id="CloseSession" name="Close Session" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>
+def proxy = agentProxyFactory.createProxy(nodeName);
+def sl = proxy.plugins.seleniumPluginChrome;
+
+sl.closeSession(sessionId);
+      </script>
+    </scriptTask>
+    <sequenceFlow id="flow7" sourceRef="CloseSession" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.cem.set.webserverfiltres">
+    <bpmndi:BPMNPlane bpmnElement="fld.cem.set.webserverfiltres" id="BPMNPlane_fld.cem.set.webserverfiltres">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="470.0" y="80.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="OpenWindowAndLogin" id="BPMNShape_OpenWindowAndLogin">
+        <omgdc:Bounds height="70.0" width="105.0" x="435.0" y="167.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="470.0" y="494.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ChechFiltres" id="BPMNShape_ChechFiltres">
+        <omgdc:Bounds height="60.0" width="108.0" x="600.0" y="172.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="633.0" y="285.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="SetFiltres" id="BPMNShape_SetFiltres">
+        <omgdc:Bounds height="55.0" width="105.0" x="435.0" y="278.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="CloseSession" id="BPMNShape_CloseSession">
+        <omgdc:Bounds height="55.0" width="105.0" x="435.0" y="390.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="487.0" y="115.0"></omgdi:waypoint>
+        <omgdi:waypoint x="487.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="540.0" y="202.0"></omgdi:waypoint>
+        <omgdi:waypoint x="600.0" y="202.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="654.0" y="232.0"></omgdi:waypoint>
+        <omgdi:waypoint x="653.0" y="285.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="653.0" y="325.0"></omgdi:waypoint>
+        <omgdi:waypoint x="487.0" y="390.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="12.0" width="31.0" x="663.0" y="325.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="633.0" y="305.0"></omgdi:waypoint>
+        <omgdi:waypoint x="540.0" y="305.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="12.0" width="50.0" x="643.0" y="305.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="487.0" y="333.0"></omgdi:waypoint>
+        <omgdi:waypoint x="487.0" y="390.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="487.0" y="445.0"></omgdi:waypoint>
+        <omgdi:waypoint x="487.0" y="494.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

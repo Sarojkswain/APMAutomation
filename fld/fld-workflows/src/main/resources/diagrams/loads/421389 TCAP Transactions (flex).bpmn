@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="fld.tcap.transactions.flex" name="TCAP transactions (flex)" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="agentNode" name="agentNode" type="node" variable="agentNode" required="true"></activiti:formProperty>
+        <activiti:formProperty id="pcapFilesGroupId" name="pcapFilesGroupId" type="string" variable="pcapFilesGroupId" default="com.ca.apm.fld" required="true"></activiti:formProperty>
+        <activiti:formProperty id="pcapFilesArtifactId" name="pcapFilesArtifactId" type="string" variable="pcapFilesArtifactId" default="flex-pcap" required="true"></activiti:formProperty>
+        <activiti:formProperty id="pcapFilesVersion" name="pcapFilesVersion" type="string" variable="pcapFilesVersion" default="1.0" required="true"></activiti:formProperty>
+        <activiti:formProperty id="pcapFile" name="pcapFile" type="string" variable="pcapFile" default="binary-100K-400bt.pcap" required="true"></activiti:formProperty>
+        <activiti:formProperty id="tcpreplayOptions" name="tcpreplayOptions" type="string" variable="tcpreplayOptions" default="-i lo -M 10 -l 0" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <scriptTask id="asyncStart" name="Async start" activiti:async="true" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>
+        Thread.sleep(1);
+      </script>
+    </scriptTask>
+    <scriptTask id="checkIfTcpreplayIsInstalled" name="Check if tcpreplay is installed" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>
+        def proxy = agentProxyFactory.createProxy(agentNode.getName());
+        def pcapPlugin = proxy.plugins.pcapPlugin;
+        execution.setVariable('checkPcapResult', pcapPlugin.checkPcap().name());
+      </script>
+    </scriptTask>
+    <scriptTask id="installTcpReplay" name="Install tcpreplay" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>
+        def proxy = agentProxyFactory.createProxy(agentNode.getName());
+        def pcapPlugin = proxy.plugins.pcapPlugin;
+        pcapPlugin.installTcpReplay();
+      </script>
+    </scriptTask>
+    <scriptTask id="runTcpReplay" name="Run tcpreplay" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>
+        def proxy = agentProxyFactory.createProxy(agentNode.getName());
+        def pcapPlugin = proxy.plugins.pcapPlugin;
+        pcapPlugin.downloadPcapFilesFromArtifactory(pcapFilesGroupId, pcapFilesArtifactId, pcapFilesVersion);
+        execution.setVariable('tcpreplayPid', pcapPlugin.runTcpReplay(tcpreplayOptions, pcapFile));
+ 	  </script>
+    </scriptTask>
+    <receiveTask id="waitForSignal" name="Wait for signal before killing tcpreplay"></receiveTask>
+    <scriptTask id="killTcpReplay" name="Kill tcpreplay" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>
+        def proxy = agentProxyFactory.createProxy(agentNode.getName());
+        def pcapPlugin = proxy.plugins.pcapPlugin;
+        pcapPlugin.killTcpReplay(tcpreplayPid);
+      </script>
+    </scriptTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="asyncStart"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="asyncStart" targetRef="checkIfTcpreplayIsInstalled"></sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="installTcpReplay" targetRef="runTcpReplay"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="runTcpReplay" targetRef="waitForSignal"></sequenceFlow>
+    <sequenceFlow id="flow8" sourceRef="waitForSignal" targetRef="killTcpReplay"></sequenceFlow>
+    <sequenceFlow id="flow9" sourceRef="killTcpReplay" targetRef="endevent1"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway" default="flow13"></exclusiveGateway>
+    <sequenceFlow id="flow10" sourceRef="checkIfTcpreplayIsInstalled" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow11" name="not installed" sourceRef="exclusivegateway1" targetRef="installTcpReplay">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${checkPcapResult == "NOT_INSTALLED"}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow12" name="installed" sourceRef="exclusivegateway1" targetRef="runTcpReplay">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${checkPcapResult == "INSTALLED"}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow13" name="wrong OS" sourceRef="exclusivegateway1" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.tcap.transactions.flex">
+    <bpmndi:BPMNPlane bpmnElement="fld.tcap.transactions.flex" id="BPMNPlane_fld.tcap.transactions.flex">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="459.0" y="50.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="80.0" y="285.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="asyncStart" id="BPMNShape_asyncStart">
+        <omgdc:Bounds height="65.0" width="105.0" x="424.0" y="140.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkIfTcpreplayIsInstalled" id="BPMNShape_checkIfTcpreplayIsInstalled">
+        <omgdc:Bounds height="65.0" width="105.0" x="210.0" y="140.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="installTcpReplay" id="BPMNShape_installTcpReplay">
+        <omgdc:Bounds height="65.0" width="105.0" x="424.0" y="272.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="runTcpReplay" id="BPMNShape_runTcpReplay">
+        <omgdc:Bounds height="65.0" width="105.0" x="424.0" y="389.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="waitForSignal" id="BPMNShape_waitForSignal">
+        <omgdc:Bounds height="81.0" width="105.0" x="219.0" y="500.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="killTcpReplay" id="BPMNShape_killTcpReplay">
+        <omgdc:Bounds height="65.0" width="105.0" x="45.0" y="389.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="242.0" y="284.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="476.0" y="85.0"></omgdi:waypoint>
+        <omgdi:waypoint x="476.0" y="140.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="424.0" y="172.0"></omgdi:waypoint>
+        <omgdi:waypoint x="315.0" y="172.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="476.0" y="337.0"></omgdi:waypoint>
+        <omgdi:waypoint x="476.0" y="389.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="476.0" y="454.0"></omgdi:waypoint>
+        <omgdi:waypoint x="271.0" y="500.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="271.0" y="500.0"></omgdi:waypoint>
+        <omgdi:waypoint x="97.0" y="454.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="97.0" y="389.0"></omgdi:waypoint>
+        <omgdi:waypoint x="97.0" y="320.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="262.0" y="205.0"></omgdi:waypoint>
+        <omgdi:waypoint x="262.0" y="284.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="282.0" y="304.0"></omgdi:waypoint>
+        <omgdi:waypoint x="424.0" y="304.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="57.0" x="299.0" y="284.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="262.0" y="324.0"></omgdi:waypoint>
+        <omgdi:waypoint x="271.0" y="421.0"></omgdi:waypoint>
+        <omgdi:waypoint x="424.0" y="421.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="39.0" x="281.0" y="374.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="242.0" y="304.0"></omgdi:waypoint>
+        <omgdi:waypoint x="115.0" y="302.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="50.0" x="150.0" y="285.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

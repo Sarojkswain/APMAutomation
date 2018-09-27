@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.ca.com/apm/systemtest/fld">
+  <message id="stop.monitor.loads" name="stop.monitor.loads"></message>
+  <message id="stop.daily.tests" name="stop.daily.tests"></message>
+  <process id="fld.main" name="Full Load Duration Test" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="fld.em.truss.server" name="fld.em.truss.server" type="string" default="truss.ca.com" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.em.truss.codeName" name="fld.em.truss.codeName" type="string" default="99.99.sys-ISCP" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.em.truss.buildNumber" name="fld.em.truss.buildNumber" type="string" default="000048" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.em.truss.buildId" name="fld.em.truss.buildId" type="string" default="99.99.0.sys" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.em.truss.osgi.buildId" name="fld.em.truss.osgi.buildId" type="string" default="99.99.0.0" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.em.install.dir" name="fld.em.install.dir" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.em.logs.dir" name="fld.em.logs.dir" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.db.host" name="fld.db.host" type="node" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.db.port" name="fld.db.port" type="long" default="5432" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.db.sid" name="fld.db.sid" type="string" default="cemdb" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.db.sid.agc" name="fld.db.sid.agc" type="string" default="agccemdb" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.db.username" name="fld.db.username" type="string" default="admin" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.db.password" name="fld.db.password" type="string" default="password" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.db.admin.username" name="fld.db.admin.username" type="string" default="postgres" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.db.admin.password" name="fld.db.admin.password" type="string" default="password" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.db.dbConfigImportTargetRelease" name="fld.db.dbConfigImportTargetRelease" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.mom.node" name="fld.mom.node" type="node" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.mom.installDir" name="fld.mom.installDir" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.mom.heapSize" name="fld.mom.heapSize" type="long"></activiti:formProperty>
+        <activiti:formProperty id="fld.mom.jvmExtraArgs" name="fld.mom.jvmExtraArgs" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.mom.eemHost" name="fld.mom.eemHost" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.mom.eemPassword" name="fld.mom.eemPassword" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.em.autoSkip" name="fld.em.autoSkip" type="boolean" default="true" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.em01.node" name="fld.em01.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.em02.node" name="fld.em02.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.em03.node" name="fld.em03.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.em04.node" name="fld.em04.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.em05.node" name="fld.em05.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.em06.node" name="fld.em06.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.em07.node" name="fld.em07.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.em08.node" name="fld.em08.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.em09.node" name="fld.em09.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.em10.node" name="fld.em10.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.webview.node" name="fld.webview.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.agc.node" name="fld.agc.node" type="node" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.agc.installDir" name="fld.agc.installDir" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.agc.em.node" name="fld.agc.em.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.mom02.node" name="fld.mom02.node" type="node" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.mom02.em01.node" name="fld.mom02.em01.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.mom02.em02.node" name="fld.mom02.em02.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.tim.nodes" name="fld.tim.nodes" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.tim.truss.base.url" name="fld.tim.truss.base.url" type="string" default="http://truss.ca.com/builds/InternalBuilds" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.tim.truss.codeName" name="fld.tim.truss.codeName" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.tim.truss.buildNumber" name="fld.tim.truss.buildNumber" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.tim.truss.buildId" name="fld.tim.truss.buildId" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.tim.truss.fileName" name="fld.tim.truss.fileName" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.tim.truss.installDir" name="fld.tim.truss.installDir" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.tim.truss.networkInterface" name="fld.tim.truss.networkInterface" type="string" default="eth2" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.mm.url" name="fld.mm.url" type="string" default="http://artifactory-emea-cz.ca.com:8081/artifactory/apm-integration-local/com/ca/apm/systemtest/fld/management-modules/99.99.aquarius-SNAPSHOT/management-modules-99.99.aquarius-20150722.113505-90-dist.zip" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.tomcat6.node" name="fld.tomcat6.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.tomcat6.serverId" name="fld.tomcat6.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.tomcat7.node" name="fld.tomcat7.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.tomcat7.serverId" name="fld.tomcat7.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.tomcat0w.node" name="fld.tomcat0w.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.tomcat0w.serverId" name="fld.tomcat0w.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.tomcat1w.node" name="fld.tomcat1w.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.tomcat1w.serverId" name="fld.tomcat1w.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.was1.node" name="fld.was1.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.was1.serverId" name="fld.was1.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.wls1w1.node" name="fld.wls1w1.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.wls1w1.serverId" name="fld.wls1w1.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.wls1w2.node" name="fld.wls1w2.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.wls1w2.serverId" name="fld.wls1w2.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.wls2w1.node" name="fld.wls2w1.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.wls2w1.serverId" name="fld.wls2w1.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.wls2w2.node" name="fld.wls2w2.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.wls2w2.serverId" name="fld.wls2w2.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.jboss6.node" name="fld.jboss6.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.jboss6.serverId" name="fld.jboss6.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.jboss7.node" name="fld.jboss7.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.jboss7.serverId" name="fld.jboss7.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.mom.port" name="fld.mom.port" type="long" default="5001" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.agent.specification" name="fld.agent.specification" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.memmon.group" name="fld.memmon.group" type="string" default="DEMO" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.em.noinstaller.specification" name="fld.em.noinstaller.specification" type="string" default="truss:10.1.0:990003:10.1.0.3" required="true"></activiti:formProperty>
+        <activiti:formProperty id="pauseBeforeStartCluster" name="Pause before starting cluster" type="boolean" variable="pauseBeforeStartCluster" default="false"></activiti:formProperty>
+        <activiti:formProperty id="fld.pause.before.load" name="Pause before starting load" type="boolean" variable="pauseBeforeStartLoad" default="false"></activiti:formProperty>
+        <activiti:formProperty id="fld.tim.btstats.wait" name="fld.tim.btstats.wait" type="string" default="7"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <callActivity id="call.install.apm.cluster" name="Install Cluster" calledElement="fld.install.apm.cluster">
+      <extensionElements>
+        <activiti:in source="fld.em.truss.server" target="fld.em.truss.server"></activiti:in>
+        <activiti:in source="fld.em.truss.codeName" target="fld.em.truss.codeName"></activiti:in>
+        <activiti:in source="fld.em.truss.buildNumber" target="fld.em.truss.buildNumber"></activiti:in>
+        <activiti:in source="fld.em.truss.buildId" target="fld.em.truss.buildId"></activiti:in>
+        <activiti:in source="fld.em.truss.osgi.buildId" target="fld.em.truss.osgi.buildId"></activiti:in>
+        <activiti:in source="fld.em.install.dir" target="fld.em.install.dir"></activiti:in>
+        <activiti:in source="fld.em.logs.dir" target="fld.em.logs.dir"></activiti:in>
+        <activiti:in source="fld.db.host" target="fld.db.host"></activiti:in>
+        <activiti:in source="fld.db.port" target="fld.db.port"></activiti:in>
+        <activiti:in source="fld.db.sid" target="fld.db.sid"></activiti:in>
+        <activiti:in source="fld.db.sid.agc" target="fld.db.sid.agc"></activiti:in>
+        <activiti:in source="fld.db.username" target="fld.db.username"></activiti:in>
+        <activiti:in source="fld.db.password" target="fld.db.password"></activiti:in>
+        <activiti:in source="fld.db.admin.username" target="fld.db.admin.username"></activiti:in>
+        <activiti:in source="fld.db.admin.password" target="fld.db.admin.password"></activiti:in>
+        <activiti:in source="fld.db.dbConfigImportTargetRelease" target="fld.db.dbConfigImportTargetRelease"></activiti:in>
+        <activiti:in source="fld.mom.node" target="fld.mom.node"></activiti:in>
+        <activiti:in source="fld.mom.eemHost" target="fld.mom.eemHost"></activiti:in>
+        <activiti:in source="fld.mom.eemPassword" target="fld.mom.eemPassword"></activiti:in>
+        <activiti:in source="fld.em.autoSkip" target="fld.em.autoSkip"></activiti:in>
+        <activiti:in source="fld.em01.node" target="fld.em01.node"></activiti:in>
+        <activiti:in source="fld.em02.node" target="fld.em02.node"></activiti:in>
+        <activiti:in source="fld.em03.node" target="fld.em03.node"></activiti:in>
+        <activiti:in source="fld.em04.node" target="fld.em04.node"></activiti:in>
+        <activiti:in source="fld.em05.node" target="fld.em05.node"></activiti:in>
+        <activiti:in source="fld.em06.node" target="fld.em06.node"></activiti:in>
+        <activiti:in source="fld.em07.node" target="fld.em07.node"></activiti:in>
+        <activiti:in source="fld.em08.node" target="fld.em08.node"></activiti:in>
+        <activiti:in source="fld.em09.node" target="fld.em09.node"></activiti:in>
+        <activiti:in source="fld.em10.node" target="fld.em10.node"></activiti:in>
+        <activiti:in source="fld.webview.node" target="fld.webview.node"></activiti:in>
+        <activiti:in source="fld.agc.node" target="fld.agc.node"></activiti:in>
+        <activiti:in source="fld.agc.installDir" target="fld.agc.installDir"></activiti:in>
+        <activiti:in source="fld.agc.em.node" target="fld.agc.em.node"></activiti:in>
+        <activiti:in source="fld.mom02.node" target="fld.mom02.node"></activiti:in>
+        <activiti:in source="fld.mom02.em01.node" target="fld.mom02.em01.node"></activiti:in>
+        <activiti:in source="fld.mom02.em02.node" target="fld.mom02.em02.node"></activiti:in>
+        <activiti:in source="fld.em.noinstaller.specification" target="fld.em.noinstaller.specification"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow2" sourceRef="call.install.apm.cluster" targetRef="call.install.tims"></sequenceFlow>
+    <callActivity id="call.install.tims" name="Install TIMs" calledElement="fld.install.tims">
+      <extensionElements>
+        <activiti:in source="fld.tim.truss.base.url" target="timTrussBaseUrl"></activiti:in>
+        <activiti:in source="fld.tim.truss.codeName" target="timCodeName"></activiti:in>
+        <activiti:in source="fld.tim.truss.buildNumber" target="timBuildNumber"></activiti:in>
+        <activiti:in source="fld.tim.truss.buildId" target="timBuildId"></activiti:in>
+        <activiti:in source="fld.tim.truss.fileName" target="timFilename"></activiti:in>
+        <activiti:in source="fld.tim.truss.installDir" target="timInstallationPrefix"></activiti:in>
+        <activiti:in source="fld.tim.truss.networkInterface" target="timNetworkInterface"></activiti:in>
+        <activiti:in source="fld.tim.nodes" target="timNodes"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <sequenceFlow id="flow3" sourceRef="call.install.tims" targetRef="configure.cluster"></sequenceFlow>
+    <callActivity id="configure.cluster" name="Configure Cluster" calledElement="fld.configure.cluster">
+      <extensionElements>
+        <activiti:in source="fld.mom.node" target="fld.mom.node"></activiti:in>
+        <activiti:in source="fld.em01.node" target="fld.em01.node"></activiti:in>
+        <activiti:in source="fld.em02.node" target="fld.em02.node"></activiti:in>
+        <activiti:in source="fld.em03.node" target="fld.em03.node"></activiti:in>
+        <activiti:in source="fld.em04.node" target="fld.em04.node"></activiti:in>
+        <activiti:in source="fld.em05.node" target="fld.em05.node"></activiti:in>
+        <activiti:in source="fld.em06.node" target="fld.em06.node"></activiti:in>
+        <activiti:in source="fld.em07.node" target="fld.em07.node"></activiti:in>
+        <activiti:in source="fld.em08.node" target="fld.em08.node"></activiti:in>
+        <activiti:in source="fld.em09.node" target="fld.em09.node"></activiti:in>
+        <activiti:in source="fld.em10.node" target="fld.em10.node"></activiti:in>
+        <activiti:in source="fld.mm.url" target="fld.mm.url"></activiti:in>
+        <activiti:in source="fld.webview.node" target="fld.webview.node"></activiti:in>
+        <activiti:in source="fld.agc.node" target="fld.agc.node"></activiti:in>
+        <activiti:in source="fld.agc.em.node" target="fld.agc.em.node"></activiti:in>
+        <activiti:in source="fld.mom02.node" target="fld.mom02.node"></activiti:in>
+        <activiti:in source="fld.mom02.em01.node" target="fld.mom02.em01.node"></activiti:in>
+        <activiti:in source="fld.mom02.em02.node" target="fld.mom02.em02.node"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <sequenceFlow id="flow4" sourceRef="configure.cluster" targetRef="install.agents"></sequenceFlow>
+    <callActivity id="install.agents" name="Install Agents" calledElement="fld.install.agents">
+      <extensionElements>
+        <activiti:in source="fld.tomcat6.serverId" target="fld.tomcat6.serverId"></activiti:in>
+        <activiti:in source="fld.tomcat6.node" target="fld.tomcat6.node"></activiti:in>
+        <activiti:in source="fld.tomcat7.node" target="fld.tomcat7.node"></activiti:in>
+        <activiti:in source="fld.tomcat7.serverId" target="fld.tomcat7.serverId"></activiti:in>
+        <activiti:in source="fld.tomcat0w.node" target="fld.tomcat0w.node"></activiti:in>
+        <activiti:in source="fld.tomcat0w.serverId" target="fld.tomcat0w.serverId"></activiti:in>
+        <activiti:in source="fld.tomcat1w.node" target="fld.tomcat1w.node"></activiti:in>
+        <activiti:in source="fld.tomcat1w.serverId" target="fld.tomcat1w.serverId"></activiti:in>
+        <activiti:in source="fld.was1.node" target="fld.was1.node"></activiti:in>
+        <activiti:in source="fld.was1.serverId" target="fld.was1.serverId"></activiti:in>
+        <activiti:in source="fld.wls1w1.node" target="fld.wls1w1.node"></activiti:in>
+        <activiti:in source="fld.wls1w1.serverId" target="fld.wls1w1.serverId"></activiti:in>
+        <activiti:in source="fld.wls1w2.node" target="fld.wls1w2.node"></activiti:in>
+        <activiti:in source="fld.wls1w2.serverId" target="fld.wls1w2.serverId"></activiti:in>
+        <activiti:in source="fld.wls2w1.node" target="fld.wls2w1.node"></activiti:in>
+        <activiti:in source="fld.wls2w1.serverId" target="fld.wls2w1.serverId"></activiti:in>
+        <activiti:in source="fld.wls2w2.node" target="fld.wls2w2.node"></activiti:in>
+        <activiti:in source="fld.wls2w2.serverId" target="fld.wls2w2.serverId"></activiti:in>
+        <activiti:in source="fld.jboss6.node" target="fld.jboss6.node"></activiti:in>
+        <activiti:in source="fld.jboss6.serverId" target="fld.jboss6.serverId"></activiti:in>
+        <activiti:in source="fld.jboss7.node" target="fld.jboss7.node"></activiti:in>
+        <activiti:in source="fld.jboss7.serverId" target="fld.jboss7.serverId"></activiti:in>
+        <activiti:in source="fld.mom.node" target="fld.mom.node"></activiti:in>
+        <activiti:in source="fld.mom.port" target="fld.mom.port"></activiti:in>
+        <activiti:in source="fld.agent.specification" target="fld.agent.specification"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="start.cluster" name="Start Cluster" calledElement="fld.start.cluster">
+      <extensionElements>
+        <activiti:in source="fld.mom.node" target="fld.mom.node"></activiti:in>
+        <activiti:in source="fld.em01.node" target="fld.em01.node"></activiti:in>
+        <activiti:in source="fld.em02.node" target="fld.em02.node"></activiti:in>
+        <activiti:in source="fld.em03.node" target="fld.em03.node"></activiti:in>
+        <activiti:in source="fld.em04.node" target="fld.em04.node"></activiti:in>
+        <activiti:in source="fld.em05.node" target="fld.em05.node"></activiti:in>
+        <activiti:in source="fld.em06.node" target="fld.em06.node"></activiti:in>
+        <activiti:in source="fld.em07.node" target="fld.em07.node"></activiti:in>
+        <activiti:in source="fld.em08.node" target="fld.em08.node"></activiti:in>
+        <activiti:in source="fld.em09.node" target="fld.em09.node"></activiti:in>
+        <activiti:in source="fld.em10.node" target="fld.em10.node"></activiti:in>
+        <activiti:in source="fld.webview.node" target="fld.webview.node"></activiti:in>
+        <activiti:in source="fld.agc.node" target="fld.agc.node"></activiti:in>
+        <activiti:in source="fld.agc.em.node" target="fld.agc.em.node"></activiti:in>
+        <activiti:in source="fld.mom02.node" target="fld.mom02.node"></activiti:in>
+        <activiti:in source="fld.mom02.em01.node" target="fld.mom02.em01.node"></activiti:in>
+        <activiti:in source="fld.mom02.em02.node" target="fld.mom02.em02.node"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="call.monitor.loads" name="Monitor Loads" calledElement="fld.monitor.loads">
+      <extensionElements>
+        <activiti:in source="fld.mom.node" target="fld.mom.node"></activiti:in>
+        <activiti:in source="fld.em01.node" target="fld.em01.node"></activiti:in>
+        <activiti:in source="fld.em02.node" target="fld.em02.node"></activiti:in>
+        <activiti:in source="fld.em03.node" target="fld.em03.node"></activiti:in>
+        <activiti:in source="fld.em04.node" target="fld.em04.node"></activiti:in>
+        <activiti:in source="fld.em05.node" target="fld.em05.node"></activiti:in>
+        <activiti:in source="fld.em06.node" target="fld.em06.node"></activiti:in>
+        <activiti:in source="fld.em07.node" target="fld.em07.node"></activiti:in>
+        <activiti:in source="fld.em08.node" target="fld.em08.node"></activiti:in>
+        <activiti:in source="fld.em09.node" target="fld.em09.node"></activiti:in>
+        <activiti:in source="fld.em10.node" target="fld.em10.node"></activiti:in>
+        <activiti:in source="fld.webview.node" target="fld.webview.node"></activiti:in>
+        <activiti:in source="fld.memmon.group" target="fld.memmon.group"></activiti:in>
+        <activiti:in source="fld.agc.node" target="fld.agc.node"></activiti:in>
+        <activiti:in source="fld.agc.em.node" target="fld.agc.em.node"></activiti:in>
+        <activiti:in source="fld.mom02.node" target="fld.mom02.node"></activiti:in>
+        <activiti:in source="fld.mom02.em01.node" target="fld.mom02.em01.node"></activiti:in>
+        <activiti:in source="fld.mom02.em02.node" target="fld.mom02.em02.node"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <userTask id="task.stop.loads" name="Stop Loads">
+      <extensionElements>
+        <activiti:formProperty id="stop.loads" name="Stop Loads" type="string" writable="false"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <parallelGateway id="pl.gw.this.should.work" name="Parallel Gateway"></parallelGateway>
+    <sequenceFlow id="flow7" sourceRef="start.cluster" targetRef="register.mom.follower"></sequenceFlow>
+    <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
+    <sequenceFlow id="flow15" sourceRef="parallelgateway2" targetRef="endevent1"></sequenceFlow>
+    <serviceTask id="stop.monitors.and.tests" name="Stop Monitors" activiti:delegateExpression="${startEmTaskBean.stopMonitors}"></serviceTask>
+    <sequenceFlow id="flow16" sourceRef="task.stop.loads" targetRef="timerintermediatecatchevent7"></sequenceFlow>
+    <sequenceFlow id="flow17" sourceRef="stop.monitors.and.tests" targetRef="call.stop.loads"></sequenceFlow>
+    <boundaryEvent id="boundarymessage1" name="Message" attachedToRef="call.monitor.loads" cancelActivity="true">
+      <messageEventDefinition messageRef="stop.monitor.loads"></messageEventDefinition>
+    </boundaryEvent>
+    <callActivity id="call.stop.loads" name="Stop Loads" calledElement="fld.stop.loads">
+      <extensionElements>
+        <activiti:in source="fld.tim.nodes" target="timNodes"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <sequenceFlow id="flow18" sourceRef="call.stop.loads" targetRef="parallelgateway2"></sequenceFlow>
+    <userTask id="usertask1" name="User Task">
+      <extensionElements>
+        <activiti:formProperty id="startActivity" name="startActivity" type="enum" variable="startActivity">
+          <activiti:value id="full" name="full"></activiti:value>
+          <activiti:value id="installTims" name="Install Tims"></activiti:value>
+          <activiti:value id="startCluster" name="Start cluster"></activiti:value>
+          <activiti:value id="monitor" name="monitor"></activiti:value>
+          <activiti:value id="installAgents" name="installAgents"></activiti:value>
+          <activiti:value id="registerFollower" name="registerFollower"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway" default="defaultflow"></exclusiveGateway>
+    <sequenceFlow id="flow21" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow22" sourceRef="exclusivegateway1" targetRef="call.install.apm.cluster">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${startActivity == "full"}]]></conditionExpression>
+    </sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent6" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT10S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="defaultflow" sourceRef="exclusivegateway1" targetRef="timerintermediatecatchevent6"></sequenceFlow>
+    <sequenceFlow id="flow28" sourceRef="pl.gw.this.should.work" targetRef="call.monitor.loads"></sequenceFlow>
+    <sequenceFlow id="flow29" sourceRef="pl.gw.this.should.work" targetRef="task.stop.loads"></sequenceFlow>
+    <callActivity id="call.start.loads" name="Start Loads" calledElement="fld.start.loads">
+      <extensionElements>
+        <activiti:in source="fld.tomcat6.node" target="fld.tomcat6.node"></activiti:in>
+        <activiti:in source="fld.tomcat6.serverId" target="fld.tomcat6.serverId"></activiti:in>
+        <activiti:in source="fld.tim.nodes" target="timNodes"></activiti:in>
+        <activiti:in source="fld.db.host" target="fld.db.host"></activiti:in>
+        <activiti:in source="fld.db.username" target="fld.db.username"></activiti:in>
+        <activiti:in source="fld.db.password" target="fld.db.password"></activiti:in>
+        <activiti:in source="fld.tim.btstats.wait" target="fld.tim.btstats.wait"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <sequenceFlow id="flow30" sourceRef="pl.gw.this.should.work" targetRef="call.start.loads"></sequenceFlow>
+    <callActivity id="call.run.daily.tests" name="Run Daily Tests" calledElement="fld.run.daily.tests"></callActivity>
+    <sequenceFlow id="flow32" sourceRef="call.start.loads" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow33" sourceRef="boundarymessage1" targetRef="parallelgateway2"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent7" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT3S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow35" sourceRef="timerintermediatecatchevent7" targetRef="stop.monitors.and.tests"></sequenceFlow>
+    <sequenceFlow id="flow36" sourceRef="pl.gw.this.should.work" targetRef="call.run.daily.tests"></sequenceFlow>
+    <boundaryEvent id="boundarymessage2" name="Message" attachedToRef="call.run.daily.tests" cancelActivity="true">
+      <messageEventDefinition messageRef="stop.daily.tests"></messageEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="flow37" sourceRef="boundarymessage2" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow38" sourceRef="exclusivegateway1" targetRef="call.install.tims">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${startActivity == "installTims"}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow39" sourceRef="exclusivegateway1" targetRef="start.cluster">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${startActivity == "startCluster"}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow40" sourceRef="exclusivegateway1" targetRef="install.agents">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${startActivity == "installAgents"}]]></conditionExpression>
+    </sequenceFlow>
+    <callActivity id="register.mom.follower" name="Register MOM follower" calledElement="fld.register.follower">
+      <extensionElements>
+        <activiti:in source="fld.mom.node" target="mom.node"></activiti:in>
+        <activiti:in source="fld.agc.node" target="agc.node"></activiti:in>
+        <activiti:in source="fld.webview.node" target="webview.node"></activiti:in>
+        <activiti:in source="fld.mom02.node" target="mom02.node"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <sequenceFlow id="flow42" sourceRef="exclusivegateway1" targetRef="register.mom.follower">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${startActivity == "registerFollower"}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway" default="startClusterNoWait"></exclusiveGateway>
+    <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow43" sourceRef="exclusivegateway3" targetRef="start.cluster"></sequenceFlow>
+    <sequenceFlow id="flow44" sourceRef="install.agents" targetRef="exclusivegateway2"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent8" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="startClusterNoWait" sourceRef="exclusivegateway2" targetRef="timerintermediatecatchevent8"></sequenceFlow>
+    <sequenceFlow id="flow46" sourceRef="timerintermediatecatchevent8" targetRef="exclusivegateway3"></sequenceFlow>
+    <userTask id="usertask2" name="Wait to start"></userTask>
+    <sequenceFlow id="waitToStartCluster" sourceRef="exclusivegateway2" targetRef="usertask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${pauseBeforeStartCluster != null && pauseBeforeStartCluster == true}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow48" sourceRef="usertask2" targetRef="exclusivegateway3"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
+    <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway"></exclusiveGateway>
+    <userTask id="usertask3" name="Wait to start"></userTask>
+    <sequenceFlow id="waitToStartLoad" sourceRef="exclusivegateway4" targetRef="usertask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${pauseBeforeStartLoad != null && pauseBeforeStartLoad == true}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow50" sourceRef="usertask3" targetRef="exclusivegateway5"></sequenceFlow>
+    <sequenceFlow id="flow51" sourceRef="exclusivegateway5" targetRef="pl.gw.this.should.work"></sequenceFlow>
+    <sequenceFlow id="startLoadNoWait" sourceRef="exclusivegateway4" targetRef="exclusivegateway5"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway6" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow52" sourceRef="timerintermediatecatchevent6" targetRef="exclusivegateway6"></sequenceFlow>
+    <sequenceFlow id="flow53" sourceRef="register.mom.follower" targetRef="exclusivegateway6"></sequenceFlow>
+    <sequenceFlow id="flow54" sourceRef="exclusivegateway6" targetRef="exclusivegateway4"></sequenceFlow>
+    <textAnnotation id="textannotation1">
+      <text>Standard FLD Workflow</text>
+    </textAnnotation>
+    <textAnnotation id="textannotation2">
+      <text>After selecting "continue" in this event, 
+the loads and daily tests will be shut down</text>
+    </textAnnotation>
+    <association id="association1" sourceRef="textannotation2" targetRef="task.stop.loads"></association>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.main">
+    <bpmndi:BPMNPlane bpmnElement="fld.main" id="BPMNPlane_fld.main">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="51.0" y="145.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="call.install.apm.cluster" id="BPMNShape_call.install.apm.cluster">
+        <omgdc:Bounds height="55.0" width="105.0" x="438.0" y="1.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="1301.0" y="1047.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="call.install.tims" id="BPMNShape_call.install.tims">
+        <omgdc:Bounds height="55.0" width="105.0" x="438.0" y="91.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="configure.cluster" id="BPMNShape_configure.cluster">
+        <omgdc:Bounds height="55.0" width="131.0" x="425.0" y="175.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="install.agents" id="BPMNShape_install.agents">
+        <omgdc:Bounds height="55.0" width="105.0" x="438.0" y="250.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="start.cluster" id="BPMNShape_start.cluster">
+        <omgdc:Bounds height="55.0" width="105.0" x="438.0" y="495.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="call.monitor.loads" id="BPMNShape_call.monitor.loads">
+        <omgdc:Bounds height="55.0" width="105.0" x="628.0" y="1090.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundarymessage1" id="BPMNShape_boundarymessage1">
+        <omgdc:Bounds height="30.0" width="30.0" x="715.0" y="1131.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="task.stop.loads" id="BPMNShape_task.stop.loads">
+        <omgdc:Bounds height="55.0" width="105.0" x="631.0" y="1182.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="pl.gw.this.should.work" id="BPMNShape_pl.gw.this.should.work">
+        <omgdc:Bounds height="40.0" width="40.0" x="270.0" y="1001.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway2" id="BPMNShape_parallelgateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="1133.0" y="1044.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="stop.monitors.and.tests" id="BPMNShape_stop.monitors.and.tests">
+        <omgdc:Bounds height="55.0" width="105.0" x="946.0" y="1174.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="call.stop.loads" id="BPMNShape_call.stop.loads">
+        <omgdc:Bounds height="55.0" width="105.0" x="1101.0" y="1174.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="16.0" y="299.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="170.0" y="306.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent6" id="BPMNShape_timerintermediatecatchevent6">
+        <omgdc:Bounds height="35.0" width="35.0" x="173.0" y="561.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="call.start.loads" id="BPMNShape_call.start.loads">
+        <omgdc:Bounds height="55.0" width="105.0" x="628.0" y="918.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="call.run.daily.tests" id="BPMNShape_call.run.daily.tests">
+        <omgdc:Bounds height="55.0" width="105.0" x="628.0" y="1001.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundarymessage2" id="BPMNShape_boundarymessage2">
+        <omgdc:Bounds height="30.0" width="30.0" x="716.0" y="1042.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent7" id="BPMNShape_timerintermediatecatchevent7">
+        <omgdc:Bounds height="35.0" width="35.0" x="810.0" y="1192.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="register.mom.follower" id="BPMNShape_register.mom.follower">
+        <omgdc:Bounds height="63.0" width="111.0" x="436.0" y="595.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="680.0" y="257.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
+        <omgdc:Bounds height="40.0" width="40.0" x="680.0" y="415.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent8" id="BPMNShape_timerintermediatecatchevent8">
+        <omgdc:Bounds height="35.0" width="35.0" x="614.0" y="330.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="730.0" y="320.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway4" id="BPMNShape_exclusivegateway4">
+        <omgdc:Bounds height="40.0" width="40.0" x="48.0" y="1001.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway5" id="BPMNShape_exclusivegateway5">
+        <omgdc:Bounds height="40.0" width="40.0" x="183.0" y="1001.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="100.0" y="1090.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway6" id="BPMNShape_exclusivegateway6">
+        <omgdc:Bounds height="40.0" width="40.0" x="170.0" y="780.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
+        <omgdc:Bounds height="50.0" width="100.0" x="80.0" y="55.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
+        <omgdc:Bounds height="55.0" width="241.0" x="241.0" y="1192.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="68.0" y="180.0"></omgdi:waypoint>
+        <omgdi:waypoint x="68.0" y="299.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="490.0" y="56.0"></omgdi:waypoint>
+        <omgdi:waypoint x="490.0" y="91.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="490.0" y="146.0"></omgdi:waypoint>
+        <omgdi:waypoint x="490.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="490.0" y="230.0"></omgdi:waypoint>
+        <omgdi:waypoint x="490.0" y="250.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="490.0" y="550.0"></omgdi:waypoint>
+        <omgdi:waypoint x="491.0" y="595.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="1173.0" y="1064.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1301.0" y="1064.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="736.0" y="1209.0"></omgdi:waypoint>
+        <omgdi:waypoint x="810.0" y="1209.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="1051.0" y="1201.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1101.0" y="1201.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="1153.0" y="1174.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1153.0" y="1084.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="121.0" y="326.0"></omgdi:waypoint>
+        <omgdi:waypoint x="170.0" y="326.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="190.0" y="306.0"></omgdi:waypoint>
+        <omgdi:waypoint x="490.0" y="56.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="defaultflow" id="BPMNEdge_defaultflow">
+        <omgdi:waypoint x="190.0" y="346.0"></omgdi:waypoint>
+        <omgdi:waypoint x="190.0" y="561.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
+        <omgdi:waypoint x="290.0" y="1041.0"></omgdi:waypoint>
+        <omgdi:waypoint x="680.0" y="1090.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
+        <omgdi:waypoint x="290.0" y="1041.0"></omgdi:waypoint>
+        <omgdi:waypoint x="683.0" y="1182.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
+        <omgdi:waypoint x="290.0" y="1001.0"></omgdi:waypoint>
+        <omgdi:waypoint x="680.0" y="973.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
+        <omgdi:waypoint x="680.0" y="973.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1153.0" y="1044.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
+        <omgdi:waypoint x="730.0" y="1131.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1153.0" y="1084.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
+        <omgdi:waypoint x="845.0" y="1209.0"></omgdi:waypoint>
+        <omgdi:waypoint x="946.0" y="1201.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
+        <omgdi:waypoint x="310.0" y="1021.0"></omgdi:waypoint>
+        <omgdi:waypoint x="628.0" y="1028.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
+        <omgdi:waypoint x="746.0" y="1057.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1133.0" y="1064.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
+        <omgdi:waypoint x="190.0" y="306.0"></omgdi:waypoint>
+        <omgdi:waypoint x="490.0" y="146.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
+        <omgdi:waypoint x="190.0" y="346.0"></omgdi:waypoint>
+        <omgdi:waypoint x="490.0" y="495.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
+        <omgdi:waypoint x="210.0" y="326.0"></omgdi:waypoint>
+        <omgdi:waypoint x="490.0" y="305.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow42" id="BPMNEdge_flow42">
+        <omgdi:waypoint x="190.0" y="346.0"></omgdi:waypoint>
+        <omgdi:waypoint x="491.0" y="595.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow43" id="BPMNEdge_flow43">
+        <omgdi:waypoint x="700.0" y="455.0"></omgdi:waypoint>
+        <omgdi:waypoint x="490.0" y="495.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow44" id="BPMNEdge_flow44">
+        <omgdi:waypoint x="543.0" y="277.0"></omgdi:waypoint>
+        <omgdi:waypoint x="680.0" y="277.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="startClusterNoWait" id="BPMNEdge_startClusterNoWait">
+        <omgdi:waypoint x="700.0" y="297.0"></omgdi:waypoint>
+        <omgdi:waypoint x="631.0" y="330.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow46" id="BPMNEdge_flow46">
+        <omgdi:waypoint x="631.0" y="365.0"></omgdi:waypoint>
+        <omgdi:waypoint x="700.0" y="415.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="waitToStartCluster" id="BPMNEdge_waitToStartCluster">
+        <omgdi:waypoint x="700.0" y="297.0"></omgdi:waypoint>
+        <omgdi:waypoint x="782.0" y="320.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow48" id="BPMNEdge_flow48">
+        <omgdi:waypoint x="782.0" y="375.0"></omgdi:waypoint>
+        <omgdi:waypoint x="700.0" y="415.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="waitToStartLoad" id="BPMNEdge_waitToStartLoad">
+        <omgdi:waypoint x="68.0" y="1041.0"></omgdi:waypoint>
+        <omgdi:waypoint x="152.0" y="1090.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow50" id="BPMNEdge_flow50">
+        <omgdi:waypoint x="152.0" y="1090.0"></omgdi:waypoint>
+        <omgdi:waypoint x="203.0" y="1041.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow51" id="BPMNEdge_flow51">
+        <omgdi:waypoint x="223.0" y="1021.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="1021.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="startLoadNoWait" id="BPMNEdge_startLoadNoWait">
+        <omgdi:waypoint x="88.0" y="1021.0"></omgdi:waypoint>
+        <omgdi:waypoint x="183.0" y="1021.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow52" id="BPMNEdge_flow52">
+        <omgdi:waypoint x="190.0" y="596.0"></omgdi:waypoint>
+        <omgdi:waypoint x="190.0" y="780.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow53" id="BPMNEdge_flow53">
+        <omgdi:waypoint x="491.0" y="658.0"></omgdi:waypoint>
+        <omgdi:waypoint x="190.0" y="780.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow54" id="BPMNEdge_flow54">
+        <omgdi:waypoint x="190.0" y="820.0"></omgdi:waypoint>
+        <omgdi:waypoint x="68.0" y="1001.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">
+        <omgdi:waypoint x="482.0" y="1219.0"></omgdi:waypoint>
+        <omgdi:waypoint x="631.0" y="1209.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

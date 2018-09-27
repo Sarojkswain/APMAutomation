@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+	    {name=com.ca.apm.tests.testbed.DotNetTestBed, executeOn=machine1}],
+	  owner = kurma05,
+	  size = BIG,
+	  description = 'Agent ATC Tests'),
+	  snapshotPolicy = SnapshotPolicy.ALWAYS,
+      snapshot = SnapshotMode.LIVE
+-->	
+<suite name="DotNetAgent" configfailurepolicy="continue">
+	<parameter name="testngEmailEnabled" value="true" />
+	 	  
+	<test name="DotNetAgent" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.tests.test.DotNetTests">
+				 <methods>
+					<include name="testAgentMap" />
+					<include name="testTTViewer" />
+				 </methods>
+			</class>
+		</classes>
+	</test> 	
+	<listeners>    	
+   	    <listener class-name="org.uncommons.reportng.HTMLReporter" />    	
+   		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+ 	</listeners>
+</suite>

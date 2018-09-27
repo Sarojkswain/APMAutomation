@@ -1,0 +1,5 @@
+#!/bin/bash
+if [ -d utils/uninstall -a -d wl_server_10.3 ]; then
+	cDir=`pwd`
+	utils/uninstall/uninstall.sh -mode=silent && (cd ..; echo "removing $cDir ..."; rm -rf $cDir; echo "... done")
+fi

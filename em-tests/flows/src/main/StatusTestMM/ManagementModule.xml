@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ManagementModule xmlns:ns1="http://www.w3.org/2005/11/its" xmlns:introscope="generated://introscope.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Editable="true" Version="4.0" IsActive="true" DescriptionContentType="text/plain" xsi:noNamespaceSchemaLocation="bundle://com.wily.introscope.em/com/wily/introscope/server/enterprise/entity/bundle/IntroscopeManagementModules4.0.xsd">
+    <Name>StatusTestMM</Name>
+    <DataGroups>
+        <DataGroup xsi:type="CalculatorDataGroup"/>
+        <DataGroup xsi:type="MapEntityMetricGroupingDataGroup"/>
+        <DataGroup xsi:type="SnmpCollectionDataGroup"/>
+        <DataGroup xsi:type="DashboardDataGroup"/>
+        <DataGroup xsi:type="TriageMapAlertDataGroup"/>
+        <DataGroup xsi:type="MetricGroupingDataGroup">
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>TradeOptionsResponse</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>(.*)Frontends\|Apps\|TradeService:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>LoginResponse</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>(.*)Frontends\|Apps\|AuthenticationEngine:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+        </DataGroup>
+        <DataGroup xsi:type="EntityDataGroup"/>
+        <DataGroup xsi:type="ImageDataGroup"/>
+        <DataGroup xsi:type="AlertDataGroup">
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>LoginResponseAlert</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>StatusTestMM</ManagementModuleName>
+                    <ConstructName>LoginResponse</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>1</CautionTargetValue>
+                <DangerTargetValue>3</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>TradeOptionsAlert</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>StatusTestMM</ManagementModuleName>
+                    <ConstructName>TradeOptionsResponse</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>2</CautionTargetValue>
+                <DangerTargetValue>4</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+        </DataGroup>
+        <DataGroup xsi:type="ActionDataGroup"/>
+        <DataGroup xsi:type="introscope:AlertDowntimeScheduleDataGroup"/>
+        <DataGroup xsi:type="UnmonitoredComponentGroupDataGroup"/>
+        <DataGroup xsi:type="ReportDataGroup"/>
+    </DataGroups>
+</ManagementModule>

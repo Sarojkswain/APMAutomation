@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="fld.sharepoint.powerpack.installagent" name="Install Tomcat Agent Noinstaller" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="serverType" name="Server Type (Websphere, Weblogic, ...)" type="enum" variable="serverType" required="true">
+          <activiti:value id="websphere" name="Websphere"></activiti:value>
+          <activiti:value id="webspherePortal" name="Websphere Portal"></activiti:value>
+          <activiti:value id="weblogic" name="Weblogic"></activiti:value>
+          <activiti:value id="weblogicPortal" name="Weblogic Portal"></activiti:value>
+          <activiti:value id="weblogicOSB" name="Weblogic + OSB"></activiti:value>
+          <activiti:value id="sharePoint" name="SharePoint"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="serverId" name="Server ID" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="artifactSpecification" name="Artifact Specification" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="node" name="Agent Node" type="node" required="true"></activiti:formProperty>
+        <activiti:formProperty id="momNode" name="Mom Node" type="string" variable="momNode"></activiti:formProperty>
+        <activiti:formProperty id="momPort" name="Mom Port" type="long" default="5001"></activiti:formProperty>
+        <activiti:formProperty id="errorMessage" name="Error Message" type="string" variable="errorMessage"></activiti:formProperty>
+        <activiti:formProperty id="customName" name="Custom Name" type="string" default="Tomcat" required="true"></activiti:formProperty>
+        <activiti:formProperty id="brtmExtension" name="Enable BRTM Extension" type="boolean" default="false"></activiti:formProperty>
+        <activiti:formProperty id="enableDynamicInstrumentation" name="Enable Dynamic Instrumentation" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="logDir" name="Agent logs folder" type="string" expression="logDir" default="c:\temp\agent" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <serviceTask id="servicetask1" name="Install APP" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).installAgent()}"></serviceTask>
+    <sequenceFlow id="flow.start" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
+    <userTask id="usertask1" name="Check error">
+      <extensionElements>
+        <activiti:formProperty id="string" name="Error Message" type="string" expression="${errorMessage}" variable="errorMessage" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="nextAction" name="nextAction" type="enum" variable="nextAction" required="true">
+          <activiti:value id="retry" name="retry"></activiti:value>
+          <activiti:value id="stop" name="stop"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow1" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow2" name="retry" sourceRef="exclusivegateway1" targetRef="servicetask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${nextAction == 'retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="endevent3" name="End"></endEvent>
+    <sequenceFlow id="flow3" name="stop" sourceRef="exclusivegateway1" targetRef="endevent3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${nextAction == 'stop'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="servicetask1" targetRef="endevent3"></sequenceFlow>
+    <sequenceFlow id="flow5" sourceRef="boundaryerror1" targetRef="usertask1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.sharepoint.powerpack.installagent">
+    <bpmndi:BPMNPlane bpmnElement="fld.sharepoint.powerpack.installagent" id="BPMNPlane_fld.sharepoint.powerpack.installagent">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="50.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="150.0" y="50.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="226.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="140.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="420.0" y="187.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="490.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow.start" id="BPMNEdge_flow.start">
+        <omgdi:waypoint x="85.0" y="77.0"></omgdi:waypoint>
+        <omgdi:waypoint x="150.0" y="77.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="245.0" y="207.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="207.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="440.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="385.0" y="125.0"></omgdi:waypoint>
+        <omgdi:waypoint x="202.0" y="105.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="23.0" x="414.0" y="168.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="460.0" y="207.0"></omgdi:waypoint>
+        <omgdi:waypoint x="509.0" y="206.0"></omgdi:waypoint>
+        <omgdi:waypoint x="507.0" y="95.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="21.0" x="489.0" y="188.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="255.0" y="77.0"></omgdi:waypoint>
+        <omgdi:waypoint x="436.0" y="77.0"></omgdi:waypoint>
+        <omgdi:waypoint x="490.0" y="77.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="241.0" y="120.0"></omgdi:waypoint>
+        <omgdi:waypoint x="192.0" y="180.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

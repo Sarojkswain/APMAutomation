@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+	    {name=com.ca.apm.systemtest.fld.testbed.STOracleSBTestbed, executeOn=STMachine}],
+	  owner = bocto01,
+	  size = MAMMOTH,
+	  description = 'PPST',
+	  snapshotPolicy = ON_FAILURE,
+      snapshot = DEAD)
+-->
+<suite name="TestSuite" configfailurepolicy="continue">
+	<test name="OsbSystemtestTrade" preserve-order="true">
+		<groups>
+      		<run>
+      			<include name="osb" />
+     		</run>
+   		</groups>   
+	    <packages>
+	        <package name="com.ca.apm.systemtest.fld.test"/>
+	    </packages>	    
+	</test>
+</suite>

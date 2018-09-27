@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<!--
+	@Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.ACCCDVLinuxTestbed, executeOn=momMachine1}],
+	  owner = ketsw01,
+	  size = COLOSSAL,
+	  description = 'TestNg XML suite for all AgentControllabilityCDV linux tests'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="AgentControllabilityCDVLinuxTests" configfailurepolicy="continue">
+	<test name="AgentControllabilityCDVLinuxTests" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.tests.agentcontrollability.AgentControllabilityCDVTests">
+			</class>
+		</classes>
+	</test>
+</suite>
+		

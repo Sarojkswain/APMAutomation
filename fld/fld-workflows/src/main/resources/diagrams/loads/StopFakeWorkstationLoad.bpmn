@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <signal id="fld.end.fake.workstation.load.signal" name="fld.end.fake.workstation.load.signal"></signal>
+  <process id="fld.stop.fake.workstation.load" name="Stop fake workstation load" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <intermediateThrowEvent id="signalintermediatethrowevent1" name="SignalThrowEvent">
+      <signalEventDefinition signalRef="fld.end.fake.workstation.load.signal"></signalEventDefinition>
+    </intermediateThrowEvent>
+    <scriptTask id="scripttask1" name="Steps before sending a signal.." scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>Thread.sleep(1000);
+
+logLogger.info("FakeWorkstation", "", "About to send 'EndFakeWorkstationLoadSignalId' signal to stop all fake workstation loads");</script>
+    </scriptTask>
+    <scriptTask id="scripttask2" name="Steps after sending the signal..." scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>Thread.sleep(1000);
+
+logLogger.info("FakeWorkstation", "", "'EndFakeWorkstationLoadSignalId' signal is sent, exiting.");</script>
+    </scriptTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow1" name="Start asynchronously" sourceRef="startevent1" targetRef="scripttask3"></sequenceFlow>
+    <sequenceFlow id="flow2" name="Go send a signal" sourceRef="scripttask1" targetRef="signalintermediatethrowevent1"></sequenceFlow>
+    <sequenceFlow id="flow3" name="Go log some information after sending the signal" sourceRef="signalintermediatethrowevent1" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+    <sequenceFlow id="flow4" name="Finish" sourceRef="scripttask2" targetRef="endevent1"></sequenceFlow>
+    <scriptTask id="scripttask3" name="Async Start" activiti:async="true" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>Thread.sleep(1);</script>
+    </scriptTask>
+    <sequenceFlow id="flow5" name="Log some notification that fake workstation loads are going to be stopped" sourceRef="scripttask3" targetRef="scripttask1"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT60S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow6" sourceRef="timerintermediatecatchevent1" targetRef="scripttask2"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.stop.fake.workstation.load">
+    <bpmndi:BPMNPlane bpmnElement="fld.stop.fake.workstation.load" id="BPMNPlane_fld.stop.fake.workstation.load">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="520.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="signalintermediatethrowevent1" id="BPMNShape_signalintermediatethrowevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="520.0" y="550.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
+        <omgdc:Bounds height="95.0" width="231.0" x="422.0" y="370.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask2" id="BPMNShape_scripttask2">
+        <omgdc:Bounds height="95.0" width="231.0" x="422.0" y="768.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="520.0" y="1040.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask3" id="BPMNShape_scripttask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="485.0" y="139.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="520.0" y="650.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="537.0" y="55.0"></omgdi:waypoint>
+        <omgdi:waypoint x="537.0" y="139.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="570.0" y="70.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="537.0" y="465.0"></omgdi:waypoint>
+        <omgdi:waypoint x="537.0" y="550.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="81.0" x="546.0" y="499.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="537.0" y="585.0"></omgdi:waypoint>
+        <omgdi:waypoint x="537.0" y="650.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="56.0" width="100.0" x="570.0" y="583.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="537.0" y="863.0"></omgdi:waypoint>
+        <omgdi:waypoint x="537.0" y="1040.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="28.0" x="545.0" y="910.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="537.0" y="194.0"></omgdi:waypoint>
+        <omgdi:waypoint x="537.0" y="370.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="70.0" width="100.0" x="563.0" y="230.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="537.0" y="685.0"></omgdi:waypoint>
+        <omgdi:waypoint x="537.0" y="768.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

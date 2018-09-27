@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.EMPropertyConfigurationtWindowsTestbed, executeOn=testMachine}],
+	  owner = gamsa03,
+	  size = BIG,
+	  description = 'EM Property Configuration test suite for Windows'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="EMPropertyConfiguration_Windows_Tests" configfailurepolicy="continue">
+	<groups>
+    	<run>
+      		<include name="BAT"/>
+      		<include name="Bat"/>
+      		<include name="bat"/>
+    	</run>
+	</groups>
+	<test name="VerifyDefaultCommunicationChannel" preserve-order="true" enabled="true">
+  		<classes>    
+     		<class name="com.ca.apm.tests.propertyconfiguration.RebindPortCommTest">
+	 			<methods>	 					
+	 				<include name="verify_ALM_305685_DefaultCommunicationChannel"/>
+	 			</methods>
+	 		</class>
+	 	</classes>
+	</test>	 	
+	<test name="verifyEMHealthMetrics" preserve-order="true" enabled="true">
+  		<classes>    
+     		<class name="com.ca.apm.tests.propertyconfiguration.EMBasicsTest">
+	 			<methods>	 					
+	 				<include name="verify_ALM_239561_EMHealthMetrics"/>
+	 			</methods>
+	 		</class>
+	 	</classes>		
+	</test>	 	 	
+	<test name="VerifyEMHealthMetrics" preserve-order="true" enabled="true">
+  		<classes>    
+     		<class name="com.ca.apm.tests.propertyconfiguration.EMBasicsTest">
+	 			<methods>	 					
+	 				<include name="verify_ALM_239560_WorkStationConnectsEM"/>
+	 			</methods>
+	 		</class>
+	 	</classes>		
+	</test>	
+	<test name="verifyDefaultUserAdminLogin" preserve-order="true" enabled="true">
+  		<classes>    
+     		<class name="com.ca.apm.tests.propertyconfiguration.EMBasicsTest">
+	 			<methods>	 					
+	 				<include name="verify_ALM_205188_DefaultUserAdminLogin"/>
+	 			</methods>
+	 		</class>
+	 	</classes>		
+	</test>
+	<test name="VerifyAgentConnectstoEM" preserve-order="true" enabled="true">
+  		<classes>    
+     		<class name="com.ca.apm.tests.propertyconfiguration.EMBasicsTest">
+	 			<methods>	 					
+	 				<include name="verify_ALM_205187_AgentConnectstoEM"/>
+	 			</methods>
+	 		</class>
+	 	</classes>		
+	</test>
+	<test name="VerifyEnableDisableHotConfig" preserve-order="true" enabled="true">
+  		<classes>    
+     		<class name="com.ca.apm.tests.propertyconfiguration.EMPropertiesEMLaxTest">
+	 			<methods>	 					
+	 				<include name="verify_ALM_359211_Enable_Disable_Hot_Config"/>
+	 			</methods>
+	 		</class>
+	 	</classes>		
+	</test>			
+	<test name="VerifyDedicatedControllerSmartstor" preserve-order="true" enabled="true">
+  		<classes>    
+     		<class name="com.ca.apm.tests.propertyconfiguration.EMPropertiesEMLaxTest">
+	 			<methods>	 					
+	 				<include name="verify_ALM_359216_Dedicated_Controller_Smartstor"/>
+	 			</methods>
+	 		</class>
+	 	</classes>		
+	</test>			
+	<test name="VerifyDefaultEnterprise_Manager_Name" preserve-order="true" enabled="true">
+  		<classes>    
+     		<class name="com.ca.apm.tests.propertyconfiguration.EMPropertiesEMLaxTest">
+	 			<methods>	 					
+	 				<include name="verify_ALM_392282_Default_Enterprise_Manager_Name"/>
+	 			</methods>
+	 		</class>
+	 	</classes>		
+	</test>		
+	<test name="WebviewPropertiesTest" preserve-order="true">
+		<classes>
+			<class name = "com.ca.apm.tests.propertyconfiguration.WebviewPropertiesTest">
+				<methods>	 					
+	 				<include name="verify_ALM_454129_DE132344_10x_webview_jetty_config_file_missing_new_certAlias_property"/>
+	 			</methods>
+	 		</class>
+		</classes>
+	</test>								
+</suite>
+		

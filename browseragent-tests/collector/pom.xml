@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ~ Copyright (c) 2016 CA. All rights reserved. ~ ~ This software and 
+	all information contained therein is confidential and ~ proprietary and shall 
+	not be duplicated, used, disclosed or disseminated in ~ any way except as 
+	authorized by the applicable license agreement, without ~ the express written 
+	permission of CA. All authorized reproductions must be ~ marked with this 
+	language. ~ ~ EXCEPT AS SET FORTH IN THE APPLICABLE LICENSE AGREEMENT, TO 
+	THE EXTENT ~ PERMITTED BY APPLICABLE LAW, CA PROVIDES THIS SOFTWARE WITHOUT 
+	WARRANTY OF ~ ANY KIND, INCLUDING WITHOUT LIMITATION, ANY IMPLIED WARRANTIES 
+	OF ~ MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL 
+	CA BE ~ LIABLE TO THE END USER OR ANY THIRD PARTY FOR ANY LOSS OR DAMAGE, 
+	DIRECT OR ~ INDIRECT, FROM THE USE OF THIS SOFTWARE, INCLUDING WITHOUT LIMITATION, 
+	LOST ~ PROFITS, BUSINESS INTERRUPTION, GOODWILL, OR LOST DATA, EVEN IF CA 
+	IS ~ EXPRESSLY ADVISED OF SUCH LOSS OR DAMAGE. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>browseragent-tests</artifactId>
+    <groupId>com.ca.apm.tests</groupId>
+    <version>99.99.dev_SaaS_fix-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>browseragent-tests-collector</artifactId>
+  <packaging>jar</packaging>
+
+  <name>Browser Agent Test Collector</name>
+  <description>Module for Browser Agent Testing</description>
+
+  <dependencies>
+
+    
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>${version.testNg}</version>
+    </dependency> 
+    
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.9</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.1</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>19.0</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.8.1</version>
+    </dependency>
+
+    <!-- Just the annotations; use this dependency if you want to attach annotations to classes without connecting them to the code -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>2.8.1</version>
+    </dependency>
+
+    <!-- databinding; ObjectMapper, JsonNode and related classes -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.8.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.ca.apm.common</groupId>
+      <artifactId>com.ca.apm.eum</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    
+
+    
+  </dependencies>
+
+
+  <build>
+    
+    
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-dependency-plugin</artifactId>
+      <executions>
+        <execution>
+          <id>unpack</id>
+          <phase>process-resources</phase>
+          <goals>
+            <goal>unpack</goal>
+          </goals>
+          <configuration>
+            <artifactItems>
+
+              <artifactItem>
+                <groupId>com.ca.apm.agent</groupId>
+                <artifactId>com.wily.introscope.agent.brtm</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+                <outputDirectory>${project.build.directory}/classes</outputDirectory>
+              </artifactItem>
+
+              <artifactItem>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.9</version>
+                <type>jar</type>
+                <outputDirectory>${project.build.directory}/classes</outputDirectory>
+              </artifactItem>
+              
+              <artifactItem>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>19.0</version>
+                <type>jar</type>
+                <outputDirectory>${project.build.directory}/classes</outputDirectory>
+              </artifactItem>            
+
+              <artifactItem>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.8.1</version>
+                <type>jar</type>
+                <outputDirectory>${project.build.directory}/classes</outputDirectory>
+              </artifactItem>
+
+              <artifactItem>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>2.8.1</version>
+                <type>jar</type>
+                <outputDirectory>${project.build.directory}/classes</outputDirectory>
+              </artifactItem>
+
+              <artifactItem>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>2.8.1</version>
+                <type>jar</type>
+                <outputDirectory>${project.build.directory}/classes</outputDirectory>
+              </artifactItem>
+
+              <artifactItem>
+                <groupId>com.ca.apm.common</groupId>
+                <artifactId>com.ca.apm.eum</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+                <outputDirectory>${project.build.directory}/classes</outputDirectory>
+              </artifactItem>
+
+            </artifactItems>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+  </build>
+</project>

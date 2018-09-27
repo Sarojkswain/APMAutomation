@@ -1,0 +1,12 @@
+ version: '2'
+ services:
+   ######
+   ## WV
+   ######
+   momwebview:
+     image: ${image.registry}/apm-wv:${project.version}
+     environment:
+       - APM_CUSTOM_CONFIG_DIR=/opt/ca/custom-config
+     volumes:
+       - ./config:/opt/ca/custom-config
+     network_mode: "host"

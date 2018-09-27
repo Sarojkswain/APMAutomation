@@ -1,0 +1,174 @@
+2016-11-23 17:35:43 INFO  org.springframework.context.support.ClassPathXmlApplicationContext:511 - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@610ac317: startup date [Wed Nov 23 17:35:43 IST 2016]; root of context hierarchy
+2016-11-23 17:35:43 INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader:317 - Loading XML bean definitions from class path resource [dashboard-test-context.xml]
+2016-11-23 17:35:44 INFO  org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor:153 - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-11-23 17:35:46 INFO  org.activiti.engine.impl.db.DbSqlSession:1292 - performing create on engine with resource org/activiti/db/create/activiti.h2.create.engine.sql
+2016-11-23 17:35:46 INFO  org.activiti.engine.impl.db.DbSqlSession:1292 - performing create on history with resource org/activiti/db/create/activiti.h2.create.history.sql
+2016-11-23 17:35:46 INFO  org.activiti.engine.impl.db.DbSqlSession:1292 - performing create on identity with resource org/activiti/db/create/activiti.h2.create.identity.sql
+2016-11-23 17:35:46 INFO  org.activiti.engine.impl.ProcessEngineImpl:85 - ProcessEngine default created
+2016-11-23 17:35:46 INFO  org.activiti.engine.impl.jobexecutor.JobExecutor:79 - Starting up the JobExecutor[org.activiti.engine.impl.jobexecutor.DefaultJobExecutor].
+2016-11-23 17:35:46 INFO  org.activiti.engine.impl.jobexecutor.AcquireJobsRunnableImpl:45 - JobExecutor[org.activiti.engine.impl.jobexecutor.DefaultJobExecutor] starting to acquire jobs
+2016-11-23 17:35:46 INFO  com.ca.apm.systemtest.fld.server.listener.DashboardIdPropagationTest:60 - Starting testDashboardIdPropagation()
+2016-11-23 17:35:46 INFO  org.activiti.engine.impl.bpmn.deployer.BpmnDeployer:89 - Processing resource TestDashboardId.bpmn20.xml
+2016-11-23 17:35:47 INFO  com.ca.apm.systemtest.fld.server.listener.EventListener:185 - ACTIVITI PROCESS_STARTED: threadId = 1, DashboardIdStore's dashboardId = null
+2016-11-23 17:35:47 INFO  com.ca.apm.systemtest.fld.server.listener.EventListener:190 - ACTIVITI PROCESS_STARTED: foundDashboardId = null
+2016-11-23 17:35:47 INFO  com.ca.apm.systemtest.fld.server.listener.EventListener:216 - ACTIVITI ACTIVITY_STARTED: threadId = 1, DashboardIdStore's dashboardId = null
+2016-11-23 17:35:47 INFO  com.ca.apm.systemtest.fld.server.listener.EventListener:220 - ACTIVITI ACTIVITY_STARTED: foundDashboardId = null
+2016-11-23 17:35:47 INFO  com.ca.apm.systemtest.fld.server.listener.EventListener:211 - ACTIVITI ACTIVITY_COMPLETED: threadId = 1, DashboardIdStore's dashboardId = null, clearing dashboard id
+2016-11-23 17:35:47 INFO  com.ca.apm.systemtest.fld.server.listener.EventListener:216 - ACTIVITI ACTIVITY_STARTED: threadId = 1, DashboardIdStore's dashboardId = null
+2016-11-23 17:35:47 INFO  com.ca.apm.systemtest.fld.server.listener.EventListener:220 - ACTIVITI ACTIVITY_STARTED: foundDashboardId = null
+2016-11-23 17:35:51 INFO  com.ca.apm.systemtest.fld.server.listener.EventListener:211 - ACTIVITI ACTIVITY_COMPLETED: threadId = 17, DashboardIdStore's dashboardId = null, clearing dashboard id
+2016-11-23 17:35:51 INFO  com.ca.apm.systemtest.fld.server.listener.EventListener:216 - ACTIVITI ACTIVITY_STARTED: threadId = 17, DashboardIdStore's dashboardId = null
+2016-11-23 17:35:51 INFO  com.ca.apm.systemtest.fld.server.listener.EventListener:232 - initDashboardId: eventType=ACTIVITY_STARTED, threadId = 17, dashId = 12345, DashboardIdStore's dashboardId = null
+2016-11-23 17:35:51 INFO  com.ca.apm.systemtest.fld.server.listener.EventListener:220 - ACTIVITI ACTIVITY_STARTED: foundDashboardId = 12345
+2016-11-23 17:35:52 INFO  com.ca.apm.systemtest.fld.server.listener.EventListener:211 - ACTIVITI ACTIVITY_COMPLETED: threadId = 17, DashboardIdStore's dashboardId = 12345, clearing dashboard id
+2016-11-23 17:35:52 INFO  com.ca.apm.systemtest.fld.server.listener.EventListener:216 - ACTIVITI ACTIVITY_STARTED: threadId = 17, DashboardIdStore's dashboardId = null
+2016-11-23 17:35:52 INFO  com.ca.apm.systemtest.fld.server.listener.EventListener:232 - initDashboardId: eventType=ACTIVITY_STARTED, threadId = 17, dashId = 12345, DashboardIdStore's dashboardId = null
+2016-11-23 17:35:52 INFO  com.ca.apm.systemtest.fld.server.listener.EventListener:220 - ACTIVITI ACTIVITY_STARTED: foundDashboardId = 12345
+2016-11-23 17:35:52 INFO  com.ca.apm.systemtest.fld.server.listener.EventListener:211 - ACTIVITI ACTIVITY_COMPLETED: threadId = 17, DashboardIdStore's dashboardId = 12345, clearing dashboard id
+2016-11-23 17:35:52 INFO  com.ca.apm.systemtest.fld.server.listener.EventListener:205 - ACTIVITI PROCESS_CANCELLED: threadId = 17, DashboardIdStore's dashboardId = null, clearing dashboard id
+2016-11-23 17:35:52 INFO  com.ca.apm.systemtest.fld.server.listener.DashboardIdPropagationTest:93 - Finished testDashboardIdPropagation()
+2016-11-23 17:35:52 INFO  org.springframework.context.support.ClassPathXmlApplicationContext:866 - Closing org.springframework.context.support.ClassPathXmlApplicationContext@610ac317: startup date [Wed Nov 23 17:35:43 IST 2016]; root of context hierarchy
+2016-11-23 17:35:52 INFO  org.activiti.engine.impl.jobexecutor.JobExecutor:90 - Shutting down the JobExecutor[org.activiti.engine.impl.jobexecutor.DefaultJobExecutor].
+2016-11-23 17:35:52 INFO  org.activiti.engine.impl.jobexecutor.AcquireJobsRunnableImpl:106 - JobExecutor[org.activiti.engine.impl.jobexecutor.DefaultJobExecutor] stopped job acquisition
+2016-11-23 17:35:52 INFO  org.activiti.engine.impl.db.DbSqlSession:1292 - performing drop on engine with resource org/activiti/db/drop/activiti.h2.drop.engine.sql
+2016-11-23 17:35:52 INFO  org.activiti.engine.impl.db.DbSqlSession:1292 - performing drop on history with resource org/activiti/db/drop/activiti.h2.drop.history.sql
+2016-11-23 17:35:52 INFO  org.activiti.engine.impl.db.DbSqlSession:1292 - performing drop on identity with resource org/activiti/db/drop/activiti.h2.drop.identity.sql
+2016-11-23 17:35:53 INFO  org.dozer.config.GlobalSettings:113 - Trying to find Dozer configuration file: dozer.properties
+2016-11-23 17:35:53 WARN  org.dozer.config.GlobalSettings:118 - Dozer configuration file not found: dozer.properties.  Using defaults for all Dozer global properties.
+2016-11-23 17:35:53 INFO  org.dozer.DozerInitializer:75 - Initializing Dozer. Version: 5.5.0, Thread Name: main
+2016-11-23 17:35:53 INFO  org.dozer.jmx.JMXPlatformImpl:66 - Dozer JMX MBean [org.dozer.jmx:type=DozerStatisticsController] auto registered with the Platform MBean Server
+2016-11-23 17:35:53 INFO  org.dozer.jmx.JMXPlatformImpl:66 - Dozer JMX MBean [org.dozer.jmx:type=DozerAdminController] auto registered with the Platform MBean Server
+2016-11-23 17:35:53 INFO  org.dozer.DozerBeanMapper:175 - Initializing a new instance of dozer bean mapper.
+2016-11-23 17:35:53 INFO  org.dozer.DozerBeanMapper:222 - Using the following xml files to load custom mappings for the bean mapper instance: [dozer-config.xml]
+2016-11-23 17:35:53 INFO  org.dozer.DozerBeanMapper:224 - Trying to find xml mapping file: dozer-config.xml
+2016-11-23 17:35:53 INFO  org.dozer.DozerBeanMapper:226 - Using URL [file:/C:/MDCU/testing/fld/load-orchestrator-webapp/target/classes/dozer-config.xml] to load custom xml mappings
+2016-11-23 17:35:53 INFO  org.dozer.DozerBeanMapper:228 - Successfully loaded custom xml mappings from URL: [file:/C:/MDCU/testing/fld/load-orchestrator-webapp/target/classes/dozer-config.xml]
+2016-11-23 17:35:53 INFO  org.activiti.engine.impl.db.DbSqlSession:1292 - performing create on engine with resource org/activiti/db/create/activiti.h2.create.engine.sql
+2016-11-23 17:35:53 INFO  org.activiti.engine.impl.db.DbSqlSession:1292 - performing create on history with resource org/activiti/db/create/activiti.h2.create.history.sql
+2016-11-23 17:35:53 INFO  org.activiti.engine.impl.db.DbSqlSession:1292 - performing create on identity with resource org/activiti/db/create/activiti.h2.create.identity.sql
+2016-11-23 17:35:53 INFO  org.activiti.engine.impl.ProcessEngineImpl:85 - ProcessEngine default created
+2016-11-23 17:35:53 INFO  org.activiti.engine.impl.jobexecutor.JobExecutor:79 - Starting up the JobExecutor[org.activiti.engine.impl.jobexecutor.DefaultJobExecutor].
+2016-11-23 17:35:53 INFO  org.dozer.DozerBeanMapper:175 - Initializing a new instance of dozer bean mapper.
+2016-11-23 17:35:53 INFO  org.activiti.engine.impl.jobexecutor.AcquireJobsRunnableImpl:45 - JobExecutor[org.activiti.engine.impl.jobexecutor.DefaultJobExecutor] starting to acquire jobs
+2016-11-23 17:35:54 INFO  org.hibernate.annotations.common.Version:66 - HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+2016-11-23 17:35:54 INFO  org.hibernate.Version:54 - HHH000412: Hibernate Core {4.3.11.Final}
+2016-11-23 17:35:54 INFO  org.hibernate.cfg.Environment:239 - HHH000206: hibernate.properties not found
+2016-11-23 17:35:54 INFO  org.hibernate.cfg.Environment:346 - HHH000021: Bytecode provider name : javassist
+2016-11-23 17:35:54 INFO  org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator:190 - HHH000130: Instantiating explicit connection provider: org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider
+2016-11-23 17:35:54 INFO  org.hibernate.c3p0.internal.C3P0ConnectionProvider:134 - HHH010002: C3P0 using driver: org.h2.Driver at URL: jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE
+2016-11-23 17:35:54 INFO  org.hibernate.c3p0.internal.C3P0ConnectionProvider:135 - HHH000046: Connection properties: {user=sa, password=****}
+2016-11-23 17:35:54 INFO  org.hibernate.c3p0.internal.C3P0ConnectionProvider:138 - HHH000006: Autocommit mode: false
+2016-11-23 17:35:54 INFO  com.mchange.v2.log.MLog:212 - MLog clients using slf4j logging.
+2016-11-23 17:35:54 INFO  com.mchange.v2.c3p0.C3P0Registry:212 - Initializing c3p0-0.9.5.2 [built 08-December-2015 22:06:04 -0800; debug? true; trace: 10]
+2016-11-23 17:35:54 INFO  com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource:212 - Initializing c3p0 pool... com.mchange.v2.c3p0.PoolBackedDataSource@f888a332 [ connectionPoolDataSource -> com.mchange.v2.c3p0.WrapperConnectionPoolDataSource@f3f6603e [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, debugUnreturnedConnectionStackTraces -> false, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, identityToken -> 2x490g9k14955upxngz04|77acc231, idleConnectionTestPeriod -> 3000, initialPoolSize -> 5, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 300, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 20, maxStatements -> 50, maxStatementsPerConnection -> 0, minPoolSize -> 5, nestedDataSource -> com.mchange.v2.c3p0.DriverManagerDataSource@142d9b23 [ description -> null, driverClass -> null, factoryClassLocation -> null, forceUseNamedDriverClass -> false, identityToken -> 2x490g9k14955upxngz04|2be9a73c, jdbcUrl -> jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE, properties -> {user=******, password=******} ], preferredTestQuery -> null, privilegeSpawnedThreads -> false, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false; userOverrides: {} ], dataSourceName -> null, extensions -> {}, factoryClassLocation -> null, identityToken -> 2x490g9k14955upxngz04|19c743ff, numHelperThreads -> 3 ]
+2016-11-23 17:35:54 INFO  org.hibernate.dialect.Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2016-11-23 17:35:54 INFO  org.hibernate.engine.transaction.internal.TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2016-11-23 17:35:54 INFO  org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2016-11-23 17:35:54 INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate:207 - HHH000228: Running hbm2ddl schema update
+2016-11-23 17:35:54 INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate:218 - HHH000102: Fetching database metadata
+2016-11-23 17:35:54 INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate:230 - HHH000396: Updating schema
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: dashboard
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: dashboard_config
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: dashboard_config_history
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: dashboard_config_item
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: dashboard_dashboard_config
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: logger_monitor
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: monitors
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: workflow_process
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: dashboard
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: dashboard_config
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: dashboard_config_history
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: dashboard_config_item
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: dashboard_dashboard_config
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: logger_monitor
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: monitors
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: workflow_process
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: dashboard
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: dashboard_config
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: dashboard_config_history
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: dashboard_config_item
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: dashboard_dashboard_config
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: logger_monitor
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: monitors
+2016-11-23 17:35:54 INFO  java.sql.DatabaseMetaData:147 - HHH000262: Table not found: workflow_process
+2016-11-23 17:35:54 INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate:267 - HHH000232: Schema update complete
+2016-11-23 17:35:55 INFO  org.springframework.orm.hibernate4.HibernateTransactionManager:360 - Using DataSource [com.mchange.v2.c3p0.PoolBackedDataSource@f888a332 [ connectionPoolDataSource -> com.mchange.v2.c3p0.WrapperConnectionPoolDataSource@f3f6603e [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, debugUnreturnedConnectionStackTraces -> false, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, identityToken -> 2x490g9k14955upxngz04|77acc231, idleConnectionTestPeriod -> 3000, initialPoolSize -> 5, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 300, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 20, maxStatements -> 50, maxStatementsPerConnection -> 0, minPoolSize -> 5, nestedDataSource -> com.mchange.v2.c3p0.DriverManagerDataSource@142d9b23 [ description -> null, driverClass -> null, factoryClassLocation -> null, forceUseNamedDriverClass -> false, identityToken -> 2x490g9k14955upxngz04|2be9a73c, jdbcUrl -> jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE, properties -> {user=******, password=******} ], preferredTestQuery -> null, privilegeSpawnedThreads -> false, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false; userOverrides: {} ], dataSourceName -> null, extensions -> {}, factoryClassLocation -> null, identityToken -> 2x490g9k14955upxngz04|19c743ff, numHelperThreads -> 3 ]] of Hibernate SessionFactory for HibernateTransactionManager
+2016-11-23 17:35:55 INFO  org.activiti.engine.impl.bpmn.deployer.BpmnDeployer:89 - Processing resource UserTaskTest.bpmn20.xml
+2016-11-23 17:35:55 INFO  org.dozer.DozerBeanMapper:222 - Using the following xml files to load custom mappings for the bean mapper instance: [dozer-config.xml]
+2016-11-23 17:35:55 INFO  org.dozer.DozerBeanMapper:224 - Trying to find xml mapping file: dozer-config.xml
+2016-11-23 17:35:55 INFO  org.dozer.DozerBeanMapper:226 - Using URL [file:/C:/MDCU/testing/fld/load-orchestrator-webapp/target/classes/dozer-config.xml] to load custom xml mappings
+2016-11-23 17:35:55 INFO  org.dozer.DozerBeanMapper:228 - Successfully loaded custom xml mappings from URL: [file:/C:/MDCU/testing/fld/load-orchestrator-webapp/target/classes/dozer-config.xml]
+2016-11-23 17:35:55 INFO  com.ca.apm.systemtest.fld.server.rest.DashboardRestController:620 - Cannot suspend process for dashboard 1: is it already suspended?
+2016-11-23 17:35:55 INFO  com.ca.apm.systemtest.fld.server.rest.DashboardRestController:643 - Cannot resume process for dashboard 1: is it already running?
+2016-11-23 17:35:56 INFO  com.ca.apm.systemtest.fld.server.rest.DashboardRCPauseResumeTest:140 - Completed user task: remaining usertasks: 2
+2016-11-23 17:35:56 INFO  com.ca.apm.systemtest.fld.server.rest.DashboardRCPauseResumeTest:140 - Completed user task: remaining usertasks: 1
+2016-11-23 17:35:56 INFO  com.ca.apm.systemtest.fld.server.rest.DashboardRCPauseResumeTest:140 - Completed user task: remaining usertasks: 0
+2016-11-23 17:35:58 INFO  org.activiti.engine.impl.jobexecutor.JobExecutor:90 - Shutting down the JobExecutor[org.activiti.engine.impl.jobexecutor.DefaultJobExecutor].
+2016-11-23 17:35:58 INFO  org.activiti.engine.impl.jobexecutor.AcquireJobsRunnableImpl:106 - JobExecutor[org.activiti.engine.impl.jobexecutor.DefaultJobExecutor] stopped job acquisition
+2016-11-23 17:35:58 INFO  org.activiti.engine.impl.db.DbSqlSession:1292 - performing drop on engine with resource org/activiti/db/drop/activiti.h2.drop.engine.sql
+2016-11-23 17:35:58 INFO  org.activiti.engine.impl.db.DbSqlSession:1292 - performing drop on history with resource org/activiti/db/drop/activiti.h2.drop.history.sql
+2016-11-23 17:35:58 INFO  org.activiti.engine.impl.db.DbSqlSession:1292 - performing drop on identity with resource org/activiti/db/drop/activiti.h2.drop.identity.sql
+2016-11-23 17:35:58 INFO  org.activiti.engine.impl.db.DbSqlSession:1292 - performing create on engine with resource org/activiti/db/create/activiti.h2.create.engine.sql
+2016-11-23 17:35:58 INFO  org.activiti.engine.impl.db.DbSqlSession:1292 - performing create on history with resource org/activiti/db/create/activiti.h2.create.history.sql
+2016-11-23 17:35:58 INFO  org.activiti.engine.impl.db.DbSqlSession:1292 - performing create on identity with resource org/activiti/db/create/activiti.h2.create.identity.sql
+2016-11-23 17:35:58 INFO  org.activiti.engine.impl.ProcessEngineImpl:85 - ProcessEngine default created
+2016-11-23 17:35:58 INFO  org.activiti.engine.impl.jobexecutor.JobExecutor:79 - Starting up the JobExecutor[org.activiti.engine.impl.jobexecutor.DefaultJobExecutor].
+2016-11-23 17:35:58 INFO  org.dozer.DozerBeanMapper:175 - Initializing a new instance of dozer bean mapper.
+2016-11-23 17:35:58 INFO  org.activiti.engine.impl.jobexecutor.AcquireJobsRunnableImpl:45 - JobExecutor[org.activiti.engine.impl.jobexecutor.DefaultJobExecutor] starting to acquire jobs
+2016-11-23 17:35:58 INFO  org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator:190 - HHH000130: Instantiating explicit connection provider: org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider
+2016-11-23 17:35:58 INFO  org.hibernate.c3p0.internal.C3P0ConnectionProvider:134 - HHH010002: C3P0 using driver: org.h2.Driver at URL: jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE
+2016-11-23 17:35:58 INFO  org.hibernate.c3p0.internal.C3P0ConnectionProvider:135 - HHH000046: Connection properties: {user=sa, password=****}
+2016-11-23 17:35:58 INFO  org.hibernate.c3p0.internal.C3P0ConnectionProvider:138 - HHH000006: Autocommit mode: false
+2016-11-23 17:35:58 INFO  com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource:212 - Initializing c3p0 pool... com.mchange.v2.c3p0.PoolBackedDataSource@d47fde2c [ connectionPoolDataSource -> com.mchange.v2.c3p0.WrapperConnectionPoolDataSource@da86fde1 [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, debugUnreturnedConnectionStackTraces -> false, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, identityToken -> 2x490g9k14955upxngz04|747a2788, idleConnectionTestPeriod -> 3000, initialPoolSize -> 5, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 300, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 20, maxStatements -> 50, maxStatementsPerConnection -> 0, minPoolSize -> 5, nestedDataSource -> com.mchange.v2.c3p0.DriverManagerDataSource@9468e6b6 [ description -> null, driverClass -> null, factoryClassLocation -> null, forceUseNamedDriverClass -> false, identityToken -> 2x490g9k14955upxngz04|45c7ac66, jdbcUrl -> jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE, properties -> {user=******, password=******} ], preferredTestQuery -> null, privilegeSpawnedThreads -> false, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false; userOverrides: {} ], dataSourceName -> null, extensions -> {}, factoryClassLocation -> null, identityToken -> 2x490g9k14955upxngz04|6ef63dd5, numHelperThreads -> 3 ]
+2016-11-23 17:35:58 INFO  org.hibernate.dialect.Dialect:145 - HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2016-11-23 17:35:58 INFO  org.hibernate.engine.transaction.internal.TransactionFactoryInitiator:62 - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2016-11-23 17:35:58 INFO  org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory:47 - HHH000397: Using ASTQueryTranslatorFactory
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate:207 - HHH000228: Running hbm2ddl schema update
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate:218 - HHH000102: Fetching database metadata
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate:230 - HHH000396: Updating schema
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:65 - HHH000261: Table found: TEST.PUBLIC.DASHBOARD
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:66 - HHH000037: Columns: [process_instance_id, icon, process_key, last_end_time, process_business_key, name, last_start_time, dashboard_id, process_definition_version]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:68 - HHH000108: Foreign keys: []
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:69 - HHH000126: Indexes: [primary_key_6]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:65 - HHH000261: Table found: TEST.PUBLIC.DASHBOARD_CONFIG
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:66 - HHH000037: Columns: [hide_non_required_config_parameters, dashboard_config_id, version]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:68 - HHH000108: Foreign keys: []
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:69 - HHH000126: Indexes: [primary_key_2]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:65 - HHH000261: Table found: TEST.PUBLIC.DASHBOARD_CONFIG_HISTORY
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:66 - HHH000037: Columns: [idx, dashboard_id, dashboard_config_id]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:68 - HHH000108: Foreign keys: [fk_46awq3r8tdypmugaem48je9ur, fk_f47mkqnxc10flmnab15nxgq14]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:69 - HHH000126: Indexes: [primary_key_9, uk_f47mkqnxc10flmnab15nxgq14_index_9]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:65 - HHH000261: Table found: TEST.PUBLIC.DASHBOARD_CONFIG_ITEM
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:66 - HHH000037: Columns: [index, config_item_id, name, form_id, dashboard_config_id, required, item_type]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:68 - HHH000108: Foreign keys: [fk_e0fwc6umjjtmpvkq4238rhbak]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:69 - HHH000126: Indexes: [primary_key_6a, fk_e0fwc6umjjtmpvkq4238rhbak_index_6]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:65 - HHH000261: Table found: TEST.PUBLIC.DASHBOARD_DASHBOARD_CONFIG
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:66 - HHH000037: Columns: [dashboard_id, dashboard_config_id]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:68 - HHH000108: Foreign keys: [fk_abr6fvejhu6og4pglroeiuwki, fk_fyrm7r9dcjftxj9ynmi3eaunl]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:69 - HHH000126: Indexes: [fk_abr6fvejhu6og4pglroeiuwki_index_3, primary_key_3]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:65 - HHH000261: Table found: TEST.PUBLIC.LOGGER_MONITOR
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:66 - HHH000037: Columns: [timestamp, message, process_instance_id, node, category, level, logger_id, tag, exception, dashboard_id]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:68 - HHH000108: Foreign keys: [fk_jne0ltle8kjexi5b7f7vtaql8]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:69 - HHH000126: Indexes: [primary_key_6c, fk_jne0ltle8kjexi5b7f7vtaql8_index_6]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:65 - HHH000261: Table found: TEST.PUBLIC.MONITORS
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:66 - HHH000037: Columns: [index, monitor_id, name, monitor_group, dashboard_config_id, key]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:68 - HHH000108: Foreign keys: [fk_r99vi1ko68fj6j0jluwi9qy2k]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:69 - HHH000126: Indexes: [fk_r99vi1ko68fj6j0jluwi9qy2k_index_1, primary_key_1]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:65 - HHH000261: Table found: TEST.PUBLIC.WORKFLOW_PROCESS
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:66 - HHH000037: Columns: [workflow_process_id, dashboard_id, workflow_index]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:68 - HHH000108: Foreign keys: [fk_g7njci8rjlc6g9iqhp5nxfnah]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.TableMetadata:69 - HHH000126: Indexes: [primary_key_5, fk_g7njci8rjlc6g9iqhp5nxfnah_index_5]
+2016-11-23 17:35:58 INFO  org.hibernate.tool.hbm2ddl.SchemaUpdate:267 - HHH000232: Schema update complete
+2016-11-23 17:35:58 INFO  org.springframework.orm.hibernate4.HibernateTransactionManager:360 - Using DataSource [com.mchange.v2.c3p0.PoolBackedDataSource@d47fde2c [ connectionPoolDataSource -> com.mchange.v2.c3p0.WrapperConnectionPoolDataSource@da86fde1 [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, debugUnreturnedConnectionStackTraces -> false, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, identityToken -> 2x490g9k14955upxngz04|747a2788, idleConnectionTestPeriod -> 3000, initialPoolSize -> 5, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 300, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 20, maxStatements -> 50, maxStatementsPerConnection -> 0, minPoolSize -> 5, nestedDataSource -> com.mchange.v2.c3p0.DriverManagerDataSource@9468e6b6 [ description -> null, driverClass -> null, factoryClassLocation -> null, forceUseNamedDriverClass -> false, identityToken -> 2x490g9k14955upxngz04|45c7ac66, jdbcUrl -> jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE, properties -> {user=******, password=******} ], preferredTestQuery -> null, privilegeSpawnedThreads -> false, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false; userOverrides: {} ], dataSourceName -> null, extensions -> {}, factoryClassLocation -> null, identityToken -> 2x490g9k14955upxngz04|6ef63dd5, numHelperThreads -> 3 ]] of Hibernate SessionFactory for HibernateTransactionManager
+2016-11-23 17:35:58 INFO  org.activiti.engine.impl.bpmn.deployer.BpmnDeployer:89 - Processing resource ProcessWithMonitorsInsideOtherProcess1.bpmn
+2016-11-23 17:35:58 INFO  org.activiti.engine.impl.bpmn.deployer.BpmnDeployer:89 - Processing resource ProcessWithMonitorsInsideOtherProcess.bpmn
+2016-11-23 17:35:58 INFO  org.activiti.engine.impl.bpmn.deployer.BpmnDeployer:89 - Processing resource ProcessWithMonitorsInsideOtherProcess2.bpmn
+2016-11-23 17:35:59 INFO  org.dozer.DozerBeanMapper:222 - Using the following xml files to load custom mappings for the bean mapper instance: [dozer-config.xml]
+2016-11-23 17:35:59 INFO  org.dozer.DozerBeanMapper:224 - Trying to find xml mapping file: dozer-config.xml
+2016-11-23 17:35:59 INFO  org.dozer.DozerBeanMapper:226 - Using URL [file:/C:/MDCU/testing/fld/load-orchestrator-webapp/target/classes/dozer-config.xml] to load custom xml mappings
+2016-11-23 17:35:59 INFO  org.dozer.DozerBeanMapper:228 - Successfully loaded custom xml mappings from URL: [file:/C:/MDCU/testing/fld/load-orchestrator-webapp/target/classes/dozer-config.xml]
+2016-11-23 17:35:59 INFO  org.activiti.engine.impl.jobexecutor.JobExecutor:90 - Shutting down the JobExecutor[org.activiti.engine.impl.jobexecutor.DefaultJobExecutor].
+2016-11-23 17:35:59 INFO  org.activiti.engine.impl.jobexecutor.AcquireJobsRunnableImpl:106 - JobExecutor[org.activiti.engine.impl.jobexecutor.DefaultJobExecutor] stopped job acquisition
+2016-11-23 17:35:59 INFO  org.activiti.engine.impl.db.DbSqlSession:1292 - performing drop on engine with resource org/activiti/db/drop/activiti.h2.drop.engine.sql
+2016-11-23 17:35:59 INFO  org.activiti.engine.impl.db.DbSqlSession:1292 - performing drop on history with resource org/activiti/db/drop/activiti.h2.drop.history.sql
+2016-11-23 17:35:59 INFO  org.activiti.engine.impl.db.DbSqlSession:1292 - performing drop on identity with resource org/activiti/db/drop/activiti.h2.drop.identity.sql

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<call-job-stack>
+	<name>There_can_only_be_Five</name>
+	
+	<description></description>
+	<numberOfThreadsToRun>1</numberOfThreadsToRun>
+	<jGate>tcp://USILCA31</jGate>
+	<jGatePort>2008</jGatePort>
+	<serverName>C650IPIC</serverName>
+	<useChannel>false</useChannel>
+	<useCommarea>true</useCommarea>
+	<useDynamicDecoration>false</useDynamicDecoration>
+	<programDataStr></programDataStr>
+	
+	<calledDistributions>
+		<name>There_can_only_be_five</name>
+		<minutesToRun>0</minutesToRun>
+		<randomSeed>0</randomSeed>
+		<useCTG>true</useCTG>
+		<useWebServices>false</useWebServices>
+		<calledUnitsOfWork>
+			<proportionOfCalls>5</proportionOfCalls>
+			<calledTransactions>
+				<transactionID>SLP5</transactionID>
+				<parameters>100000</parameters>
+			</calledTransactions>
+		</calledUnitsOfWork>
+	
+	</calledDistributions>
+</call-job-stack>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="fld.configure.log.monitor" name="Configure Log Monitor" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="node" name="node" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="logFile" name="logFile" type="string"></activiti:formProperty>
+        <activiti:formProperty id="logStream" name="logStream" type="string"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <serviceTask id="call.configure.log.monitor" name="Configre Log Monitor" activiti:delegateExpression="${configureLogMonitorJobs.configureJob}"></serviceTask>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="call.configure.log.monitor">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="call.configure.log.monitor"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow2" sourceRef="call.configure.log.monitor" targetRef="endevent1"></sequenceFlow>
+    <userTask id="resolve.error" name="Resolve Error">
+      <extensionElements>
+        <activiti:formProperty id="nextAction" name="nextAction" type="enum">
+          <activiti:value id="retry" name="retry"></activiti:value>
+          <activiti:value id="cancel" name="cancel"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow3" sourceRef="boundaryerror1" targetRef="resolve.error"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow4" sourceRef="resolve.error" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow5" name="Retry" sourceRef="exclusivegateway1" targetRef="call.configure.log.monitor">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${nextAction == 'retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow6" name="Cancel" sourceRef="exclusivegateway1" targetRef="endevent1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${nextAction != 'retry'}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.configure.log.monitor">
+    <bpmndi:BPMNPlane bpmnElement="fld.configure.log.monitor" id="BPMNPlane_fld.configure.log.monitor">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="40.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="call.configure.log.monitor" id="BPMNShape_call.configure.log.monitor">
+        <omgdc:Bounds height="55.0" width="105.0" x="150.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="240.0" y="130.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="350.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="resolve.error" id="BPMNShape_resolve.error">
+        <omgdc:Bounds height="55.0" width="105.0" x="202.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="234.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="75.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="150.0" y="117.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="255.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="350.0" y="117.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="255.0" y="160.0"></omgdi:waypoint>
+        <omgdi:waypoint x="254.0" y="190.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="254.0" y="245.0"></omgdi:waypoint>
+        <omgdi:waypoint x="254.0" y="280.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="234.0" y="300.0"></omgdi:waypoint>
+        <omgdi:waypoint x="180.0" y="299.0"></omgdi:waypoint>
+        <omgdi:waypoint x="180.0" y="192.0"></omgdi:waypoint>
+        <omgdi:waypoint x="202.0" y="145.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="26.0" x="181.0" y="301.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="274.0" y="300.0"></omgdi:waypoint>
+        <omgdi:waypoint x="367.0" y="299.0"></omgdi:waypoint>
+        <omgdi:waypoint x="367.0" y="135.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="33.0" x="284.0" y="300.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

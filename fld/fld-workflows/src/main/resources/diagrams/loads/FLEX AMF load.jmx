@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="2.8" jmeter="2.13 r1665067">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="logDir" elementType="Argument">
+            <stringProp name="Argument.name">logDir</stringProp>
+            <stringProp name="Argument.value">${__P(logDir,.)}</stringProp>
+            <stringProp name="Argument.desc">directory for logs produced by this test</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="concurrency" elementType="Argument">
+            <stringProp name="Argument.name">concurrency</stringProp>
+            <stringProp name="Argument.value">${__P(concurrency,1)}</stringProp>
+            <stringProp name="Argument.desc">number of threads/clients to run</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="targetHost" elementType="Argument">
+            <stringProp name="Argument.name">targetHost</stringProp>
+            <stringProp name="Argument.value">${__P(targetHost,fldcornerbow01c)}</stringProp>
+            <stringProp name="Argument.desc">target BlazeDS host</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="targetPort" elementType="Argument">
+            <stringProp name="Argument.name">targetPort</stringProp>
+            <stringProp name="Argument.value">${__P(targetPort,8400)}</stringProp>
+            <stringProp name="Argument.desc">target host port</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="targetPath" elementType="Argument">
+            <stringProp name="Argument.name">targetPath</stringProp>
+            <stringProp name="Argument.value">${__P(targetPath,flex-echo-app/messagebroker/amf)}</stringProp>
+            <stringProp name="Argument.desc">target web service path</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="loremIpsumWords" elementType="Argument">
+            <stringProp name="Argument.name">loremIpsumWords</stringProp>
+            <stringProp name="Argument.value">${__P(loremIpsumWords,100)}</stringProp>
+            <stringProp name="Argument.desc">how many words of &quot;lorem ipsum&quot; to use as payload</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="echoSerivceCallsCount" elementType="Argument">
+            <stringProp name="Argument.name">echoSerivceCallsCount</stringProp>
+            <stringProp name="Argument.value">${__P(echoSerivceCallsCount, 1)}</stringProp>
+            <stringProp name="Argument.desc">how many echoService.echo calls to do</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="loops" elementType="Argument">
+            <stringProp name="Argument.name">loops</stringProp>
+            <stringProp name="Argument.value">${__P(loops,255000)}</stringProp>
+            <stringProp name="Argument.desc">how many loops of the whole test to do</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="cycleDelay" elementType="Argument">
+            <stringProp name="Argument.name">cycleDelay</stringProp>
+            <stringProp name="Argument.value">${__P(cycleDelay,5000)}</stringProp>
+            <stringProp name="Argument.desc">delay between test cycles (ms)</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${loops}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${concurrency}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1437489128000</longProp>
+        <longProp name="ThreadGroup.end_time">1437489128000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+          <collectionProp name="CookieManager.cookies"/>
+          <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+          <stringProp name="CookieManager.implementation">org.apache.jmeter.protocol.http.control.HC4CookieHandler</stringProp>
+        </CookieManager>
+        <hashTree/>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler - test echoService.echo" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">com.ca.apm.systemtest.fld.flex.load.amf</stringProp>
+          <stringProp name="script">import flex.messaging.io.amf.client.AMFConnection;
+import flex.messaging.messages.MessagePerformanceInfo;
+import flex.messaging.messages.RemotingMessage;
+import flex.messaging.util.UUIDUtils;
+import flex.messaging.messages.Message;
+import flex.messaging.messages.CommandMessage;
+import flex.messaging.messages.AcknowledgeMessage;
+import de.svenjacobs.loremipsum.LoremIpsum;
+
+int echoSerivceCallsCount = Integer.parseInt(vars.get(&quot;echoSerivceCallsCount&quot;));
+int loremIpsumWords = Integer.parseInt(vars.get(&quot;loremIpsumWords&quot;));
+String targetHost = vars.get(&quot;targetHost&quot;);
+String targetPort = vars.get(&quot;targetPort&quot;);
+String targetPath = vars.get(&quot;targetPath&quot;);
+
+AMFConnection amfConnection = new AMFConnection();
+try {
+	amfConnection.connect(
+		String.format(&quot;http://%s:%s/%s&quot;, targetHost, targetPort, targetPath));
+	amfConnection.registerAlias(&quot;DSK&quot;, &quot;flex.messaging.messages.AcknowledgeMessageExt&quot;);
+
+	CommandMessage cmdMsg = new CommandMessage(CommandMessage.CLIENT_PING_OPERATION);
+	cmdMsg.setHeader(&quot;DSMessagingVersion&quot;, 1);
+	cmdMsg.setMessageId(UUIDUtils.createUUID());
+	cmdMsg.setHeader(Message.FLEX_CLIENT_ID_HEADER, &quot;nil&quot;);
+
+	org.apache.jmeter.samplers.SampleResult pingResult = new org.apache.jmeter.samplers.SampleResult();
+	pingResult.setRequestHeaders(cmdMsg.toString());
+	pingResult.setSuccessful(true);
+	pingResult.sampleStart();
+	Object result = amfConnection.call(null, cmdMsg);
+	pingResult.sampleEnd();
+		
+	String resultStr = result.toString();
+	log.info(resultStr);
+	pingResult.setDataType(SampleResult.TEXT);
+	pingResult.setResponseData(resultStr);
+
+	pingResult.setSampleLabel(&quot;Ping message&quot;);
+	if (! AcknowledgeMessage.class.isAssignableFrom(result.getClass())) {
+		pingResult.setSuccessful(false);
+		pingResult.setResponseMessage(&quot;Ping command message response is not AcknowledgeMessage.&quot;);
+	} else {
+		pingResult.setResponseMessage(&quot;Ping message&quot;);
+	}
+
+	SampleResult.addRawSubResult(pingResult);
+
+	AcknowledgeMessage ackMsg = (AcknowledgeMessage) result;
+	String dsid = (String)ackMsg.getHeader(Message.FLEX_CLIENT_ID_HEADER);
+	log.info(&quot;DSId: &quot; + dsid);
+	vars.put(&quot;DSId&quot;, dsid);
+
+	LoremIpsum loremIpsum = new LoremIpsum();
+	String data = loremIpsum.getWords(loremIpsumWords);
+
+     for (int i = 0; i != echoSerivceCallsCount; ++i) {
+		org.apache.jmeter.samplers.SampleResult echoResult = new org.apache.jmeter.samplers.SampleResult();
+		echoResult.setRequestHeaders(data);
+		echoResult.setSuccessful(true);
+		echoResult.sampleStart();
+		result = amfConnection.call(&quot;echoService.echo&quot;, data);
+		echoResult.sampleEnd();
+		resultStr = result.toString();
+		log.info(resultStr);
+
+		echoResult.setSampleLabel(&quot;Echo request #&quot; + i);
+		if (! AcknowledgeMessage.class.isAssignableFrom(result.getClass())) {
+			echoResult.setSuccessful(false);
+			echoResult.setResponseMessage(&quot;Echo service call message response is not AcknowledgeMessage.&quot;);
+		} else {
+			echoResult.setResponseMessage(&quot;Echo request #&quot; + i);
+		}
+
+		echoResult.setDataType(SampleResult.TEXT);
+		echoResult.setResponseData(resultStr);		
+		
+		SampleResult.addRawSubResult(echoResult);
+     }
+} finally {
+	amfConnection.close();
+}
+</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+          <stringProp name="ConstantTimer.delay">${cycleDelay}</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+      </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>true</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>true</responseData>
+            <samplerData>true</samplerData>
+            <xml>true</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>true</responseHeaders>
+            <requestHeaders>true</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <url>true</url>
+            <hostname>true</hostname>
+            <threadCounts>true</threadCounts>
+          </value>
+        </objProp>
+        <stringProp name="filename">${logDir}/${__TestPlanName()}-${__time(YMDHMS)}.results.xml</stringProp>
+      </ResultCollector>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

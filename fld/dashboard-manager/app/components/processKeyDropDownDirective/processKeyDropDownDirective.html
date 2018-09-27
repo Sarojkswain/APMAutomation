@@ -1,0 +1,15 @@
+<div>
+    <div class="btn-group processKeyDropDown" uib-dropdown>
+        <button type="button"
+                ng-class="{ 'btn dropdown-toggle' : true, 'btn-danger' : !value, 'btn-success' : value }"
+                uib-dropdown-toggle>
+            {{ procKeyDropDownController.getValueLabel() }} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" ng-model="value">
+            <li ng-repeat="procDef in procDefinitions">
+                <a href="" ng-click="procKeyDropDownController.setValue(procDef.key)"><b>Id:</b> <code>{{ procDef.key }}</code> | <b>Name:</b> <i>{{ procDef.name }}</i> </a>
+            </li>
+        </ul>
+    </div>
+</div>
+

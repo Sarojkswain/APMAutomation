@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Remote agent plugins interface</title>
+	<!-- <link rel="stylesheet" href="tasks.css"> -->
+	<script type="text/javascript" src="plugins.js"></script>
+</head>
+
+<body onload="load_stuff()">
+	<!--<form id="userTasksForm" onsubmit="return get_user_tasks(this);"> -->
+	<form method="post" action="invokePluginMethod">
+		Node: <select id="nodeName" name="nodeName" /></select><br />
+		Plugin: <select id="pluginName" name="pluginName" /></select><br />
+		Method: <select id="methodName" name="methodName" /></select><br />
+		<table id="methodParameters">
+          <thead>
+      	    <tr>
+        	  <td>Parameter type</td>
+        	  <td style="width: 400px;">Parameter value</td>
+      	    </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+		<input id="submit" type="submit" value="Execute" />
+	</form>
+</body>
+
+</html>

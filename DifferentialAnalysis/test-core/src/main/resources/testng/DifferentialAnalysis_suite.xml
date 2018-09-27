@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+ 
+<!--
+ @Tas(testBed = [
+    {name=com.ca.apm.tests.testbed.DifferentialAnalysisTestbed, executeOn=momEm}],
+    owner = patpr15,
+    size = MEDIUM,
+    description = 'Differential Analysis TestNg XML suite')
+-->
+
+<suite name="DA_TestSuite" configfailurepolicy="continue"> 
+        <test name="testng.DifferentialAnalysis_suite" preserve-order="true" >
+        <classes>   
+            <class name="com.ca.apm.tests.test.DifferentialAnalysisTests">
+                 <methods>
+                       <include name="Differential_Analysis_TestCase"/>
+                </methods>
+            </class>
+          </classes>
+        </test>
+</suite>

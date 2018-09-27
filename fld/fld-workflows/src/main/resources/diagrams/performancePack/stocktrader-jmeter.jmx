@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="2.6" jmeter="2.11 r1554548">
+    <hashTree>
+        <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+            <stringProp name="TestPlan.comments"></stringProp>
+            <boolProp name="TestPlan.functional_mode">false</boolProp>
+            <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+            <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="TestPlan.user_define_classpath"></stringProp>
+        </TestPlan>
+        <hashTree>
+            <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Configuration Variables" enabled="true">
+                <collectionProp name="Arguments.arguments">
+                    <elementProp name="appServerHost" elementType="Argument">
+                        <stringProp name="Argument.name">appServerHost</stringProp>
+                        <stringProp name="Argument.value">${__P(appServerHost,localhost)}</stringProp>
+                        <stringProp name="Argument.desc">WebApp host</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                    <elementProp name="appServerPort" elementType="Argument">
+                        <stringProp name="Argument.name">appServerPort</stringProp>
+                        <stringProp name="Argument.value">${__P(appServerPort,7007)}</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                        <stringProp name="Argument.desc">WebApp port</stringProp>
+                    </elementProp>
+                    <elementProp name="logDir" elementType="Argument">
+                        <stringProp name="Argument.name">logDir</stringProp>
+                        <stringProp name="Argument.value">${__P(logDir,.)}</stringProp>
+                        <stringProp name="Argument.desc">Directory for logs produced by this test</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                    <elementProp name="loops" elementType="Argument">
+                        <stringProp name="Argument.name">loops</stringProp>
+                        <stringProp name="Argument.value">${__P(loops,-1)}</stringProp>
+                        <stringProp name="Argument.desc">Number of test loops, by default, infinite</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                    <elementProp name="cycleDelay" elementType="Argument">
+                        <stringProp name="Argument.name">cycleDelay</stringProp>
+                        <stringProp name="Argument.value">${__P(cycleDelay,1000)}</stringProp>
+                        <stringProp name="Argument.desc">Delay between test cycles or loops in milliseconds. Default is one second</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                    <elementProp name="testNumberOfCVUS" elementType="Argument">
+                        <stringProp name="Argument.name">testNumberOfCVUS</stringProp>
+                        <stringProp name="Argument.value">${__P(testNumberOfCVUS,10)}</stringProp>
+                        <stringProp name="Argument.desc">Number of threads or clients to execute</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                    <elementProp name="testDurationInSeconds" elementType="Argument">
+                        <stringProp name="Argument.name">testDurationInSeconds</stringProp>
+                        <stringProp name="Argument.value">${__P(testDurationInSeconds,2400)}</stringProp>
+                        <stringProp name="Argument.desc">Overall duration of test in seconds</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                    <elementProp name="testWarmupInSeconds" elementType="Argument">
+                        <stringProp name="Argument.name">testWarmupInSeconds</stringProp>
+                        <stringProp name="Argument.value">${__P(testWarmupInSeconds, 900)}</stringProp>
+                        <stringProp name="Argument.desc">Test warmup duration in seconds</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                </collectionProp>
+            </Arguments>
+            <hashTree/>
+            <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="StockTrader Users" enabled="true">
+                <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+                <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+                    <boolProp name="LoopController.continue_forever">false</boolProp>
+                    <intProp name="LoopController.loops">-1</intProp>
+                </elementProp>
+                <stringProp name="ThreadGroup.num_threads">${testNumberOfCVUS}</stringProp>
+                <stringProp name="ThreadGroup.ramp_time">${testWarmupInSeconds}</stringProp>
+                <longProp name="ThreadGroup.start_time">1301433961000</longProp>
+                <longProp name="ThreadGroup.end_time">1301433742000</longProp>
+                <boolProp name="ThreadGroup.scheduler">true</boolProp>
+                <stringProp name="ThreadGroup.duration">${testDurationInSeconds}</stringProp>
+                <stringProp name="ThreadGroup.delay"></stringProp>
+            </ThreadGroup>
+            <hashTree>
+                <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+                    <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                        <collectionProp name="Arguments.arguments"/>
+                    </elementProp>
+                    <stringProp name="HTTPSampler.domain">${appServerHost}</stringProp>
+                    <stringProp name="HTTPSampler.port">${appServerPort}</stringProp>
+                    <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.protocol"></stringProp>
+                    <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                    <stringProp name="HTTPSampler.path">/TradeBSL/Trade</stringProp>
+                    <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
+                </ConfigTestElement>
+                <hashTree/>
+                <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+                    <collectionProp name="CookieManager.cookies"/>
+                    <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+                    <stringProp name="CookieManager.policy">rfc2109</stringProp>
+                </CookieManager>
+                <hashTree/>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+                    <collectionProp name="HeaderManager.headers">
+                        <elementProp name="" elementType="Header">
+                            <stringProp name="Header.name">content-type</stringProp>
+                            <stringProp name="Header.value">text/xml</stringProp>
+                        </elementProp>
+                        <elementProp name="" elementType="Header">
+                            <stringProp name="Header.name">Cache-Control</stringProp>
+                            <stringProp name="Header.value">private, no-store, max-age=0</stringProp>
+                        </elementProp>
+                    </collectionProp>
+                </HeaderManager>
+                <hashTree/>
+                <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="User Parameters" enabled="true">
+                    <collectionProp name="UserParameters.names">
+                        <stringProp name="115792">uid</stringProp>
+                        <stringProp name="1091761859">holding</stringProp>
+                        <stringProp name="107953788">quote</stringProp>
+                    </collectionProp>
+                    <collectionProp name="UserParameters.thread_values">
+                        <collectionProp name="-489318982">
+                            <stringProp name="50548">301</stringProp>
+                            <stringProp name="1538214">2118</stringProp>
+                            <stringProp name="50548">301</stringProp>
+                        </collectionProp>
+                        <collectionProp name="-489205980">
+                            <stringProp name="50549">302</stringProp>
+                            <stringProp name="1538238">2121</stringProp>
+                            <stringProp name="50549">302</stringProp>
+                        </collectionProp>
+                        <collectionProp name="-488394329">
+                            <stringProp name="50550">303</stringProp>
+                            <stringProp name="1538241">2124</stringProp>
+                            <stringProp name="50550">303</stringProp>
+                        </collectionProp>
+                        <collectionProp name="-488277793">
+                            <stringProp name="50551">304</stringProp>
+                            <stringProp name="1538268">2130</stringProp>
+                            <stringProp name="50551">304</stringProp>
+                        </collectionProp>
+                        <collectionProp name="-488132458">
+                            <stringProp name="50552">305</stringProp>
+                            <stringProp name="1538299">2140</stringProp>
+                            <stringProp name="50552">305</stringProp>
+                        </collectionProp>
+                        <collectionProp name="-487320406">
+                            <stringProp name="50553">306</stringProp>
+                            <stringProp name="1538303">2144</stringProp>
+                            <stringProp name="50553">306</stringProp>
+                        </collectionProp>
+                        <collectionProp name="-487177427">
+                            <stringProp name="50554">307</stringProp>
+                            <stringProp name="1538332">2152</stringProp>
+                            <stringProp name="50554">307</stringProp>
+                        </collectionProp>
+                        <collectionProp name="-487136159">
+                            <stringProp name="50555">308</stringProp>
+                            <stringProp name="1538336">2156</stringProp>
+                            <stringProp name="50555">308</stringProp>
+                        </collectionProp>
+                        <collectionProp name="-486997892">
+                            <stringProp name="50556">309</stringProp>
+                            <stringProp name="1538361">2160</stringProp>
+                            <stringProp name="50556">309</stringProp>
+                        </collectionProp>
+                        <collectionProp name="-484689288">
+                            <stringProp name="50578">310</stringProp>
+                            <stringProp name="1538369">2168</stringProp>
+                            <stringProp name="50578">310</stringProp>
+                        </collectionProp>
+                        <collectionProp name="-484546309">
+                            <stringProp name="50579">311</stringProp>
+                            <stringProp name="1538398">2176</stringProp>
+                            <stringProp name="50579">311</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96378988">
+                            <stringProp name="50580">312</stringProp>
+                            <stringProp name="1538427">2184</stringProp>
+                            <stringProp name="50580">312</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96380105">
+                            <stringProp name="50581">313</stringProp>
+                            <stringProp name="1538432">2189</stringProp>
+                            <stringProp name="50581">313</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96381873">
+                            <stringProp name="50582">314</stringProp>
+                            <stringProp name="1538458">2194</stringProp>
+                            <stringProp name="50582">314</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96403915">
+                            <stringProp name="50583">315</stringProp>
+                            <stringProp name="1539138">2202</stringProp>
+                            <stringProp name="50583">315</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96405094">
+                            <stringProp name="50584">316</stringProp>
+                            <stringProp name="1539145">2209</stringProp>
+                            <stringProp name="50584">316</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96406893">
+                            <stringProp name="50585">317</stringProp>
+                            <stringProp name="1539172">2215</stringProp>
+                            <stringProp name="50585">317</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96408692">
+                            <stringProp name="50586">318</stringProp>
+                            <stringProp name="1539199">2221</stringProp>
+                            <stringProp name="50586">318</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96409840">
+                            <stringProp name="50587">319</stringProp>
+                            <stringProp name="1539205">2227</stringProp>
+                            <stringProp name="50587">319</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96431934">
+                            <stringProp name="50609">320</stringProp>
+                            <stringProp name="1539235">2236</stringProp>
+                            <stringProp name="50609">320</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96433764">
+                            <stringProp name="50610">321</stringProp>
+                            <stringProp name="1539263">2243</stringProp>
+                            <stringProp name="50610">321</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96434850">
+                            <stringProp name="50611">322</stringProp>
+                            <stringProp name="1539267">2247</stringProp>
+                            <stringProp name="50611">322</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96436649">
+                            <stringProp name="50612">323</stringProp>
+                            <stringProp name="1539294">2253</stringProp>
+                            <stringProp name="50612">323</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96437797">
+                            <stringProp name="50613">324</stringProp>
+                            <stringProp name="1539300">2259</stringProp>
+                            <stringProp name="50613">324</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96440402">
+                            <stringProp name="50614">325</stringProp>
+                            <stringProp name="1539353">2270</stringProp>
+                            <stringProp name="50614">325</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96441550">
+                            <stringProp name="50615">326</stringProp>
+                            <stringProp name="1539359">2276</stringProp>
+                            <stringProp name="50615">326</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96443442">
+                            <stringProp name="50616">327</stringProp>
+                            <stringProp name="1539389">2285</stringProp>
+                            <stringProp name="50616">327</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96445210">
+                            <stringProp name="50617">328</stringProp>
+                            <stringProp name="1539415">2290</stringProp>
+                            <stringProp name="50617">328</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96446451">
+                            <stringProp name="50618">329</stringProp>
+                            <stringProp name="1539424">2299</stringProp>
+                            <stringProp name="50618">329</stringProp>
+                        </collectionProp>
+                        <collectionProp name="96488757">
+                            <stringProp name="50640">330</stringProp>
+                            <stringProp name="1540106">2309</stringProp>
+                            <stringProp name="50640">330</stringProp>
+                        </collectionProp>
+                    </collectionProp>
+                    <boolProp name="UserParameters.per_iteration">true</boolProp>
+                </UserParameters>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Login" enabled="true">
+                    <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                    <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                        <collectionProp name="Arguments.arguments">
+                            <elementProp name="" elementType="HTTPArgument">
+                                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                                <stringProp name="Argument.value">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;&#xd;
+                                    &lt;soapenv:Header/&gt;&#xd;
+                                    &lt;soapenv:Body&gt;&#xd;
+                                    &lt;trad:login&gt;&#xd;
+                                    &lt;trad:userID&gt;uid:${uid}&lt;/trad:userID&gt;&#xd;
+                                    &lt;trad:password&gt;xxx&lt;/trad:password&gt;&#xd;
+                                    &lt;/trad:login&gt;&#xd;
+                                    &lt;/soapenv:Body&gt;&#xd;
+                                    &lt;/soapenv:Envelope&gt;</stringProp>
+                                <stringProp name="Argument.metadata">=</stringProp>
+                            </elementProp>
+                        </collectionProp>
+                    </elementProp>
+                    <stringProp name="HTTPSampler.domain"></stringProp>
+                    <stringProp name="HTTPSampler.port"></stringProp>
+                    <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.protocol"></stringProp>
+                    <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                    <stringProp name="HTTPSampler.path"></stringProp>
+                    <stringProp name="HTTPSampler.method">POST</stringProp>
+                    <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                    <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                    <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                    <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                    <stringProp name="HTTPSampler.implementation">Java</stringProp>
+                    <boolProp name="HTTPSampler.monitor">false</boolProp>
+                    <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetAccountData" enabled="true">
+                    <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                    <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                        <collectionProp name="Arguments.arguments">
+                            <elementProp name="" elementType="HTTPArgument">
+                                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                                <stringProp name="Argument.value">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;&#xd;
+                                    &lt;soapenv:Header/&gt;&#xd;
+                                    &lt;soapenv:Body&gt;&#xd;
+                                    &lt;trad:getAccountData&gt;&#xd;
+                                    &lt;trad:userID&gt;uid:${uid}&lt;/trad:userID&gt;&#xd;
+                                    &lt;/trad:getAccountData&gt;&#xd;
+                                    &lt;/soapenv:Body&gt;&#xd;
+                                    &lt;/soapenv:Envelope&gt;</stringProp>
+                                <stringProp name="Argument.metadata">=</stringProp>
+                            </elementProp>
+                        </collectionProp>
+                    </elementProp>
+                    <stringProp name="HTTPSampler.domain"></stringProp>
+                    <stringProp name="HTTPSampler.port"></stringProp>
+                    <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.protocol"></stringProp>
+                    <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                    <stringProp name="HTTPSampler.path"></stringProp>
+                    <stringProp name="HTTPSampler.method">POST</stringProp>
+                    <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                    <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                    <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                    <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                    <stringProp name="HTTPSampler.implementation">Java</stringProp>
+                    <boolProp name="HTTPSampler.monitor">false</boolProp>
+                    <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetAccountProfileData" enabled="true">
+                    <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                    <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                        <collectionProp name="Arguments.arguments">
+                            <elementProp name="" elementType="HTTPArgument">
+                                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                                <stringProp name="Argument.value">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;&#xd;
+                                    &lt;soapenv:Header/&gt;&#xd;
+                                    &lt;soapenv:Body&gt;&#xd;
+                                    &lt;trad:getAccountProfileData&gt;&#xd;
+                                    &lt;trad:userID&gt;uid:${uid}&lt;/trad:userID&gt;&#xd;
+                                    &lt;/trad:getAccountProfileData&gt;&#xd;
+                                    &lt;/soapenv:Body&gt;&#xd;
+                                    &lt;/soapenv:Envelope&gt;</stringProp>
+                                <stringProp name="Argument.metadata">=</stringProp>
+                            </elementProp>
+                        </collectionProp>
+                    </elementProp>
+                    <stringProp name="HTTPSampler.domain"></stringProp>
+                    <stringProp name="HTTPSampler.port"></stringProp>
+                    <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.protocol"></stringProp>
+                    <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                    <stringProp name="HTTPSampler.path"></stringProp>
+                    <stringProp name="HTTPSampler.method">POST</stringProp>
+                    <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                    <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                    <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                    <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                    <stringProp name="HTTPSampler.implementation">Java</stringProp>
+                    <boolProp name="HTTPSampler.monitor">false</boolProp>
+                    <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="UpdateAccountProfile" enabled="true">
+                    <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                    <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                        <collectionProp name="Arguments.arguments">
+                            <elementProp name="" elementType="HTTPArgument">
+                                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                                <stringProp name="Argument.value">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;&#xd;
+                                    &lt;soapenv:Header/&gt;&#xd;
+                                    &lt;soapenv:Body&gt;&#xd;
+                                    &lt;trad:updateAccountProfile&gt;&#xd;
+                                    &lt;trad:profileData&gt;&#xd;
+                                    &lt;trad:userID&gt;uid:${uid}&lt;/trad:userID&gt;&#xd;
+                                    &lt;trad:password&gt;xxx&lt;/trad:password&gt;&#xd;
+                                    &lt;trad:fullName&gt;ASDF&lt;/trad:fullName&gt;&#xd;
+                                    &lt;trad:address&gt;Adres 1, City&lt;/trad:address&gt;&#xd;
+                                    &lt;trad:email&gt;email@email.cz&lt;/trad:email&gt;&#xd;
+                                    &lt;trad:creditCard&gt;123456&lt;/trad:creditCard&gt;&#xd;
+                                    &lt;/trad:profileData&gt;&#xd;
+                                    &lt;/trad:updateAccountProfile&gt;&#xd;
+                                    &lt;/soapenv:Body&gt;&#xd;
+                                    &lt;/soapenv:Envelope&gt;</stringProp>
+                                <stringProp name="Argument.metadata">=</stringProp>
+                            </elementProp>
+                        </collectionProp>
+                    </elementProp>
+                    <stringProp name="HTTPSampler.domain"></stringProp>
+                    <stringProp name="HTTPSampler.port"></stringProp>
+                    <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.protocol"></stringProp>
+                    <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                    <stringProp name="HTTPSampler.path"></stringProp>
+                    <stringProp name="HTTPSampler.method">POST</stringProp>
+                    <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                    <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                    <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                    <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                    <stringProp name="HTTPSampler.implementation">Java</stringProp>
+                    <boolProp name="HTTPSampler.monitor">false</boolProp>
+                    <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetAccountProfileData" enabled="true">
+                    <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                    <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                        <collectionProp name="Arguments.arguments">
+                            <elementProp name="" elementType="HTTPArgument">
+                                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                                <stringProp name="Argument.value">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;&#xd;
+                                    &lt;soapenv:Header/&gt;&#xd;
+                                    &lt;soapenv:Body&gt;&#xd;
+                                    &lt;trad:getAccountProfileData&gt;&#xd;
+                                    &lt;trad:userID&gt;uid:${uid}&lt;/trad:userID&gt;&#xd;
+                                    &lt;/trad:getAccountProfileData&gt;&#xd;
+                                    &lt;/soapenv:Body&gt;&#xd;
+                                    &lt;/soapenv:Envelope&gt;</stringProp>
+                                <stringProp name="Argument.metadata">=</stringProp>
+                            </elementProp>
+                        </collectionProp>
+                    </elementProp>
+                    <stringProp name="HTTPSampler.domain"></stringProp>
+                    <stringProp name="HTTPSampler.port"></stringProp>
+                    <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.protocol"></stringProp>
+                    <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                    <stringProp name="HTTPSampler.path"></stringProp>
+                    <stringProp name="HTTPSampler.method">POST</stringProp>
+                    <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                    <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                    <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                    <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                    <stringProp name="HTTPSampler.implementation">Java</stringProp>
+                    <boolProp name="HTTPSampler.monitor">false</boolProp>
+                    <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetMarketSummary" enabled="true">
+                    <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                    <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                        <collectionProp name="Arguments.arguments">
+                            <elementProp name="" elementType="HTTPArgument">
+                                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                                <stringProp name="Argument.value">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;&#xd;
+                                    &lt;soapenv:Header/&gt;&#xd;
+                                    &lt;soapenv:Body&gt;&#xd;
+                                    &lt;trad:getMarketSummary/&gt;&#xd;
+                                    &lt;/soapenv:Body&gt;&#xd;
+                                    &lt;/soapenv:Envelope&gt;</stringProp>
+                                <stringProp name="Argument.metadata">=</stringProp>
+                            </elementProp>
+                        </collectionProp>
+                    </elementProp>
+                    <stringProp name="HTTPSampler.domain"></stringProp>
+                    <stringProp name="HTTPSampler.port"></stringProp>
+                    <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.protocol"></stringProp>
+                    <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                    <stringProp name="HTTPSampler.path"></stringProp>
+                    <stringProp name="HTTPSampler.method">POST</stringProp>
+                    <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                    <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                    <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                    <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                    <stringProp name="HTTPSampler.implementation">Java</stringProp>
+                    <boolProp name="HTTPSampler.monitor">false</boolProp>
+                    <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetHolding" enabled="true">
+                    <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                    <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                        <collectionProp name="Arguments.arguments">
+                            <elementProp name="" elementType="HTTPArgument">
+                                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                                <stringProp name="Argument.value">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;&#xd;
+                                    &lt;soapenv:Header/&gt;&#xd;
+                                    &lt;soapenv:Body&gt;&#xd;
+                                    &lt;trad:getHolding&gt;&#xd;
+                                    &lt;trad:holdingID&gt;${holding}&lt;/trad:holdingID&gt;&#xd;
+                                    &lt;/trad:getHolding&gt;&#xd;
+                                    &lt;/soapenv:Body&gt;&#xd;
+                                    &lt;/soapenv:Envelope&gt;</stringProp>
+                                <stringProp name="Argument.metadata">=</stringProp>
+                            </elementProp>
+                        </collectionProp>
+                    </elementProp>
+                    <stringProp name="HTTPSampler.domain"></stringProp>
+                    <stringProp name="HTTPSampler.port"></stringProp>
+                    <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.protocol"></stringProp>
+                    <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                    <stringProp name="HTTPSampler.path"></stringProp>
+                    <stringProp name="HTTPSampler.method">POST</stringProp>
+                    <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                    <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                    <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                    <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                    <stringProp name="HTTPSampler.implementation">Java</stringProp>
+                    <boolProp name="HTTPSampler.monitor">false</boolProp>
+                    <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetQuote" enabled="true">
+                    <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                    <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                        <collectionProp name="Arguments.arguments">
+                            <elementProp name="" elementType="HTTPArgument">
+                                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                                <stringProp name="Argument.value">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;&#xd;
+                                    &lt;soapenv:Header/&gt;&#xd;
+                                    &lt;soapenv:Body&gt;&#xd;
+                                    &lt;trad:getQuote&gt;&#xd;
+                                    &lt;trad:symbol&gt;s:${quote}&lt;/trad:symbol&gt;&#xd;
+                                    &lt;/trad:getQuote&gt;&#xd;
+                                    &lt;/soapenv:Body&gt;&#xd;
+                                    &lt;/soapenv:Envelope&gt;</stringProp>
+                                <stringProp name="Argument.metadata">=</stringProp>
+                            </elementProp>
+                        </collectionProp>
+                    </elementProp>
+                    <stringProp name="HTTPSampler.domain"></stringProp>
+                    <stringProp name="HTTPSampler.port"></stringProp>
+                    <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.protocol"></stringProp>
+                    <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                    <stringProp name="HTTPSampler.path"></stringProp>
+                    <stringProp name="HTTPSampler.method">POST</stringProp>
+                    <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                    <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                    <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                    <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                    <stringProp name="HTTPSampler.implementation">Java</stringProp>
+                    <boolProp name="HTTPSampler.monitor">false</boolProp>
+                    <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetOrders" enabled="true">
+                    <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                    <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                        <collectionProp name="Arguments.arguments">
+                            <elementProp name="" elementType="HTTPArgument">
+                                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                                <stringProp name="Argument.value">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;&#xd;
+                                    &lt;soapenv:Header/&gt;&#xd;
+                                    &lt;soapenv:Body&gt;&#xd;
+                                    &lt;trad:getOrders&gt;&#xd;
+                                    &lt;trad:userID&gt;uid:${uid}&lt;/trad:userID&gt;&#xd;
+                                    &lt;/trad:getOrders&gt;&#xd;
+                                    &lt;/soapenv:Body&gt;&#xd;
+                                    &lt;/soapenv:Envelope&gt;</stringProp>
+                                <stringProp name="Argument.metadata">=</stringProp>
+                            </elementProp>
+                        </collectionProp>
+                    </elementProp>
+                    <stringProp name="HTTPSampler.domain"></stringProp>
+                    <stringProp name="HTTPSampler.port"></stringProp>
+                    <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.protocol"></stringProp>
+                    <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                    <stringProp name="HTTPSampler.path"></stringProp>
+                    <stringProp name="HTTPSampler.method">POST</stringProp>
+                    <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                    <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                    <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                    <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                    <stringProp name="HTTPSampler.implementation">Java</stringProp>
+                    <boolProp name="HTTPSampler.monitor">false</boolProp>
+                    <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GetHoldings" enabled="true">
+                    <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                    <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                        <collectionProp name="Arguments.arguments">
+                            <elementProp name="" elementType="HTTPArgument">
+                                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                                <stringProp name="Argument.value">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;&#xd;
+                                    &lt;soapenv:Header/&gt;&#xd;
+                                    &lt;soapenv:Body&gt;&#xd;
+                                    &lt;trad:getHoldings&gt;&#xd;
+                                    &lt;trad:userID&gt;uid:${uid}&lt;/trad:userID&gt;&#xd;
+                                    &lt;/trad:getHoldings&gt;&#xd;
+                                    &lt;/soapenv:Body&gt;&#xd;
+                                    &lt;/soapenv:Envelope&gt;</stringProp>
+                                <stringProp name="Argument.metadata">=</stringProp>
+                            </elementProp>
+                        </collectionProp>
+                    </elementProp>
+                    <stringProp name="HTTPSampler.domain"></stringProp>
+                    <stringProp name="HTTPSampler.port"></stringProp>
+                    <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.protocol"></stringProp>
+                    <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                    <stringProp name="HTTPSampler.path"></stringProp>
+                    <stringProp name="HTTPSampler.method">POST</stringProp>
+                    <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                    <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                    <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                    <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                    <stringProp name="HTTPSampler.implementation">Java</stringProp>
+                    <boolProp name="HTTPSampler.monitor">false</boolProp>
+                    <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Logout" enabled="true">
+                    <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                    <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                        <collectionProp name="Arguments.arguments">
+                            <elementProp name="" elementType="HTTPArgument">
+                                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                                <stringProp name="Argument.value">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:trad=&quot;http://trade.samples.websphere.ibm.com&quot;&gt;&#xd;
+                                    &lt;soapenv:Header/&gt;&#xd;
+                                    &lt;soapenv:Body&gt;&#xd;
+                                    &lt;trad:logout&gt;&#xd;
+                                    &lt;trad:userID&gt;uid:${uid}&lt;/trad:userID&gt;&#xd;
+                                    &lt;/trad:logout&gt;&#xd;
+                                    &lt;/soapenv:Body&gt;&#xd;
+                                    &lt;/soapenv:Envelope&gt;</stringProp>
+                                <stringProp name="Argument.metadata">=</stringProp>
+                            </elementProp>
+                        </collectionProp>
+                    </elementProp>
+                    <stringProp name="HTTPSampler.domain"></stringProp>
+                    <stringProp name="HTTPSampler.port"></stringProp>
+                    <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    <stringProp name="HTTPSampler.protocol"></stringProp>
+                    <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                    <stringProp name="HTTPSampler.path"></stringProp>
+                    <stringProp name="HTTPSampler.method">POST</stringProp>
+                    <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                    <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                    <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                    <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                    <stringProp name="HTTPSampler.implementation">Java</stringProp>
+                    <boolProp name="HTTPSampler.monitor">false</boolProp>
+                    <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+                <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+                    <stringProp name="ConstantTimer.delay">${cycleDelay}</stringProp>
+                </ConstantTimer>
+                <hashTree/>
+                <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+                    <boolProp name="ResultCollector.error_logging">false</boolProp>
+                    <objProp>
+                        <name>saveConfig</name>
+                        <value class="SampleSaveConfiguration">
+                            <time>true</time>
+                            <latency>true</latency>
+                            <timestamp>true</timestamp>
+                            <success>true</success>
+                            <label>true</label>
+                            <code>true</code>
+                            <message>true</message>
+                            <threadName>true</threadName>
+                            <dataType>true</dataType>
+                            <encoding>false</encoding>
+                            <assertions>false</assertions>
+                            <subresults>false</subresults>
+                            <responseData>false</responseData>
+                            <samplerData>false</samplerData>
+                            <xml>false</xml>
+                            <fieldNames>true</fieldNames>
+                            <responseHeaders>false</responseHeaders>
+                            <requestHeaders>false</requestHeaders>
+                            <responseDataOnError>false</responseDataOnError>
+                            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+                            <assertionsResultsToSave>0</assertionsResultsToSave>
+                            <bytes>true</bytes>
+                            <hostname>true</hostname>
+                            <threadCounts>true</threadCounts>
+                            <sampleCount>true</sampleCount>
+                        </value>
+                    </objProp>
+                    <stringProp name="filename"></stringProp>
+                </ResultCollector>
+                <hashTree/>
+            </hashTree>
+        </hashTree>
+    </hashTree>
+</jmeterTestPlan>

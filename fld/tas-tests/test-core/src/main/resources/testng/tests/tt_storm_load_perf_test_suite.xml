@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [{name=com.ca.apm.systemtest.fld.testbed.TransactionTraceStormLoadPerfTestTestbed, executeOn=EXEC_MACHINE_ID}],
+	owner = sinal04,
+	size = DEBUG,
+	group = [tt-storm-load-perf-test],
+	snapshotPolicy = ON_FAILURE,
+	snapshot = DEAD,
+	description = 'Transaction Trace Storm Load Performance Test')
+-->
+<suite name="ttStormLoadPerfTestSuite" verbose="1">
+	<test name="ttStormLoadPerfTestNgSuite">
+		<classes>
+			<class name="com.ca.apm.systemtest.fld.test.TTStormLoadPerfTest" />
+		</classes>
+	</test>
+</suite>

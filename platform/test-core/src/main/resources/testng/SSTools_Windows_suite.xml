@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.StandaloneEM1TomcatAgent1JBossAgentWindowsTestbed, executeOn=emMachine}],
+	  owner = jamsa07,
+	  size = COLOSSAL,
+	  description = 'EM BAT test suite for Windows'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="Smart Stor" configfailurepolicy="continue">
+	<test name="SmartStor Tools" preserve-order="true" enabled="true">
+  		<classes>
+			<class name="com.ca.apm.tests.smartstor.sstools.SmartStorToolsTests" />
+	 	</classes>
+	</test>		
+</suite>
+		

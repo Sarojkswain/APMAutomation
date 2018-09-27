@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Created-By: CA Technologies
+Main-Class: com.ca.apm.powerpack.sysview.tools.cicstestdriver.CICSTestDriver
+com-wily-Name: CICS Test Driver
+com-wily-Release: @@@INTROSCOPE_RELEASE_PLACE_HOLDER@@@
+com-wily-Build: @@@INTROSCOPE_BUILD_NUMBER_PLACE_HOLDER@@@

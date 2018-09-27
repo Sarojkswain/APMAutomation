@@ -1,0 +1,15 @@
+<assembly>
+    <id>NowhereBankMM</id>
+    <!-- Specifies that our binary distribution is a jar package -->
+    <formats>
+        <format>jar</format>
+    </formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+ 
+    <fileSets>
+       <fileSet>
+            <directory>${basedir}/src/main/NowhereBankMM</directory>
+            <outputDirectory></outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>

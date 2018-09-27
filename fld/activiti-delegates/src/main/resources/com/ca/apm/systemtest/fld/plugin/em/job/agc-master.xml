@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+	<transformation id="agcprops">
+		<set-property name="introscope.apmserver.teamcenter.master" value="true" />
+	</transformation>
+	
+	<transformation id="agclax">
+		<set-property name="lax.nl.java.option.additional" value="-Djava.awt.headless=true -XX:MaxPermSize=256m -Dmail.mime.charset=UTF-8 -Dorg.owasp.esapi.resources=./config/esapi -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -Xss512k -Dcom.wily.assert=false -showversion -XX:CMSInitiatingOccupancyFraction=50 -XX:+HeapDumpOnOutOfMemoryError -Xms8192m -Xmx8192m -verbose:gc -Xloggc:${#emPlugin.pluginConfiguration.currentGcLogFile} -Dappmap.user=admin -Dappmap.token=f47ac10b-58cc-4372-a567-0e02b2c3d479" />
+	</transformation>
+	
+	<transformation id="webviewProps">
+		<set-property name="lax.nl.java.option.additional" value="-Djava.awt.headless=true -Dorg.owasp.esapi.resources=./config/esapi -Dsun.java2d.noddraw=true -XX:PermSize=128m -XX:MaxPermSize=256m -javaagent:./product/webview/agent/wily/Agent.jar -Dcom.wily.introscope.agentProfile=./product/webview/agent/wily/core/config/IntroscopeAgent.profile -Dcom.wily.introscope.wilyForWilyPrefix=com.wily  -Xms4096m -Xmx4096m -verbose:gc -Xloggc:${#emPlugin.pluginConfiguration.currentGcLogFile}_webview -XX:+PrintGCDateStamps -XX:+HeapDumpOnOutOfMemoryError" />
+	</transformation>
+	
+	<transformation id="webviewConfig">
+		<set-property name="introscope.webview.enterprisemanager.tcp.host" value="localhost" />
+	</transformation>
+	
+	<transformation id="webviewAgentConfig">
+		<set-property name="introscope.agent.enterprisemanager.transport.tcp.host.DEFAULT" value="localhost" />
+		<set-property name="agentManager.url.1" value="localhost:5001" />
+	</transformation>
+	
+	<files id="agcfiles">
+		<file>${#emPlugin.pluginConfiguration.currentInstallDir}/config/IntroscopeEnterpriseManager.properties</file>
+	</files>
+	
+	<files id="agcfiles2">
+		<file>${#emPlugin.pluginConfiguration.currentInstallDir}/Introscope_Enterprise_Manager.lax</file>
+	</files>
+	
+	<files id="webFiles">
+		<file>${#emPlugin.pluginConfiguration.currentInstallDir}/Introscope_WebView.lax</file>
+	</files>
+	
+	<files id="webviewConfigFiles">
+		<file>${#emPlugin.pluginConfiguration.currentInstallDir}/config/IntroscopeWebView.properties</file>
+	</files>
+	
+	<files id="webviewAgentConfigFiles">
+		<file>${#emPlugin.pluginConfiguration.currentInstallDir}/product/webview/agent/wily/core/config/IntroscopeAgent.profile</file>
+	</files>
+	
+	<binding id="agcbinding">
+		<transformation-ref id="agcprops" />
+		<files-ref id="agcfiles" /> 
+	</binding>
+	
+	<binding id="agcbinding2">
+		<transformation-ref id="agclax" />
+		<files-ref id="agcfiles2" /> 
+	</binding>
+	
+	<binding id="webbinding">
+		<transformation-ref id="webviewProps" />
+		<files-ref id="webFiles" /> 
+	</binding>
+	
+	<binding id="webbinding2">
+		<transformation-ref id="webviewConfig" />
+		<files-ref id="webviewConfigFiles" /> 
+	</binding>
+	
+	<binding id="webbinding3">
+		<transformation-ref id="webviewAgentConfig" />
+		<files-ref id="webviewAgentConfigFiles" /> 
+	</binding>
+	
+	
+</configuration>

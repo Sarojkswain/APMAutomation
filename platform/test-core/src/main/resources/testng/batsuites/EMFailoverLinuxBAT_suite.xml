@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!-- @Tas(testBed = [ {name=com.ca.apm.tests.testbed.AgentEMFailoverLinuxStandAloneTestbed, 
+	executeOn=emMachine}], owner = tuuja01, size = BIG, description = 'EM Fail 
+	over Tests for Windows'), snapshotPolicy = SnapshotPolicy.ON_FAILURE, snapshot 
+	= SnapshotMode.LIVE -->
+<suite name="AgentEMFailoverLinuxTests" configfailurepolicy="continue">
+	<groups>
+    	<run>
+      		<include name="BAT"/>
+      		<include name="Bat"/>
+      		<include name="bat"/>
+    	</run>
+	</groups>
+	 <test name="AgentEMFailoverWindowsTests_0" preserve-order="true"
+		enabled="true">
+		<classes>
+			<class name="com.ca.apm.tests.agentEMFailoverTests.AgentEMFailoverStandAloneTests">
+				<methods>
+					<include name="verify_ALM_305657_FailPrimaryCollectorStartSecondary" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="AgentEMFailoverLinuxTests_1" preserve-order="true"
+		enabled="true">
+		<classes>
+			<class name="com.ca.apm.tests.agentEMFailoverTests.AgentEMFailoverStandAloneTests">
+				<methods>
+					<include name="verify_ALM_280514_FailPrimaryMomStartSecondary" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="AgentEMFailoveLinuxTests_2" preserve-order="true" enabled="true">
+		<classes>
+			<class name="com.ca.apm.tests.agentEMFailoverTests.AgentEMFailoverStandAloneTests">
+				<methods>
+					<include name="verify_ALM_305659_primaryAndSecondaryEM_onSigle_Host" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="AgentEMFailoverLinuxTests_3" preserve-order="true" enabled="true">
+		<classes>
+			<class name="com.ca.apm.tests.agentEMFailoverTests.AgentEMFailoverStandAloneTests">
+				<methods>
+					<include name="verify_ALM_305653_killPrimaryAndVerifySecondaryEM" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="AgentEMFailoverLinuxTests_4" preserve-order="true" enabled="true">
+		<classes>
+			<class name="com.ca.apm.tests.agentEMFailoverTests.AgentEMFailoverStandAloneTests">
+				<methods>
+					<include name="verify_ALM_280518_secondaryEM_DoesnotStart_UntilKillThePrimary" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="AgentEMFailoverLinuxTests_5" preserve-order="true" enabled="true">
+		<classes>
+			<class name="com.ca.apm.tests.agentEMFailoverTests.AgentEMFailoverStandAloneTests">
+				<methods>
+					<include name="verify_ALM_392307_invalidFailoverIntervalValue" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="AgentEMFailoverLinuxTests_6" preserve-order="true" enabled="true">
+		<classes>
+			<class name="com.ca.apm.tests.agentEMFailoverTests.AgentEMFailoverStandAloneTests">
+				<methods>
+					<include name="verify_ALM_305663_emShareOnMultipleHosts" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="AgentEMFailoverLinuxTests_7" preserve-order="true" enabled="true">
+		<classes>
+			<class name="com.ca.apm.tests.agentEMFailoverTests.AgentEMFailoverStandAloneTests">
+				<methods>
+					<include name="verify_ALM_305662_non_EM_Failover_Tests" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="AgentEMFailoverLinuxTests_8" preserve-order="true" enabled="true">
+		<classes>
+			<class name="com.ca.apm.tests.agentEMFailoverTests.AgentEMFailoverStandAloneTests">
+				<methods>
+					<include name="verify_ALM_420327_failoverCheck_Ipaddress" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="AgentEMFailoverLinuxTests_9" preserve-order="true" enabled="true">
+		<classes>
+			<class name="com.ca.apm.tests.agentEMFailoverTests.AgentEMFailoverStandAloneTests">
+				<methods>
+					<include name="verify_ALM_305656_EmAndAgentFailover" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<test name="AgentEMFailoverLinuxTests_10" preserve-order="true"
+		enabled="true">
+		<classes>
+			<class name="com.ca.apm.tests.agentEMFailoverTests.AgentEMFailoverStandAloneTests">
+				<methods>
+					<include name="verify_ALM_280513_emFailoverWithAgent" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>
+		

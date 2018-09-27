@@ -1,0 +1,96 @@
+# ------------------------------------------------------------------------------
+# Install WebLogic
+# ------------------------------------------------------------------------------
+-
+   name: installWeblogic
+   workingDir: '${#INSTALL_DIR}'
+   cmdLine: ['${#INSTALL_FILE}', '-mode=silent', '-silent_xml=${#SCRIPT_FILE}']
+
+# ------------------------------------------------------------------------------
+# Uninstall WebLogic
+# ------------------------------------------------------------------------------
+-
+   name: uninstallWeblogic
+   env: Unix
+   workingDir: '${#WEBLOGIC_HOME}'
+   cmdLine: ['bash', '-c', './fullUninstall.sh']
+-
+   name: uninstallWeblogic
+   env: Windows
+   workingDir: '${#WEBLOGIC_HOME}'
+   cmdLine: ['cmd.exe', '/C', 'fullUninstall.cmd']
+# ------------------------------------------------------------------------------
+# Start WLST script
+# ------------------------------------------------------------------------------
+-
+   name: startWlstScript
+   env: Unix
+   workingDir: '${#WEBLOGIC_HOME}'
+   cmdLine: ['wl_server_10.3/common/bin/wlst.sh', '${#SCRIPT_FILE}']
+-
+   name: startWlstScript
+   env: Windows
+   workingDir: '${#WEBLOGIC_HOME}'
+   cmdLine: ['cmd.exe', '/C', 'wl_server_10.3\common\bin\wlst.cmd', '${#SCRIPT_FILE}']
+
+# ------------------------------------------------------------------------------
+# START WebLogic
+# ------------------------------------------------------------------------------
+-
+   name: startWeblogicInstance
+   env: Unix
+   workingDir: '${#WEBLOGIC_HOME}/user_projects/domains/${#INSTANCE_NAME}/bin'
+   cmdLine: ['./startWebLogic.sh']
+-
+   name: startWeblogicInstance
+   env: Windows
+   workingDir: '${#WEBLOGIC_HOME}\user_projects\domains\${#INSTANCE_NAME}\bin'
+   cmdLine: ['cmd.exe', '/C', 'startWebLogic.cmd']
+
+# ------------------------------------------------------------------------------
+# STOP WebLogic
+# ------------------------------------------------------------------------------
+-
+   name: stopWeblogicInstance
+   env: Unix
+   workingDir: '${#WEBLOGIC_HOME}/user_projects/domains/${#INSTANCE_NAME}/bin'
+   cmdLine: ['./stopWebLogic.sh']
+-
+   name: stopWeblogicInstance
+   env: Windows
+   workingDir: '${#WEBLOGIC_HOME}\user_projects\domains\${#INSTANCE_NAME}\bin'
+   cmdLine: ['cmd.exe', '/C', 'stopWebLogic.cmd']
+
+# ------------------------------------------------------------------------------
+# Run Command Line Workstation
+# ------------------------------------------------------------------------------
+-
+   name: runCLWDynamicInstrumentation
+   workingDir: '.'
+   cmdLine: ['${#JAVA_HOME}/bin/java',
+             '-Dhost=${#EM_HOST}', '-Duser=${#EM_USER}', '-Dpassword=${#EM_PASSWORD}',
+             '-Dintroscope.showAllDynamicInstrumentationAPI=true',
+             '-jar', '${#EM_HOME}/lib/CLWorkstation.jar',
+             '${#CLW_COMMAND}']
+
+# ------------------------------------------------------------------------------
+# Run Fake Workstation
+# ------------------------------------------------------------------------------
+-
+   name: runFakeWorkstation
+   workingDir: '.'
+   cmdLine: ['java', '${#JVM_OPTIONS}', '-jar', '${#FAKE_WORKSTATION_JAR}', '-host', '${#HOST}', '-port', '${#PORT}', '-user', '${#USER}', '-password', '${#PASSWORD}', '-resolution', '${#RESOLUTION}', '-sleepBetween', '${#SLEEP_BETWEEN}', '-agent', '${#AGENT}', '-metric', '${#METRIC_NAME}', '${#HISTORICAL_OPTION}']
+
+# ------------------------------------------------------------------------------
+# Run database import script
+# ------------------------------------------------------------------------------
+-
+   name: runDbImportScript
+   env: Unix
+   extractScript: runimport.sh
+   workingDir: '/tmp/'
+   cmdLine: ['sh', '-c', './runimport.sh -lastversion ${#lastversion} -installdir ${#installdir} -dbhost
+      ${#dbhost} -dbname ${#dbname} -dbport ${#dbport} -databasetype ${#databasetype} -dbuser ${#dbuser}
+      -dbpassword ${#dbpassword} -importfile ${#importfile} -dbserviceuser ${#dbserviceuser}
+      -dbservicepwd ${#dbservicepwd} -is64Bit ${#is64Bit}']
+

@@ -1,0 +1,33 @@
+-
+  name: simpleTest
+  workingDir: target/test-classes
+  cmdLine: [java, com.ca.apm.systemtest.fld.plugin.run.ProduceLog, '${#produceLines * 100}']
+-
+  name: produceLog
+  workingDir: target/test-classes
+  cmdLine: [java, com.ca.apm.systemtest.fld.plugin.run.ProduceLog]
+-
+  name: extractTest
+  env: Unix
+  workingDir: ${#props['java.io.tmpdir']}
+  extractScript: tst/runtst.sh
+  cmdLine: [sh, -c, ./runtst.sh]
+-
+  name: runRealImportScript
+  env: Unix
+  extractScript: runimport.sh
+  workingDir: ${#props['java.io.tmpdir']}
+  cmdLine: ['sh', '-c', './runimport.sh -lastversion ${#lastversion} -installdir ${#installdir} -dbhost
+     ${#dbhost} -dbname ${#dbname} -dbport ${#dbport} -databasetype ${#databasetype} -dbuser ${#dbuser}
+     -dbpassword ${#dbpassword} -importfile ${#importfile} -dbserviceuser ${#dbserviceuser}
+     -dbservicepwd ${#dbservicepwd} -is64Bit ${#is64Bit}'
+  ]
+-
+  name: dirTest
+  env: Unix
+  workingDir: ${#props['java.io.tmpdir']}
+  cmdLine: ['sh', '-c', 'ls', '-1', '/']
+-
+  name: dirTest
+  workingDir: ${#props['java.io.tmpdir']}
+  cmdLine: ['cmd', '/C', 'dir', 'C:\']

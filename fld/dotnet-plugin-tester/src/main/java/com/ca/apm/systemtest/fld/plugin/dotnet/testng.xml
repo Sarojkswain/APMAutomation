@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="DotNetPlugin" verbose="1">
+    <test name="DotNetPluginImplTest">
+        <classes>
+            <class name="com.ca.apm.systemtest.fld.plugin.tim.DotNetPluginImplTester">
+                <methods>
+                    <include name="testInstallAgent" />
+                    <include name="testUninstallAgent" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

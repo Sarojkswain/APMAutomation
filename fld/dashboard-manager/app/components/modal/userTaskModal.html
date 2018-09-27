@@ -1,0 +1,61 @@
+<div>
+    <div class="modal-header breakingWordModalHeader">
+        <h3 class="modal-title">
+            <span>{{ title }}</span><span ng-if="selectedUserTask"> - <b>{{ selectedUserTask.processDefinitionId }}</b></span>
+        </h3>
+    </div>
+    <div class="modal-body">
+        <form name="userTaskModalForm">
+            <div ng-if="selectedUserTask">
+                <user-task hasfocus="true"></user-task>
+            </div>
+            <div ng-if="!selectedUserTask">
+                <table class="table modalTable">
+                    <thead>
+                        <tr class="row">
+                            <th class="col-md-3 text-left">Task Id</th>
+                            <th class="col-md-7 text-left">Task Name</th>
+                            <th class="col-md-2 text-right">React</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="userTask in userTasks" class="row">
+                            <td class="col-md-3 text-left">{{ userTask.id }}</td>
+                            <td class="col-md-7 text-left">{{ userTask.name }} - <b>{{ userTask.processDefinitionId }}</b></td>
+                            <td class="col-md-2 text-right">
+                                <button class="btn btn-success"
+                                        ng-click="userTaskModalController.onSelectUserTask(userTask)"
+                                        autocomplete="off"
+                                        title="Select user task">
+                                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"
+                ng-click="userTaskModalController.onCancel()">
+            {{ modalOptions.cancelButtonText }}
+        </button>
+        <button type="button"
+                class="btn btn-default"
+                data-dismiss="modal"
+                ng-click="userTaskModalController.onBackToList()"
+                ng-show="selectedUserTask">
+            {{ modalOptions.backButtonText }}
+        </button>
+
+        <button type="button"
+                class="btn btn-primary"
+                data-dismiss="modal"
+                ng-click="userTaskModalController.onApply()"
+                ng-disabled="!userTaskModalForm.$valid"
+                ng-show="selectedUserTask">
+            {{ modalOptions.applyButtonText }}
+        </button>
+    </div>
+</div>

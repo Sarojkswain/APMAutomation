@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.TwoCDVTwoClustersOneStandaloneOneTomcatLinuxTestbed, executeOn=cdvMachine}],
+	  owner = gamsa03,
+	  size = COLOSSAL,
+	  description = 'TestNg XML suite for all cdv tests'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="TwoCDVLinuxTests" configfailurepolicy="continue">
+	<test name="TwoCDVLinuxTests" preserve-order="true">
+		<classes>
+			<class name = "com.ca.apm.tests.cdv.TwoCDVTwoClustersOneStandaloneOneTomcatTests" />
+		</classes>
+	</test>
+</suite>
+		
+		

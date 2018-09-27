@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="fld.powerpack.linkedtestsForBothVersions.managable" name="Linked 3 types of tests for both versions" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="node" name="Application Node" type="node" variable="node" required="true"></activiti:formProperty>
+        <activiti:formProperty id="momNode" name="Mom Node" type="node" required="true"></activiti:formProperty>
+        <activiti:formProperty id="loNode" name="Load Orchestrator Node" type="node" variable="loNode" required="true"></activiti:formProperty>
+        <activiti:formProperty id="oracleNode" name="Database Node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="serverId" name="Server Id" type="string" variable="serverId" required="true"></activiti:formProperty>
+        <activiti:formProperty id="serverType" name="Server Type (Websphere, Weblogic, ...)" type="enum" variable="serverType" required="true">
+          <activiti:value id="webspherePP" name="Websphere"></activiti:value>
+          <activiti:value id="webspherePortalPP" name="Websphere Portal"></activiti:value>
+          <activiti:value id="weblogicPP" name="Weblogic"></activiti:value>
+          <activiti:value id="weblogicportalPP" name="Weblogic Portal"></activiti:value>
+          <activiti:value id="sharePointPP" name="Share Point"></activiti:value>
+          <activiti:value id="tibcobwPP" name="Tibco"></activiti:value>
+          <activiti:value id="webspheremqPP" name="WebsphereMQ"></activiti:value>
+          <activiti:value id="weblogicosbPP" name="Weblogic + OSB"></activiti:value>
+          <activiti:value id="webmethodsPP" name="Web Methods"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="applicationType" name="Application Type" type="enum" variable="applicationType" default="none" required="true">
+          <activiti:value id="none" name="None"></activiti:value>
+          <activiti:value id="trade6" name="Trade6"></activiti:value>
+          <activiti:value id="wily2web" name="Wily2web"></activiti:value>
+          <activiti:value id="stockTrader" name="StockTrader"></activiti:value>
+          <activiti:value id="loanApp" name="LoanApp"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="artifactSpecificationOld" name="Introscope Agent Download Specification (Previous Version)" type="string" variable="artifactSpecificationOld" default="truss:10.0.0:990007:10.0.0.9"></activiti:formProperty>
+        <activiti:formProperty id="artifactSpecificationNew" name="Introscope Agent Download Specification (Newer Version)" type="string" variable="artifactSpecificationNew" default="truss:10.1.0:990011:10.1.0.12"></activiti:formProperty>
+        <activiti:formProperty id="agentName" name="Agent Name" type="string" variable="agentName" required="true"></activiti:formProperty>
+        <activiti:formProperty id="agentInstallationDir" name="Agent Installation Folder" type="string" variable="agentInstallationDir" default="c:/sw/wily"></activiti:formProperty>
+        <activiti:formProperty id="momPort" name="Mom Port" type="long" default="5001" required="true"></activiti:formProperty>
+        <activiti:formProperty id="brtmExtension" name="Include BRTM Extension" type="boolean" default="false"></activiti:formProperty>
+        <activiti:formProperty id="processName" name="Process Name Pattern (for searching with typeperf, wmic)" type="string" variable="processName" default="java" required="true"></activiti:formProperty>
+        <activiti:formProperty id="javaProcessName" name="Process Name Pattern (for searching with jps)" type="string" variable="javaProcessName" default="java"></activiti:formProperty>
+        <activiti:formProperty id="dbCleanupHost" name="Db Cleanup: Host Name" type="string" variable="dbCleanupHost" default="aqpp-was01.ca.com"></activiti:formProperty>
+        <activiti:formProperty id="dbCleanupPort" name="Db Cleanup: Port Number" type="long" variable="dbCleanupPort" default="9080"></activiti:formProperty>
+        <activiti:formProperty id="testWarmupInSeconds" name="Test Warmup Period (in seconds)" type="long" variable="testWarmupInSeconds" default="30" required="true"></activiti:formProperty>
+        <activiti:formProperty id="testDurationInSeconds" name="Test Duration (in seconds)" type="long" variable="testDurationInSeconds" default="60" required="true"></activiti:formProperty>
+        <activiti:formProperty id="jmeterNode" name="Jmeter: Node " type="node" variable="jmeterNode" required="true"></activiti:formProperty>
+        <activiti:formProperty id="jMeterScenarioUrl" name="Jmeter: Scenario Url" type="string" variable="jMeterScenarioUrl" required="true"></activiti:formProperty>
+        <activiti:formProperty id="testNumberOfCVUS" name="Jmeter: Concurrent Users Count" type="long" variable="testNumberOfCVUS" default="5" required="true"></activiti:formProperty>
+        <activiti:formProperty id="appServerHost" name="Jmeter: Host Of The Test Load Application " type="string" variable="appServerHost" required="true"></activiti:formProperty>
+        <activiti:formProperty id="appServerPort" name="Jmeter: Test Load Application Port" type="long" variable="appServerPort" default="9080" required="true"></activiti:formProperty>
+        <activiti:formProperty id="logDir" name="Agent Log Location" type="string" variable="logDir" default="c:/temp/agent"></activiti:formProperty>
+        <activiti:formProperty id="logDirServer" name="Mapped Server Log Location" type="string" variable="logDirServer" default="c:/temp/server" required="true"></activiti:formProperty>
+        <activiti:formProperty id="logsArchiveFolder" name="On-Server Logs Archive Folder" type="string" variable="logsArchiveFolder" default="c:/temp/archive"></activiti:formProperty>
+        <activiti:formProperty id="jmxPort" name="Monitoring: JMX Port" type="long" variable="jmxPort" default="1099"></activiti:formProperty>
+        <activiti:formProperty id="jmxMetrics" name="Monitoring: Jmx Metrics" type="string" variable="jmxMetrics"></activiti:formProperty>
+        <activiti:formProperty id="delayAfterServerStart" name="Delay After App Server Starts (in seconds)" type="long" variable="delayAfterServerStart" default="15"></activiti:formProperty>
+        <activiti:formProperty id="reportResultsFileTemplateUrl" name="Results Report File Template Url" type="string" variable="reportResultsFileTemplateUrl"></activiti:formProperty>
+        <activiti:formProperty id="reCreateDbScriptArchiveUrl" name="DB Recreation Script Archive URL" type="string" variable="reCreateDbScriptArchiveUrl" default="http://artifactory-emea-cz.ca.com:8081/artifactory/apm-third-party/com/ca/apm/binaries/ibm/stocktrader/stocktrader_trade6_tradedb_dbscript.zip"></activiti:formProperty>
+        <activiti:formProperty id="typePerfLogFileName" name="TypePerf Log File Name" type="string" variable="typePerfLogFileName" default="typePerf.csv"></activiti:formProperty>
+        <activiti:formProperty id="jmxLogFileName" name="JMX Log File Name" type="string" variable="jmxLogFileName" default="jmx.log"></activiti:formProperty>
+        <activiti:formProperty id="jstatLogFileName" name="JSTAT Log File Name" type="string" variable="jstatLogFileName" default="jstat.log"></activiti:formProperty>
+        <activiti:formProperty id="resultsGroupingNeeded" name="Group Test Results?" type="boolean" variable="resultsGroupingNeeded" default="true"></activiti:formProperty>
+        <activiti:formProperty id="samplesCount" name="Number Of Samples" type="long" variable="samplesCount" default="2450"></activiti:formProperty>
+        <activiti:formProperty id="sampleIntervalMillis" name="Sample Interval (in milliseconds)" type="long" variable="sampleIntervalMillis" default="1000"></activiti:formProperty>
+        <activiti:formProperty id="resultReportFileName" name="Final Result Report File Name" type="string" variable="resultReportFileName" default="ppPerfTestRunReport.xls"></activiti:formProperty>
+        <activiti:formProperty id="cleanAgentDownloads" name="Clean Agent Downloads Before Run" type="boolean" variable="cleanAgentDownloads" default="false"></activiti:formProperty>
+        <activiti:formProperty id="processInstanceName" name="Process Instance Name (for typeperf to skip searching)" type="string" variable="processInstanceName"></activiti:formProperty>
+        <activiti:formProperty id="processCommandLinePattern" name="Monitored Process's Command Line Pattern" type="string" variable="processCommandLinePattern" default="-Dcom.sun.management.jmxremote.port=1099"></activiti:formProperty>
+        <activiti:formProperty id="runTypePerfMonitoring" name="Run TypePerf Monitoring" type="boolean" variable="runTypePerfMonitoring" required="true"></activiti:formProperty>
+        <activiti:formProperty id="runJmxMonitoring" name="Run JMX Monitoring?" type="boolean" variable="runJmxMonitoring" required="true"></activiti:formProperty>
+        <activiti:formProperty id="runJstatMonitoring" name="Run Jstat Monitoring?" type="boolean" variable="runJstatMonitoring" required="true"></activiti:formProperty>
+        <activiti:formProperty id="typePerfCounters" name="Performance Counters (sep. by comma)" type="string" variable="typePerfCounters" default="\Processor(_Total)\% Processor Time,\Process({0})\ID Process"></activiti:formProperty>
+        <activiti:formProperty id="runNewAgentWithPPTest" name="Run New Agent With PowerPack Test?" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="runNewAgentTest" name="Run New Agent Test?" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="runNoAgentTest" name="Run No Agent Test?" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="runOldAgentWithPPTest" name="Run Old Agent With PowerPack Test?" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="runOldAgentTest" name="Run Old Agent Test?" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="includeJmeterLogs" name="Include Jmeter Logs" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="includeWilyLogs" name="Include Introscope Agent Logs" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="archiveLogs" name="Save Logs Into Archive" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="newAgentVersion" name="New Introscope Agent Version" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="oldAgentVersion" name="Old Introscope Agent Version" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="jmeterCollectFileExtensions" name="Comma Delimited Jmeter File Extensions To Collect" type="string" default=".log,.jtl,.csv"></activiti:formProperty>
+        <activiti:formProperty id="additionalOldAgentProfileProperties" name="OLD Agent Additional Profile Properties (delimited by semicolumn)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="additionalOldAgentWithPowerPackProfileProperties" name="OLD Agent With PowerPack Additional Profile Properties (delimited by semicolumn)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="additionalNewAgentProfileProperties" name="NEW Agent Additional Profile Properties (delimited by semicolumn)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="additionalNewAgentWithPowerPackProfileProperties" name="NEW Agent With PowerPack Additional Profile Properties (delimited by semicolumn)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="oldAgentProbeDirectives" name="OLD Agent Probe Directives (delimited by comma)" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="oldAgentWithPowerPackProbeDirectives" name="OLD Agent With PowerPack Probe Directives (delimited by comma)" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="newAgentProbeDirectives" name="NEW Agent Probe Directives (delimited by comma)" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="newAgentWithPowerPackProbeDirectives" name="NEW Agent With PowerPack Probe Directives (delimited by comma)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="oldAgentExtraModules" name="OLD Agent Extra Modules (delimited by comma)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="oldAgentWithPowerPackExtraModules" name="OLD Agent With PowerPack Extra Modules (delimited by comma)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="newAgentExtraModules" name="NEW Agent Extra Modules (delimited by comma)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="newAgentWithPowerPackExtraModules" name="NEW Agent With PowerPack Extra Modules (delimited by comma)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="agentEMInvestigatorGroupName" name="Name of the Group under which Introscope Agent appears in EM Investigator" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <callActivity id="callactivity1" name="NoAgent" calledElement="powerpack.performance.testing.managable.workflow">
+      <extensionElements>
+        <activiti:in sourceExpression="noAgent" target="testType"></activiti:in>
+        <activiti:in source="artifactSpecificationNew" target="artifactSpecification"></activiti:in>
+        <activiti:in source="node" target="node"></activiti:in>
+        <activiti:in source="jmeterNode" target="jmeterNode"></activiti:in>
+        <activiti:in source="oracleNode" target="oracleNode"></activiti:in>
+        <activiti:in source="momNode" target="momNode"></activiti:in>
+        <activiti:in source="serverId" target="serverId"></activiti:in>
+        <activiti:in source="serverType" target="serverType"></activiti:in>
+        <activiti:in source="applicationType" target="applicationType"></activiti:in>
+        <activiti:in source="additionalAgentProfileProp" target="additionalAgentProfileProp"></activiti:in>
+        <activiti:in source="momPort" target="momPort"></activiti:in>
+        <activiti:in source="processName" target="processName"></activiti:in>
+        <activiti:in source="testWarmupInSeconds" target="testWarmupInSeconds"></activiti:in>
+        <activiti:in source="testDurationInSeconds" target="testDurationInSeconds"></activiti:in>
+        <activiti:in source="brtmExtension" target="brtmExtension"></activiti:in>
+        <activiti:in source="agentName" target="agentName"></activiti:in>
+        <activiti:in source="dbCleanupPort" target="dbCleanupPort"></activiti:in>
+        <activiti:in source="dbCleanupHost" target="dbCleanupHost"></activiti:in>
+        <activiti:in source="testNumberOfCVUS" target="testNumberOfCVUS"></activiti:in>
+        <activiti:in source="jMeterScenarioUrl" target="jMeterScenarioUrl"></activiti:in>
+        <activiti:in source="logDir" target="logDir"></activiti:in>
+        <activiti:in source="logDirServer" target="logDirServer"></activiti:in>
+        <activiti:in source="appServerPort" target="appServerPort"></activiti:in>
+        <activiti:in source="appServerHost" target="appServerHost"></activiti:in>
+        <activiti:in source="jmxPort" target="jmxPort"></activiti:in>
+        <activiti:in source="delayAfterServerStart" target="delayAfterServerStart"></activiti:in>
+        <activiti:in source="loNode" target="loNode"></activiti:in>
+        <activiti:in source="logsArchiveFolder" target="logsArchiveFolder"></activiti:in>
+        <activiti:in source="agentInstallationDir" target="agentInstallationDir"></activiti:in>
+        <activiti:in source="jmxMetrics" target="jmxMetrics"></activiti:in>
+        <activiti:in source="reportResultsFileTemplateUrl" target="reportResultsFileTemplateUrl"></activiti:in>
+        <activiti:in source="typePerfLogFileName" target="typePerfLogFileName"></activiti:in>
+        <activiti:in source="jmxLogFileName" target="jmxLogFileName"></activiti:in>
+        <activiti:in source="jstatLogFileName" target="jstatLogFileName"></activiti:in>
+        <activiti:in source="reCreateDbScriptArchiveUrl" target="reCreateDbScriptArchiveUrl"></activiti:in>
+        <activiti:in source="samplesCount" target="samplesCount"></activiti:in>
+        <activiti:in source="sampleIntervalMillis" target="sampleIntervalMillis"></activiti:in>
+        <activiti:in source="resultReportFileName" target="resultReportFileName"></activiti:in>
+        <activiti:in source="cleanAgentDownloads" target="cleanAgentDownloads"></activiti:in>
+        <activiti:in source="javaProcessName" target="javaProcessName"></activiti:in>
+        <activiti:in source="processInstanceName" target="processInstanceName"></activiti:in>
+        <activiti:in source="processCommandLinePattern" target="processCommandLinePattern"></activiti:in>
+        <activiti:in source="runTypePerfMonitoring" target="runTypePerfMonitoring"></activiti:in>
+        <activiti:in source="runJmxMonitoring" target="runJmxMonitoring"></activiti:in>
+        <activiti:in source="runJstatMonitoring" target="runJstatMonitoring"></activiti:in>
+        <activiti:in source="typePerfCounters" target="typePerfCounters"></activiti:in>
+        <activiti:in source="includeJmeterLogs" target="includeJmeterLogs"></activiti:in>
+        <activiti:in source="includeWilyLogs" target="includeWilyLogs"></activiti:in>
+        <activiti:in source="archiveLogs" target="archiveLogs"></activiti:in>
+        <activiti:in source="jmeterCollectFileExtensions" target="jmeterCollectFileExtensions"></activiti:in>
+        <activiti:out source="resultsFolder" target="resultsFolder_no_agent"></activiti:out>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="callactivity2" name="Newer Agent" calledElement="powerpack.performance.testing.managable.workflow">
+      <extensionElements>
+        <activiti:in sourceExpression="newAgent" target="testType"></activiti:in>
+        <activiti:in source="artifactSpecificationNew" target="artifactSpecification"></activiti:in>
+        <activiti:in source="node" target="node"></activiti:in>
+        <activiti:in source="jmeterNode" target="jmeterNode"></activiti:in>
+        <activiti:in source="oracleNode" target="oracleNode"></activiti:in>
+        <activiti:in source="momNode" target="momNode"></activiti:in>
+        <activiti:in source="serverId" target="serverId"></activiti:in>
+        <activiti:in source="serverType" target="serverType"></activiti:in>
+        <activiti:in source="applicationType" target="applicationType"></activiti:in>
+        <activiti:in source="additionalAgentProfileProp" target="additionalAgentProfileProp"></activiti:in>
+        <activiti:in source="momPort" target="momPort"></activiti:in>
+        <activiti:in source="processName" target="processName"></activiti:in>
+        <activiti:in source="testWarmupInSeconds" target="testWarmupInSeconds"></activiti:in>
+        <activiti:in source="testDurationInSeconds" target="testDurationInSeconds"></activiti:in>
+        <activiti:in source="brtmExtension" target="brtmExtension"></activiti:in>
+        <activiti:in source="agentName" target="agentName"></activiti:in>
+        <activiti:in source="dbCleanupPort" target="dbCleanupPort"></activiti:in>
+        <activiti:in source="dbCleanupHost" target="dbCleanupHost"></activiti:in>
+        <activiti:in source="testNumberOfCVUS" target="testNumberOfCVUS"></activiti:in>
+        <activiti:in source="jMeterScenarioUrl" target="jMeterScenarioUrl"></activiti:in>
+        <activiti:in source="logDir" target="logDir"></activiti:in>
+        <activiti:in source="logDirServer" target="logDirServer"></activiti:in>
+        <activiti:in source="appServerPort" target="appServerPort"></activiti:in>
+        <activiti:in source="appServerHost" target="appServerHost"></activiti:in>
+        <activiti:in source="jmxPort" target="jmxPort"></activiti:in>
+        <activiti:in source="delayAfterServerStart" target="delayAfterServerStart"></activiti:in>
+        <activiti:in source="loNode" target="loNode"></activiti:in>
+        <activiti:in source="logsArchiveFolder" target="logsArchiveFolder"></activiti:in>
+        <activiti:in source="agentInstallationDir" target="agentInstallationDir"></activiti:in>
+        <activiti:in source="jmxMetrics" target="jmxMetrics"></activiti:in>
+        <activiti:in source="reportResultsFileTemplateUrl" target="reportResultsFileTemplateUrl"></activiti:in>
+        <activiti:in source="typePerfLogFileName" target="typePerfLogFileName"></activiti:in>
+        <activiti:in source="jmxLogFileName" target="jmxLogFileName"></activiti:in>
+        <activiti:in source="jstatLogFileName" target="jstatLogFileName"></activiti:in>
+        <activiti:in source="reCreateDbScriptArchiveUrl" target="reCreateDbScriptArchiveUrl"></activiti:in>
+        <activiti:in source="samplesCount" target="samplesCount"></activiti:in>
+        <activiti:in source="sampleIntervalMillis" target="sampleIntervalMillis"></activiti:in>
+        <activiti:in source="resultReportFileName" target="resultReportFileName"></activiti:in>
+        <activiti:in source="cleanAgentDownloads" target="cleanAgentDownloads"></activiti:in>
+        <activiti:in source="javaProcessName" target="javaProcessName"></activiti:in>
+        <activiti:in source="processInstanceName" target="processInstanceName"></activiti:in>
+        <activiti:in source="processCommandLinePattern" target="processCommandLinePattern"></activiti:in>
+        <activiti:in source="runTypePerfMonitoring" target="runTypePerfMonitoring"></activiti:in>
+        <activiti:in source="runJmxMonitoring" target="runJmxMonitoring"></activiti:in>
+        <activiti:in source="runJstatMonitoring" target="runJstatMonitoring"></activiti:in>
+        <activiti:in source="typePerfCounters" target="typePerfCounters"></activiti:in>
+        <activiti:in source="newAgentVersion" target="agentVersion"></activiti:in>
+        <activiti:in source="includeJmeterLogs" target="includeJmeterLogs"></activiti:in>
+        <activiti:in source="includeWilyLogs" target="includeWilyLogs"></activiti:in>
+        <activiti:in source="archiveLogs" target="archiveLogs"></activiti:in>
+        <activiti:in source="jmeterCollectFileExtensions" target="jmeterCollectFileExtensions"></activiti:in>
+        <activiti:in source="additionalNewAgentProfileProperties" target="additionalAgentProfileProperties"></activiti:in>
+        <activiti:in source="newAgentProbeDirectives" target="agentProbeDirectives"></activiti:in>
+        <activiti:in source="newAgentExtraModules" target="agentExtraModules"></activiti:in>
+        <activiti:in source="agentEMInvestigatorGroupName" target="agentEMInvestigatorGroupName"></activiti:in>
+        <activiti:out source="resultsFolder" target="resultsFolder_new_agent"></activiti:out>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="callactivity3" name="Newer Agent PP" calledElement="powerpack.performance.testing.managable.workflow">
+      <extensionElements>
+        <activiti:in sourceExpression="newAgentPlusPP" target="testType"></activiti:in>
+        <activiti:in source="artifactSpecificationNew" target="artifactSpecification"></activiti:in>
+        <activiti:in source="node" target="node"></activiti:in>
+        <activiti:in source="jmeterNode" target="jmeterNode"></activiti:in>
+        <activiti:in source="oracleNode" target="oracleNode"></activiti:in>
+        <activiti:in source="momNode" target="momNode"></activiti:in>
+        <activiti:in source="serverId" target="serverId"></activiti:in>
+        <activiti:in source="serverType" target="serverType"></activiti:in>
+        <activiti:in source="applicationType" target="applicationType"></activiti:in>
+        <activiti:in source="additionalAgentProfileProp" target="additionalAgentProfileProp"></activiti:in>
+        <activiti:in source="momPort" target="momPort"></activiti:in>
+        <activiti:in source="processName" target="processName"></activiti:in>
+        <activiti:in source="testWarmupInSeconds" target="testWarmupInSeconds"></activiti:in>
+        <activiti:in source="testDurationInSeconds" target="testDurationInSeconds"></activiti:in>
+        <activiti:in source="brtmExtension" target="brtmExtension"></activiti:in>
+        <activiti:in source="agentName" target="agentName"></activiti:in>
+        <activiti:in source="dbCleanupPort" target="dbCleanupPort"></activiti:in>
+        <activiti:in source="dbCleanupHost" target="dbCleanupHost"></activiti:in>
+        <activiti:in source="testNumberOfCVUS" target="testNumberOfCVUS"></activiti:in>
+        <activiti:in source="jMeterScenarioUrl" target="jMeterScenarioUrl"></activiti:in>
+        <activiti:in source="logDir" target="logDir"></activiti:in>
+        <activiti:in source="logDirServer" target="logDirServer"></activiti:in>
+        <activiti:in source="appServerPort" target="appServerPort"></activiti:in>
+        <activiti:in source="appServerHost" target="appServerHost"></activiti:in>
+        <activiti:in source="jmxPort" target="jmxPort"></activiti:in>
+        <activiti:in source="delayAfterServerStart" target="delayAfterServerStart"></activiti:in>
+        <activiti:in source="loNode" target="loNode"></activiti:in>
+        <activiti:in source="logsArchiveFolder" target="logsArchiveFolder"></activiti:in>
+        <activiti:in source="agentInstallationDir" target="agentInstallationDir"></activiti:in>
+        <activiti:in source="jmxMetrics" target="jmxMetrics"></activiti:in>
+        <activiti:in source="reportResultsFileTemplateUrl" target="reportResultsFileTemplateUrl"></activiti:in>
+        <activiti:in source="typePerfLogFileName" target="typePerfLogFileName"></activiti:in>
+        <activiti:in source="jmxLogFileName" target="jmxLogFileName"></activiti:in>
+        <activiti:in source="jstatLogFileName" target="jstatLogFileName"></activiti:in>
+        <activiti:in source="reCreateDbScriptArchiveUrl" target="reCreateDbScriptArchiveUrl"></activiti:in>
+        <activiti:in source="samplesCount" target="samplesCount"></activiti:in>
+        <activiti:in source="sampleIntervalMillis" target="sampleIntervalMillis"></activiti:in>
+        <activiti:in source="resultReportFileName" target="resultReportFileName"></activiti:in>
+        <activiti:in source="cleanAgentDownloads" target="cleanAgentDownloads"></activiti:in>
+        <activiti:in source="javaProcessName" target="javaProcessName"></activiti:in>
+        <activiti:in source="processInstanceName" target="processInstanceName"></activiti:in>
+        <activiti:in source="processCommandLinePattern" target="processCommandLinePattern"></activiti:in>
+        <activiti:in source="runTypePerfMonitoring" target="runTypePerfMonitoring"></activiti:in>
+        <activiti:in source="runJmxMonitoring" target="runJmxMonitoring"></activiti:in>
+        <activiti:in source="runJstatMonitoring" target="runJstatMonitoring"></activiti:in>
+        <activiti:in source="typePerfCounters" target="typePerfCounters"></activiti:in>
+        <activiti:in source="newAgentVersion" target="agentVersion"></activiti:in>
+        <activiti:in source="includeJmeterLogs" target="includeJmeterLogs"></activiti:in>
+        <activiti:in source="includeWilyLogs" target="includeWilyLogs"></activiti:in>
+        <activiti:in source="archiveLogs" target="archiveLogs"></activiti:in>
+        <activiti:in source="jmeterCollectFileExtensions" target="jmeterCollectFileExtensions"></activiti:in>
+        <activiti:in source="additionalNewAgentWithPowerPackProfileProperties" target="additionalAgentProfileProperties"></activiti:in>
+        <activiti:in source="newAgentWithPowerPackProbeDirectives" target="agentProbeDirectives"></activiti:in>
+        <activiti:in source="newAgentWithPowerPackExtraModules" target="agentExtraModules"></activiti:in>
+        <activiti:in source="agentEMInvestigatorGroupName" target="agentEMInvestigatorGroupName"></activiti:in>
+        <activiti:out source="resultsFolder" target="resultsFolder_new_agentPP"></activiti:out>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="callactivity4" name="Older AgentPP" calledElement="powerpack.performance.testing.managable.workflow">
+      <extensionElements>
+        <activiti:in sourceExpression="oldAgentPlusPP" target="testType"></activiti:in>
+        <activiti:in source="artifactSpecificationOld" target="artifactSpecification"></activiti:in>
+        <activiti:in source="node" target="node"></activiti:in>
+        <activiti:in source="jmeterNode" target="jmeterNode"></activiti:in>
+        <activiti:in source="oracleNode" target="oracleNode"></activiti:in>
+        <activiti:in source="momNode" target="momNode"></activiti:in>
+        <activiti:in source="serverId" target="serverId"></activiti:in>
+        <activiti:in source="serverType" target="serverType"></activiti:in>
+        <activiti:in source="applicationType" target="applicationType"></activiti:in>
+        <activiti:in source="additionalAgentProfileProp" target="additionalAgentProfileProp"></activiti:in>
+        <activiti:in source="momPort" target="momPort"></activiti:in>
+        <activiti:in source="processName" target="processName"></activiti:in>
+        <activiti:in source="testWarmupInSeconds" target="testWarmupInSeconds"></activiti:in>
+        <activiti:in source="testDurationInSeconds" target="testDurationInSeconds"></activiti:in>
+        <activiti:in source="brtmExtension" target="brtmExtension"></activiti:in>
+        <activiti:in source="agentName" target="agentName"></activiti:in>
+        <activiti:in source="dbCleanupPort" target="dbCleanupPort"></activiti:in>
+        <activiti:in source="dbCleanupHost" target="dbCleanupHost"></activiti:in>
+        <activiti:in source="testNumberOfCVUS" target="testNumberOfCVUS"></activiti:in>
+        <activiti:in source="jMeterScenarioUrl" target="jMeterScenarioUrl"></activiti:in>
+        <activiti:in source="logDir" target="logDir"></activiti:in>
+        <activiti:in source="logDirServer" target="logDirServer"></activiti:in>
+        <activiti:in source="appServerPort" target="appServerPort"></activiti:in>
+        <activiti:in source="appServerHost" target="appServerHost"></activiti:in>
+        <activiti:in source="jmxPort" target="jmxPort"></activiti:in>
+        <activiti:in source="delayAfterServerStart" target="delayAfterServerStart"></activiti:in>
+        <activiti:in source="loNode" target="loNode"></activiti:in>
+        <activiti:in source="logsArchiveFolder" target="logsArchiveFolder"></activiti:in>
+        <activiti:in source="agentInstallationDir" target="agentInstallationDir"></activiti:in>
+        <activiti:in source="jmxMetrics" target="jmxMetrics"></activiti:in>
+        <activiti:in source="reportResultsFileTemplateUrl" target="reportResultsFileTemplateUrl"></activiti:in>
+        <activiti:in source="typePerfLogFileName" target="typePerfLogFileName"></activiti:in>
+        <activiti:in source="jmxLogFileName" target="jmxLogFileName"></activiti:in>
+        <activiti:in source="jstatLogFileName" target="jstatLogFileName"></activiti:in>
+        <activiti:in source="reCreateDbScriptArchiveUrl" target="reCreateDbScriptArchiveUrl"></activiti:in>
+        <activiti:in source="samplesCount" target="samplesCount"></activiti:in>
+        <activiti:in source="sampleIntervalMillis" target="sampleIntervalMillis"></activiti:in>
+        <activiti:in source="resultReportFileName" target="resultReportFileName"></activiti:in>
+        <activiti:in source="cleanAgentDownloads" target="cleanAgentDownloads"></activiti:in>
+        <activiti:in source="javaProcessName" target="javaProcessName"></activiti:in>
+        <activiti:in source="processInstanceName" target="processInstanceName"></activiti:in>
+        <activiti:in source="processCommandLinePattern" target="processCommandLinePattern"></activiti:in>
+        <activiti:in source="runTypePerfMonitoring" target="runTypePerfMonitoring"></activiti:in>
+        <activiti:in source="runJmxMonitoring" target="runJmxMonitoring"></activiti:in>
+        <activiti:in source="runJstatMonitoring" target="runJstatMonitoring"></activiti:in>
+        <activiti:in source="typePerfCounters" target="typePerfCounters"></activiti:in>
+        <activiti:in source="includeJmeterLogs" target="includeJmeterLogs"></activiti:in>
+        <activiti:in source="includeWilyLogs" target="includeWilyLogs"></activiti:in>
+        <activiti:in source="archiveLogs" target="archiveLogs"></activiti:in>
+        <activiti:in source="oldAgentVersion" target="agentVersion"></activiti:in>
+        <activiti:in source="jmeterCollectFileExtensions" target="jmeterCollectFileExtensions"></activiti:in>
+        <activiti:in source="additionalOldAgentWithPowerPackProfileProperties" target="additionalAgentProfileProperties"></activiti:in>
+        <activiti:in source="oldAgentWithPowerPackProbeDirectives" target="agentProbeDirectives"></activiti:in>
+        <activiti:in source="oldAgentWithPowerPackExtraModules" target="agentExtraModules"></activiti:in>
+        <activiti:in source="agentEMInvestigatorGroupName" target="agentEMInvestigatorGroupName"></activiti:in>
+        <activiti:out source="resultsFolder" target="resultsFolder_old_agentPP"></activiti:out>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="callactivity5" name="Older Agent" calledElement="powerpack.performance.testing.managable.workflow">
+      <extensionElements>
+        <activiti:in sourceExpression="oldAgent" target="testType"></activiti:in>
+        <activiti:in source="artifactSpecificationOld" target="artifactSpecification"></activiti:in>
+        <activiti:in source="node" target="node"></activiti:in>
+        <activiti:in source="jmeterNode" target="jmeterNode"></activiti:in>
+        <activiti:in source="momNode" target="momNode"></activiti:in>
+        <activiti:in source="oracleNode" target="oracleNode"></activiti:in>
+        <activiti:in source="serverId" target="serverId"></activiti:in>
+        <activiti:in source="serverType" target="serverType"></activiti:in>
+        <activiti:in source="applicationType" target="applicationType"></activiti:in>
+        <activiti:in source="additionalAgentProfileProp" target="additionalAgentProfileProp"></activiti:in>
+        <activiti:in source="momPort" target="momPort"></activiti:in>
+        <activiti:in source="processName" target="processName"></activiti:in>
+        <activiti:in source="testWarmupInSeconds" target="testWarmupInSeconds"></activiti:in>
+        <activiti:in source="testDurationInSeconds" target="testDurationInSeconds"></activiti:in>
+        <activiti:in source="brtmExtension" target="brtmExtension"></activiti:in>
+        <activiti:in source="agentName" target="agentName"></activiti:in>
+        <activiti:in source="dbCleanupPort" target="dbCleanupPort"></activiti:in>
+        <activiti:in source="dbCleanupHost" target="dbCleanupHost"></activiti:in>
+        <activiti:in source="testNumberOfCVUS" target="testNumberOfCVUS"></activiti:in>
+        <activiti:in source="jMeterScenarioUrl" target="jMeterScenarioUrl"></activiti:in>
+        <activiti:in source="logDir" target="logDir"></activiti:in>
+        <activiti:in source="logDirServer" target="logDirServer"></activiti:in>
+        <activiti:in source="appServerPort" target="appServerPort"></activiti:in>
+        <activiti:in source="appServerHost" target="appServerHost"></activiti:in>
+        <activiti:in source="jmxPort" target="jmxPort"></activiti:in>
+        <activiti:in source="delayAfterServerStart" target="delayAfterServerStart"></activiti:in>
+        <activiti:in source="loNode" target="loNode"></activiti:in>
+        <activiti:in source="logsArchiveFolder" target="logsArchiveFolder"></activiti:in>
+        <activiti:in source="agentInstallationDir" target="agentInstallationDir"></activiti:in>
+        <activiti:in source="jmxMetrics" target="jmxMetrics"></activiti:in>
+        <activiti:in source="reportResultsFileTemplateUrl" target="reportResultsFileTemplateUrl"></activiti:in>
+        <activiti:in source="typePerfLogFileName" target="typePerfLogFileName"></activiti:in>
+        <activiti:in source="jmxLogFileName" target="jmxLogFileName"></activiti:in>
+        <activiti:in source="jstatLogFileName" target="jstatLogFileName"></activiti:in>
+        <activiti:in source="reCreateDbScriptArchiveUrl" target="reCreateDbScriptArchiveUrl"></activiti:in>
+        <activiti:in source="samplesCount" target="samplesCount"></activiti:in>
+        <activiti:in source="sampleIntervalMillis" target="sampleIntervalMillis"></activiti:in>
+        <activiti:in source="resultReportFileName" target="resultReportFileName"></activiti:in>
+        <activiti:in source="cleanAgentDownloads" target="cleanAgentDownloads"></activiti:in>
+        <activiti:in source="javaProcessName" target="javaProcessName"></activiti:in>
+        <activiti:in source="processInstanceName" target="processInstanceName"></activiti:in>
+        <activiti:in source="processCommandLinePattern" target="processCommandLinePattern"></activiti:in>
+        <activiti:in source="runTypePerfMonitoring" target="runTypePerfMonitoring"></activiti:in>
+        <activiti:in source="runJmxMonitoring" target="runJmxMonitoring"></activiti:in>
+        <activiti:in source="runJstatMonitoring" target="runJstatMonitoring"></activiti:in>
+        <activiti:in source="typePerfCounters" target="typePerfCounters"></activiti:in>
+        <activiti:in source="includeJmeterLogs" target="includeJmeterLogs"></activiti:in>
+        <activiti:in source="includeWilyLogs" target="includeWilyLogs"></activiti:in>
+        <activiti:in source="archiveLogs" target="archiveLogs"></activiti:in>
+        <activiti:in source="oldAgentVersion" target="agentVersion"></activiti:in>
+        <activiti:in source="jmeterCollectFileExtensions" target="jmeterCollectFileExtensions"></activiti:in>
+        <activiti:in source="additionalOldAgentProfileProperties" target="additionalAgentProfileProperties"></activiti:in>
+        <activiti:in source="oldAgentProbeDirectives" target="agentProbeDirectives"></activiti:in>
+        <activiti:in source="oldAgentExtraModules" target="agentExtraModules"></activiti:in>
+        <activiti:in source="agentEMInvestigatorGroupName" target="agentEMInvestigatorGroupName"></activiti:in>
+        <activiti:out source="resultsFolder" target="resultsFolder_old_agent"></activiti:out>
+      </extensionElements>
+    </callActivity>
+    <sequenceFlow id="flow130" sourceRef="callactivity2" targetRef="timerintermediatecatchevent3"></sequenceFlow>
+    <sequenceFlow id="flow131" sourceRef="callactivity1" targetRef="timerintermediatecatchevent4"></sequenceFlow>
+    <sequenceFlow id="flow140" sourceRef="startevent1" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+    <sequenceFlow id="flow142" sourceRef="callactivity3" targetRef="timerintermediatecatchevent2"></sequenceFlow>
+    <serviceTask id="buildReportServiceTask" name="Build Report Service Task" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).buildReport()}"></serviceTask>
+    <sequenceFlow id="flow143" sourceRef="callactivity5" targetRef="timerintermediatecatchevent6"></sequenceFlow>
+    <sequenceFlow id="flow144" sourceRef="buildReportServiceTask" targetRef="endevent1"></sequenceFlow>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="buildReportServiceTask">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <userTask id="buildReportFailureUserTask" name="React on report building failure">
+      <extensionElements>
+        <activiti:formProperty id="buildReportFailureOption" name="Build Report Failure Option" type="enum" variable="buildReportFailureOption" required="true">
+          <activiti:value id="retry" name="Retry building a report"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="loNode" name="Load Orchestrator Node" type="node" variable="loNode" default="${loNode}"></activiti:formProperty>
+        <activiti:formProperty id="jmxLogFileName" name="JMX Log File Name" type="string" variable="jmxLogFileName" default="${jmxLogFileName}"></activiti:formProperty>
+        <activiti:formProperty id="typePerfLogFileName" name="TypePerf Log File Name" type="string" variable="typePerfLogFileName" default="${typePerfLogFileName}"></activiti:formProperty>
+        <activiti:formProperty id="buildTypePerfReport" name="Build TypePerf Results Report?" type="boolean" variable="buildTypePerfReport" default="${runTypePerfMonitoring}"></activiti:formProperty>
+        <activiti:formProperty id="buildJmxReport" name="Build JMX Report?" type="boolean" variable="buildJmxReport" default="${runJmxMonitoring}"></activiti:formProperty>
+        <activiti:formProperty id="buildJmeterReport" name="Build Jmeter Report?" type="boolean" variable="buildJmeterReport" default="true"></activiti:formProperty>
+        <activiti:formProperty id="buildJstatReport" name="Build Jstat Report?" type="boolean" variable="buildJstatReport" default="${runJstatMonitoring}"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow145" sourceRef="boundaryerror1" targetRef="buildReportFailureUserTask"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow146" sourceRef="buildReportFailureUserTask" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow147" sourceRef="exclusivegateway1" targetRef="buildReportServiceTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${buildReportFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow148" sourceRef="exclusivegateway1" targetRef="endevent1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${buildReportFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="groupResultsServiceTask" name="Group Results Service Task" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).groupResults()}"></serviceTask>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="groupFlow" sourceRef="exclusivegateway2" targetRef="groupResultsServiceTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${resultsGroupingNeeded == true}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="dontGroupFlow" sourceRef="exclusivegateway2" targetRef="exclusivegateway4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${resultsGroupingNeeded == false}]]></conditionExpression>
+    </sequenceFlow>
+    <boundaryEvent id="boundaryerror2" name="Error" attachedToRef="groupResultsServiceTask">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <userTask id="resultGroupingFailureUserTask" name="React on results grouping failure">
+      <extensionElements>
+        <activiti:formProperty id="groupResultsFailureOption" name="Group Results Failure Option" type="enum" variable="groupResultsFailureOption" required="true">
+          <activiti:value id="retry" name="Retry grouping results"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="loNode" name="Load Orchestrator Node" type="node" variable="loNode" default="${loNode}"></activiti:formProperty>
+        <activiti:formProperty id="logsArchiveFolder" name="Logs Archive Folder" type="string" variable="logsArchiveFolder" default="${logsArchiveFolder}"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow151" sourceRef="boundaryerror2" targetRef="resultGroupingFailureUserTask"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow152" sourceRef="resultGroupingFailureUserTask" targetRef="exclusivegateway3"></sequenceFlow>
+    <sequenceFlow id="flow153" sourceRef="exclusivegateway3" targetRef="groupResultsServiceTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${groupResultsFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow154" sourceRef="exclusivegateway3" targetRef="exclusivegateway4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${groupResultsFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow155" sourceRef="exclusivegateway3" targetRef="endevent1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${groupResultsFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow156" sourceRef="groupResultsServiceTask" targetRef="exclusivegateway4"></sequenceFlow>
+    <sequenceFlow id="flow157" sourceRef="exclusivegateway4" targetRef="buildReportServiceTask"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow158" sourceRef="timerintermediatecatchevent1" targetRef="exclusivegateway5"></sequenceFlow>
+    <sequenceFlow id="flow159" sourceRef="exclusivegateway5" targetRef="callactivity3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${runNewAgentWithPPTest == true}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway6" name="Exclusive Gateway"></exclusiveGateway>
+    <intermediateCatchEvent id="timerintermediatecatchevent2" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow160" sourceRef="timerintermediatecatchevent2" targetRef="exclusivegateway6"></sequenceFlow>
+    <sequenceFlow id="flow161" sourceRef="exclusivegateway5" targetRef="exclusivegateway6"></sequenceFlow>
+    <sequenceFlow id="flow162" sourceRef="exclusivegateway6" targetRef="callactivity2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${runNewAgentTest == true}]]></conditionExpression>
+    </sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent3" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <exclusiveGateway id="exclusivegateway7" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow163" sourceRef="exclusivegateway6" targetRef="exclusivegateway7"></sequenceFlow>
+    <sequenceFlow id="flow164" sourceRef="timerintermediatecatchevent3" targetRef="exclusivegateway7"></sequenceFlow>
+    <sequenceFlow id="flow165" sourceRef="exclusivegateway7" targetRef="callactivity1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${runNoAgentTest == true}]]></conditionExpression>
+    </sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent4" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <exclusiveGateway id="exclusivegateway8" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow166" sourceRef="exclusivegateway7" targetRef="exclusivegateway8"></sequenceFlow>
+    <sequenceFlow id="flow167" sourceRef="timerintermediatecatchevent4" targetRef="exclusivegateway8"></sequenceFlow>
+    <sequenceFlow id="flow168" sourceRef="exclusivegateway8" targetRef="callactivity4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${runOldAgentWithPPTest == true}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway9" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow169" sourceRef="exclusivegateway8" targetRef="exclusivegateway9"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent5" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow170" sourceRef="timerintermediatecatchevent5" targetRef="exclusivegateway9"></sequenceFlow>
+    <sequenceFlow id="flow171" sourceRef="callactivity4" targetRef="timerintermediatecatchevent5"></sequenceFlow>
+    <sequenceFlow id="flow172" sourceRef="exclusivegateway9" targetRef="callactivity5">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${runOldAgentTest == true}]]></conditionExpression>
+    </sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent6" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow173" sourceRef="exclusivegateway9" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow174" sourceRef="timerintermediatecatchevent6" targetRef="exclusivegateway2"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.powerpack.linkedtestsForBothVersions.managable">
+    <bpmndi:BPMNPlane bpmnElement="fld.powerpack.linkedtestsForBothVersions.managable" id="BPMNPlane_fld.powerpack.linkedtestsForBothVersions.managable">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="403.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="403.0" y="1685.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callactivity1" id="BPMNShape_callactivity1">
+        <omgdc:Bounds height="81.0" width="211.0" x="315.0" y="630.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callactivity2" id="BPMNShape_callactivity2">
+        <omgdc:Bounds height="81.0" width="211.0" x="315.0" y="400.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callactivity3" id="BPMNShape_callactivity3">
+        <omgdc:Bounds height="81.0" width="211.0" x="315.0" y="175.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callactivity4" id="BPMNShape_callactivity4">
+        <omgdc:Bounds height="81.0" width="211.0" x="315.0" y="840.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="callactivity5" id="BPMNShape_callactivity5">
+        <omgdc:Bounds height="81.0" width="211.0" x="315.0" y="1080.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="buildReportServiceTask" id="BPMNShape_buildReportServiceTask">
+        <omgdc:Bounds height="81.0" width="211.0" x="315.0" y="1500.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="300.0" y="1527.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="buildReportFailureUserTask" id="BPMNShape_buildReportFailureUserTask">
+        <omgdc:Bounds height="81.0" width="211.0" x="50.0" y="1500.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="135.0" y="1633.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="groupResultsServiceTask" id="BPMNShape_groupResultsServiceTask">
+        <omgdc:Bounds height="81.0" width="211.0" x="315.0" y="1300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror2" id="BPMNShape_boundaryerror2">
+        <omgdc:Bounds height="30.0" width="30.0" x="300.0" y="1327.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="630.0" y="1198.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="resultGroupingFailureUserTask" id="BPMNShape_resultGroupingFailureUserTask">
+        <omgdc:Bounds height="81.0" width="211.0" x="50.0" y="1300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
+        <omgdc:Bounds height="40.0" width="40.0" x="135.0" y="1409.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway4" id="BPMNShape_exclusivegateway4">
+        <omgdc:Bounds height="40.0" width="40.0" x="629.0" y="1409.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="403.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway5" id="BPMNShape_exclusivegateway5">
+        <omgdc:Bounds height="40.0" width="40.0" x="630.0" y="195.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway6" id="BPMNShape_exclusivegateway6">
+        <omgdc:Bounds height="40.0" width="40.0" x="630.0" y="287.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent2" id="BPMNShape_timerintermediatecatchevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="403.0" y="290.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent3" id="BPMNShape_timerintermediatecatchevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="403.0" y="530.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway7" id="BPMNShape_exclusivegateway7">
+        <omgdc:Bounds height="40.0" width="40.0" x="630.0" y="527.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent4" id="BPMNShape_timerintermediatecatchevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="403.0" y="751.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway8" id="BPMNShape_exclusivegateway8">
+        <omgdc:Bounds height="40.0" width="40.0" x="629.0" y="748.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway9" id="BPMNShape_exclusivegateway9">
+        <omgdc:Bounds height="40.0" width="40.0" x="630.0" y="970.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent5" id="BPMNShape_timerintermediatecatchevent5">
+        <omgdc:Bounds height="35.0" width="35.0" x="403.0" y="973.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent6" id="BPMNShape_timerintermediatecatchevent6">
+        <omgdc:Bounds height="35.0" width="35.0" x="403.0" y="1201.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow130" id="BPMNEdge_flow130">
+        <omgdi:waypoint x="420.0" y="481.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="530.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow131" id="BPMNEdge_flow131">
+        <omgdi:waypoint x="420.0" y="711.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="751.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow140" id="BPMNEdge_flow140">
+        <omgdi:waypoint x="420.0" y="55.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="100.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow142" id="BPMNEdge_flow142">
+        <omgdi:waypoint x="420.0" y="256.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="290.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow143" id="BPMNEdge_flow143">
+        <omgdi:waypoint x="420.0" y="1161.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="1201.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow144" id="BPMNEdge_flow144">
+        <omgdi:waypoint x="420.0" y="1581.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="1685.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow145" id="BPMNEdge_flow145">
+        <omgdi:waypoint x="300.0" y="1542.0"></omgdi:waypoint>
+        <omgdi:waypoint x="261.0" y="1540.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow146" id="BPMNEdge_flow146">
+        <omgdi:waypoint x="155.0" y="1581.0"></omgdi:waypoint>
+        <omgdi:waypoint x="155.0" y="1633.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow147" id="BPMNEdge_flow147">
+        <omgdi:waypoint x="155.0" y="1633.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="1581.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow148" id="BPMNEdge_flow148">
+        <omgdi:waypoint x="155.0" y="1673.0"></omgdi:waypoint>
+        <omgdi:waypoint x="155.0" y="1702.0"></omgdi:waypoint>
+        <omgdi:waypoint x="403.0" y="1702.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="groupFlow" id="BPMNEdge_groupFlow">
+        <omgdi:waypoint x="650.0" y="1238.0"></omgdi:waypoint>
+        <omgdi:waypoint x="649.0" y="1264.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="1264.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="1300.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="dontGroupFlow" id="BPMNEdge_dontGroupFlow">
+        <omgdi:waypoint x="650.0" y="1238.0"></omgdi:waypoint>
+        <omgdi:waypoint x="649.0" y="1409.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow151" id="BPMNEdge_flow151">
+        <omgdi:waypoint x="300.0" y="1342.0"></omgdi:waypoint>
+        <omgdi:waypoint x="261.0" y="1340.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow152" id="BPMNEdge_flow152">
+        <omgdi:waypoint x="155.0" y="1381.0"></omgdi:waypoint>
+        <omgdi:waypoint x="155.0" y="1409.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow153" id="BPMNEdge_flow153">
+        <omgdi:waypoint x="155.0" y="1409.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="1381.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow154" id="BPMNEdge_flow154">
+        <omgdi:waypoint x="175.0" y="1429.0"></omgdi:waypoint>
+        <omgdi:waypoint x="437.0" y="1429.0"></omgdi:waypoint>
+        <omgdi:waypoint x="629.0" y="1429.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow155" id="BPMNEdge_flow155">
+        <omgdi:waypoint x="135.0" y="1429.0"></omgdi:waypoint>
+        <omgdi:waypoint x="28.0" y="1428.0"></omgdi:waypoint>
+        <omgdi:waypoint x="28.0" y="1641.0"></omgdi:waypoint>
+        <omgdi:waypoint x="28.0" y="1702.0"></omgdi:waypoint>
+        <omgdi:waypoint x="403.0" y="1702.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow156" id="BPMNEdge_flow156">
+        <omgdi:waypoint x="420.0" y="1381.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="1429.0"></omgdi:waypoint>
+        <omgdi:waypoint x="629.0" y="1429.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow157" id="BPMNEdge_flow157">
+        <omgdi:waypoint x="649.0" y="1449.0"></omgdi:waypoint>
+        <omgdi:waypoint x="647.0" y="1473.0"></omgdi:waypoint>
+        <omgdi:waypoint x="534.0" y="1473.0"></omgdi:waypoint>
+        <omgdi:waypoint x="419.0" y="1473.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="1500.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow158" id="BPMNEdge_flow158">
+        <omgdi:waypoint x="438.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="650.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="650.0" y="195.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow159" id="BPMNEdge_flow159">
+        <omgdi:waypoint x="630.0" y="215.0"></omgdi:waypoint>
+        <omgdi:waypoint x="526.0" y="215.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow160" id="BPMNEdge_flow160">
+        <omgdi:waypoint x="438.0" y="307.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="307.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow161" id="BPMNEdge_flow161">
+        <omgdi:waypoint x="650.0" y="235.0"></omgdi:waypoint>
+        <omgdi:waypoint x="650.0" y="287.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow162" id="BPMNEdge_flow162">
+        <omgdi:waypoint x="650.0" y="327.0"></omgdi:waypoint>
+        <omgdi:waypoint x="650.0" y="355.0"></omgdi:waypoint>
+        <omgdi:waypoint x="419.0" y="355.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="400.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow163" id="BPMNEdge_flow163">
+        <omgdi:waypoint x="650.0" y="327.0"></omgdi:waypoint>
+        <omgdi:waypoint x="650.0" y="527.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow164" id="BPMNEdge_flow164">
+        <omgdi:waypoint x="438.0" y="547.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="547.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow165" id="BPMNEdge_flow165">
+        <omgdi:waypoint x="650.0" y="567.0"></omgdi:waypoint>
+        <omgdi:waypoint x="649.0" y="589.0"></omgdi:waypoint>
+        <omgdi:waypoint x="419.0" y="589.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="630.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow166" id="BPMNEdge_flow166">
+        <omgdi:waypoint x="650.0" y="567.0"></omgdi:waypoint>
+        <omgdi:waypoint x="649.0" y="748.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow167" id="BPMNEdge_flow167">
+        <omgdi:waypoint x="438.0" y="768.0"></omgdi:waypoint>
+        <omgdi:waypoint x="629.0" y="768.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow168" id="BPMNEdge_flow168">
+        <omgdi:waypoint x="649.0" y="788.0"></omgdi:waypoint>
+        <omgdi:waypoint x="649.0" y="804.0"></omgdi:waypoint>
+        <omgdi:waypoint x="534.0" y="804.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="804.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="840.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow169" id="BPMNEdge_flow169">
+        <omgdi:waypoint x="649.0" y="788.0"></omgdi:waypoint>
+        <omgdi:waypoint x="650.0" y="970.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow170" id="BPMNEdge_flow170">
+        <omgdi:waypoint x="438.0" y="990.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="990.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow171" id="BPMNEdge_flow171">
+        <omgdi:waypoint x="420.0" y="921.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="973.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow172" id="BPMNEdge_flow172">
+        <omgdi:waypoint x="650.0" y="1010.0"></omgdi:waypoint>
+        <omgdi:waypoint x="650.0" y="1040.0"></omgdi:waypoint>
+        <omgdi:waypoint x="419.0" y="1040.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="1080.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow173" id="BPMNEdge_flow173">
+        <omgdi:waypoint x="650.0" y="1010.0"></omgdi:waypoint>
+        <omgdi:waypoint x="650.0" y="1198.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow174" id="BPMNEdge_flow174">
+        <omgdi:waypoint x="438.0" y="1218.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="1218.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <signal id="EndMonitorSignal" name="EndMonitorSignal"></signal>
+  <process id="fld.net.cem.integration.petshop4" name=".NET CEM Integration PetShop4" isExecutable="true">
+    <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
+      <extensionElements>
+        <activiti:formProperty id="hostname" name="hostname" type="string" variable="hostname" required="true"></activiti:formProperty>
+        <activiti:formProperty id="port" name="port" type="long" variable="port" required="true"></activiti:formProperty>
+        <activiti:formProperty id="delay" name="delay" type="long" variable="delay" default="20" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <subProcess id="generatePetShop4Load" name="Generate PetShop4 Load">
+      <startEvent id="startevent2" name="Start"></startEvent>
+      <scriptTask id="setupTask" name="Setup Task" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      	<script>
+      	execution.setVariable('testStep', 0);
+      	</script>
+      </scriptTask>
+      <scriptTask id="checkTask" name="Check listening" scriptFormat="groovy" activiti:autoStoreVariables="false">
+        <script>
+        <![CDATA[
+        import java.net.HttpURLConnection;
+        import java.net.URL;
+
+		String[] urls = [ 'WishList.aspx', 'NewUser.aspx', 'ShoppingCart.aspx',
+				 'Products.aspx?page=0&categoryId=BIRDS', 'http://sqw3vpet01/Items.aspx?produceId=BD-02&categoryId=BIRDS',
+				 'Items.aspx?produceId=DR-05&categoryId=EDANGER' ];
+		int step = execution.getVariable('testStep');
+		URL u = new URL('http://' + hostname + ':' + port + '/' + urls[step]);
+		HttpURLConnection con = (HttpURLConnection) u.openConnection();
+		con.getResponseCode();
+		++step;
+		if (step >= urls.length) {
+			step = 0;
+		}
+		execution.setVariable('testStep', step);
+		]]>
+        </script>
+      </scriptTask>
+      <intermediateCatchEvent id="sleep" name="Sleep">
+        <timerEventDefinition>
+          <timeDuration>PT${delay}S</timeDuration>
+        </timerEventDefinition>
+      </intermediateCatchEvent>
+      <endEvent id="endevent2" name="End"></endEvent>
+      <sequenceFlow id="flow3" sourceRef="startevent2" targetRef="setupTask"></sequenceFlow>
+      <sequenceFlow id="flow4" sourceRef="checkTask" targetRef="sleep"></sequenceFlow>
+      <sequenceFlow id="flow5" sourceRef="sleep" targetRef="checkTask"></sequenceFlow>
+      <sequenceFlow id="flow6" sourceRef="setupTask" targetRef="checkTask"></sequenceFlow>
+    </subProcess>
+    <boundaryEvent id="signalBoundaryEvent" attachedToRef="generatePetShop4Load" cancelActivity="true">
+      <signalEventDefinition signalRef="EndMonitorSignal"></signalEventDefinition>
+    </boundaryEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="generatePetShop4Load"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="signalBoundaryEvent" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.net.cem.integration.petshop4">
+    <bpmndi:BPMNPlane bpmnElement="fld.net.cem.integration.petshop4" id="BPMNPlane_fld.net.cem.integration.petshop4">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="459.0" y="52.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="generatePetShop4Load" id="BPMNShape_generatePetShop4Load">
+        <omgdc:Bounds height="521.0" width="381.0" x="286.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent2" id="BPMNShape_startevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="465.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkTask" id="BPMNShape_checkTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="330.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sleep" id="BPMNShape_sleep">
+        <omgdc:Bounds height="35.0" width="35.0" x="365.0" y="420.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="465.0" y="530.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="setupTask" id="BPMNShape_setupTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="499.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="signalBoundaryEvent" id="BPMNShape_signalBoundaryEvent">
+        <omgdc:Bounds height="30.0" width="30.0" x="653.0" y="327.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="790.0" y="324.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="482.0" y="205.0"></omgdi:waypoint>
+        <omgdi:waypoint x="551.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="382.0" y="325.0"></omgdi:waypoint>
+        <omgdi:waypoint x="328.0" y="376.0"></omgdi:waypoint>
+        <omgdi:waypoint x="382.0" y="420.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="382.0" y="420.0"></omgdi:waypoint>
+        <omgdi:waypoint x="430.0" y="375.0"></omgdi:waypoint>
+        <omgdi:waypoint x="382.0" y="325.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="499.0" y="297.0"></omgdi:waypoint>
+        <omgdi:waypoint x="435.0" y="297.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="476.0" y="87.0"></omgdi:waypoint>
+        <omgdi:waypoint x="476.0" y="110.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="683.0" y="342.0"></omgdi:waypoint>
+        <omgdi:waypoint x="790.0" y="341.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

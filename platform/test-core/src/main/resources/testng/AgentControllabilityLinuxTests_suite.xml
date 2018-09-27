@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<!--
+	@Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.ACCLinuxTestbed, executeOn=momMachine}],
+	  owner = balra06,
+	  size = COLOSSAL,
+	  description = 'AgentControllability TestNg XML suite for all Linux tests'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="AgentControllabilityLinuxTests" configfailurepolicy="continue">
+	<test name="AgentControllabilityLinuxTests" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.tests.agentcontrollability.AgentControllabilityTests">
+			</class>
+		</classes>
+	</test>
+</suite>

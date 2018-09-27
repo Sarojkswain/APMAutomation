@@ -1,0 +1,107 @@
+﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.ca.apm.powerpack.sysview.tests</groupId>
+        <artifactId>ceapm.tools</artifactId>
+        <version>99.99.dev_SaaS_fix-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>ceapm.tools.CPTJCAApp</artifactId>
+    <name>CPTJCAApp</name>
+    <description>Tool for generating (instrumented) messages into Websphere MQ queues</description>
+
+    <packaging>war</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.ca.apm.libs</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.14</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.libs</groupId>
+            <artifactId>javax.servlet</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.agent</groupId>
+            <artifactId>Agent</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.libs</groupId>
+            <artifactId>ibm-mq</artifactId>
+            <version>6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.libs</groupId>
+            <artifactId>ibm-mqjms</artifactId>
+            <version>5.306</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>CPTJCAApp</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <compilerId>jdt</compilerId> <!-- Avoid OSGi -->
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <compilerArguments>
+                        <bootclasspath>${apm.jdk6.boot}</bootclasspath>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-war</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>war</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <classesDirectory>${project.build.outputDirectory}</classesDirectory>
+                            <archive>
+                                <manifestEntries>
+                                    <Created-By>CA Technologies</Created-By>
+                                    <Build-Time>${maven.build.timestamp}</Build-Time>
+                                    <com-ca-Name>CPTJCAApp</com-ca-Name>
+                                </manifestEntries>
+                            </archive>
+                            <attachClasses>true</attachClasses>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/dist.xml</descriptor>
+                    </descriptors>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

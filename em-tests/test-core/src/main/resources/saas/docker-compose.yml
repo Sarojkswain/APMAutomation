@@ -1,0 +1,34 @@
+#####
+#####
+version: '2'
+services:
+
+  #All in (Introscope, WebView and DB) setup
+  apm:
+    image: ${artifactory}/${apmImage}:${branch}
+    ${hostname}
+    command: ${command}
+    mem_limit: ${memLimit}
+    ports:
+      - "5001:5001"
+      - "8081:8081"
+      - "8082:8080"
+      - "8444:8444"
+      - "8443:8443"
+      ${apmDebugPortMapping}
+    environment:
+      - HEAP_XMX_EM=${maxHeapEm}
+      - ACC_TOKEN=${accToken}
+      - ACC_HOST_IP=${accHost}
+      #- HEAP_XMX_WV=${maxHeapEm}
+      - APM_USER_NAME=${user}
+      - APM_USER_PASSWORD=${pass}
+      - APM_CONFIG_SAAS=TRUE
+      - APM_SSL_ENABLED=TRUE
+      - AGENT_WEBVIEW_MONITOR_IP=${agentWebViewMonitorIp}
+      - AGENT_WEBVIEW_MONITOR_PORT=${agentWebViewMonitorPort}
+      ${apmAgentToken}
+      ${apmToken}
+      ${apmDebug}
+    volumes:
+      - ./:/opt/ca/logs

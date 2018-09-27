@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<call-job-stack>
+	<name>Commarea200Test</name>
+	
+	<description></description>
+	<numberOfThreadsToRun>1</numberOfThreadsToRun>
+	<jGate>tcp://USILCA31</jGate>
+	<jGatePort>2008</jGatePort>
+	<serverName>C660IPIC</serverName>
+	<useChannel>false</useChannel>
+	<useCommarea>true</useCommarea>
+	<useDynamicDecoration>false</useDynamicDecoration>
+	<programDataStr></programDataStr>
+	
+	<!-- Case 1: commAreaLength is set (usual state) -->
+	<calledDistributions>
+		<name>Commarea200Case1</name>
+		<minutesToRun>0</minutesToRun>
+		<microsecondsToSleepPerCall>10000000</microsecondsToSleepPerCall>
+		<randomSeed>0</randomSeed>
+		<useCTG>true</useCTG>
+		<useWebServices>false</useWebServices>
+		<calledUnitsOfWork>
+			<proportionOfCalls>1</proportionOfCalls>
+			<calledTransactions>
+				<transactionID>RUN0001</transactionID>
+				<bufferLength>40</bufferLength>
+				<commAreaLength>200</commAreaLength>
+				<outBoundLength>20</outBoundLength>
+				<parameters>1000000</parameters>
+			</calledTransactions>
+		</calledUnitsOfWork>
+	</calledDistributions>
+
+	<!-- Case 2: commAreaLength isn't set but outBoundLength yes -->
+	<calledDistributions>
+		<name>Commarea200Case2</name>
+		<minutesToRun>0</minutesToRun>
+		<microsecondsToSleepPerCall>10000000</microsecondsToSleepPerCall>
+		<randomSeed>0</randomSeed>
+		<useCTG>true</useCTG>
+		<useWebServices>false</useWebServices>
+		<calledUnitsOfWork>
+			<proportionOfCalls>1</proportionOfCalls>
+			<calledTransactions>
+				<transactionID>RUN0001</transactionID>
+				<bufferLength>100</bufferLength>
+				<commAreaLength>0</commAreaLength>
+				<outBoundLength>80</outBoundLength>
+				<parameters>1000000</parameters>
+			</calledTransactions>
+		</calledUnitsOfWork>
+	</calledDistributions>
+
+	<!-- Case 3: Neither commAreaLength nor outBoundLength isn't set -->
+	<calledDistributions>
+		<name>Commarea200Case3</name>
+		<minutesToRun>0</minutesToRun>
+		<microsecondsToSleepPerCall>10000000</microsecondsToSleepPerCall>
+		<randomSeed>0</randomSeed>
+		<useCTG>true</useCTG>
+		<useWebServices>false</useWebServices>
+		<calledUnitsOfWork>
+			<proportionOfCalls>1</proportionOfCalls>
+			<calledTransactions>
+				<transactionID>RUN0001</transactionID>
+				<bufferLength>40</bufferLength>
+				<commAreaLength>0</commAreaLength>
+				<outBoundLength>0</outBoundLength>
+				<parameters>1000000</parameters>
+			</calledTransactions>
+		</calledUnitsOfWork>
+	</calledDistributions>
+
+	<!-- Case 4: No Commarea length parameters used -->
+	<calledDistributions>
+		<name>CommareaCase4</name>
+		<minutesToRun>0</minutesToRun>
+		<microsecondsToSleepPerCall>10000000</microsecondsToSleepPerCall>
+		<randomSeed>0</randomSeed>
+		<useCTG>true</useCTG>
+		<useWebServices>false</useWebServices>
+		<calledUnitsOfWork>
+			<proportionOfCalls>1</proportionOfCalls>
+			<calledTransactions>
+				<transactionID>RUN0001</transactionID>
+				<parameters>100000</parameters>
+			</calledTransactions>
+		</calledUnitsOfWork>
+	</calledDistributions>
+
+</call-job-stack>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE scenario SYSTEM "./dtd/PipeOrganScenario.dtd">
+
+<!-- Problem Scenario for Deployment based merging. -->
+
+<scenario>
+
+	<iterateEvent count="4" interval="100">
+		<servlet milestones="no" uri="ExecutorServlet_11" port="8080"
+			host="localhost" receiveError="yes"
+			x-apm-bt="t=4F2504E0-4F89-9B0C-0305E82C2301;d=2b6f0cc904d137be2e1730235f5664094b831186;v=1.0;n=VERIZON;l=3g;g=94015-1523;a=Tomcat Example$bs=PipeOrganApp;bt=Multiple_Users_WS;p=iOS;pv=9.3">
+			<servlet milestones="no" uri="ExecutorServlet_12" port="8080" host="localhost" receiveError="yes">
+				<message>Start Stall scenario</message>
+				<wait duration="40000" />
+				<message>Finish Error Scenario</message>
+			</servlet>
+		</servlet>
+	</iterateEvent>
+</scenario>

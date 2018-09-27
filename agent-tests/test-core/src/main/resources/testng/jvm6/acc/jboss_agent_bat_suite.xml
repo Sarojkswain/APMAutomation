@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [	    
+	    {name=com.ca.apm.tests.testbed.jvm6.acc.Jboss7AccTestBed, executeOn=machine1}],
+	  owner = kurma05,
+	  size = COLOSSAL,
+	  description = 'Java Agent BAT'),
+	  snapshotPolicy = SnapshotPolicy.ALWAYS,
+      snapshot = SnapshotMode.LIVE
+-->
+<suite name="TestSuite" configfailurepolicy="continue">
+    <parameter name="test.priority" value="1" />
+	<test name="JbossBatFunctionalTests" preserve-order="true">
+		<groups>
+      		<run>
+      			<include name="jboss" />
+     		</run>
+   		</groups>   
+	    <packages>
+	        <package name="com.ca.apm.automation"/>
+	    </packages>	    
+    	<listeners>    	
+    	    <listener class-name="org.uncommons.reportng.HTMLReporter" />    	
+    		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+    		<listener class-name="com.ca.apm.tests.utils.AnnotationTransformerImpl" />
+    		<listener class-name="com.ca.apm.automation.common.FuncTestListener" />
+  		</listeners>
+	</test>
+</suite>

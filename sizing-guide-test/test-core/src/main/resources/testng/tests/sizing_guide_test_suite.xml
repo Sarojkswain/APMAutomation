@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [{name=com.ca.apm.systemtest.sizingguidetest.testbed.SizingGuideTestbed, executeOn=testMachine}],
+	owner = bocto01,
+	size = DEBUG,
+	snapshotPolicy = ALWAYS,
+	snapshot = LIVE,
+	description = 'Sizing guide test')
+-->
+<suite name="TestSuite" configfailurepolicy="continue">
+	<test name="SizingGuideTest" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.systemtest.sizingguidetest.test.SizingGuideTest" />
+		</classes>
+	</test>
+</suite>

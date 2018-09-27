@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<!--
+	@Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.ACCWindowsTestbed, executeOn=momMachine}],
+	  owner = balra06,
+	  size = COLOSSAL,
+	  description = 'AgentControllability TestNg XML suite for all windows tests'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="AgentControllabilityWindowsTests" configfailurepolicy="continue">
+	<groups>
+    	<run>
+      		<include name="BAT"/>
+      		<include name="Bat"/>
+      		<include name="bat"/>
+    	</run>
+	</groups>
+	<test name="AgentControllabilityWindowsTests" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.tests.agentcontrollability.AgentControllabilityTests">
+			</class>
+		</classes>
+	</test>
+</suite>
+		

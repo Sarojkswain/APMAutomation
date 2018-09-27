@@ -1,0 +1,2268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <signal id="JMeterStartedSignal" name="JMeterStartedSignal" activiti:scope="global"></signal>
+  <process id="powerpack.performance.testing.managable.workflow" name="Main workflow for executing PowerPack performance tests" isExecutable="true">
+    <exclusiveGateway id="mainAgentInstallExclusiveGateway" name="Main Agent Install Exclusive Gateway" default="flowNoAgent"></exclusiveGateway>
+    <exclusiveGateway id="postAgentConfigurationMergeExclusiveGateway" name="Post Agent Configuration Merge Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flowNoAgent" sourceRef="mainAgentInstallExclusiveGateway" targetRef="uninstallAgentServiceTask"></sequenceFlow>
+    <sequenceFlow id="flowAgentPP" sourceRef="mainAgentInstallExclusiveGateway" targetRef="installAgentPPServiceTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${testType=='newAgentPlusPP' || testType=='oldAgentPlusPP'}]]></conditionExpression>
+    </sequenceFlow>
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="node" name="Application Node" type="node" variable="node" required="true"></activiti:formProperty>
+        <activiti:formProperty id="jmeterNode" name="Jmeter Node " type="node" variable="jmeterNode" required="true"></activiti:formProperty>
+        <activiti:formProperty id="momNode" name="MOM Node" type="node" variable="momNode" default="AQPP-EM01" required="true"></activiti:formProperty>
+        <activiti:formProperty id="oracleNode" name="Database Node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="momPort" name="MOM Port" type="long" variable="momPort" default="5001" required="true"></activiti:formProperty>
+        <activiti:formProperty id="loNode" name="Load Orchestrator Node" type="node" variable="loNode" default="AQPP-LO01" required="true"></activiti:formProperty>
+        <activiti:formProperty id="serverId" name="Server Id" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="serverType" name="Server Type (Websphere, Weblogic, ...)" type="enum" variable="serverType" required="true">
+          <activiti:value id="webspherePP" name="Websphere"></activiti:value>
+          <activiti:value id="webspherePortalPP" name="Websphere Portal"></activiti:value>
+          <activiti:value id="weblogicPP" name="Weblogic"></activiti:value>
+          <activiti:value id="weblogicportalPP" name="Weblogic Portal"></activiti:value>
+          <activiti:value id="weblogicosbPP" name="Weblogic + OSB"></activiti:value>
+          <activiti:value id="sharePointPP" name="SharePoint"></activiti:value>
+          <activiti:value id="tibcobwPP" name="Tibco"></activiti:value>
+          <activiti:value id="webmethodsPP" name="Web Methods"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="testType" name="Test Type (No Agent, Agent, Agent + PowerPack)" type="enum" default="noAgent" required="true">
+          <activiti:value id="noAgent" name="noAgent"></activiti:value>
+          <activiti:value id="oldAgent" name="Old Agent"></activiti:value>
+          <activiti:value id="oldAgentPlusPP" name="Old Agent + PowerPack"></activiti:value>
+          <activiti:value id="newAgent" name="New Agent"></activiti:value>
+          <activiti:value id="newAgentPlusPP" name="New Agent + PowerPack"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="applicationType" name="Application Type" type="enum" variable="applicationType" default="none" required="true">
+          <activiti:value id="none" name="none"></activiti:value>
+          <activiti:value id="trade6" name="trade6"></activiti:value>
+          <activiti:value id="wily2web" name="wily2web"></activiti:value>
+          <activiti:value id="stockTrader" name="stockTrader"></activiti:value>
+          <activiti:value id="loanApp" name="LoanApp"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="artifactSpecification" name="Agent Artifact Download Specification" type="string" variable="artifactSpecification" default="truss:10.0.0:990007:10.0.0.9"></activiti:formProperty>
+        <activiti:formProperty id="processName" name="Non-Java Process Name Pattern" type="string" variable="processName" required="true"></activiti:formProperty>
+        <activiti:formProperty id="javaProcessName" name="JPS Process Name Pattern" type="string"></activiti:formProperty>
+        <activiti:formProperty id="processInstanceName" name="Typeperf Process Instance Name" type="string"></activiti:formProperty>
+        <activiti:formProperty id="testWarmupInSeconds" name="Test Warmup (in seconds)" type="long" variable="testWarmupInSeconds" default="30" required="true"></activiti:formProperty>
+        <activiti:formProperty id="testDurationInSeconds" name="Test Duration (in seconds)" type="long" variable="testDurationInSeconds" default="2450" required="true"></activiti:formProperty>
+        <activiti:formProperty id="brtmExtension" name="BRTM Extension Included" type="boolean" default="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="agentName" name="Agent Name" type="string" variable="agentName" required="true"></activiti:formProperty>
+        <activiti:formProperty id="agentInstallationDir" name="Agent Installation Folder" type="string" variable="agentInstallationDir"></activiti:formProperty>
+        <activiti:formProperty id="dbCleanupPort" name="DB Cleanup Port" type="long" variable="dbCleanupPort" default="9080"></activiti:formProperty>
+        <activiti:formProperty id="dbCleanupHost" name="DB Cleanup Host" type="string" variable="dbCleanupHost" default="aqpp-was01.ca.com"></activiti:formProperty>
+        <activiti:formProperty id="reCreateDbScriptArchiveUrl" name="DB Recreation Script Archive URL" type="string" variable="reCreateDbScriptArchiveUrl" default="http://artifactory-emea-cz.ca.com:8081/artifactory/apm-third-party/com/ca/apm/binaries/ibm/stocktrader/stocktrader_trade6_tradedb_dbscript.zip"></activiti:formProperty>
+        <activiti:formProperty id="testNumberOfCVUS" name="Jmeter: Concurrent Users Count" type="long" variable="testNumberOfCVUS" default="5" required="true"></activiti:formProperty>
+        <activiti:formProperty id="jMeterScenarioUrl" name="Jmeter: Scenario Url (Uploaded To LO)" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="logDir" name="Agent Log Location" type="string" variable="logDir" default="c:/temp/agent/appserver"></activiti:formProperty>
+        <activiti:formProperty id="logDirServer" name="Server Log Location (Shared Folder)" type="string" variable="logDirServer" default="c:/temp/server/appserver" required="true"></activiti:formProperty>
+        <activiti:formProperty id="appServerPort" name="Jmeter: Application Port (For Load)" type="long" variable="appServerPort" required="true"></activiti:formProperty>
+        <activiti:formProperty id="appServerHost" name="Jmeter: Application Host (For Load)" type="string" variable="appServerHost" required="true"></activiti:formProperty>
+        <activiti:formProperty id="jmxPort" name="Monitoring: JMX Port" type="long" variable="jmxPort" default="1099"></activiti:formProperty>
+        <activiti:formProperty id="jmxMetrics" name="JMX Metrics (For JMX Monitoring)" type="string" variable="jmxMetrics"></activiti:formProperty>
+        <activiti:formProperty id="delayAfterServerStart" name="Delay After Server Is Started (in seconds)" type="long" variable="delayAfterServerStart" default="15"></activiti:formProperty>
+        <activiti:formProperty id="logsArchiveFolder" name="Logs Archive Folder" type="string" variable="logsArchiveFolder" default="c:/temp/archive"></activiti:formProperty>
+        <activiti:formProperty id="reportResultsFileTemplateUrl" name="Report Results File Template (XLS) URL" type="string" variable="reportResultsFileTemplateUrl" default="http://aqpp-lo01.ca.com:8080/LoadOrchestrator/getResource?resourceName=wls_performance_report_template.xls"></activiti:formProperty>
+        <activiti:formProperty id="resultsFolder" name="Results folder (filled automatically)" type="string" variable="resultsFolder" default="(filled automatically on end of test)"></activiti:formProperty>
+        <activiti:formProperty id="typePerfLogFileName" name="TypePerf Log File Name" type="string" default="typePerf.csv"></activiti:formProperty>
+        <activiti:formProperty id="jmxLogFileName" name="JMX Log File Name" type="string" default="jmx.log"></activiti:formProperty>
+        <activiti:formProperty id="jstatLogFileName" name="Jstat Log File Name" type="string" default="jstat.log"></activiti:formProperty>
+        <activiti:formProperty id="sampleIntervalMillis" name="Sample Interval (in milliseconds)" type="long" variable="sampleIntervalMillis" default="1000"></activiti:formProperty>
+        <activiti:formProperty id="samplesCount" name="Number Of Samples" type="long" variable="samplesCount" default="2450"></activiti:formProperty>
+        <activiti:formProperty id="resultReportFileName" name="Final Result Report File Name" type="string" variable="resultReportFileName" default="ppPerfTestRunReport.xls"></activiti:formProperty>
+        <activiti:formProperty id="cleanAgentDownloads" name="Clean Agent Downloads Before Run" type="boolean" variable="cleanAgentDownloads" default="false"></activiti:formProperty>
+        <activiti:formProperty id="processCommandLinePattern" name="Monitored Process's Command Line Pattern" type="string" variable="processCommandLinePattern" default="-Dcom.sun.management.jmxremote.port=1099"></activiti:formProperty>
+        <activiti:formProperty id="runTypePerfMonitoring" name="Run TypePerf Monitoring?" type="boolean" variable="runTypePerfMonitoring" required="true"></activiti:formProperty>
+        <activiti:formProperty id="runJmxMonitoring" name="Run JMX Monitoring?" type="boolean" variable="runJmxMonitoring" required="true"></activiti:formProperty>
+        <activiti:formProperty id="runJstatMonitoring" name="Run Jstat Monitoring?" type="boolean" variable="runJstatMonitoring" required="true"></activiti:formProperty>
+        <activiti:formProperty id="typePerfCounters" name="Performance Counters (sep. by comma)" type="string" variable="typePerfCounters" default="\Processor(_Total)\% Processor Time,\Process({0})\ID Process"></activiti:formProperty>
+        <activiti:formProperty id="includeJmeterLogs" name="Include Jmeter Logs" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="includeWilyLogs" name="Include Introscope Agent Logs" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="archiveLogs" name="Save Logs Into Archive" type="boolean" default="true"></activiti:formProperty>
+        <activiti:formProperty id="agentVersion" name="Introscope Agent Version" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="jmeterCollectFileExtensions" name="Comma Delimited Jmeter File Extensions To Collect" type="string" default=".log,.jtl,.csv"></activiti:formProperty>
+        <activiti:formProperty id="additionalAgentProfileProperties" name="Additional Introscope Agent Profile Properties (delimited by semicolumn)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="agentProbeDirectives" name="Introscope Agent Probe Directives (delimited by comma)" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="agentExtraModules" name="Introscope Agent Extra Modules (delimited by comma)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="agentEMInvestigatorGroupName" name="Name of the Group under which Introscope Agent appears in EM Investigator" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <serviceTask id="stopAppServerServiceTask" name="Stop App Server" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).stopAppServer()}"></serviceTask>
+    <serviceTask id="uninstallAgentServiceTask" name="Uninstall Agent " activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).uninstallAgent()}"></serviceTask>
+    <serviceTask id="installAgentPPServiceTask" name="Install Agent with PowerPack" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).installAgentWithPP()}"></serviceTask>
+    <serviceTask id="startAppServerServiceTask" name="Start App Server" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).startAppServer()}"></serviceTask>
+    <sequenceFlow id="flow66" sourceRef="postAgentConfigurationMergeExclusiveGateway" targetRef="waitAfterConfiguringAgentTimerEvent"></sequenceFlow>
+    <exclusiveGateway id="postAgentInstallationMergingExclusiveGateway" name="Post Agent Installation Merging Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow71" sourceRef="installAgentPPServiceTask" targetRef="postAgentInstallationMergingExclusiveGateway"></sequenceFlow>
+    <serviceTask id="integrateAgentServiceTask" name="Integrate Agent" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).configureAgent()}"></serviceTask>
+    <sequenceFlow id="flow73" sourceRef="integrateAgentServiceTask" targetRef="postAgentConfigurationMergeExclusiveGateway"></sequenceFlow>
+    <sequenceFlow id="flow74" sourceRef="postAgentInstallationMergingExclusiveGateway" targetRef="waitAfterInstallingAgentTimerEvent"></sequenceFlow>
+    <serviceTask id="unintegrateAgentServiceTask" name="Unintegrate Agent" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).unConfigureAgent()}"></serviceTask>
+    <sequenceFlow id="flow75" sourceRef="uninstallAgentServiceTask" targetRef="waitAfterUninstallingAgentTimerEvent"></sequenceFlow>
+    <sequenceFlow id="flow76" sourceRef="unintegrateAgentServiceTask" targetRef="postAgentConfigurationMergeExclusiveGateway"></sequenceFlow>
+    <intermediateCatchEvent id="afterStartingAppServerTimerEvent" name="After Starting App Server Timer Event">
+      <timerEventDefinition>
+        <timeDuration>PT${delayAfterServerStart}S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow77" sourceRef="startAppServerServiceTask" targetRef="afterStartingAppServerTimerEvent"></sequenceFlow>
+    <intermediateCatchEvent id="mainWaitBeforeAgentInstallationTimerEvent" name="Main Wait Before Agent Installation Timer Event">
+      <timerEventDefinition>
+        <timeDuration>PT30S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow108" sourceRef="mainWaitBeforeAgentInstallationTimerEvent" targetRef="mainAgentInstallExclusiveGateway"></sequenceFlow>
+    <serviceTask id="cleanupDBServiceTask" name="Cleanup \ Restart DB" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).cleanUp()}"></serviceTask>
+    <sequenceFlow id="flow110" sourceRef="cleanupDBServiceTask" targetRef="waitAfterDbCleanupTimerEvent"></sequenceFlow>
+    <sequenceFlow id="flow112" sourceRef="stopAppServerServiceTask" targetRef="mainWaitBeforeAgentInstallationTimerEvent"></sequenceFlow>
+    <serviceTask id="checkAgentConnectedToEMServiceTask" name=" Check Agent is connected       to EM" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).checkAgentConnectedEM()}"></serviceTask>
+    <sequenceFlow id="flow116" sourceRef="afterStartingAppServerTimerEvent" targetRef="checkAgentConnectedToEMServiceTask"></sequenceFlow>
+    <intermediateCatchEvent id="waitBeforeDbCleanupTimerEvent" name="Wait Before Db Cleanup \ Restart Timer Event">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow117" sourceRef="waitBeforeDbCleanupTimerEvent" targetRef="cleanupDBServiceTask"></sequenceFlow>
+    <intermediateCatchEvent id="waitAfterDbCleanupTimerEvent" name="Wait After Db Cleanup \ Restart Timer Event">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow118" sourceRef="waitAfterDbCleanupTimerEvent" targetRef="stopAppServerServiceTask"></sequenceFlow>
+    <intermediateCatchEvent id="afterCheckingMonitoringFilesTimerEvent" name="After Checking Monitoring Files Timer Event">
+      <timerEventDefinition>
+        <timeDuration>PT${testDurationInSeconds}S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <serviceTask id="startMonitoringServiceTask" name="Start Monitoring" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).monitor()}"></serviceTask>
+    <serviceTask id="stopMonitoringServiceTask" name="Stop Monitoring" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).stopMonitoring()}"></serviceTask>
+    <sequenceFlow id="flow125" sourceRef="afterCheckingMonitoringFilesTimerEvent" targetRef="stopMonitoringServiceTask"></sequenceFlow>
+    <intermediateCatchEvent id="afterRunningJmeterTestsTimerEvent" name="After Running Jmeter Tests Timer Event">
+      <timerEventDefinition>
+        <timeDuration>PT${testWarmupInSeconds}S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <serviceTask id="runJmeterTestsServiceTask" name="Run Jmeter Tests" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).runJmeterTests()}"></serviceTask>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow131" sourceRef="servicetask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flowNotInstalled" sourceRef="exclusivegateway1" targetRef="servicetask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${jMeterInstalled == false}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flowInstalled" sourceRef="exclusivegateway1" targetRef="afterUnzippingJmeterTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${jMeterInstalled == true}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow148" sourceRef="runJmeterTestsServiceTask" targetRef="afterRunningJmeterTestsTimerEvent"></sequenceFlow>
+    <sequenceFlow id="flow151" sourceRef="servicetask2" targetRef="afterDownloadingJmeterTimerEvent"></sequenceFlow>
+    <sequenceFlow id="flow157" sourceRef="checkAgentConnectedToEMServiceTask" targetRef="afterCheckingAgentToEMConnectionTimerEvent"></sequenceFlow>
+    <sequenceFlow id="flow158" sourceRef="afterRunningJmeterTestsTimerEvent" targetRef="startMonitoringServiceTask"></sequenceFlow>
+    <sequenceFlow id="flow159" sourceRef="servicetask3" targetRef="afterUnzippingJmeterTimerEvent"></sequenceFlow>
+    <endEvent id="powerPackPerformanceTestEndEvent" name="PowerPack Performance Test End Event"></endEvent>
+    <serviceTask id="installAgentServiceTask" name="Install Agent" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).installAgent()}"></serviceTask>
+    <sequenceFlow id="flowAgent" sourceRef="mainAgentInstallExclusiveGateway" targetRef="installAgentServiceTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${testType=='newAgent' || testType=='oldAgent'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow164" sourceRef="installAgentServiceTask" targetRef="postAgentInstallationMergingExclusiveGateway"></sequenceFlow>
+    <intermediateCatchEvent id="afterStartMonitoringTimerEvent" name="After Start Monitoring Timer Event">
+      <timerEventDefinition>
+        <timeDuration>PT10S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow167" sourceRef="startMonitoringServiceTask" targetRef="afterStartMonitoringTimerEvent"></sequenceFlow>
+    <serviceTask id="checkMonitoringFilesServiceTask" name="Check Monitoring files" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).checkMonitoring()}"></serviceTask>
+    <sequenceFlow id="flow168" sourceRef="afterStartMonitoringTimerEvent" targetRef="checkMonitoringFilesServiceTask"></sequenceFlow>
+    <sequenceFlow id="flow169" sourceRef="checkMonitoringFilesServiceTask" targetRef="afterCheckingMonitoringFilesTimerEvent"></sequenceFlow>
+    <boundaryEvent id="cleanDbBoundaryError" name="Clean Db Boundary Error" attachedToRef="cleanupDBServiceTask">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <userTask id="dbCleanupFailureUserTask" name="React on db cleanup failure">
+      <extensionElements>
+        <activiti:formProperty id="dbCleanupRestartFailureOption" name="Retry Cleanup \ Restart Db Failure Option" type="enum" variable="dbCleanupRestartFailureOption" required="true">
+          <activiti:value id="retry" name="Retry"></activiti:value>
+          <activiti:value id="continue" name="Ignore And Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="reCreateDbScriptArchiveUrl" name="DB Recreation Script Archive URL" type="string" variable="reCreateDbScriptArchiveUrl" default="${reCreateDbScriptArchiveUrl}"></activiti:formProperty>
+        <activiti:formProperty id="dbCleanupHost" name="DB Cleanup Host" type="string" variable="dbCleanupHost" default="${dbCleanupHost}"></activiti:formProperty>
+        <activiti:formProperty id="dbCleanupPort" name="DB Cleanup Port" type="long" variable="dbCleanupPort" default="${dbCleanupPort}"></activiti:formProperty>
+        <activiti:formProperty id="node" name="Node" type="node" variable="node" default="${node}"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="dbCleanupFailedFlow" sourceRef="cleanDbBoundaryError" targetRef="dbCleanupFailureUserTask"></sequenceFlow>
+    <exclusiveGateway id="cleaupDbFailureExclusiveGateway" name="Cleaup \ Restart Db Failure Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow171" sourceRef="dbCleanupFailureUserTask" targetRef="cleaupDbFailureExclusiveGateway"></sequenceFlow>
+    <sequenceFlow id="dbCleanupRetryFlow" sourceRef="cleaupDbFailureExclusiveGateway" targetRef="waitBeforeDbCleanupTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${dbCleanupRestartFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="dbCleanupContinueFlow" sourceRef="cleaupDbFailureExclusiveGateway" targetRef="waitAfterDbCleanupTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${dbCleanupRestartFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <boundaryEvent id="stopAppServerBoundaryError" name="Stop App Server Boundary Error" attachedToRef="stopAppServerServiceTask">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <userTask id="appServerStopFailureUserTask" name="React on stop app server failure">
+      <extensionElements>
+        <activiti:formProperty id="stopAppServerFailureOption" name="Stop App Server Failure Option" type="enum" variable="stopAppServerFailureOption" required="true">
+          <activiti:value id="retry" name="Try stopping App server again"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="node" name="Application Node" type="node" default="${node}"></activiti:formProperty>
+        <activiti:formProperty id="serverId" name="Server Id" type="string" variable="serverId" default="${serverId}"></activiti:formProperty>
+        <activiti:formProperty id="serverType" name="Server Type (Websphere, Weblogic, ...)" type="enum" variable="serverType" default="${serverType}">
+          <activiti:value id="webspherePP" name="Websphere"></activiti:value>
+          <activiti:value id="webspherePortalPP" name="Websphere Portal"></activiti:value>
+          <activiti:value id="weblogicPP" name="Weblogic"></activiti:value>
+          <activiti:value id="weblogicportalPP" name="Weblogic Portal"></activiti:value>
+          <activiti:value id="weblogicosbPP" name="Weblogic + OSB"></activiti:value>
+          <activiti:value id="sharePointPP" name="SharePoint"></activiti:value>
+          <activiti:value id="webspheremqPP" name="Websphere MQ"></activiti:value>
+          <activiti:value id="webmethodsPP" name="Web Methods"></activiti:value>
+          <activiti:value id="tibcobwPP" name="Tibco"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="stopAppServerFailedFlow" sourceRef="stopAppServerBoundaryError" targetRef="appServerStopFailureUserTask"></sequenceFlow>
+    <exclusiveGateway id="stopAppServerFailureExclusiveGateway" name="Stop App Server Failure Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow175" sourceRef="appServerStopFailureUserTask" targetRef="stopAppServerFailureExclusiveGateway"></sequenceFlow>
+    <sequenceFlow id="stopAppServerRetryFlow" sourceRef="stopAppServerFailureExclusiveGateway" targetRef="waitAfterDbCleanupTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${stopAppServerFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="stopAppServerContinueFlow" sourceRef="stopAppServerFailureExclusiveGateway" targetRef="mainWaitBeforeAgentInstallationTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${stopAppServerFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <boundaryEvent id="installAgentBoundaryError" name="Install Agent Boundary Error" attachedToRef="installAgentServiceTask">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <boundaryEvent id="uninstallAgentBoundaryError" name="Uninstall Agent Boundary Error" attachedToRef="uninstallAgentServiceTask">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <userTask id="uninstallAgentFailureUserTask" name="React on uninstall agent failure">
+      <extensionElements>
+        <activiti:formProperty id="uninstallAgentFailureOption" name="Uninstalling Agent Failure Option" type="enum" variable="uninstallAgentFailureOption" required="true">
+          <activiti:value id="retry" name="Retry uninstalling the Agent"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="node" name="Application Node" type="node" variable="node" default="${node}"></activiti:formProperty>
+        <activiti:formProperty id="serverId" name="Server Id" type="string" variable="serverId" default="${serverId}"></activiti:formProperty>
+        <activiti:formProperty id="serverType" name="Server Type (Websphere, Weblogic, ...)" type="enum" variable="serverType" default="${serverType}">
+          <activiti:value id="webspherePP" name="Websphere"></activiti:value>
+          <activiti:value id="webspherePortalPP" name="Websphere Portal"></activiti:value>
+          <activiti:value id="weblogicPP" name="Weblogic"></activiti:value>
+          <activiti:value id="weblogicportalPP" name="Weblogic Portal"></activiti:value>
+          <activiti:value id="weblogicosbPP" name="Weblogic + OSB"></activiti:value>
+          <activiti:value id="sharePointPP" name="SharePoint"></activiti:value>
+          <activiti:value id="webspheremqPP" name="Websphere MQ"></activiti:value>
+          <activiti:value id="webmethodsPP" name="Web Methods"></activiti:value>
+          <activiti:value id="tibcobwPP" name="Tibco"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="uninstallAgentFailedFlow" sourceRef="uninstallAgentBoundaryError" targetRef="uninstallAgentFailureUserTask"></sequenceFlow>
+    <exclusiveGateway id="uninstallAgentFailureExclusiveGateway" name="Uninstall Agent Failure Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow179" sourceRef="uninstallAgentFailureUserTask" targetRef="uninstallAgentFailureExclusiveGateway"></sequenceFlow>
+    <sequenceFlow id="uninstallAgentRetryFlow" sourceRef="uninstallAgentFailureExclusiveGateway" targetRef="uninstallAgentServiceTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${uninstallAgentFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="installAgentFailureUserTask" name="React on install agent failure">
+      <extensionElements>
+        <activiti:formProperty id="installAgentFailureOption" name="Install Agent Failure Option" type="enum" variable="installAgentFailureOption" required="true">
+          <activiti:value id="retry" name="Retry installing the Agent"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="directArtifactDownloadLink" name="Introscope Agent Direct HTTP Link" type="string" variable="directArtifactDownloadLink"></activiti:formProperty>
+        <activiti:formProperty id="serverType" name="Server Type (Websphere, Weblogic, ...)" type="enum" variable="serverType" default="${serverType}">
+          <activiti:value id="webspherePP" name="Websphere"></activiti:value>
+          <activiti:value id="webspherePortalPP" name="Websphere Portal"></activiti:value>
+          <activiti:value id="weblogicPP" name="Weblogic"></activiti:value>
+          <activiti:value id="weblogicportalPP" name="Weblogic Portal"></activiti:value>
+          <activiti:value id="weblogicosbPP" name="Weblogic + OSB"></activiti:value>
+          <activiti:value id="sharePointPP" name="SharePoint"></activiti:value>
+          <activiti:value id="webspheremqPP" name="Websphere MQ"></activiti:value>
+          <activiti:value id="webmethodsPP" name="Web Methods"></activiti:value>
+          <activiti:value id="tibcobwPP" name="Tibco"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="node" name="Application Node" type="node" variable="node" default="${node}"></activiti:formProperty>
+        <activiti:formProperty id="momNode" name="MOM Node" type="node" variable="momNode" default="${momNode}"></activiti:formProperty>
+        <activiti:formProperty id="momPort" name="MOM Port" type="long" variable="momPort" default="${momPort}"></activiti:formProperty>
+        <activiti:formProperty id="brtmExtension" name="BRTM Extension Included" type="boolean" variable="brtmExtension" default="${brtmExtension}"></activiti:formProperty>
+        <activiti:formProperty id="agentName" name="Agent Name" type="string" variable="agentName" default="${agentName}"></activiti:formProperty>
+        <activiti:formProperty id="agentInstallationDir" name="Agent Installation Directory" type="string" variable="agentInstallationDir" default="${agentInstallationDir}"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow182" sourceRef="installAgentBoundaryError" targetRef="installAgentFailureUserTask"></sequenceFlow>
+    <exclusiveGateway id="installAgentFailureExclusiveGateway" name="Install Agent Failure Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow183" sourceRef="installAgentFailureUserTask" targetRef="installAgentFailureExclusiveGateway"></sequenceFlow>
+    <sequenceFlow id="installAgentRetryFlow" sourceRef="installAgentFailureExclusiveGateway" targetRef="installAgentServiceTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${installAgentFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <boundaryEvent id="unintegrateAgentBoundaryError" name="Unintegrate Agent Boundary Error" attachedToRef="unintegrateAgentServiceTask">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <userTask id="unintegrateAgentFailureUserTask" name="React on unintegrate agent failure">
+      <extensionElements>
+        <activiti:formProperty id="unintegrateAgentFailureOption" name="Unintegrate Agent Failure Option" type="enum" variable="unintegrateAgentFailureOption" required="true">
+          <activiti:value id="retry" name="Retry unintegrating the Agent"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="node" name="Application Node" type="node" variable="node" default="${node}"></activiti:formProperty>
+        <activiti:formProperty id="serverType" name="Server Type (Websphere, Weblogic, ...)" type="enum" variable="serverType" default="${serverType}">
+          <activiti:value id="webspherePP" name="Websphere"></activiti:value>
+          <activiti:value id="webspherePortalPP" name="Websphere Portal"></activiti:value>
+          <activiti:value id="weblogicPP" name="Weblogic"></activiti:value>
+          <activiti:value id="weblogicportalPP" name="Weblogic Portal"></activiti:value>
+          <activiti:value id="weblogicosbPP" name="Weblogic + OSB"></activiti:value>
+          <activiti:value id="sharePointPP" name="SharePoint"></activiti:value>
+          <activiti:value id="webspheremqPP" name="Websphere MQ"></activiti:value>
+          <activiti:value id="webmethodsPP" name="Web Methods"></activiti:value>
+          <activiti:value id="tibcobwPP" name="Tibco"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow186" sourceRef="unintegrateAgentBoundaryError" targetRef="unintegrateAgentFailureUserTask"></sequenceFlow>
+    <exclusiveGateway id="unintegrateAgentFailureExclusiveGateway" name="Unintegrate Agent Failure Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow187" sourceRef="unintegrateAgentFailureUserTask" targetRef="unintegrateAgentFailureExclusiveGateway"></sequenceFlow>
+    <sequenceFlow id="unintegrateAgentRetryFlow" sourceRef="unintegrateAgentFailureExclusiveGateway" targetRef="waitAfterUninstallingAgentTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${unintegrateAgentFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="unintegrateAgentContinueFlow" sourceRef="unintegrateAgentFailureExclusiveGateway" targetRef="postAgentConfigurationMergeExclusiveGateway">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${unintegrateAgentFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <boundaryEvent id="installPPBoundaryError" name="Install PP Boundary Error" attachedToRef="installAgentPPServiceTask">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <userTask id="installAgentPPFailureUserTask" name="React on PowerPack installation failure">
+      <extensionElements>
+        <activiti:formProperty id="installPowerPackFailureOption" name="Install PowerPack Failure Option" type="enum" variable="installPowerPackFailureOption" required="true">
+          <activiti:value id="retry" name="Retry installing PowerPack extension"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="directArtifactDownloadLink" name="Introscope Agent Direct HTTP Link" type="string" variable="directArtifactDownloadLink"></activiti:formProperty>
+        <activiti:formProperty id="serverType" name="Server Type (Websphere, Weblogic, ...)" type="enum" variable="serverType" default="${serverType}">
+          <activiti:value id="webspherePP" name="Websphere"></activiti:value>
+          <activiti:value id="webspherePortalPP" name="Websphere Portal"></activiti:value>
+          <activiti:value id="weblogicPP" name="Weblogic"></activiti:value>
+          <activiti:value id="weblogicportalPP" name="Weblogic Portal"></activiti:value>
+          <activiti:value id="weblogicosbPP" name="Weblogic + OSB"></activiti:value>
+          <activiti:value id="sharePointPP" name="SharePoint"></activiti:value>
+          <activiti:value id="webspheremqPP" name="Websphere MQ"></activiti:value>
+          <activiti:value id="webmethodsPP" name="Web Methods"></activiti:value>
+          <activiti:value id="tibcobwPP" name="Tibco"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="node" name="Application Node" type="node" variable="node" default="${node}"></activiti:formProperty>
+        <activiti:formProperty id="momNode" name="MOM Node" type="node" variable="momNode" default="${momNode}"></activiti:formProperty>
+        <activiti:formProperty id="momPort" name="MOM Port" type="long" variable="momPort" default="${momPort}"></activiti:formProperty>
+        <activiti:formProperty id="brtmExtension" name="BRTM Extension Included" type="boolean" variable="brtmExtension" default="${brtmExtension}"></activiti:formProperty>
+        <activiti:formProperty id="agentName" name="Agent Name" type="string" variable="agentName" default="${agentName}"></activiti:formProperty>
+        <activiti:formProperty id="agentInstallationDir" name="Agent Installation Directory" type="string" variable="agentInstallationDir" default="${agentInstallationDir}"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow190" sourceRef="installPPBoundaryError" targetRef="installAgentPPFailureUserTask"></sequenceFlow>
+    <exclusiveGateway id="installPowerPackFailureExclusiveGateway" name="Install PowerPack Failure Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow191" sourceRef="installAgentPPFailureUserTask" targetRef="installPowerPackFailureExclusiveGateway"></sequenceFlow>
+    <sequenceFlow id="installPowerPackRetryFlow" sourceRef="installPowerPackFailureExclusiveGateway" targetRef="installAgentPPServiceTask">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${installPowerPackFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <boundaryEvent id="integrateAgentBoundaryError" name="Integrate Agent Boundary Error" attachedToRef="integrateAgentServiceTask">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <exclusiveGateway id="integrateAgentFailureExclusiveGateway" name="Integrate Agent Failure Exclusive Gateway"></exclusiveGateway>
+    <userTask id="integrateAgentFailureUserTask" name="React on integrate Agent failure">
+      <extensionElements>
+        <activiti:formProperty id="integrateAgentFailureOption" name="Integrate Agent Failure Option" type="enum" variable="integrateAgentFailureOption" required="true">
+          <activiti:value id="retry" name="Retry integrating the Agent"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="node" name="Application Node" type="node" variable="node" default="${node}"></activiti:formProperty>
+        <activiti:formProperty id="serverType" name="Server Type (Websphere, Weblogic, ...)" type="enum" variable="serverType" default="${serverType}">
+          <activiti:value id="webspherePP" name="Websphere"></activiti:value>
+          <activiti:value id="webspherePortalPP" name="Websphere Portal"></activiti:value>
+          <activiti:value id="weblogicPP" name="Weblogic"></activiti:value>
+          <activiti:value id="weblogicportalPP" name="Weblogic Portal"></activiti:value>
+          <activiti:value id="weblogicosbPP" name="Weblogic + OSB"></activiti:value>
+          <activiti:value id="sharePointPP" name="SharePoint"></activiti:value>
+          <activiti:value id="webspheremqPP" name="Websphere MQ"></activiti:value>
+          <activiti:value id="webmethodsPP" name="Web Methods"></activiti:value>
+          <activiti:value id="tibcobwPP" name="Tibco"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow194" sourceRef="integrateAgentBoundaryError" targetRef="integrateAgentFailureUserTask"></sequenceFlow>
+    <sequenceFlow id="flow195" sourceRef="integrateAgentFailureUserTask" targetRef="integrateAgentFailureExclusiveGateway"></sequenceFlow>
+    <sequenceFlow id="integrateAgentRetryFlow" sourceRef="integrateAgentFailureExclusiveGateway" targetRef="waitAfterInstallingAgentTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${integrateAgentFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="integrateAgentContinueFlow" sourceRef="integrateAgentFailureExclusiveGateway" targetRef="postAgentConfigurationMergeExclusiveGateway">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${integrateAgentFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <boundaryEvent id="startAppServerBoundaryError" name="Start App Server Boundary Error" attachedToRef="startAppServerServiceTask">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <userTask id="startAppServerFailureUserTask" name="React on start app server failure">
+      <extensionElements>
+        <activiti:formProperty id="startAppServerFailureOption" name="Start App Server Failure Option" type="enum" variable="startAppServerFailureOption" required="true">
+          <activiti:value id="retry" name="Retry starting app server"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="node" name="Application Node" type="node" variable="node" default="${node}"></activiti:formProperty>
+        <activiti:formProperty id="serverId" name="Server Id" type="string" variable="serverId" default="${serverId}"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow198" sourceRef="startAppServerBoundaryError" targetRef="startAppServerFailureUserTask"></sequenceFlow>
+    <exclusiveGateway id="startAppServerFailureExclusiveGateway" name="Start App Server Failure Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow199" sourceRef="startAppServerFailureUserTask" targetRef="startAppServerFailureExclusiveGateway"></sequenceFlow>
+    <sequenceFlow id="startAppServerRetryFlow" sourceRef="startAppServerFailureExclusiveGateway" targetRef="waitAfterConfiguringAgentTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${startAppServerFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="startAppServerContinueFlow" sourceRef="startAppServerFailureExclusiveGateway" targetRef="afterStartingAppServerTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${startAppServerFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <boundaryEvent id="checkAgentConnectedToEMBoundaryError" name="Check Agent Connected To EM Boundary Error" attachedToRef="checkAgentConnectedToEMServiceTask">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <userTask id="checkAgentConnectedToEMFailureUserTask" name="React on agent EM connectivity check failure">
+      <extensionElements>
+        <activiti:formProperty id="agentToEMConnectionFailureOption" name="Agent To EM Connection Failure Option" type="enum" variable="agentToEMConnectionFailureOption" required="true">
+          <activiti:value id="retry" name="Retry agent to EM connection check"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="momNode" name="MOM Node" type="node" variable="momNode" default="${momNode}"></activiti:formProperty>
+        <activiti:formProperty id="node" name="Introscope Agent Node" type="node" default="${node}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="agentEMInvestigatorGroupName" name="Name of the Group under which Introscope Agent appears in EM Investigator" type="string" default="${agentEMInvestigatorGroupName}"></activiti:formProperty>
+        <activiti:formProperty id="testType" name="Test Type" type="enum" default="${testType}" required="true">
+          <activiti:value id="oldAgent" name="Old Agent"></activiti:value>
+          <activiti:value id="oldAgentPlusPP" name="Old Agent + PowerPack"></activiti:value>
+          <activiti:value id="newAgent" name="New Agent"></activiti:value>
+          <activiti:value id="newAgentPlusPP" name="New Agent + PowerPack"></activiti:value>
+          <activiti:value id="noAgent" name="No Agent"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow202" sourceRef="checkAgentConnectedToEMBoundaryError" targetRef="checkAgentConnectedToEMFailureUserTask"></sequenceFlow>
+    <exclusiveGateway id="agentToEMConnectionCheckFailureExclusiveGateway" name="Agent To EM Connection Check Failure Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow203" sourceRef="checkAgentConnectedToEMFailureUserTask" targetRef="agentToEMConnectionCheckFailureExclusiveGateway"></sequenceFlow>
+    <sequenceFlow id="agentToEMConectionCheckRetryFlow" sourceRef="agentToEMConnectionCheckFailureExclusiveGateway" targetRef="afterStartingAppServerTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${agentToEMConnectionFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="agentToEMConectionCheckContinueFlow" sourceRef="agentToEMConnectionCheckFailureExclusiveGateway" targetRef="afterCheckingAgentToEMConnectionTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${agentToEMConnectionFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <boundaryEvent id="runJmeterTestsBoundaryError" name="Run Jmeter Tests Boundary Error" attachedToRef="runJmeterTestsServiceTask">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <userTask id="runningJmeterTestsFailureUserTask" name="React on running Jmeter tests failure">
+      <extensionElements>
+        <activiti:formProperty id="jmeterTestsRunningFailureOption" name="Jmeter Tests Running Failure Option" type="enum" variable="jmeterTestsRunningFailureOption" required="true">
+          <activiti:value id="retry" name="Retry running the tests"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="jmeterNode" name="Jmeter Node " type="node" variable="jmeterNode" default="${jmeterNode}"></activiti:formProperty>
+        <activiti:formProperty id="jMeterScenarioUrl" name="Jmeter: Scenario Url (Uploaded To LO)" type="string" default="${jMeterScenarioUrl}"></activiti:formProperty>
+        <activiti:formProperty id="testWarmupInSeconds" name="Test Warmup (in seconds)" type="long" variable="testWarmupInSeconds" default="${testWarmupInSeconds}"></activiti:formProperty>
+        <activiti:formProperty id="testDurationInSeconds" name="Test Duration (in seconds)" type="long" variable="testDurationInSeconds" default="${testDurationInSeconds}"></activiti:formProperty>
+        <activiti:formProperty id="testNumberOfCVUS" name="Jmeter: Concurrent Users Count" type="long" variable="testNumberOfCVUS" default="${testNumberOfCVUS}"></activiti:formProperty>
+        <activiti:formProperty id="logDir" name="Agent Log Location" type="string" variable="logDir" default="${logDir}"></activiti:formProperty>
+        <activiti:formProperty id="appServerPort" name="Jmeter: Application Port (For Load)" type="long" variable="appServerPort" default="${appServerPort}"></activiti:formProperty>
+        <activiti:formProperty id="appServerHost" name="Jmeter: Application Host (For Load)" type="string" variable="appServerHost" default="${appServerHost}"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="runJmeterTestsFailureExclusiveGateway" name="Run Jmeter Tests Failure Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow207" sourceRef="runningJmeterTestsFailureUserTask" targetRef="runJmeterTestsFailureExclusiveGateway"></sequenceFlow>
+    <sequenceFlow id="runJmeterTestsRetryFlow" sourceRef="runJmeterTestsFailureExclusiveGateway" targetRef="afterUnzippingJmeterTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${jmeterTestsRunningFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="runJmeterTestsContinueFlow" sourceRef="runJmeterTestsFailureExclusiveGateway" targetRef="afterRunningJmeterTestsTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${jmeterTestsRunningFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="jmeterInstallCheckFailureUserTask" name="React on Jmeter installation check failure">
+      <extensionElements>
+        <activiti:formProperty id="jmeterInstallationCheckFailureOption" name="Jmeter Installation Check Failure Option" type="enum" variable="jmeterInstallationCheckFailureOption" required="true">
+          <activiti:value id="retry" name="Retry Jmeter installation check"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="jmeterNode" name="Jmeter Node " type="node" variable="jmeterNode" default="${jmeterNode}"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="jmeterInstallationCheckFailureExclusiveGateway" name="Jmeter Installation Check Failure Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow210" sourceRef="jmeterInstallCheckFailureUserTask" targetRef="jmeterInstallationCheckFailureExclusiveGateway"></sequenceFlow>
+    <sequenceFlow id="jmeterInstallationCheckContinueFlow" sourceRef="jmeterInstallationCheckFailureExclusiveGateway" targetRef="exclusivegateway1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${jmeterInstallationCheckFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="jmeterInstallationCheckRetryFlow" sourceRef="jmeterInstallationCheckFailureExclusiveGateway" targetRef="afterCheckingAgentToEMConnectionTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${jmeterInstallationCheckFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow213" sourceRef="boundaryerror1" targetRef="jmeterInstallCheckFailureUserTask"></sequenceFlow>
+    <userTask id="jmeterDownloadFailureUserTask" name="React on Jmeter download failure">
+      <extensionElements>
+        <activiti:formProperty id="jmeterDownloadFailureOption" name="Jmeter Download Failure Option" type="enum" variable="jmeterDownloadFailureOption" required="true">
+          <activiti:value id="retry" name="Retry downloading Jmeter"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="jmeterDistroHttpDownloadMethodUrl" name="Jmeter Distribution HTTP Download Method Url" type="string" variable="jmeterDistroHttpDownloadMethodUrl"></activiti:formProperty>
+        <activiti:formProperty id="jmeterNode" name="Jmeter Node " type="node" variable="jmeterNode" default="${jmeterNode}"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow214" sourceRef="boundaryerror2" targetRef="jmeterDownloadFailureUserTask"></sequenceFlow>
+    <sequenceFlow id="flow215" sourceRef="jmeterDownloadFailureUserTask" targetRef="jmeterDownloadFailureExclusiveGateway"></sequenceFlow>
+    <sequenceFlow id="uninstallAgentContinueFlow" sourceRef="uninstallAgentFailureExclusiveGateway" targetRef="waitAfterUninstallingAgentTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${uninstallAgentFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="installAgentContinueFlow" sourceRef="installAgentFailureExclusiveGateway" targetRef="postAgentInstallationMergingExclusiveGateway">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${installAgentFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="installPowerPackContinueFlow" sourceRef="installPowerPackFailureExclusiveGateway" targetRef="postAgentInstallationMergingExclusiveGateway">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${installPowerPackFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="integrateAgentFailFlow" sourceRef="integrateAgentFailureExclusiveGateway" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${integrateAgentFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="dbCleanupFailFlow" sourceRef="cleaupDbFailureExclusiveGateway" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${dbCleanupRestartFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="stopAppServerFailFlow" sourceRef="stopAppServerFailureExclusiveGateway" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${stopAppServerFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="uninstallingAgentFailFlow" sourceRef="uninstallAgentFailureExclusiveGateway" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${uninstallAgentFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="installingPowerPackFailFlow" sourceRef="installPowerPackFailureExclusiveGateway" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${installPowerPackFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="installingAgentFailFlow" sourceRef="installAgentFailureExclusiveGateway" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${installAgentFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="startAppServerFailFlow" sourceRef="startAppServerFailureExclusiveGateway" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${startAppServerFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="unintegrateAgentFailFlow" sourceRef="unintegrateAgentFailureExclusiveGateway" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${unintegrateAgentFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="agentToEMConectionCheckFailFlow" sourceRef="agentToEMConnectionCheckFailureExclusiveGateway" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${agentToEMConnectionFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="runJmeterTestsFailFlow" sourceRef="runJmeterTestsFailureExclusiveGateway" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${jmeterTestsRunningFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="jmeterDownloadFailureExclusiveGateway" name="Jmeter Download Failure Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="jmeterDownloadFailFlow" sourceRef="jmeterDownloadFailureExclusiveGateway" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${jmeterDownloadFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="jmeterInstallationCheckFailFlow" sourceRef="jmeterInstallationCheckFailureExclusiveGateway" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${jmeterInstallationCheckFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="unzippingJmeterArchiveFailureUserTask" name="React on Jmeter install failure">
+      <extensionElements>
+        <activiti:formProperty id="jmeterUnzippingFailureOption" name="Jmeter Unzipping Failure Option" type="enum" variable="jmeterUnzippingFailureOption" required="true">
+          <activiti:value id="retry" name="Retry unzipping Jmeter"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="jmeterNode" name="Jmeter Node " type="node" variable="jmeterNode" default="${jmeterNode}"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow235" sourceRef="boundaryerror3" targetRef="unzippingJmeterArchiveFailureUserTask"></sequenceFlow>
+    <exclusiveGateway id="jmeterUnzippingFailureExclusiveGateway" name="Jmeter Unzipping Failure Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow236" sourceRef="unzippingJmeterArchiveFailureUserTask" targetRef="jmeterUnzippingFailureExclusiveGateway"></sequenceFlow>
+    <sequenceFlow id="jmeterUnzippingRetryFlow" sourceRef="jmeterUnzippingFailureExclusiveGateway" targetRef="afterDownloadingJmeterTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${jmeterUnzippingFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="jmeterUnzippingContinueFlow" sourceRef="jmeterUnzippingFailureExclusiveGateway" targetRef="afterUnzippingJmeterTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${jmeterUnzippingFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="jmeterUnzippingFailFlow" sourceRef="jmeterUnzippingFailureExclusiveGateway" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${jmeterUnzippingFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="startMonitoringFailureUserTask" name="React on monitoring start failure">
+      <extensionElements>
+        <activiti:formProperty id="startMonitoringFailureOption" name="Start Monitoring Failure Option" type="enum" variable="startMonitoringFailureOption" required="true">
+          <activiti:value id="retry" name="Retry monitoring start up"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="node" name="Application Node" type="node" variable="node" default="${node}"></activiti:formProperty>
+        <activiti:formProperty id="appServerHost" name="Jmeter: Application Host (For Load)" type="string" variable="appServerHost" default="${appServerHost}"></activiti:formProperty>
+        <activiti:formProperty id="jmxPort" name="Monitoring: JMX Port" type="long" variable="jmxPort" default="${jmxPort}"></activiti:formProperty>
+        <activiti:formProperty id="testDurationInSeconds" name="Test Duration (in seconds)" type="long" variable="testDurationInSeconds" default="${testDurationInSeconds}"></activiti:formProperty>
+        <activiti:formProperty id="logDir" name="Agent Log Location" type="string" variable="logDir" default="${logDir}"></activiti:formProperty>
+        <activiti:formProperty id="jmxMetrics" name="JMX Metrics (For JMX Monitoring)" type="string" variable="jmxMetrics" default="${jmxMetrics}"></activiti:formProperty>
+        <activiti:formProperty id="processName" name="Wmic\Typeperf Process Name Pattern" type="string" variable="processName" default="${processName}"></activiti:formProperty>
+        <activiti:formProperty id="javaProcessName" name="JPS Process Name Pattern" type="string" default="${javaProcessName}"></activiti:formProperty>
+        <activiti:formProperty id="processInstanceName" name="Typeperf Process Instance Name" type="string" default="${processInstanceName}"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <boundaryEvent id="startMonitoringBoundaryError" name="Start Monitoring Boundary Error" attachedToRef="startMonitoringServiceTask">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="flow240" sourceRef="startMonitoringBoundaryError" targetRef="startMonitoringFailureUserTask"></sequenceFlow>
+    <exclusiveGateway id="startMonitoringFailureExclusiveGateway" name="Start Monitoring Failure Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow241" sourceRef="startMonitoringFailureUserTask" targetRef="startMonitoringFailureExclusiveGateway"></sequenceFlow>
+    <sequenceFlow id="startMonitoringRetryFlow" sourceRef="startMonitoringFailureExclusiveGateway" targetRef="afterRunningJmeterTestsTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${startMonitoringFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="startMonitoringFailFlow" sourceRef="startMonitoringFailureExclusiveGateway" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${startMonitoringFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="startMonitoringContinueFlow" sourceRef="startMonitoringFailureExclusiveGateway" targetRef="afterStartMonitoringTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${startMonitoringFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="checkMonitoringFilesFailureUserTask" name="React on monitoring files check failure">
+      <extensionElements>
+        <activiti:formProperty id="checkMonitoringFilesFailureOption" name="Check Monitoring Files Failure Option" type="enum" variable="checkMonitoringFilesFailureOption" required="true">
+          <activiti:value id="retry" name="Retry checking monitoring files"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="node" name="Application Node" type="node" variable="node" default="${node}"></activiti:formProperty>
+        <activiti:formProperty id="logDir" name="Agent Log Location" type="string" variable="logDir" default="${logDir}"></activiti:formProperty>
+        <activiti:formProperty id="typePerfLogFileName" name="TypePerf Log File Name" type="string" variable="typePerfLogFileName" default="${typePerfLogFileName}"></activiti:formProperty>
+        <activiti:formProperty id="jmxLogFileName" name="JMX Log File Name" type="string" variable="jmxLogFileName" default="${jmxLogFileName}"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <boundaryEvent id="checkMonitoringFilesBoundaryError" name="Check Monitoring Files Boundary Error" attachedToRef="checkMonitoringFilesServiceTask">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="flow245" sourceRef="checkMonitoringFilesBoundaryError" targetRef="checkMonitoringFilesFailureUserTask"></sequenceFlow>
+    <exclusiveGateway id="checkMonitoringFilesFailureExclusiveGateway" name="Check Monitoring Files Failure Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow246" sourceRef="checkMonitoringFilesFailureUserTask" targetRef="checkMonitoringFilesFailureExclusiveGateway"></sequenceFlow>
+    <sequenceFlow id="checkMonitoringFilesRetryFlow" sourceRef="checkMonitoringFilesFailureExclusiveGateway" targetRef="afterStartMonitoringTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${checkMonitoringFilesFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="checkMonitoringFilesFailFlow" sourceRef="checkMonitoringFilesFailureExclusiveGateway" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${checkMonitoringFilesFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="checkMonitoringFilesContinueFlow" sourceRef="checkMonitoringFilesFailureExclusiveGateway" targetRef="afterCheckingMonitoringFilesTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${checkMonitoringFilesFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <boundaryEvent id="stopMonitoringBoundaryError" name="Stop Monitoring Boundary Error" attachedToRef="stopMonitoringServiceTask">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <userTask id="stopMonitoringFailureUserTask" name="React on stop monitoring failure">
+      <extensionElements>
+        <activiti:formProperty id="stopMonitoringFailureOption" name="Stop Monitoring Failure Option" type="enum" variable="stopMonitoringFailureOption" required="true">
+          <activiti:value id="retry" name="Retry stopping monitoring"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="node" name="Application Node" type="node" variable="node" default="${node}"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow250" sourceRef="stopMonitoringBoundaryError" targetRef="stopMonitoringFailureUserTask"></sequenceFlow>
+    <exclusiveGateway id="stopMonitoringFailureExclusiveGateway" name="Stop Monitoring Failure Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow251" sourceRef="stopMonitoringFailureUserTask" targetRef="stopMonitoringFailureExclusiveGateway"></sequenceFlow>
+    <sequenceFlow id="stopMonitoringRetryFlow" sourceRef="stopMonitoringFailureExclusiveGateway" targetRef="afterCheckingMonitoringFilesTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${stopMonitoringFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="stopMonitoringFailFlow" sourceRef="stopMonitoringFailureExclusiveGateway" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${stopMonitoringFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <intermediateCatchEvent id="waitAfterUninstallingAgentTimerEvent" name="Wait After Uninstalling Agent Timer Event">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow265" sourceRef="waitAfterUninstallingAgentTimerEvent" targetRef="unintegrateAgentServiceTask"></sequenceFlow>
+    <intermediateCatchEvent id="waitAfterInstallingAgentTimerEvent" name="Wait After Installing Agent Timer Event">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <intermediateCatchEvent id="waitAfterConfiguringAgentTimerEvent" name="Wait After Configuring Agent Timer Event">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow267" sourceRef="waitAfterConfiguringAgentTimerEvent" targetRef="startAppServerServiceTask"></sequenceFlow>
+    <intermediateCatchEvent id="afterCheckingAgentToEMConnectionTimerEvent" name="After Checking Agent To EM Connection Timer Event">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow268" sourceRef="afterCheckingAgentToEMConnectionTimerEvent" targetRef="servicetask1"></sequenceFlow>
+    <sequenceFlow id="flow270" sourceRef="waitAfterInstallingAgentTimerEvent" targetRef="integrateAgentServiceTask"></sequenceFlow>
+    <intermediateCatchEvent id="afterDownloadingJmeterTimerEvent" name="After Downloading Jmeter Timer Event">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow271" sourceRef="afterDownloadingJmeterTimerEvent" targetRef="servicetask3"></sequenceFlow>
+    <sequenceFlow id="jmeterDownloadRetryFlow" sourceRef="jmeterDownloadFailureExclusiveGateway" targetRef="servicetask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${jmeterDownloadFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="jmeterDownloadContinueFlow" sourceRef="jmeterDownloadFailureExclusiveGateway" targetRef="afterDownloadingJmeterTimerEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${jmeterDownloadFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <intermediateCatchEvent id="afterUnzippingJmeterTimerEvent" name="After Unzipping Jmeter Timer Event">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow274" sourceRef="afterUnzippingJmeterTimerEvent" targetRef="runJmeterTestsServiceTask"></sequenceFlow>
+    <sequenceFlow id="flow277" sourceRef="runJmeterTestsBoundaryError" targetRef="runningJmeterTestsFailureUserTask"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway20" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow278" sourceRef="exclusivegateway20" targetRef="powerPackPerformanceTestEndEvent"></sequenceFlow>
+    <scriptTask id="scripttask1" name="Set Agent Name" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>def artifactGet = execution.getVariable("artifactSpecification")
+
+def agentName = execution.getVariable("agentName")
+def testType = execution.getVariable("testType")
+def versionStr = artifactGet.split(':')[1]
+
+execution.setVariable("agentName", agentName + "_" + versionStr + "_" + testType)</script>
+    </scriptTask>
+    <sequenceFlow id="flow279" sourceRef="startevent1" targetRef="scripttask1"></sequenceFlow>
+    <sequenceFlow id="flow280" sourceRef="scripttask1" targetRef="waitBeforeDbCleanupTimerEvent"></sequenceFlow>
+    <serviceTask id="servicetask1" name="Check Jmeter is installed" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).checkJmeterInstallationStatus()}"></serviceTask>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <serviceTask id="servicetask2" name="Download Jmeter" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).downloadJmeter()}"></serviceTask>
+    <boundaryEvent id="boundaryerror2" name="Error" attachedToRef="servicetask2">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <serviceTask id="servicetask3" name="Install Jmeter" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).installJmeter()}"></serviceTask>
+    <boundaryEvent id="boundaryerror3" name="Error" attachedToRef="servicetask3">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <serviceTask id="servicetask4" name="Stop Jmeter" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).killJmeter()}"></serviceTask>
+    <userTask id="usertask1" name="React on Jmeter stopping failure">
+      <extensionElements>
+        <activiti:formProperty id="stopJmeterFailureOption" name="Stop Jmeter Failure Option" type="enum" required="true">
+          <activiti:value id="retry" name="Retry stopping Jmeter"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="jmeterNode" name="Jmeter Node" type="node" default="${jmeterNode}"></activiti:formProperty>
+        <activiti:formProperty id="jMeterTaskName" name="Jmeter Task Name" type="string" default="${jMeterTaskName}"></activiti:formProperty>
+        <activiti:formProperty id="jmeterStoppingPort" name="Jmeter Stopping Port" type="long" default="${jmeterStoppingPort}"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <boundaryEvent id="boundaryerror4" name="Error" attachedToRef="servicetask4">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="flow281" sourceRef="boundaryerror4" targetRef="usertask1"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway21" name="Exclusive Gateway"></exclusiveGateway>
+    <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow282" sourceRef="usertask1" targetRef="exclusivegateway21"></sequenceFlow>
+    <sequenceFlow id="flow283" sourceRef="servicetask4" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+    <sequenceFlow id="flow284" sourceRef="exclusivegateway21" targetRef="timerintermediatecatchevent1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${stopJmeterFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow285" sourceRef="exclusivegateway21" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${stopJmeterFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow286" sourceRef="exclusivegateway21" targetRef="timerintermediatecatchevent2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${stopJmeterFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway22" name="Exclusive Gateway"></exclusiveGateway>
+    <serviceTask id="servicetask5" name="Move TypePerf Logs" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).moveTypePerfLogs()}"></serviceTask>
+    <sequenceFlow id="flow287" sourceRef="timerintermediatecatchevent1" targetRef="servicetask11"></sequenceFlow>
+    <sequenceFlow id="flow288" sourceRef="exclusivegateway22" targetRef="servicetask5">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${runTypePerfMonitoring==true}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="servicetask6" name="Move JMX Logs" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).moveJmxLogs()}"></serviceTask>
+    <exclusiveGateway id="exclusivegateway23" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow289" sourceRef="servicetask5" targetRef="exclusivegateway23"></sequenceFlow>
+    <sequenceFlow id="flow290" sourceRef="exclusivegateway22" targetRef="exclusivegateway23">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${runTypePerfMonitoring==false}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow291" sourceRef="exclusivegateway23" targetRef="servicetask6">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${runJmxMonitoring==true}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="servicetask7" name="Move Jstat Logs" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).moveJstatLogs()}"></serviceTask>
+    <exclusiveGateway id="exclusivegateway24" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow292" sourceRef="servicetask6" targetRef="exclusivegateway24"></sequenceFlow>
+    <sequenceFlow id="flow293" sourceRef="exclusivegateway24" targetRef="servicetask7">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${runJstatMonitoring==true}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow294" sourceRef="exclusivegateway23" targetRef="exclusivegateway24">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${runJmxMonitoring==false}]]></conditionExpression>
+    </sequenceFlow>
+    <boundaryEvent id="boundaryerror5" name="Error" attachedToRef="servicetask5">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <userTask id="usertask2" name="React on TypePerf Logs Move failure">
+      <extensionElements>
+        <activiti:formProperty id="moveTypePerfLogsFailureOption" name="React With" type="enum" required="true">
+          <activiti:value id="retry" name="Retry"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="node" name="Node" type="node" default="${node}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="logDir" name="Source TypePerf Log Directory Location" type="string" default="${logDir}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="logDirServer" name="Mounted Target Log Directory Location" type="string" default="${logDirServer}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="typePerfLogFileName" name="TypePerf Log File Name" type="string" default="${typePerfLogFileName}" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="exclusivegateway25" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow295" sourceRef="boundaryerror5" targetRef="usertask2"></sequenceFlow>
+    <sequenceFlow id="flow296" sourceRef="usertask2" targetRef="exclusivegateway25"></sequenceFlow>
+    <sequenceFlow id="flow297" sourceRef="exclusivegateway25" targetRef="exclusivegateway22">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${moveTypePerfLogsFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow298" sourceRef="exclusivegateway25" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${moveTypePerfLogsFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow299" sourceRef="exclusivegateway25" targetRef="exclusivegateway23">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${moveTypePerfLogsFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway26" name="Exclusive Gateway"></exclusiveGateway>
+    <serviceTask id="servicetask8" name="Move Jmeter Logs" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).moveJmeterLogs()}"></serviceTask>
+    <sequenceFlow id="flow300" sourceRef="exclusivegateway24" targetRef="exclusivegateway26">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${runJstatMonitoring==false}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow301" sourceRef="servicetask7" targetRef="exclusivegateway26"></sequenceFlow>
+    <sequenceFlow id="flow302" sourceRef="exclusivegateway26" targetRef="servicetask8">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${includeJmeterLogs==true}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="servicetask9" name="Move Introscope Agent Logs" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).moveIntroscopeAgentLogs()}"></serviceTask>
+    <exclusiveGateway id="exclusivegateway27" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow303" sourceRef="servicetask8" targetRef="exclusivegateway27"></sequenceFlow>
+    <sequenceFlow id="flow304" sourceRef="exclusivegateway27" targetRef="servicetask9">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${includeWilyLogs==true}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow305" sourceRef="exclusivegateway26" targetRef="exclusivegateway27">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${includeJmeterLogs==false}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="servicetask10" name="Archive Logs" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).archiveLogs()}"></serviceTask>
+    <exclusiveGateway id="exclusivegateway28" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow306" sourceRef="servicetask9" targetRef="exclusivegateway28"></sequenceFlow>
+    <sequenceFlow id="flow307" sourceRef="exclusivegateway28" targetRef="servicetask10">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${archiveLogs==true}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow308" sourceRef="exclusivegateway27" targetRef="exclusivegateway28">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${includeWilyLogs==false}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow309" sourceRef="exclusivegateway28" targetRef="powerPackPerformanceTestEndEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${archiveLogs==false}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow310" sourceRef="servicetask10" targetRef="powerPackPerformanceTestEndEvent"></sequenceFlow>
+    <boundaryEvent id="boundaryerror6" name="Error" attachedToRef="servicetask6">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <boundaryEvent id="boundaryerror7" name="Error" attachedToRef="servicetask7">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <boundaryEvent id="boundaryerror8" name="Error" attachedToRef="servicetask8">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <boundaryEvent id="boundaryerror9" name="Error" attachedToRef="servicetask9">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <boundaryEvent id="boundaryerror10" name="Error" attachedToRef="servicetask10">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <userTask id="usertask3" name="React on JMX Logs Move failure">
+      <extensionElements>
+        <activiti:formProperty id="moveJmxLogsFailureOption" name="React With" type="enum" required="true">
+          <activiti:value id="retry" name="Retry"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="node" name="Node" type="node" default="${node}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="logDir" name="Source JMX Log Directory Location" type="string" default="${logDir}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="logDirServer" name="Mounted Target Log Directory Location" type="string" default="${logDirServer}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="jmxLogFileName" name="JMX Log File Name" type="string" default="${jmxLogFileName}" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <userTask id="usertask4" name="React on Jstat Logs Move failure">
+      <extensionElements>
+        <activiti:formProperty id="moveJstatLogsFailureOption" name="Proceed With" type="enum" required="true">
+          <activiti:value id="retry" name="Retry"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="node" name="Node" type="node" default="${node}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="logDir" name="Source Jstat Log Directory Location" type="string" default="${logDir}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="logDirServer" name="Mounted Target Log Directory Location" type="string" default="${logDirServer}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="jstatLogFileName" name="Jstat Log File Name" type="string" default="${jstatLogFileName}" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <userTask id="usertask5" name="React on Jmeter Logs Move failure">
+      <extensionElements>
+        <activiti:formProperty id="moveJmeterLogsFailureOption" name="Proceed With" type="enum" required="true">
+          <activiti:value id="retry" name="Retry"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="jmeterNode" name="Jmeter Node" type="node" default="${jmeterNode}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="JmeterLogsPath" name="Source Jmeter Location" type="string" default="${JmeterLogsPath}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="logDirServer" name="Mounted Target Log Directory Location" type="string" default="${logDirServer}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="jmeterCollectFileExtensions" name="Comma Delimited Jmeter File Extensions To Collect" type="string" default="${jmeterCollectFileExtensions}"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <userTask id="usertask6" name="React on Introscope Agent Logs Move failure">
+      <extensionElements>
+        <activiti:formProperty id="moveWilyLogsFailureOption" name="Proceed With" type="enum" required="true">
+          <activiti:value id="retry" name="Retry"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="node" name="Node" type="node" default="${node}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="testType" name="Test Type" type="enum" default="${testType}" required="true">
+          <activiti:value id="noAgent" name="No Agent"></activiti:value>
+          <activiti:value id="oldAgent" name="Old Agent"></activiti:value>
+          <activiti:value id="oldAgentPlusPP" name="Old Agent + PP"></activiti:value>
+          <activiti:value id="newAgent" name="New Agent"></activiti:value>
+          <activiti:value id="newAgentPlusPP" name="New Agent + PP"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="serverId" name="Server Id" type="string" default="${serverId}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="logDir" name="Source Wily Log Directory Location" type="string" default="${logDir}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="logDirServer" name="Mounted Target Log Directory Location" type="string" default="${logDirServer}" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <userTask id="usertask7" name="React on Archive Logs failure">
+      <extensionElements>
+        <activiti:formProperty id="archiveLogsFailureOption" name="Proceed With" type="enum" required="true">
+          <activiti:value id="retry" name="Retry"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="loNode" name="Load Orchestrator Node" type="node" default="${loNode}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="logDirServer" name="Log Directory To Archive" type="string" default="${logDirServer}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="logsArchiveFolder" name="Logs Archive Folder" type="string" default="${logsArchiveFolder}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="agentVersion" name="Introscope Agent Version" type="string" default="${agentVersion}" required="true"></activiti:formProperty>
+        <activiti:formProperty id="testType" name="Test Type" type="enum" default="${testType}" required="true">
+          <activiti:value id="noAgent" name="No Agent"></activiti:value>
+          <activiti:value id="oldAgent" name="Old Agent"></activiti:value>
+          <activiti:value id="oldAgentPlusPP" name="Old Agent + PP"></activiti:value>
+          <activiti:value id="newAgent" name="New Agent"></activiti:value>
+          <activiti:value id="newAgentPlusPP" name="New Agent + PP"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="exclusivegateway29" name="Exclusive Gateway"></exclusiveGateway>
+    <exclusiveGateway id="exclusivegateway30" name="Exclusive Gateway"></exclusiveGateway>
+    <exclusiveGateway id="exclusivegateway31" name="Exclusive Gateway"></exclusiveGateway>
+    <exclusiveGateway id="exclusivegateway32" name="Exclusive Gateway"></exclusiveGateway>
+    <exclusiveGateway id="exclusivegateway33" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow311" sourceRef="boundaryerror10" targetRef="usertask7"></sequenceFlow>
+    <sequenceFlow id="flow312" sourceRef="usertask7" targetRef="exclusivegateway33"></sequenceFlow>
+    <sequenceFlow id="flow313" sourceRef="boundaryerror9" targetRef="usertask6"></sequenceFlow>
+    <sequenceFlow id="flow314" sourceRef="usertask6" targetRef="exclusivegateway32"></sequenceFlow>
+    <sequenceFlow id="flow315" sourceRef="boundaryerror8" targetRef="usertask5"></sequenceFlow>
+    <sequenceFlow id="flow316" sourceRef="usertask5" targetRef="exclusivegateway31"></sequenceFlow>
+    <sequenceFlow id="flow317" sourceRef="boundaryerror7" targetRef="usertask4"></sequenceFlow>
+    <sequenceFlow id="flow318" sourceRef="usertask4" targetRef="exclusivegateway30"></sequenceFlow>
+    <sequenceFlow id="flow319" sourceRef="boundaryerror6" targetRef="usertask3"></sequenceFlow>
+    <sequenceFlow id="flow320" sourceRef="usertask3" targetRef="exclusivegateway29"></sequenceFlow>
+    <sequenceFlow id="flow321" sourceRef="exclusivegateway29" targetRef="exclusivegateway23">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${moveJmxLogsFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow322" sourceRef="exclusivegateway29" targetRef="exclusivegateway24">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${moveJmxLogsFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow323" sourceRef="exclusivegateway30" targetRef="exclusivegateway24">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${moveJstatLogsFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow324" sourceRef="exclusivegateway29" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${moveJmxLogsFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow325" sourceRef="exclusivegateway30" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${moveJstatLogsFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow326" sourceRef="exclusivegateway30" targetRef="exclusivegateway26">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${moveJstatLogsFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow327" sourceRef="exclusivegateway31" targetRef="exclusivegateway26">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${moveJmeterLogsFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow328" sourceRef="exclusivegateway31" targetRef="exclusivegateway27">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${moveJmeterLogsFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow329" sourceRef="exclusivegateway31" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${moveJmeterLogsFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow330" sourceRef="exclusivegateway32" targetRef="exclusivegateway27">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${moveWilyLogsFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow331" sourceRef="exclusivegateway32" targetRef="exclusivegateway28">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${moveWilyLogsFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow332" sourceRef="exclusivegateway32" targetRef="exclusivegateway20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${moveWilyLogsFailureOption=='fail'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow333" sourceRef="exclusivegateway33" targetRef="exclusivegateway28">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${archiveLogsFailureOption=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow334" sourceRef="exclusivegateway33" targetRef="powerPackPerformanceTestEndEvent">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${archiveLogsFailureOption=='continue'}]]></conditionExpression>
+    </sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent2" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow335" sourceRef="stopMonitoringServiceTask" targetRef="timerintermediatecatchevent2"></sequenceFlow>
+    <sequenceFlow id="flow336" sourceRef="timerintermediatecatchevent2" targetRef="servicetask4"></sequenceFlow>
+    <sequenceFlow id="flow337" sourceRef="stopMonitoringFailureExclusiveGateway" targetRef="timerintermediatecatchevent2"></sequenceFlow>
+    <serviceTask id="servicetask11" name="Stop App Server" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).stopAppServer()}"></serviceTask>
+    <userTask id="usertask8" name="React on Stop App Server Failure">
+      <extensionElements>
+        <activiti:formProperty id="stopAppServerFailureOption" name="Proceed With" type="enum" required="true">
+          <activiti:value id="retry" name="Retry"></activiti:value>
+          <activiti:value id="continue" name="Ignore and Continue"></activiti:value>
+          <activiti:value id="fail" name="Fail Whole Test"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="node" name="Node" type="node" default="${node}" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <boundaryEvent id="boundaryerror11" name="Error" attachedToRef="servicetask11">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="flow340" sourceRef="boundaryerror11" targetRef="usertask8"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway34" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow341" sourceRef="usertask8" targetRef="exclusivegateway34"></sequenceFlow>
+    <sequenceFlow id="flow342" sourceRef="exclusivegateway34" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+    <sequenceFlow id="flow344" sourceRef="exclusivegateway34" targetRef="exclusivegateway20"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent3" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT30S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow345" sourceRef="servicetask11" targetRef="timerintermediatecatchevent3"></sequenceFlow>
+    <sequenceFlow id="flow346" sourceRef="timerintermediatecatchevent3" targetRef="exclusivegateway22"></sequenceFlow>
+    <sequenceFlow id="flow347" sourceRef="exclusivegateway34" targetRef="timerintermediatecatchevent3"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_powerpack.performance.testing.managable.workflow">
+    <bpmndi:BPMNPlane bpmnElement="powerpack.performance.testing.managable.workflow" id="BPMNPlane_powerpack.performance.testing.managable.workflow">
+      <bpmndi:BPMNShape bpmnElement="mainAgentInstallExclusiveGateway" id="BPMNShape_mainAgentInstallExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="633.0" y="668.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="postAgentConfigurationMergeExclusiveGateway" id="BPMNShape_postAgentConfigurationMergeExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="632.0" y="1305.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="636.0" y="1.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="stopAppServerServiceTask" id="BPMNShape_stopAppServerServiceTask">
+        <omgdc:Bounds height="64.0" width="176.0" x="565.0" y="464.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="stopAppServerBoundaryError" id="BPMNShape_stopAppServerBoundaryError">
+        <omgdc:Bounds height="30.0" width="30.0" x="727.0" y="482.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="uninstallAgentServiceTask" id="BPMNShape_uninstallAgentServiceTask">
+        <omgdc:Bounds height="55.0" width="176.0" x="308.0" y="750.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="uninstallAgentBoundaryError" id="BPMNShape_uninstallAgentBoundaryError">
+        <omgdc:Bounds height="30.0" width="30.0" x="381.0" y="790.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="installAgentPPServiceTask" id="BPMNShape_installAgentPPServiceTask">
+        <omgdc:Bounds height="55.0" width="176.0" x="840.0" y="750.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="installPPBoundaryError" id="BPMNShape_installPPBoundaryError">
+        <omgdc:Bounds height="30.0" width="30.0" x="914.0" y="790.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startAppServerServiceTask" id="BPMNShape_startAppServerServiceTask">
+        <omgdc:Bounds height="66.0" width="185.0" x="560.0" y="1504.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startAppServerBoundaryError" id="BPMNShape_startAppServerBoundaryError">
+        <omgdc:Bounds height="30.0" width="30.0" x="731.0" y="1523.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="postAgentInstallationMergingExclusiveGateway" id="BPMNShape_postAgentInstallationMergingExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="633.0" y="1068.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="integrateAgentServiceTask" id="BPMNShape_integrateAgentServiceTask">
+        <omgdc:Bounds height="66.0" width="176.0" x="776.0" y="1190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="integrateAgentBoundaryError" id="BPMNShape_integrateAgentBoundaryError">
+        <omgdc:Bounds height="30.0" width="30.0" x="934.0" y="1209.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="unintegrateAgentServiceTask" id="BPMNShape_unintegrateAgentServiceTask">
+        <omgdc:Bounds height="66.0" width="176.0" x="407.0" y="1190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="unintegrateAgentBoundaryError" id="BPMNShape_unintegrateAgentBoundaryError">
+        <omgdc:Bounds height="30.0" width="30.0" x="400.0" y="1209.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="afterStartingAppServerTimerEvent" id="BPMNShape_afterStartingAppServerTimerEvent">
+        <omgdc:Bounds height="35.0" width="35.0" x="635.0" y="1630.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mainWaitBeforeAgentInstallationTimerEvent" id="BPMNShape_mainWaitBeforeAgentInstallationTimerEvent">
+        <omgdc:Bounds height="41.0" width="41.0" x="633.0" y="573.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="cleanupDBServiceTask" id="BPMNShape_cleanupDBServiceTask">
+        <omgdc:Bounds height="64.0" width="174.0" x="567.0" y="233.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="cleanDbBoundaryError" id="BPMNShape_cleanDbBoundaryError">
+        <omgdc:Bounds height="30.0" width="30.0" x="727.0" y="251.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkAgentConnectedToEMServiceTask" id="BPMNShape_checkAgentConnectedToEMServiceTask">
+        <omgdc:Bounds height="66.0" width="185.0" x="560.0" y="1703.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkAgentConnectedToEMBoundaryError" id="BPMNShape_checkAgentConnectedToEMBoundaryError">
+        <omgdc:Bounds height="30.0" width="30.0" x="727.0" y="1722.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="waitBeforeDbCleanupTimerEvent" id="BPMNShape_waitBeforeDbCleanupTimerEvent">
+        <omgdc:Bounds height="35.0" width="35.0" x="636.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="waitAfterDbCleanupTimerEvent" id="BPMNShape_waitAfterDbCleanupTimerEvent">
+        <omgdc:Bounds height="35.0" width="35.0" x="636.0" y="369.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="afterCheckingMonitoringFilesTimerEvent" id="BPMNShape_afterCheckingMonitoringFilesTimerEvent">
+        <omgdc:Bounds height="35.0" width="35.0" x="635.0" y="3241.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startMonitoringServiceTask" id="BPMNShape_startMonitoringServiceTask">
+        <omgdc:Bounds height="66.0" width="185.0" x="560.0" y="2849.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startMonitoringBoundaryError" id="BPMNShape_startMonitoringBoundaryError">
+        <omgdc:Bounds height="30.0" width="30.0" x="731.0" y="2868.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="stopMonitoringServiceTask" id="BPMNShape_stopMonitoringServiceTask">
+        <omgdc:Bounds height="66.0" width="185.0" x="560.0" y="3350.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="stopMonitoringBoundaryError" id="BPMNShape_stopMonitoringBoundaryError">
+        <omgdc:Bounds height="30.0" width="30.0" x="731.0" y="3369.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="afterRunningJmeterTestsTimerEvent" id="BPMNShape_afterRunningJmeterTestsTimerEvent">
+        <omgdc:Bounds height="35.0" width="35.0" x="635.0" y="2720.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="runJmeterTestsServiceTask" id="BPMNShape_runJmeterTestsServiceTask">
+        <omgdc:Bounds height="66.0" width="185.0" x="560.0" y="2581.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="runJmeterTestsBoundaryError" id="BPMNShape_runJmeterTestsBoundaryError">
+        <omgdc:Bounds height="30.0" width="30.0" x="731.0" y="2600.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="632.0" y="2067.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="powerPackPerformanceTestEndEvent" id="BPMNShape_powerPackPerformanceTestEndEvent">
+        <omgdc:Bounds height="35.0" width="35.0" x="634.0" y="5100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="installAgentServiceTask" id="BPMNShape_installAgentServiceTask">
+        <omgdc:Bounds height="55.0" width="176.0" x="565.0" y="750.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="installAgentBoundaryError" id="BPMNShape_installAgentBoundaryError">
+        <omgdc:Bounds height="30.0" width="30.0" x="638.0" y="790.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="afterStartMonitoringTimerEvent" id="BPMNShape_afterStartMonitoringTimerEvent">
+        <omgdc:Bounds height="35.0" width="35.0" x="635.0" y="2990.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkMonitoringFilesServiceTask" id="BPMNShape_checkMonitoringFilesServiceTask">
+        <omgdc:Bounds height="66.0" width="185.0" x="560.0" y="3100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkMonitoringFilesBoundaryError" id="BPMNShape_checkMonitoringFilesBoundaryError">
+        <omgdc:Bounds height="30.0" width="30.0" x="731.0" y="3119.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="dbCleanupFailureUserTask" id="BPMNShape_dbCleanupFailureUserTask">
+        <omgdc:Bounds height="64.0" width="176.0" x="838.0" y="233.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="cleaupDbFailureExclusiveGateway" id="BPMNShape_cleaupDbFailureExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="244.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="appServerStopFailureUserTask" id="BPMNShape_appServerStopFailureUserTask">
+        <omgdc:Bounds height="64.0" width="176.0" x="838.0" y="464.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="stopAppServerFailureExclusiveGateway" id="BPMNShape_stopAppServerFailureExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="475.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="uninstallAgentFailureUserTask" id="BPMNShape_uninstallAgentFailureUserTask">
+        <omgdc:Bounds height="67.0" width="176.0" x="308.0" y="864.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="uninstallAgentFailureExclusiveGateway" id="BPMNShape_uninstallAgentFailureExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="375.0" y="966.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="installAgentFailureUserTask" id="BPMNShape_installAgentFailureUserTask">
+        <omgdc:Bounds height="67.0" width="176.0" x="565.0" y="864.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="installAgentFailureExclusiveGateway" id="BPMNShape_installAgentFailureExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="632.0" y="966.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="unintegrateAgentFailureUserTask" id="BPMNShape_unintegrateAgentFailureUserTask">
+        <omgdc:Bounds height="66.0" width="176.0" x="141.0" y="1190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="unintegrateAgentFailureExclusiveGateway" id="BPMNShape_unintegrateAgentFailureExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="208.0" y="1305.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="installAgentPPFailureUserTask" id="BPMNShape_installAgentPPFailureUserTask">
+        <omgdc:Bounds height="67.0" width="176.0" x="840.0" y="864.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="installPowerPackFailureExclusiveGateway" id="BPMNShape_installPowerPackFailureExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="907.0" y="966.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="integrateAgentFailureExclusiveGateway" id="BPMNShape_integrateAgentFailureExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="1069.0" y="1305.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="integrateAgentFailureUserTask" id="BPMNShape_integrateAgentFailureUserTask">
+        <omgdc:Bounds height="66.0" width="176.0" x="1002.0" y="1190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startAppServerFailureUserTask" id="BPMNShape_startAppServerFailureUserTask">
+        <omgdc:Bounds height="66.0" width="176.0" x="838.0" y="1504.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startAppServerFailureExclusiveGateway" id="BPMNShape_startAppServerFailureExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="1517.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkAgentConnectedToEMFailureUserTask" id="BPMNShape_checkAgentConnectedToEMFailureUserTask">
+        <omgdc:Bounds height="66.0" width="176.0" x="838.0" y="1703.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="agentToEMConnectionCheckFailureExclusiveGateway" id="BPMNShape_agentToEMConnectionCheckFailureExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="1715.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="runningJmeterTestsFailureUserTask" id="BPMNShape_runningJmeterTestsFailureUserTask">
+        <omgdc:Bounds height="66.0" width="185.0" x="833.0" y="2581.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="runJmeterTestsFailureExclusiveGateway" id="BPMNShape_runJmeterTestsFailureExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="2593.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="jmeterInstallCheckFailureUserTask" id="BPMNShape_jmeterInstallCheckFailureUserTask">
+        <omgdc:Bounds height="66.0" width="185.0" x="833.0" y="1920.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="jmeterInstallationCheckFailureExclusiveGateway" id="BPMNShape_jmeterInstallationCheckFailureExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="1932.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="jmeterDownloadFailureUserTask" id="BPMNShape_jmeterDownloadFailureUserTask">
+        <omgdc:Bounds height="66.0" width="114.0" x="904.0" y="2129.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="jmeterDownloadFailureExclusiveGateway" id="BPMNShape_jmeterDownloadFailureExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="2141.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="unzippingJmeterArchiveFailureUserTask" id="BPMNShape_unzippingJmeterArchiveFailureUserTask">
+        <omgdc:Bounds height="66.0" width="114.0" x="904.0" y="2340.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="jmeterUnzippingFailureExclusiveGateway" id="BPMNShape_jmeterUnzippingFailureExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="2353.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startMonitoringFailureUserTask" id="BPMNShape_startMonitoringFailureUserTask">
+        <omgdc:Bounds height="66.0" width="185.0" x="833.0" y="2849.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startMonitoringFailureExclusiveGateway" id="BPMNShape_startMonitoringFailureExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="2861.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkMonitoringFilesFailureUserTask" id="BPMNShape_checkMonitoringFilesFailureUserTask">
+        <omgdc:Bounds height="66.0" width="185.0" x="833.0" y="3100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkMonitoringFilesFailureExclusiveGateway" id="BPMNShape_checkMonitoringFilesFailureExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="3112.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="stopMonitoringFailureUserTask" id="BPMNShape_stopMonitoringFailureUserTask">
+        <omgdc:Bounds height="66.0" width="185.0" x="833.0" y="3350.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="stopMonitoringFailureExclusiveGateway" id="BPMNShape_stopMonitoringFailureExclusiveGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="3362.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="waitAfterUninstallingAgentTimerEvent" id="BPMNShape_waitAfterUninstallingAgentTimerEvent">
+        <omgdc:Bounds height="35.0" width="35.0" x="377.0" y="1138.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="waitAfterInstallingAgentTimerEvent" id="BPMNShape_waitAfterInstallingAgentTimerEvent">
+        <omgdc:Bounds height="35.0" width="35.0" x="637.0" y="1138.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="waitAfterConfiguringAgentTimerEvent" id="BPMNShape_waitAfterConfiguringAgentTimerEvent">
+        <omgdc:Bounds height="35.0" width="35.0" x="635.0" y="1410.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="afterCheckingAgentToEMConnectionTimerEvent" id="BPMNShape_afterCheckingAgentToEMConnectionTimerEvent">
+        <omgdc:Bounds height="35.0" width="35.0" x="635.0" y="1820.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="afterDownloadingJmeterTimerEvent" id="BPMNShape_afterDownloadingJmeterTimerEvent">
+        <omgdc:Bounds height="35.0" width="35.0" x="745.0" y="2253.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="afterUnzippingJmeterTimerEvent" id="BPMNShape_afterUnzippingJmeterTimerEvent">
+        <omgdc:Bounds height="35.0" width="35.0" x="635.0" y="2480.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway20" id="BPMNShape_exclusivegateway20">
+        <omgdc:Bounds height="40.0" width="40.0" x="1171.0" y="1517.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
+        <omgdc:Bounds height="55.0" width="174.0" x="567.0" y="64.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="66.0" width="185.0" x="560.0" y="1920.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="731.0" y="1939.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="66.0" width="185.0" x="670.0" y="2129.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror2" id="BPMNShape_boundaryerror2">
+        <omgdc:Bounds height="30.0" width="30.0" x="841.0" y="2148.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
+        <omgdc:Bounds height="66.0" width="185.0" x="670.0" y="2340.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror3" id="BPMNShape_boundaryerror3">
+        <omgdc:Bounds height="30.0" width="30.0" x="841.0" y="2358.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
+        <omgdc:Bounds height="66.0" width="185.0" x="560.0" y="3600.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror4" id="BPMNShape_boundaryerror4">
+        <omgdc:Bounds height="30.0" width="30.0" x="731.0" y="3619.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="66.0" width="185.0" x="833.0" y="3600.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway21" id="BPMNShape_exclusivegateway21">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="3612.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="635.0" y="3690.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway22" id="BPMNShape_exclusivegateway22">
+        <omgdc:Bounds height="40.0" width="40.0" x="632.0" y="3889.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
+        <omgdc:Bounds height="66.0" width="185.0" x="560.0" y="3949.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror5" id="BPMNShape_boundaryerror5">
+        <omgdc:Bounds height="30.0" width="30.0" x="731.0" y="3968.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask6" id="BPMNShape_servicetask6">
+        <omgdc:Bounds height="66.0" width="185.0" x="560.0" y="4160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror6" id="BPMNShape_boundaryerror6">
+        <omgdc:Bounds height="30.0" width="30.0" x="731.0" y="4179.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway23" id="BPMNShape_exclusivegateway23">
+        <omgdc:Bounds height="40.0" width="40.0" x="632.0" y="4070.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask7" id="BPMNShape_servicetask7">
+        <omgdc:Bounds height="66.0" width="185.0" x="559.0" y="4370.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror7" id="BPMNShape_boundaryerror7">
+        <omgdc:Bounds height="30.0" width="30.0" x="730.0" y="4389.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway24" id="BPMNShape_exclusivegateway24">
+        <omgdc:Bounds height="40.0" width="40.0" x="632.0" y="4278.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="66.0" width="185.0" x="833.0" y="3949.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway25" id="BPMNShape_exclusivegateway25">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="3961.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway26" id="BPMNShape_exclusivegateway26">
+        <omgdc:Bounds height="40.0" width="40.0" x="631.0" y="4490.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask8" id="BPMNShape_servicetask8">
+        <omgdc:Bounds height="66.0" width="185.0" x="559.0" y="4578.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror8" id="BPMNShape_boundaryerror8">
+        <omgdc:Bounds height="30.0" width="30.0" x="730.0" y="4597.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask9" id="BPMNShape_servicetask9">
+        <omgdc:Bounds height="66.0" width="185.0" x="559.0" y="4770.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror9" id="BPMNShape_boundaryerror9">
+        <omgdc:Bounds height="30.0" width="30.0" x="731.0" y="4789.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway27" id="BPMNShape_exclusivegateway27">
+        <omgdc:Bounds height="40.0" width="40.0" x="631.0" y="4690.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask10" id="BPMNShape_servicetask10">
+        <omgdc:Bounds height="66.0" width="185.0" x="559.0" y="4970.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror10" id="BPMNShape_boundaryerror10">
+        <omgdc:Bounds height="30.0" width="30.0" x="730.0" y="4989.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway28" id="BPMNShape_exclusivegateway28">
+        <omgdc:Bounds height="40.0" width="40.0" x="631.0" y="4878.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+        <omgdc:Bounds height="66.0" width="185.0" x="833.0" y="4160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
+        <omgdc:Bounds height="66.0" width="185.0" x="833.0" y="4370.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask5" id="BPMNShape_usertask5">
+        <omgdc:Bounds height="66.0" width="185.0" x="833.0" y="4578.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask6" id="BPMNShape_usertask6">
+        <omgdc:Bounds height="66.0" width="185.0" x="833.0" y="4770.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask7" id="BPMNShape_usertask7">
+        <omgdc:Bounds height="66.0" width="185.0" x="833.0" y="4970.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway29" id="BPMNShape_exclusivegateway29">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="4172.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway30" id="BPMNShape_exclusivegateway30">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="4382.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway31" id="BPMNShape_exclusivegateway31">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="4590.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway32" id="BPMNShape_exclusivegateway32">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="4782.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway33" id="BPMNShape_exclusivegateway33">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="4982.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent2" id="BPMNShape_timerintermediatecatchevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="635.0" y="3490.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask11" id="BPMNShape_servicetask11">
+        <omgdc:Bounds height="66.0" width="185.0" x="560.0" y="3749.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror11" id="BPMNShape_boundaryerror11">
+        <omgdc:Bounds height="30.0" width="30.0" x="730.0" y="3768.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask8" id="BPMNShape_usertask8">
+        <omgdc:Bounds height="66.0" width="185.0" x="833.0" y="3749.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway34" id="BPMNShape_exclusivegateway34">
+        <omgdc:Bounds height="40.0" width="40.0" x="1048.0" y="3761.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent3" id="BPMNShape_timerintermediatecatchevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="635.0" y="3832.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flowNoAgent" id="BPMNEdge_flowNoAgent">
+        <omgdi:waypoint x="633.0" y="688.0"></omgdi:waypoint>
+        <omgdi:waypoint x="396.0" y="688.0"></omgdi:waypoint>
+        <omgdi:waypoint x="396.0" y="750.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flowAgentPP" id="BPMNEdge_flowAgentPP">
+        <omgdi:waypoint x="673.0" y="688.0"></omgdi:waypoint>
+        <omgdi:waypoint x="927.0" y="688.0"></omgdi:waypoint>
+        <omgdi:waypoint x="928.0" y="750.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow66" id="BPMNEdge_flow66">
+        <omgdi:waypoint x="652.0" y="1345.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="1410.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow71" id="BPMNEdge_flow71">
+        <omgdi:waypoint x="840.0" y="777.0"></omgdi:waypoint>
+        <omgdi:waypoint x="812.0" y="778.0"></omgdi:waypoint>
+        <omgdi:waypoint x="812.0" y="951.0"></omgdi:waypoint>
+        <omgdi:waypoint x="673.0" y="951.0"></omgdi:waypoint>
+        <omgdi:waypoint x="532.0" y="951.0"></omgdi:waypoint>
+        <omgdi:waypoint x="532.0" y="1087.0"></omgdi:waypoint>
+        <omgdi:waypoint x="633.0" y="1088.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow73" id="BPMNEdge_flow73">
+        <omgdi:waypoint x="864.0" y="1256.0"></omgdi:waypoint>
+        <omgdi:waypoint x="863.0" y="1325.0"></omgdi:waypoint>
+        <omgdi:waypoint x="672.0" y="1325.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow74" id="BPMNEdge_flow74">
+        <omgdi:waypoint x="673.0" y="1088.0"></omgdi:waypoint>
+        <omgdi:waypoint x="654.0" y="1106.0"></omgdi:waypoint>
+        <omgdi:waypoint x="654.0" y="1138.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow75" id="BPMNEdge_flow75">
+        <omgdi:waypoint x="308.0" y="777.0"></omgdi:waypoint>
+        <omgdi:waypoint x="126.0" y="777.0"></omgdi:waypoint>
+        <omgdi:waypoint x="126.0" y="1155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="377.0" y="1155.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow76" id="BPMNEdge_flow76">
+        <omgdi:waypoint x="495.0" y="1256.0"></omgdi:waypoint>
+        <omgdi:waypoint x="495.0" y="1325.0"></omgdi:waypoint>
+        <omgdi:waypoint x="632.0" y="1325.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow77" id="BPMNEdge_flow77">
+        <omgdi:waypoint x="652.0" y="1570.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="1630.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow108" id="BPMNEdge_flow108">
+        <omgdi:waypoint x="653.0" y="614.0"></omgdi:waypoint>
+        <omgdi:waypoint x="653.0" y="668.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow110" id="BPMNEdge_flow110">
+        <omgdi:waypoint x="654.0" y="297.0"></omgdi:waypoint>
+        <omgdi:waypoint x="653.0" y="369.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow112" id="BPMNEdge_flow112">
+        <omgdi:waypoint x="653.0" y="528.0"></omgdi:waypoint>
+        <omgdi:waypoint x="653.0" y="573.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow116" id="BPMNEdge_flow116">
+        <omgdi:waypoint x="652.0" y="1665.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="1703.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow117" id="BPMNEdge_flow117">
+        <omgdi:waypoint x="653.0" y="185.0"></omgdi:waypoint>
+        <omgdi:waypoint x="654.0" y="233.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow118" id="BPMNEdge_flow118">
+        <omgdi:waypoint x="653.0" y="404.0"></omgdi:waypoint>
+        <omgdi:waypoint x="653.0" y="464.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow125" id="BPMNEdge_flow125">
+        <omgdi:waypoint x="652.0" y="3276.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="3350.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow131" id="BPMNEdge_flow131">
+        <omgdi:waypoint x="652.0" y="1986.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="2067.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flowNotInstalled" id="BPMNEdge_flowNotInstalled">
+        <omgdi:waypoint x="672.0" y="2087.0"></omgdi:waypoint>
+        <omgdi:waypoint x="762.0" y="2087.0"></omgdi:waypoint>
+        <omgdi:waypoint x="762.0" y="2129.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flowInstalled" id="BPMNEdge_flowInstalled">
+        <omgdi:waypoint x="652.0" y="2107.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="2480.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow148" id="BPMNEdge_flow148">
+        <omgdi:waypoint x="652.0" y="2647.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="2720.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow151" id="BPMNEdge_flow151">
+        <omgdi:waypoint x="762.0" y="2195.0"></omgdi:waypoint>
+        <omgdi:waypoint x="762.0" y="2253.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow157" id="BPMNEdge_flow157">
+        <omgdi:waypoint x="652.0" y="1769.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="1820.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow158" id="BPMNEdge_flow158">
+        <omgdi:waypoint x="652.0" y="2755.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="2849.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow159" id="BPMNEdge_flow159">
+        <omgdi:waypoint x="762.0" y="2406.0"></omgdi:waypoint>
+        <omgdi:waypoint x="762.0" y="2497.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="2497.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flowAgent" id="BPMNEdge_flowAgent">
+        <omgdi:waypoint x="653.0" y="708.0"></omgdi:waypoint>
+        <omgdi:waypoint x="653.0" y="736.0"></omgdi:waypoint>
+        <omgdi:waypoint x="653.0" y="750.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow164" id="BPMNEdge_flow164">
+        <omgdi:waypoint x="565.0" y="777.0"></omgdi:waypoint>
+        <omgdi:waypoint x="532.0" y="776.0"></omgdi:waypoint>
+        <omgdi:waypoint x="532.0" y="1087.0"></omgdi:waypoint>
+        <omgdi:waypoint x="633.0" y="1088.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow167" id="BPMNEdge_flow167">
+        <omgdi:waypoint x="652.0" y="2915.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="2990.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow168" id="BPMNEdge_flow168">
+        <omgdi:waypoint x="652.0" y="3025.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="3100.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow169" id="BPMNEdge_flow169">
+        <omgdi:waypoint x="652.0" y="3166.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="3241.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="dbCleanupFailedFlow" id="BPMNEdge_dbCleanupFailedFlow">
+        <omgdi:waypoint x="757.0" y="266.0"></omgdi:waypoint>
+        <omgdi:waypoint x="838.0" y="265.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow171" id="BPMNEdge_flow171">
+        <omgdi:waypoint x="1014.0" y="265.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="264.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="dbCleanupRetryFlow" id="BPMNEdge_dbCleanupRetryFlow">
+        <omgdi:waypoint x="1068.0" y="244.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1068.0" y="216.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1068.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="671.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="dbCleanupContinueFlow" id="BPMNEdge_dbCleanupContinueFlow">
+        <omgdi:waypoint x="1068.0" y="284.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1068.0" y="386.0"></omgdi:waypoint>
+        <omgdi:waypoint x="671.0" y="386.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="stopAppServerFailedFlow" id="BPMNEdge_stopAppServerFailedFlow">
+        <omgdi:waypoint x="757.0" y="497.0"></omgdi:waypoint>
+        <omgdi:waypoint x="838.0" y="496.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow175" id="BPMNEdge_flow175">
+        <omgdi:waypoint x="1014.0" y="496.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="495.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="stopAppServerRetryFlow" id="BPMNEdge_stopAppServerRetryFlow">
+        <omgdi:waypoint x="1068.0" y="475.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1068.0" y="386.0"></omgdi:waypoint>
+        <omgdi:waypoint x="671.0" y="386.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="stopAppServerContinueFlow" id="BPMNEdge_stopAppServerContinueFlow">
+        <omgdi:waypoint x="1068.0" y="515.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1068.0" y="593.0"></omgdi:waypoint>
+        <omgdi:waypoint x="674.0" y="593.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="uninstallAgentFailedFlow" id="BPMNEdge_uninstallAgentFailedFlow">
+        <omgdi:waypoint x="396.0" y="820.0"></omgdi:waypoint>
+        <omgdi:waypoint x="396.0" y="864.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow179" id="BPMNEdge_flow179">
+        <omgdi:waypoint x="396.0" y="931.0"></omgdi:waypoint>
+        <omgdi:waypoint x="395.0" y="966.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="uninstallAgentRetryFlow" id="BPMNEdge_uninstallAgentRetryFlow">
+        <omgdi:waypoint x="415.0" y="986.0"></omgdi:waypoint>
+        <omgdi:waypoint x="507.0" y="985.0"></omgdi:waypoint>
+        <omgdi:waypoint x="507.0" y="775.0"></omgdi:waypoint>
+        <omgdi:waypoint x="484.0" y="777.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow182" id="BPMNEdge_flow182">
+        <omgdi:waypoint x="653.0" y="820.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="863.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="839.0"></omgdi:waypoint>
+        <omgdi:waypoint x="653.0" y="864.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow183" id="BPMNEdge_flow183">
+        <omgdi:waypoint x="653.0" y="931.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="966.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="installAgentRetryFlow" id="BPMNEdge_installAgentRetryFlow">
+        <omgdi:waypoint x="672.0" y="986.0"></omgdi:waypoint>
+        <omgdi:waypoint x="797.0" y="986.0"></omgdi:waypoint>
+        <omgdi:waypoint x="797.0" y="778.0"></omgdi:waypoint>
+        <omgdi:waypoint x="741.0" y="777.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow186" id="BPMNEdge_flow186">
+        <omgdi:waypoint x="400.0" y="1224.0"></omgdi:waypoint>
+        <omgdi:waypoint x="317.0" y="1223.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow187" id="BPMNEdge_flow187">
+        <omgdi:waypoint x="229.0" y="1256.0"></omgdi:waypoint>
+        <omgdi:waypoint x="228.0" y="1305.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="unintegrateAgentRetryFlow" id="BPMNEdge_unintegrateAgentRetryFlow">
+        <omgdi:waypoint x="208.0" y="1325.0"></omgdi:waypoint>
+        <omgdi:waypoint x="124.0" y="1324.0"></omgdi:waypoint>
+        <omgdi:waypoint x="124.0" y="1155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="377.0" y="1155.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="unintegrateAgentContinueFlow" id="BPMNEdge_unintegrateAgentContinueFlow">
+        <omgdi:waypoint x="248.0" y="1325.0"></omgdi:waypoint>
+        <omgdi:waypoint x="632.0" y="1325.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow190" id="BPMNEdge_flow190">
+        <omgdi:waypoint x="929.0" y="820.0"></omgdi:waypoint>
+        <omgdi:waypoint x="928.0" y="864.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow191" id="BPMNEdge_flow191">
+        <omgdi:waypoint x="928.0" y="931.0"></omgdi:waypoint>
+        <omgdi:waypoint x="927.0" y="966.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="installPowerPackRetryFlow" id="BPMNEdge_installPowerPackRetryFlow">
+        <omgdi:waypoint x="947.0" y="986.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1136.0" y="985.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1136.0" y="777.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1016.0" y="777.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow194" id="BPMNEdge_flow194">
+        <omgdi:waypoint x="964.0" y="1224.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1002.0" y="1223.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow195" id="BPMNEdge_flow195">
+        <omgdi:waypoint x="1090.0" y="1256.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1089.0" y="1305.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="integrateAgentRetryFlow" id="BPMNEdge_integrateAgentRetryFlow">
+        <omgdi:waypoint x="1109.0" y="1325.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1190.0" y="1325.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1190.0" y="1155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="672.0" y="1155.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="integrateAgentContinueFlow" id="BPMNEdge_integrateAgentContinueFlow">
+        <omgdi:waypoint x="1069.0" y="1325.0"></omgdi:waypoint>
+        <omgdi:waypoint x="672.0" y="1325.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow198" id="BPMNEdge_flow198">
+        <omgdi:waypoint x="761.0" y="1538.0"></omgdi:waypoint>
+        <omgdi:waypoint x="838.0" y="1537.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow199" id="BPMNEdge_flow199">
+        <omgdi:waypoint x="1014.0" y="1537.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="1537.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="startAppServerRetryFlow" id="BPMNEdge_startAppServerRetryFlow">
+        <omgdi:waypoint x="1068.0" y="1517.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="1427.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="1427.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="startAppServerContinueFlow" id="BPMNEdge_startAppServerContinueFlow">
+        <omgdi:waypoint x="1068.0" y="1557.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="1647.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="1647.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow202" id="BPMNEdge_flow202">
+        <omgdi:waypoint x="757.0" y="1737.0"></omgdi:waypoint>
+        <omgdi:waypoint x="838.0" y="1736.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow203" id="BPMNEdge_flow203">
+        <omgdi:waypoint x="1014.0" y="1736.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="1735.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="agentToEMConectionCheckRetryFlow" id="BPMNEdge_agentToEMConectionCheckRetryFlow">
+        <omgdi:waypoint x="1068.0" y="1715.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="1647.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="1647.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="agentToEMConectionCheckContinueFlow" id="BPMNEdge_agentToEMConectionCheckContinueFlow">
+        <omgdi:waypoint x="1068.0" y="1755.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="1837.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="1837.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow207" id="BPMNEdge_flow207">
+        <omgdi:waypoint x="1018.0" y="2614.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="2613.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="runJmeterTestsRetryFlow" id="BPMNEdge_runJmeterTestsRetryFlow">
+        <omgdi:waypoint x="1068.0" y="2593.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1068.0" y="2497.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="2497.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="runJmeterTestsContinueFlow" id="BPMNEdge_runJmeterTestsContinueFlow">
+        <omgdi:waypoint x="1068.0" y="2633.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="2737.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="2737.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow210" id="BPMNEdge_flow210">
+        <omgdi:waypoint x="1018.0" y="1953.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="1952.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="jmeterInstallationCheckContinueFlow" id="BPMNEdge_jmeterInstallationCheckContinueFlow">
+        <omgdi:waypoint x="1068.0" y="1972.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1068.0" y="2027.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="2027.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="2067.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="jmeterInstallationCheckRetryFlow" id="BPMNEdge_jmeterInstallationCheckRetryFlow">
+        <omgdi:waypoint x="1068.0" y="1932.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1068.0" y="1837.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="1837.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow213" id="BPMNEdge_flow213">
+        <omgdi:waypoint x="761.0" y="1954.0"></omgdi:waypoint>
+        <omgdi:waypoint x="833.0" y="1953.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow214" id="BPMNEdge_flow214">
+        <omgdi:waypoint x="871.0" y="2163.0"></omgdi:waypoint>
+        <omgdi:waypoint x="904.0" y="2162.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow215" id="BPMNEdge_flow215">
+        <omgdi:waypoint x="1018.0" y="2162.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="2161.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="uninstallAgentContinueFlow" id="BPMNEdge_uninstallAgentContinueFlow">
+        <omgdi:waypoint x="395.0" y="1006.0"></omgdi:waypoint>
+        <omgdi:waypoint x="394.0" y="1138.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="installAgentContinueFlow" id="BPMNEdge_installAgentContinueFlow">
+        <omgdi:waypoint x="652.0" y="1006.0"></omgdi:waypoint>
+        <omgdi:waypoint x="653.0" y="1068.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="installPowerPackContinueFlow" id="BPMNEdge_installPowerPackContinueFlow">
+        <omgdi:waypoint x="927.0" y="1006.0"></omgdi:waypoint>
+        <omgdi:waypoint x="927.0" y="1088.0"></omgdi:waypoint>
+        <omgdi:waypoint x="673.0" y="1088.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="integrateAgentFailFlow" id="BPMNEdge_integrateAgentFailFlow">
+        <omgdi:waypoint x="1109.0" y="1325.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1190.0" y="1325.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1517.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="dbCleanupFailFlow" id="BPMNEdge_dbCleanupFailFlow">
+        <omgdi:waypoint x="1088.0" y="264.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1190.0" y="264.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1190.0" y="702.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1190.0" y="1155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1517.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="stopAppServerFailFlow" id="BPMNEdge_stopAppServerFailFlow">
+        <omgdi:waypoint x="1088.0" y="495.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1190.0" y="495.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1517.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="uninstallingAgentFailFlow" id="BPMNEdge_uninstallingAgentFailFlow">
+        <omgdi:waypoint x="395.0" y="1006.0"></omgdi:waypoint>
+        <omgdi:waypoint x="395.0" y="1034.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1190.0" y="1034.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1517.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="installingPowerPackFailFlow" id="BPMNEdge_installingPowerPackFailFlow">
+        <omgdi:waypoint x="927.0" y="1006.0"></omgdi:waypoint>
+        <omgdi:waypoint x="926.0" y="1034.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1190.0" y="1034.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1517.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="installingAgentFailFlow" id="BPMNEdge_installingAgentFailFlow">
+        <omgdi:waypoint x="652.0" y="1006.0"></omgdi:waypoint>
+        <omgdi:waypoint x="651.0" y="1034.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1190.0" y="1034.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1190.0" y="1264.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1190.0" y="1264.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1517.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="startAppServerFailFlow" id="BPMNEdge_startAppServerFailFlow">
+        <omgdi:waypoint x="1088.0" y="1537.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1123.0" y="1537.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1171.0" y="1537.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="unintegrateAgentFailFlow" id="BPMNEdge_unintegrateAgentFailFlow">
+        <omgdi:waypoint x="228.0" y="1345.0"></omgdi:waypoint>
+        <omgdi:waypoint x="227.0" y="1370.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1190.0" y="1370.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1517.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="agentToEMConectionCheckFailFlow" id="BPMNEdge_agentToEMConectionCheckFailFlow">
+        <omgdi:waypoint x="1088.0" y="1735.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1735.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1557.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="runJmeterTestsFailFlow" id="BPMNEdge_runJmeterTestsFailFlow">
+        <omgdi:waypoint x="1088.0" y="2613.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="2612.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1557.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="jmeterDownloadFailFlow" id="BPMNEdge_jmeterDownloadFailFlow">
+        <omgdi:waypoint x="1088.0" y="2161.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1128.0" y="2161.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1163.0" y="2161.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="2161.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1557.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="jmeterInstallationCheckFailFlow" id="BPMNEdge_jmeterInstallationCheckFailFlow">
+        <omgdi:waypoint x="1088.0" y="1952.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1951.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1557.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow235" id="BPMNEdge_flow235">
+        <omgdi:waypoint x="871.0" y="2373.0"></omgdi:waypoint>
+        <omgdi:waypoint x="903.0" y="2372.0"></omgdi:waypoint>
+        <omgdi:waypoint x="904.0" y="2373.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow236" id="BPMNEdge_flow236">
+        <omgdi:waypoint x="1018.0" y="2373.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="2373.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="jmeterUnzippingRetryFlow" id="BPMNEdge_jmeterUnzippingRetryFlow">
+        <omgdi:waypoint x="1068.0" y="2353.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="2270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="780.0" y="2270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="jmeterUnzippingContinueFlow" id="BPMNEdge_jmeterUnzippingContinueFlow">
+        <omgdi:waypoint x="1068.0" y="2393.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="2497.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="2497.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="jmeterUnzippingFailFlow" id="BPMNEdge_jmeterUnzippingFailFlow">
+        <omgdi:waypoint x="1088.0" y="2373.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="2373.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1557.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow240" id="BPMNEdge_flow240">
+        <omgdi:waypoint x="761.0" y="2883.0"></omgdi:waypoint>
+        <omgdi:waypoint x="833.0" y="2882.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow241" id="BPMNEdge_flow241">
+        <omgdi:waypoint x="1018.0" y="2882.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="2881.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="startMonitoringRetryFlow" id="BPMNEdge_startMonitoringRetryFlow">
+        <omgdi:waypoint x="1068.0" y="2861.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="2737.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="2737.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="startMonitoringFailFlow" id="BPMNEdge_startMonitoringFailFlow">
+        <omgdi:waypoint x="1088.0" y="2881.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="2881.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1557.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="startMonitoringContinueFlow" id="BPMNEdge_startMonitoringContinueFlow">
+        <omgdi:waypoint x="1068.0" y="2901.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="3007.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="3007.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow245" id="BPMNEdge_flow245">
+        <omgdi:waypoint x="761.0" y="3134.0"></omgdi:waypoint>
+        <omgdi:waypoint x="833.0" y="3133.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow246" id="BPMNEdge_flow246">
+        <omgdi:waypoint x="1018.0" y="3133.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="3132.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="checkMonitoringFilesRetryFlow" id="BPMNEdge_checkMonitoringFilesRetryFlow">
+        <omgdi:waypoint x="1068.0" y="3112.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="3007.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="3007.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="checkMonitoringFilesFailFlow" id="BPMNEdge_checkMonitoringFilesFailFlow">
+        <omgdi:waypoint x="1088.0" y="3132.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1146.0" y="3132.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="3132.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1557.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="checkMonitoringFilesContinueFlow" id="BPMNEdge_checkMonitoringFilesContinueFlow">
+        <omgdi:waypoint x="1068.0" y="3152.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="3258.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="3258.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow250" id="BPMNEdge_flow250">
+        <omgdi:waypoint x="761.0" y="3384.0"></omgdi:waypoint>
+        <omgdi:waypoint x="833.0" y="3383.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow251" id="BPMNEdge_flow251">
+        <omgdi:waypoint x="1018.0" y="3383.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="3382.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="stopMonitoringRetryFlow" id="BPMNEdge_stopMonitoringRetryFlow">
+        <omgdi:waypoint x="1068.0" y="3362.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="3258.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="3258.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="stopMonitoringFailFlow" id="BPMNEdge_stopMonitoringFailFlow">
+        <omgdi:waypoint x="1088.0" y="3382.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="3381.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1557.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow265" id="BPMNEdge_flow265">
+        <omgdi:waypoint x="412.0" y="1155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="495.0" y="1155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="495.0" y="1190.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow267" id="BPMNEdge_flow267">
+        <omgdi:waypoint x="652.0" y="1445.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="1504.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow268" id="BPMNEdge_flow268">
+        <omgdi:waypoint x="652.0" y="1855.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="1920.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow270" id="BPMNEdge_flow270">
+        <omgdi:waypoint x="654.0" y="1173.0"></omgdi:waypoint>
+        <omgdi:waypoint x="654.0" y="1223.0"></omgdi:waypoint>
+        <omgdi:waypoint x="776.0" y="1223.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow271" id="BPMNEdge_flow271">
+        <omgdi:waypoint x="762.0" y="2288.0"></omgdi:waypoint>
+        <omgdi:waypoint x="762.0" y="2340.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="jmeterDownloadRetryFlow" id="BPMNEdge_jmeterDownloadRetryFlow">
+        <omgdi:waypoint x="1068.0" y="2141.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="2086.0"></omgdi:waypoint>
+        <omgdi:waypoint x="762.0" y="2086.0"></omgdi:waypoint>
+        <omgdi:waypoint x="762.0" y="2129.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="jmeterDownloadContinueFlow" id="BPMNEdge_jmeterDownloadContinueFlow">
+        <omgdi:waypoint x="1068.0" y="2181.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="2270.0"></omgdi:waypoint>
+        <omgdi:waypoint x="780.0" y="2270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow274" id="BPMNEdge_flow274">
+        <omgdi:waypoint x="652.0" y="2515.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="2581.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow277" id="BPMNEdge_flow277">
+        <omgdi:waypoint x="761.0" y="2615.0"></omgdi:waypoint>
+        <omgdi:waypoint x="833.0" y="2614.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow278" id="BPMNEdge_flow278">
+        <omgdi:waypoint x="1191.0" y="1557.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="2973.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="3995.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="5117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="669.0" y="5117.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow279" id="BPMNEdge_flow279">
+        <omgdi:waypoint x="653.0" y="36.0"></omgdi:waypoint>
+        <omgdi:waypoint x="654.0" y="64.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow280" id="BPMNEdge_flow280">
+        <omgdi:waypoint x="654.0" y="119.0"></omgdi:waypoint>
+        <omgdi:waypoint x="653.0" y="150.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow281" id="BPMNEdge_flow281">
+        <omgdi:waypoint x="761.0" y="3634.0"></omgdi:waypoint>
+        <omgdi:waypoint x="833.0" y="3633.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow282" id="BPMNEdge_flow282">
+        <omgdi:waypoint x="1018.0" y="3633.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="3632.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow283" id="BPMNEdge_flow283">
+        <omgdi:waypoint x="652.0" y="3666.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="3690.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow284" id="BPMNEdge_flow284">
+        <omgdi:waypoint x="1068.0" y="3652.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="3707.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="3707.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow285" id="BPMNEdge_flow285">
+        <omgdi:waypoint x="1088.0" y="3632.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="3632.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1557.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow286" id="BPMNEdge_flow286">
+        <omgdi:waypoint x="1068.0" y="3612.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1068.0" y="3507.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="3507.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow287" id="BPMNEdge_flow287">
+        <omgdi:waypoint x="652.0" y="3725.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="3749.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow288" id="BPMNEdge_flow288">
+        <omgdi:waypoint x="652.0" y="3929.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="3949.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow289" id="BPMNEdge_flow289">
+        <omgdi:waypoint x="652.0" y="4015.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="4070.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow290" id="BPMNEdge_flow290">
+        <omgdi:waypoint x="632.0" y="3909.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="3908.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="4090.0"></omgdi:waypoint>
+        <omgdi:waypoint x="632.0" y="4090.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow291" id="BPMNEdge_flow291">
+        <omgdi:waypoint x="652.0" y="4110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="4160.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow292" id="BPMNEdge_flow292">
+        <omgdi:waypoint x="652.0" y="4226.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="4278.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow293" id="BPMNEdge_flow293">
+        <omgdi:waypoint x="652.0" y="4318.0"></omgdi:waypoint>
+        <omgdi:waypoint x="651.0" y="4370.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow294" id="BPMNEdge_flow294">
+        <omgdi:waypoint x="632.0" y="4090.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="4090.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="4298.0"></omgdi:waypoint>
+        <omgdi:waypoint x="632.0" y="4298.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow295" id="BPMNEdge_flow295">
+        <omgdi:waypoint x="761.0" y="3983.0"></omgdi:waypoint>
+        <omgdi:waypoint x="833.0" y="3982.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow296" id="BPMNEdge_flow296">
+        <omgdi:waypoint x="1018.0" y="3982.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="3981.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow297" id="BPMNEdge_flow297">
+        <omgdi:waypoint x="1068.0" y="3961.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="3908.0"></omgdi:waypoint>
+        <omgdi:waypoint x="672.0" y="3909.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow298" id="BPMNEdge_flow298">
+        <omgdi:waypoint x="1088.0" y="3981.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="3980.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1557.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow299" id="BPMNEdge_flow299">
+        <omgdi:waypoint x="1068.0" y="4001.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="4089.0"></omgdi:waypoint>
+        <omgdi:waypoint x="672.0" y="4090.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow300" id="BPMNEdge_flow300">
+        <omgdi:waypoint x="632.0" y="4298.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="4298.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="4509.0"></omgdi:waypoint>
+        <omgdi:waypoint x="631.0" y="4510.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow301" id="BPMNEdge_flow301">
+        <omgdi:waypoint x="651.0" y="4436.0"></omgdi:waypoint>
+        <omgdi:waypoint x="651.0" y="4490.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow302" id="BPMNEdge_flow302">
+        <omgdi:waypoint x="651.0" y="4530.0"></omgdi:waypoint>
+        <omgdi:waypoint x="651.0" y="4578.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow303" id="BPMNEdge_flow303">
+        <omgdi:waypoint x="651.0" y="4644.0"></omgdi:waypoint>
+        <omgdi:waypoint x="651.0" y="4690.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow304" id="BPMNEdge_flow304">
+        <omgdi:waypoint x="651.0" y="4730.0"></omgdi:waypoint>
+        <omgdi:waypoint x="651.0" y="4770.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow305" id="BPMNEdge_flow305">
+        <omgdi:waypoint x="631.0" y="4510.0"></omgdi:waypoint>
+        <omgdi:waypoint x="481.0" y="4509.0"></omgdi:waypoint>
+        <omgdi:waypoint x="481.0" y="4709.0"></omgdi:waypoint>
+        <omgdi:waypoint x="631.0" y="4710.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow306" id="BPMNEdge_flow306">
+        <omgdi:waypoint x="651.0" y="4836.0"></omgdi:waypoint>
+        <omgdi:waypoint x="651.0" y="4878.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow307" id="BPMNEdge_flow307">
+        <omgdi:waypoint x="651.0" y="4918.0"></omgdi:waypoint>
+        <omgdi:waypoint x="651.0" y="4970.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow308" id="BPMNEdge_flow308">
+        <omgdi:waypoint x="631.0" y="4710.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="4709.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="4897.0"></omgdi:waypoint>
+        <omgdi:waypoint x="631.0" y="4898.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow309" id="BPMNEdge_flow309">
+        <omgdi:waypoint x="631.0" y="4898.0"></omgdi:waypoint>
+        <omgdi:waypoint x="479.0" y="4897.0"></omgdi:waypoint>
+        <omgdi:waypoint x="479.0" y="5117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="634.0" y="5117.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow310" id="BPMNEdge_flow310">
+        <omgdi:waypoint x="651.0" y="5036.0"></omgdi:waypoint>
+        <omgdi:waypoint x="651.0" y="5100.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow311" id="BPMNEdge_flow311">
+        <omgdi:waypoint x="760.0" y="5004.0"></omgdi:waypoint>
+        <omgdi:waypoint x="833.0" y="5003.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow312" id="BPMNEdge_flow312">
+        <omgdi:waypoint x="1018.0" y="5003.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="5002.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow313" id="BPMNEdge_flow313">
+        <omgdi:waypoint x="761.0" y="4804.0"></omgdi:waypoint>
+        <omgdi:waypoint x="833.0" y="4803.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow314" id="BPMNEdge_flow314">
+        <omgdi:waypoint x="1018.0" y="4803.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="4802.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow315" id="BPMNEdge_flow315">
+        <omgdi:waypoint x="760.0" y="4612.0"></omgdi:waypoint>
+        <omgdi:waypoint x="833.0" y="4611.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow316" id="BPMNEdge_flow316">
+        <omgdi:waypoint x="1018.0" y="4611.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="4610.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow317" id="BPMNEdge_flow317">
+        <omgdi:waypoint x="760.0" y="4404.0"></omgdi:waypoint>
+        <omgdi:waypoint x="833.0" y="4403.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow318" id="BPMNEdge_flow318">
+        <omgdi:waypoint x="1018.0" y="4403.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="4402.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow319" id="BPMNEdge_flow319">
+        <omgdi:waypoint x="761.0" y="4194.0"></omgdi:waypoint>
+        <omgdi:waypoint x="833.0" y="4193.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow320" id="BPMNEdge_flow320">
+        <omgdi:waypoint x="1018.0" y="4193.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="4192.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow321" id="BPMNEdge_flow321">
+        <omgdi:waypoint x="1068.0" y="4172.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="4089.0"></omgdi:waypoint>
+        <omgdi:waypoint x="672.0" y="4090.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow322" id="BPMNEdge_flow322">
+        <omgdi:waypoint x="1068.0" y="4212.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="4297.0"></omgdi:waypoint>
+        <omgdi:waypoint x="672.0" y="4298.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow323" id="BPMNEdge_flow323">
+        <omgdi:waypoint x="1068.0" y="4382.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="4297.0"></omgdi:waypoint>
+        <omgdi:waypoint x="672.0" y="4298.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow324" id="BPMNEdge_flow324">
+        <omgdi:waypoint x="1088.0" y="4192.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="4191.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1557.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow325" id="BPMNEdge_flow325">
+        <omgdi:waypoint x="1088.0" y="4402.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="4401.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1557.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow326" id="BPMNEdge_flow326">
+        <omgdi:waypoint x="1068.0" y="4422.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="4509.0"></omgdi:waypoint>
+        <omgdi:waypoint x="671.0" y="4510.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow327" id="BPMNEdge_flow327">
+        <omgdi:waypoint x="1068.0" y="4590.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="4509.0"></omgdi:waypoint>
+        <omgdi:waypoint x="671.0" y="4510.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow328" id="BPMNEdge_flow328">
+        <omgdi:waypoint x="1068.0" y="4630.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="4709.0"></omgdi:waypoint>
+        <omgdi:waypoint x="671.0" y="4710.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow329" id="BPMNEdge_flow329">
+        <omgdi:waypoint x="1088.0" y="4610.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="4609.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1557.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow330" id="BPMNEdge_flow330">
+        <omgdi:waypoint x="1068.0" y="4782.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="4709.0"></omgdi:waypoint>
+        <omgdi:waypoint x="671.0" y="4710.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow331" id="BPMNEdge_flow331">
+        <omgdi:waypoint x="1068.0" y="4822.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="4898.0"></omgdi:waypoint>
+        <omgdi:waypoint x="671.0" y="4898.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow332" id="BPMNEdge_flow332">
+        <omgdi:waypoint x="1088.0" y="4802.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="4801.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1557.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow333" id="BPMNEdge_flow333">
+        <omgdi:waypoint x="1068.0" y="4982.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="4898.0"></omgdi:waypoint>
+        <omgdi:waypoint x="671.0" y="4898.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow334" id="BPMNEdge_flow334">
+        <omgdi:waypoint x="1068.0" y="5022.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="5117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="669.0" y="5117.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow335" id="BPMNEdge_flow335">
+        <omgdi:waypoint x="652.0" y="3416.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="3490.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow336" id="BPMNEdge_flow336">
+        <omgdi:waypoint x="652.0" y="3525.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="3600.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow337" id="BPMNEdge_flow337">
+        <omgdi:waypoint x="1068.0" y="3402.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="3507.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="3507.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow340" id="BPMNEdge_flow340">
+        <omgdi:waypoint x="760.0" y="3783.0"></omgdi:waypoint>
+        <omgdi:waypoint x="833.0" y="3782.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow341" id="BPMNEdge_flow341">
+        <omgdi:waypoint x="1018.0" y="3782.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="3781.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow342" id="BPMNEdge_flow342">
+        <omgdi:waypoint x="1068.0" y="3761.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="3707.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="3707.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow344" id="BPMNEdge_flow344">
+        <omgdi:waypoint x="1088.0" y="3781.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="3781.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1191.0" y="1557.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow345" id="BPMNEdge_flow345">
+        <omgdi:waypoint x="652.0" y="3815.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="3832.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow346" id="BPMNEdge_flow346">
+        <omgdi:waypoint x="652.0" y="3867.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="3889.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow347" id="BPMNEdge_flow347">
+        <omgdi:waypoint x="1068.0" y="3801.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1067.0" y="3849.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="3849.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

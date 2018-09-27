@@ -1,0 +1,157 @@
+<div ng-controller="LaunchConfigurationSettingsController as controller">
+    <div class="selectableConfigItemsSwitcher">
+        <div class="text-left">
+            <button type="button"
+                    class="btn btn-default"
+                    data-toggle="button"
+                    aria-label="Expand readonly config items"
+                    ng-click="controller.toggleShowSelectableConfigItems()">
+                {{ selectableConfigItemsCollapsed ? '+' : '-' }}
+            </button>
+            <span>&nbsp;&nbsp;&lt;-- Click to open easy selectable read-only configuration properties (left-click on the table to select all items at once)</span>
+        </div>
+    </div>
+
+    <div id="selectableConfigItemsContainer" uib-collapse="selectableConfigItemsCollapsed">
+        <table class="readOnlyConfigItems">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="workflowParam in config"
+                    id="{{ 'config_param' + $index }}"
+                    ng-click="controller.onSelectConfigurationParameterRow('config_param' + $index)">
+                    <td>{{ workflowParam.name }}:</td>
+                    <td ng-if="workflowParam.value">{{ workflowParam.value }}</td>
+                    <td ng-if="!workflowParam.value"><code>N\A</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <table class="table table-hover editableConfigItemsPanel">
+        <thead>
+        <tr class="row">
+            <th class="col-md-4 text-left">Parameter Name</th>
+            <th class="col-md-8 text-right">Parameter Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="row">
+            <td class="col-md-4 text-left hide-non-required-config-items">Hide non-required parameters</td>
+            <td class="col-md-8 text-right hide-non-required-config-items">
+                <div class="text-right">
+                    <input type="checkbox"
+                           class="hideNonRequiredConfiItemsCheckbox"
+                           placeholder="Check to hide non-required fields"
+                           ng-model="hideNonRequiredConfigParameters"
+                           ng-change="controller.setHasChanges(true)">
+                </div>
+            </td>
+        </tr>
+        <tr class="row" ng-repeat="workflowParam in config">
+            <td class="col-md-4 text-left" ng-hide="controller.hideParameter(workflowParam)">
+                <h4>{{ controller.getLocalizedParamName(workflowParam.name) }}</h4>
+            </td>
+            <td class="col-md-8 text-right" ng-hide="controller.hideParameter(workflowParam)">
+                <div class="form-group has-feedback"
+                     ng-class="{ 'has-success' : workflowParam.required && controller.paramHasValue(workflowParam), 'has-error' : workflowParam.required && !controller.paramHasValue(workflowParam) }">
+                    <div ng-switch on="workflowParam.type">
+                        <div ng-switch-when="boolean" class="booleanTypeParameter">
+                            <div class="btn-group" uib-dropdown>
+                                <button type="button"
+                                        ng-class="{ 'btn-danger' : workflowParam.required && !controller.paramHasValue(workflowParam), 'btn-success' : workflowParam.required && controller.paramHasValue(workflowParam) }"
+                                        class="btn dropdown-toggle"
+                                        uib-dropdown-toggle>
+                                    {{ controller.getValueTextForBooleanParameter(workflowParam) }}<span class="caret"></span>
+                                </button>
+                                <input type="hidden" value="{{ workflowParam.value }}" ng-model="workflowParam.value" ng-required="workflowParam.required">
+                                <ul class="dropdown-menu" role="menu"
+                                    ng-model="workflowParam.value">
+                                    <li><a href="" ng-click="controller.updateBooleanParameter(workflowParam, true)">True</a></li>
+                                    <li><a href="" ng-click="controller.updateBooleanParameter(workflowParam, false)">False</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div ng-switch-when="long">
+                            <input type="number"
+                                   class="form-control"
+                                   placeholder="Long Value"
+                                   ng-model="workflowParam.value"
+                                   value="{{ workflowParam.value }}"
+                                   ng-change="controller.setHasChanges(true)"
+                                   focus="{{ $first && hasFocus ? true : false }}"
+                                   ng-required="workflowParam.required">
+                            <span ng-class="{ 'glyphicon-ok' : controller.paramHasValue(workflowParam), 'glyphicon-remove' : !controller.paramHasValue(workflowParam) }"
+                                  class="glyphicon form-control-feedback configParamFeedbackIcon"
+                                  aria-hidden="true"
+                                  ng-show="workflowParam.required">
+                            </span>
+                        </div>
+                        <div ng-switch-when="node" class="nodeTypeParameter">
+                            <div class="btn-group" uib-dropdown>
+                                <button type="button"
+                                        class="btn dropdown-toggle"
+                                        ng-class="{ 'btn-danger' : workflowParam.required && !controller.paramHasValue(workflowParam), 'btn-success' : workflowParam.required && controller.paramHasValue(workflowParam) }"
+                                        uib-dropdown-toggle>
+                                    {{ controller.getValueTextForNodeParameter(workflowParam) }} <span class="caret"></span>
+                                </button>
+                                <input type="hidden"
+                                       value="{{ workflowParam.value }}"
+                                       ng-model="workflowParam.value"
+                                       ng-required="workflowParam.required">
+                                <ul class="dropdown-menu" role="menu" ng-model="workflowParam.value">
+                                    <li ng-if="!nodeList" class="text-center">
+                                        <img src="img/spinner16x16.gif">
+                                    </li>
+                                    <li ng-if="nodeList" ng-repeat="node in nodeList">
+                                        <a href="" ng-if="node.isAvailable" ng-click="controller.updateNodeParameter(workflowParam, node)">{{ node.name }}</a>
+                                        <span class="unavailableNode" ng-if="!node.isAvailable">{{ node.name }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div ng-switch-when="enum" class="enumTypeParameter">
+                            <div class="btn-group" uib-dropdown>
+                                <button type="button"
+                                        class="btn dropdown-toggle"
+                                        ng-class="{ 'btn-danger' : workflowParam.required && !controller.enumParamHasValue(workflowParam), 'btn-success' : workflowParam.required && controller.enumParamHasValue(workflowParam) }"
+                                        uib-dropdown-toggle>
+                                    {{ controller.getValueTextForEnumParameter(workflowParam) }} <span class="caret"></span>
+                                </button>
+                                <input type="hidden" value="{{ workflowParam.value }}"
+                                       ng-model="workflowParam.value" ng-required="workflowParam.required">
+                                <ul class="dropdown-menu" role="menu" ng-model="workflowParam.value">
+                                    <li ng-repeat="enumLabel in controller.getEnumValueLabels(workflowParam)">
+                                        <a href="" ng-click="controller.updateEnumParameter(workflowParam, enumLabel)">
+                                            {{ enumLabel }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div ng-switch-default>
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="Value"
+                                   ng-model="workflowParam.value"
+                                   value="{{ workflowParam.value }}"
+                                   ng-change="controller.setHasChanges(true)"
+                                   focus="{{ $first && hasFocus ? true : false }}"
+                                   ng-required="workflowParam.required">
+                            <span class="glyphicon form-control-feedback configParamFeedbackIcon"
+                                  ng-class="{ 'glyphicon-ok' : controller.paramHasValue(workflowParam), 'glyphicon-remove' : !controller.paramHasValue(workflowParam) }"
+                                  aria-hidden="true"
+                                  ng-show="workflowParam.required">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

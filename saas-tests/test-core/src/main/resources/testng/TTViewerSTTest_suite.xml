@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<!--
+ @Tas(testBed = [
+	{name=com.ca.apm.saas.standalone.FLDStandAloneTestbed, executeOn=emMachine}],
+	owner = ahmal01,
+	size = BIG,
+	description = 'Transaction Trace Viewer TestNg XML suite')
+-->
+
+<suite name="TTViewerSTTestSuite" parallel="tests" thread-count="20" configfailurepolicy="continue">
+   <test name="testng.ttviewerST_Map_chrome_suite" preserve-order="true">
+   		<parameter name="browserType" value="chrome"/>
+        <classes>
+            <class name="com.ca.apm.saas.test.TransactionTraceViewerSTTest">
+                <methods>
+                    <include name="testInMapViewThroughComponentViewLink"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+       <!--  test name="testng.ttviewerST_Map_firefox_suite" preserve-order="true">
+   		<parameter name="browserType" value="firefox"/>
+        <classes>
+            <class name="com.ca.apm.saas.test.TransactionTraceViewerSTTest">
+                <methods>
+                    <include name="testInMapViewThroughComponentViewLink"/>
+                </methods>
+            </class>
+        </classes>
+    </test -->
+</suite>
+

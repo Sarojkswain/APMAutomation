@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE scenario SYSTEM "./dtd/PipeOrganScenario.dtd">
+
+<!-- Problem Scenario for default Analyst on a Servlet. Servlet calls webservice 
+	with slight delay in webservice reply. -->
+
+<scenario>
+	<iterateEvent count="200" interval="100">
+		<servlet milestones="no" uri="ExecutorServlet_5" port="8080"
+			host="localhost" contextroot="/pipeorgan">
+			<message>Start Normal scenario on WebService from BT for Default
+				Analysts</message>
+			<webService
+				uri="http://localhost:8080/pipeorgan/services/PipeOrganWebService_2"
+				requestsize="10">
+				<message>Entered Web Service</message>
+				<custom class="com.wily.tools.pipeorgan.extensions.VariableWait"
+					args="minduration=400,maxduration=800,outlierduration=800" />
+			</webService>
+			<message>Normal Scenario Started</message>
+		</servlet>
+	</iterateEvent>
+</scenario>

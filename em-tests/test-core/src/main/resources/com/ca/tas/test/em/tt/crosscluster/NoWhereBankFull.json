@@ -1,0 +1,1988 @@
+{
+  "vertices": [
+    {
+      "vertexId": "Enterprise Team Center:8",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Engine"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Backends|Queue|transactions_reply"],
+        "processedBy": ["BackendVertexIdentifier"],
+        "type": ["GENERICBACKEND"],
+        "applicationName": ["Engine"]
+      },
+      "status": {"alertStates": []},
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:7",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Engine"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Apps|Engine|URLs|transactions"],
+        "processedBy": ["FrontendVertexIdentifier"],
+        "type": ["GENERICFRONTEND"],
+        "applicationName": ["Engine"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447880557000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Frontend|Engine|Health:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447880557000,
+            "alertName": "UVB://SuperDomain|tas-cz-n5d|NowhereBank|Engine|Variance|Differential Analysis|Default Differential Control|Frontends|Apps|Engine|URLs|transactions:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447880550000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:6",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Mediator"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Backends|Queue|transactions"],
+        "processedBy": ["BackendVertexIdentifier"],
+        "type": ["GENERICBACKEND"],
+        "applicationName": ["Mediator"]
+      },
+      "status": {"alertStates": []},
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:5",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Mediator"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Apps|Mediator|URLs|/transactions"],
+        "processedBy": ["FrontendVertexIdentifier"],
+        "type": ["GENERICFRONTEND"],
+        "applicationName": ["Mediator"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 3,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881832000,
+            "alertName": "UVB://SuperDomain|tas-cz-n5d|NowhereBank|Mediator|Variance|Differential Analysis|Default Differential Control|Frontends|Apps|Mediator|URLs|/transactions:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881832000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Frontend|Mediator|Health:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 3,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "UP",
+            "startTime": 1447881825000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:4",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Mediator"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Apps|Mediator|URLs|/validateRequest"],
+        "processedBy": ["FrontendVertexIdentifier"],
+        "type": ["GENERICFRONTEND"],
+        "applicationName": ["Mediator"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881742000,
+            "alertName": "UVB://SuperDomain|tas-cz-n5d|NowhereBank|Mediator|Variance|Differential Analysis|Default Differential Control|Frontends|Apps|Mediator|URLs|/validateRequest:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881742000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Frontend|Mediator|Health:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447881735000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:3",
+      "attributes": {
+        "name": ["List Transactions"],
+        "endUser": ["Client"],
+        "Source cluster": ["Enterprise Team Center"],
+        "transactionName": ["List Transactions"],
+        "serviceId": ["Nowhere Bank BTs"],
+        "type": ["BUSINESSTRANSACTION"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447880557000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Business Service|Nowhere Bank BTs|List Transactions|Sub Process:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447880550000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:2",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Portal"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "wsOperation": ["/validateRequest"],
+        "name": ["validateRequest"],
+        "backendName": ["WebService at http_//localhost_80|URLs|/validateRequest"],
+        "processedBy": ["WebServicesOutboundVertexIdentifier"],
+        "type": ["WEBSERVICE"],
+        "wsNamespace": ["WebService at http_//localhost_80|URLs"],
+        "applicationName": ["Portal"]
+      },
+      "status": {"alertStates": []},
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:29",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Mediator"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Backends|Queue|requestValidation"],
+        "processedBy": ["BackendVertexIdentifier"],
+        "type": ["GENERICBACKEND"],
+        "applicationName": ["Mediator"]
+      },
+      "status": {"alertStates": []},
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:1",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Portal"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Apps|Portal|URLs|List Transactions"],
+        "processedBy": ["FrontendVertexIdentifier"],
+        "type": ["GENERICFRONTEND"],
+        "applicationName": ["Portal"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447880557000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447880557000,
+            "alertName": "UVB://SuperDomain|tas-cz-n5d|NowhereBank|Portal|Variance|Differential Analysis|Default Differential Control|Frontends|Apps|Portal|URLs|List Transactions:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447880550000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:27",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Portal"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Apps|Portal|URLs|List Accounts"],
+        "processedBy": ["FrontendVertexIdentifier"],
+        "type": ["GENERICFRONTEND"],
+        "applicationName": ["Portal"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447880557000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447880557000,
+            "alertName": "UVB://SuperDomain|tas-cz-n5d|NowhereBank|Portal|Variance|Differential Analysis|Default Differential Control|Frontends|Apps|Portal|URLs|List Accounts:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447880550000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:28",
+      "attributes": {
+        "name": ["List Accounts"],
+        "endUser": ["Client"],
+        "Source cluster": ["Enterprise Team Center"],
+        "transactionName": ["List Accounts"],
+        "serviceId": ["Nowhere Bank BTs"],
+        "type": ["BUSINESSTRANSACTION"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447880557000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Business Service|Nowhere Bank BTs|List Accounts|Sub Process:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447880550000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:25",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Portal"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "wsOperation": ["/transactions/book"],
+        "name": ["book"],
+        "backendName": ["WebService at http_//localhost_80|URLs|/transactions/book"],
+        "processedBy": ["WebServicesOutboundVertexIdentifier"],
+        "type": ["WEBSERVICE"],
+        "wsNamespace": ["WebService at http_//localhost_80|URLs"],
+        "applicationName": ["Portal"]
+      },
+      "status": {"alertStates": []},
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:26",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Portal"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "wsOperation": ["/accounts"],
+        "name": ["accounts"],
+        "backendName": ["WebService at http_//localhost_80|URLs|/accounts"],
+        "processedBy": ["WebServicesOutboundVertexIdentifier"],
+        "type": ["WEBSERVICE"],
+        "wsNamespace": ["WebService at http_//localhost_80|URLs"],
+        "applicationName": ["Portal"]
+      },
+      "status": {"alertStates": []},
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:23",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Portal"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Apps|Portal|URLs|Get Transaction Details"],
+        "processedBy": ["FrontendVertexIdentifier"],
+        "type": ["GENERICFRONTEND"],
+        "applicationName": ["Portal"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881832000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 3,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881832000,
+            "alertName": "UVB://SuperDomain|tas-cz-n5d|NowhereBank|Portal|Variance|Differential Analysis|Default Differential Control|Frontends|Apps|Portal|URLs|Get Transaction Details:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 2,
+            "damageFactor": 1,
+            "uvb": false,
+            "trend": "UP",
+            "startTime": 1447881825000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:24",
+      "attributes": {
+        "name": ["Get Transaction Details"],
+        "endUser": ["Client"],
+        "Source cluster": ["Enterprise Team Center"],
+        "transactionName": ["Get Transaction Details"],
+        "serviceId": ["Nowhere Bank BTs"],
+        "type": ["BUSINESSTRANSACTION"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 3,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881832000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Business Service|Nowhere Bank BTs|Get Transaction Details|Sub Process:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 3,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "UP",
+            "startTime": 1447881825000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:21",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Engine"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Apps|Engine|URLs|accounts"],
+        "processedBy": ["FrontendVertexIdentifier"],
+        "type": ["GENERICFRONTEND"],
+        "applicationName": ["Engine"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881787000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Frontend|Engine|Health:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881787000,
+            "alertName": "UVB://SuperDomain|tas-cz-n5d|NowhereBank|Engine|Variance|Differential Analysis|Default Differential Control|Frontends|Apps|Engine|URLs|accounts:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447881780000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:9",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Mediator"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Apps|Mediator|URLs|transactions_reply"],
+        "processedBy": ["FrontendVertexIdentifier"],
+        "type": ["GENERICFRONTEND"],
+        "applicationName": ["Mediator"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447880557000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Frontend|Mediator|Health:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447880557000,
+            "alertName": "UVB://SuperDomain|tas-cz-n5d|NowhereBank|Mediator|Variance|Differential Analysis|Default Differential Control|Frontends|Apps|Mediator|URLs|transactions_reply:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447880550000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:22",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Engine"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Backends|Queue|accounts_reply"],
+        "processedBy": ["BackendVertexIdentifier"],
+        "type": ["GENERICBACKEND"],
+        "applicationName": ["Engine"]
+      },
+      "status": {"alertStates": []},
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:30",
+      "attributes": {
+        "name": ["Add Account"],
+        "endUser": ["Client"],
+        "Source cluster": ["Enterprise Team Center"],
+        "transactionName": ["Add Account"],
+        "serviceId": ["Nowhere Bank BTs"],
+        "type": ["BUSINESSTRANSACTION"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 3,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881832000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Business Service|Nowhere Bank BTs|Add Account|Sub Process:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "DOWN",
+            "startTime": 1447881825000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:31",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Engine"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Apps|Engine|URLs|requestValidation"],
+        "processedBy": ["FrontendVertexIdentifier"],
+        "type": ["GENERICFRONTEND"],
+        "applicationName": ["Engine"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881742000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Frontend|Engine|Health:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881742000,
+            "alertName": "UVB://SuperDomain|tas-cz-n5d|NowhereBank|Engine|Variance|Differential Analysis|Default Differential Control|Frontends|Apps|Engine|URLs|requestValidation:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447881735000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:18",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Portal"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Apps|Portal|URLs|Get Account Details"],
+        "processedBy": ["FrontendVertexIdentifier"],
+        "type": ["GENERICFRONTEND"],
+        "applicationName": ["Portal"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881817000,
+            "alertName": "UVB://SuperDomain|tas-cz-n5d|NowhereBank|Portal|Variance|Differential Analysis|Default Differential Control|Frontends|Apps|Portal|URLs|Get Account Details:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881817000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447881810000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:19",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Mediator"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Apps|Mediator|URLs|/accounts"],
+        "processedBy": ["FrontendVertexIdentifier"],
+        "type": ["GENERICFRONTEND"],
+        "applicationName": ["Mediator"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881817000,
+            "alertName": "UVB://SuperDomain|tas-cz-n5d|NowhereBank|Mediator|Variance|Differential Analysis|Default Differential Control|Frontends|Apps|Mediator|URLs|/accounts:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881817000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Frontend|Mediator|Health:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447881810000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:16",
+      "attributes": {
+        "name": ["Get Account Details"],
+        "endUser": ["Client"],
+        "Source cluster": ["Enterprise Team Center"],
+        "transactionName": ["Get Account Details"],
+        "serviceId": ["Nowhere Bank BTs"],
+        "type": ["BUSINESSTRANSACTION"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881817000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Business Service|Nowhere Bank BTs|Get Account Details|Sub Process:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447881810000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:17",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Mediator"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Apps|Mediator|URLs|/transactions/book"],
+        "processedBy": ["FrontendVertexIdentifier"],
+        "type": ["GENERICFRONTEND"],
+        "applicationName": ["Mediator"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447880557000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Frontend|Mediator|Health:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447880557000,
+            "alertName": "UVB://SuperDomain|tas-cz-n5d|NowhereBank|Mediator|Variance|Differential Analysis|Default Differential Control|Frontends|Apps|Mediator|URLs|/transactions/book:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447880550000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:14",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Mediator"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Apps|Mediator|URLs|accounts_reply"],
+        "processedBy": ["FrontendVertexIdentifier"],
+        "type": ["GENERICFRONTEND"],
+        "applicationName": ["Mediator"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881562000,
+            "alertName": "UVB://SuperDomain|tas-cz-n5d|NowhereBank|Mediator|Variance|Differential Analysis|Default Differential Control|Frontends|Apps|Mediator|URLs|accounts_reply:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881562000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Frontend|Mediator|Health:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447881555000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:15",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Portal"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Apps|Portal|URLs|Subtract Money From Account"],
+        "processedBy": ["FrontendVertexIdentifier"],
+        "type": ["GENERICFRONTEND"],
+        "applicationName": ["Portal"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447880557000,
+            "alertName": "UVB://SuperDomain|tas-cz-n5d|NowhereBank|Portal|Variance|Differential Analysis|Default Differential Control|Frontends|Apps|Portal|URLs|Subtract Money From Account:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447880557000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447880550000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:12",
+      "attributes": {
+        "name": ["Subtract Money From Account"],
+        "endUser": ["Client"],
+        "Source cluster": ["Enterprise Team Center"],
+        "transactionName": ["Subtract Money From Account"],
+        "serviceId": ["Nowhere Bank BTs"],
+        "type": ["BUSINESSTRANSACTION"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447880557000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Business Service|Nowhere Bank BTs|Subtract Money From Account|Sub Process:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447880550000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:34",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Portal"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Apps|Portal|URLs|Add Account"],
+        "processedBy": ["FrontendVertexIdentifier"],
+        "type": ["GENERICFRONTEND"],
+        "applicationName": ["Portal"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881652000,
+            "alertName": "UVB://SuperDomain|tas-cz-n5d|NowhereBank|Portal|Variance|Differential Analysis|Default Differential Control|Frontends|Apps|Portal|URLs|Add Account:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881652000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447881645000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:10",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Portal"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "wsOperation": ["/transactions"],
+        "name": ["transactions"],
+        "backendName": ["WebService at http_//localhost_80|URLs|/transactions"],
+        "processedBy": ["WebServicesOutboundVertexIdentifier"],
+        "type": ["WEBSERVICE"],
+        "wsNamespace": ["WebService at http_//localhost_80|URLs"],
+        "applicationName": ["Portal"]
+      },
+      "status": {"alertStates": []},
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:32",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Engine"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Backends|Queue|requestValidation_reply"],
+        "processedBy": ["BackendVertexIdentifier"],
+        "type": ["GENERICBACKEND"],
+        "applicationName": ["Engine"]
+      },
+      "status": {"alertStates": []},
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:11",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Portal"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Backends|Socket|Client Reply"],
+        "processedBy": ["BackendVertexIdentifier"],
+        "type": ["GENERICBACKEND"],
+        "applicationName": ["Portal"]
+      },
+      "status": {"alertStates": []},
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:33",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Mediator"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Apps|Mediator|URLs|requestValidation_reply"],
+        "processedBy": ["FrontendVertexIdentifier"],
+        "type": ["GENERICFRONTEND"],
+        "applicationName": ["Mediator"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881742000,
+            "alertName": "UVB://SuperDomain|tas-cz-n5d|NowhereBank|Mediator|Variance|Differential Analysis|Default Differential Control|Frontends|Apps|Mediator|URLs|requestValidation_reply:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881742000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Frontend|Mediator|Health:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447881735000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:63",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Engine"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "wsOperation": ["Add Money To Account"],
+        "name": ["BookingService|Add Money To Account"],
+        "processedBy": ["WebServicesOutboundVertexIdentifier"],
+        "type": ["WEBSERVICE"],
+        "wsNamespace": ["http///NowhereBank.com/BookingService"],
+        "applicationName": ["Engine"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447881825000,
+            "alertName": "SuperDomain:SOA Performance Management:Individual Client Service Stall Count"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447881825000,
+            "alertName": "SuperDomain:SOA Performance Management:Individual Client Service Errors Per Interval"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447881825000,
+            "alertName": "SuperDomain:SOA Performance Management:Individual Client Operation Stall Count"
+          },
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447881832000,
+            "alertName": "UVB://SuperDomain|tas-cz-n5d|NowhereBank|Engine|Variance|Differential Analysis|Default Differential Control|WebServices|Client|http///NowhereBank.com/BookingService|Add Money To Account:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 2,
+            "damageFactor": 1,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447881825000,
+            "alertName": "SuperDomain:SOA Performance Management:Individual Client Operation Average Response Time (ms)"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "DOWN",
+            "startTime": 1447881825000,
+            "alertName": "SuperDomain:SOA Performance Management:Individual Client Service Average Response Time (ms)"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447881825000,
+            "alertName": "SuperDomain:SOA Performance Management:Individual Client Operation Errors Per Interval"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447881825000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:20",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Mediator"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Backends|Queue|accounts"],
+        "processedBy": ["BackendVertexIdentifier"],
+        "type": ["GENERICBACKEND"],
+        "applicationName": ["Mediator"]
+      },
+      "status": {"alertStates": []},
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:64",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Engine"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Backends|NowhereDB|addCreditTransaction"],
+        "processedBy": ["BackendVertexIdentifier"],
+        "type": ["GENERICBACKEND"],
+        "applicationName": ["Engine"]
+      },
+      "status": {"alertStates": []},
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:61",
+      "attributes": {
+        "name": ["Add Money To Account"],
+        "endUser": ["Client"],
+        "Source cluster": ["Enterprise Team Center"],
+        "transactionName": ["Add Money To Account"],
+        "serviceId": ["Nowhere Bank BTs"],
+        "type": ["BUSINESSTRANSACTION"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447880572000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Business Service|Nowhere Bank BTs|Add Money To Account|Sub Process:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447880565000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    },
+    {
+      "vertexId": "Enterprise Team Center:62",
+      "attributes": {
+        "agent": ["tas-cz-n5d|NowhereBank|Portal"],
+        "hostname": ["tas-cz-n5d"],
+        "Source cluster": ["Enterprise Team Center"],
+        "name": ["Apps|Portal|URLs|Add Money To Account"],
+        "processedBy": ["FrontendVertexIdentifier"],
+        "type": ["GENERICFRONTEND"],
+        "applicationName": ["Portal"]
+      },
+      "status": {
+        "alertStates": [
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447880572000,
+            "alertName": "UVB://SuperDomain|Custom Metric Host (Virtual)|Custom Metric Process (Virtual)|Custom Business Application Agent (Virtual)|Variance|Differential Analysis|Default Differential Control|By Frontend|Portal|Health:Average Response Time (ms) Variance Intensity"
+          },
+          {
+            "alertId": 0,
+            "state": 1,
+            "damageFactor": 0,
+            "uvb": false,
+            "trend": "STALL",
+            "startTime": 1447880565000,
+            "alertName": "SuperDomain:Differential Analysis:Default Differential Analysis Alert"
+          },
+          {
+            "alertId": 0,
+            "state": 0,
+            "damageFactor": 0,
+            "uvb": true,
+            "trend": "STALL",
+            "startTime": 1447880572000,
+            "alertName": "UVB://SuperDomain|tas-cz-n5d|NowhereBank|Portal|Variance|Differential Analysis|Default Differential Control|Frontends|Apps|Portal|URLs|Add Money To Account:Average Response Time (ms) Variance Intensity"
+          }
+        ]
+      },
+      "liveCacheVersion": 0,
+      "topologicalChange": null
+    }
+  ],
+  "edges": [
+    {
+      "sourceId": "Enterprise Team Center:22",
+      "targetId": "Enterprise Team Center:14",
+      "businessTransactionId": "Enterprise Team Center:16",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 51,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:26",
+      "targetId": "Enterprise Team Center:19",
+      "businessTransactionId": "Enterprise Team Center:16",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 53,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:10",
+      "targetId": "Enterprise Team Center:5",
+      "businessTransactionId": "Enterprise Team Center:24",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 61,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:7",
+      "targetId": "Enterprise Team Center:8",
+      "businessTransactionId": "Enterprise Team Center:24",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 45,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:2",
+      "targetId": "Enterprise Team Center:4",
+      "businessTransactionId": "Enterprise Team Center:12",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 56,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:8",
+      "targetId": "Enterprise Team Center:9",
+      "businessTransactionId": "Enterprise Team Center:3",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 49,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:6",
+      "targetId": "Enterprise Team Center:7",
+      "businessTransactionId": "Enterprise Team Center:12",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 54,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:23",
+      "targetId": "Enterprise Team Center:10",
+      "businessTransactionId": "Enterprise Team Center:24",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 35,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:30",
+      "targetId": "Enterprise Team Center:34",
+      "businessTransactionId": "Enterprise Team Center:30",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 135,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:27",
+      "targetId": "Enterprise Team Center:11",
+      "businessTransactionId": "Enterprise Team Center:28",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 90,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:23",
+      "targetId": "Enterprise Team Center:11",
+      "businessTransactionId": "Enterprise Team Center:24",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 36,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:2",
+      "targetId": "Enterprise Team Center:4",
+      "businessTransactionId": "Enterprise Team Center:16",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 60,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:21",
+      "targetId": "Enterprise Team Center:22",
+      "businessTransactionId": "Enterprise Team Center:16",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 42,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:2",
+      "targetId": "Enterprise Team Center:4",
+      "businessTransactionId": "Enterprise Team Center:61",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 166,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:1",
+      "targetId": "Enterprise Team Center:11",
+      "businessTransactionId": "Enterprise Team Center:3",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 38,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:61",
+      "targetId": "Enterprise Team Center:62",
+      "businessTransactionId": "Enterprise Team Center:61",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 165,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:6",
+      "targetId": "Enterprise Team Center:7",
+      "businessTransactionId": "Enterprise Team Center:61",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 164,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:1",
+      "targetId": "Enterprise Team Center:10",
+      "businessTransactionId": "Enterprise Team Center:3",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 37,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:62",
+      "targetId": "Enterprise Team Center:11",
+      "businessTransactionId": "Enterprise Team Center:61",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 161,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:20",
+      "targetId": "Enterprise Team Center:21",
+      "businessTransactionId": "Enterprise Team Center:30",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 141,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:31",
+      "targetId": "Enterprise Team Center:32",
+      "businessTransactionId": "Enterprise Team Center:30",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 101,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:19",
+      "targetId": "Enterprise Team Center:20",
+      "businessTransactionId": "Enterprise Team Center:28",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 96,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:15",
+      "targetId": "Enterprise Team Center:11",
+      "businessTransactionId": "Enterprise Team Center:12",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 34,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:17",
+      "targetId": "Enterprise Team Center:6",
+      "businessTransactionId": "Enterprise Team Center:12",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 27,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:23",
+      "targetId": "Enterprise Team Center:2",
+      "businessTransactionId": "Enterprise Team Center:24",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 29,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:27",
+      "targetId": "Enterprise Team Center:2",
+      "businessTransactionId": "Enterprise Team Center:28",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 89,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:2",
+      "targetId": "Enterprise Team Center:4",
+      "businessTransactionId": "Enterprise Team Center:28",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 99,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:6",
+      "targetId": "Enterprise Team Center:7",
+      "businessTransactionId": "Enterprise Team Center:24",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 64,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:18",
+      "targetId": "Enterprise Team Center:26",
+      "businessTransactionId": "Enterprise Team Center:16",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 63,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:5",
+      "targetId": "Enterprise Team Center:6",
+      "businessTransactionId": "Enterprise Team Center:3",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 30,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:1",
+      "targetId": "Enterprise Team Center:2",
+      "businessTransactionId": "Enterprise Team Center:3",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 31,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:20",
+      "targetId": "Enterprise Team Center:21",
+      "businessTransactionId": "null",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 275,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:31",
+      "targetId": "Enterprise Team Center:32",
+      "businessTransactionId": "null",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 345,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:2",
+      "targetId": "Enterprise Team Center:4",
+      "businessTransactionId": "Enterprise Team Center:24",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 66,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:27",
+      "targetId": "Enterprise Team Center:26",
+      "businessTransactionId": "Enterprise Team Center:28",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 94,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:4",
+      "targetId": "Enterprise Team Center:29",
+      "businessTransactionId": "Enterprise Team Center:30",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 93,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:19",
+      "targetId": "Enterprise Team Center:20",
+      "businessTransactionId": "Enterprise Team Center:16",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 41,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:4",
+      "targetId": "Enterprise Team Center:29",
+      "businessTransactionId": "null",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 344,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:21",
+      "targetId": "Enterprise Team Center:22",
+      "businessTransactionId": "Enterprise Team Center:30",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 140,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:32",
+      "targetId": "Enterprise Team Center:33",
+      "businessTransactionId": "Enterprise Team Center:30",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 102,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:34",
+      "targetId": "Enterprise Team Center:11",
+      "businessTransactionId": "Enterprise Team Center:30",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 136,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:17",
+      "targetId": "Enterprise Team Center:6",
+      "businessTransactionId": "Enterprise Team Center:61",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 155,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:18",
+      "targetId": "Enterprise Team Center:2",
+      "businessTransactionId": "Enterprise Team Center:16",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 47,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:5",
+      "targetId": "Enterprise Team Center:6",
+      "businessTransactionId": "Enterprise Team Center:24",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 44,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:2",
+      "targetId": "Enterprise Team Center:4",
+      "businessTransactionId": "Enterprise Team Center:3",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 50,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:8",
+      "targetId": "Enterprise Team Center:9",
+      "businessTransactionId": "Enterprise Team Center:12",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 55,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:6",
+      "targetId": "Enterprise Team Center:7",
+      "businessTransactionId": "Enterprise Team Center:3",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 48,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:21",
+      "targetId": "Enterprise Team Center:22",
+      "businessTransactionId": "null",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 274,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:32",
+      "targetId": "Enterprise Team Center:33",
+      "businessTransactionId": "null",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 346,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:15",
+      "targetId": "Enterprise Team Center:25",
+      "businessTransactionId": "Enterprise Team Center:12",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 43,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:26",
+      "targetId": "Enterprise Team Center:19",
+      "businessTransactionId": "Enterprise Team Center:30",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 139,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:24",
+      "targetId": "Enterprise Team Center:23",
+      "businessTransactionId": "Enterprise Team Center:24",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 62,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:22",
+      "targetId": "Enterprise Team Center:14",
+      "businessTransactionId": "Enterprise Team Center:30",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 137,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:20",
+      "targetId": "Enterprise Team Center:21",
+      "businessTransactionId": "Enterprise Team Center:28",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 98,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:16",
+      "targetId": "Enterprise Team Center:18",
+      "businessTransactionId": "Enterprise Team Center:16",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 59,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:62",
+      "targetId": "Enterprise Team Center:25",
+      "businessTransactionId": "Enterprise Team Center:61",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 160,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:12",
+      "targetId": "Enterprise Team Center:15",
+      "businessTransactionId": "Enterprise Team Center:12",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 57,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:28",
+      "targetId": "Enterprise Team Center:27",
+      "businessTransactionId": "Enterprise Team Center:28",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 95,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:22",
+      "targetId": "Enterprise Team Center:14",
+      "businessTransactionId": "null",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 272,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:8",
+      "targetId": "Enterprise Team Center:9",
+      "businessTransactionId": "Enterprise Team Center:61",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 162,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:29",
+      "targetId": "Enterprise Team Center:31",
+      "businessTransactionId": "null",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 347,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:62",
+      "targetId": "Enterprise Team Center:2",
+      "businessTransactionId": "Enterprise Team Center:61",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 156,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:15",
+      "targetId": "Enterprise Team Center:2",
+      "businessTransactionId": "Enterprise Team Center:12",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 67,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:29",
+      "targetId": "Enterprise Team Center:31",
+      "businessTransactionId": "Enterprise Team Center:30",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 104,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:7",
+      "targetId": "Enterprise Team Center:64",
+      "businessTransactionId": "Enterprise Team Center:61",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 157,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:26",
+      "targetId": "Enterprise Team Center:19",
+      "businessTransactionId": "Enterprise Team Center:28",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 92,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:22",
+      "targetId": "Enterprise Team Center:14",
+      "businessTransactionId": "Enterprise Team Center:28",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 91,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:10",
+      "targetId": "Enterprise Team Center:5",
+      "businessTransactionId": "Enterprise Team Center:3",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 46,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:7",
+      "targetId": "Enterprise Team Center:63",
+      "businessTransactionId": "Enterprise Team Center:61",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 158,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:8",
+      "targetId": "Enterprise Team Center:9",
+      "businessTransactionId": "Enterprise Team Center:24",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 65,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:5",
+      "targetId": "Enterprise Team Center:6",
+      "businessTransactionId": "null",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 264,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:7",
+      "targetId": "Enterprise Team Center:8",
+      "businessTransactionId": "Enterprise Team Center:3",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 32,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:7",
+      "targetId": "Enterprise Team Center:8",
+      "businessTransactionId": "Enterprise Team Center:12",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 39,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:34",
+      "targetId": "Enterprise Team Center:26",
+      "businessTransactionId": "Enterprise Team Center:30",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 138,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:20",
+      "targetId": "Enterprise Team Center:21",
+      "businessTransactionId": "Enterprise Team Center:16",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 58,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:21",
+      "targetId": "Enterprise Team Center:22",
+      "businessTransactionId": "Enterprise Team Center:28",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 97,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:25",
+      "targetId": "Enterprise Team Center:17",
+      "businessTransactionId": "Enterprise Team Center:12",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 33,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:7",
+      "targetId": "Enterprise Team Center:8",
+      "businessTransactionId": "Enterprise Team Center:61",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 163,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:25",
+      "targetId": "Enterprise Team Center:17",
+      "businessTransactionId": "Enterprise Team Center:61",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 159,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:19",
+      "targetId": "Enterprise Team Center:20",
+      "businessTransactionId": "null",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 273,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:2",
+      "targetId": "Enterprise Team Center:4",
+      "businessTransactionId": "Enterprise Team Center:30",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 105,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:3",
+      "targetId": "Enterprise Team Center:1",
+      "businessTransactionId": "Enterprise Team Center:3",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 28,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:18",
+      "targetId": "Enterprise Team Center:11",
+      "businessTransactionId": "Enterprise Team Center:16",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 52,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:34",
+      "targetId": "Enterprise Team Center:2",
+      "businessTransactionId": "Enterprise Team Center:30",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 100,
+      "attributes": {}
+    },
+    {
+      "sourceId": "Enterprise Team Center:19",
+      "targetId": "Enterprise Team Center:20",
+      "businessTransactionId": "Enterprise Team Center:30",
+      "topologicalChange": "NOT_CHANGED",
+      "liveCacheVersion": 103,
+      "attributes": {}
+    }
+  ],
+  "liveModeVersion": "388",
+  "incrementalResult": false,
+  "removedVertices": [],
+  "removedEdges": [],
+  "resultClamped": false,
+  "resultVerticesSize": 0,
+  "resultVerticesLimit": 0,
+  "graphTime": 1447881829017
+}

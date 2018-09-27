@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<project name="Wurlitzer client API sample test cases"  default="help"   basedir="../">
+    <import file="../xml/wurlitzer.systest.ant.includes.xml"/>
+	
+	<target name="jax_1" depends="init">
+        <groovy  failonerror="true" src="groovy/testcase/sample/jax_1.groovy" 
+                 classpathref="wurlitzer.classpath" fork="true">
+            <jvmarg value="-Dsystem.config.groovy=${system.config.groovy}" /> 
+        </groovy>
+	</target>
+	
+	<target name="jax_2" depends="init">
+        <groovy  failonerror="true" src="groovy/testcase/sample/jax_2.groovy" 
+                 classpathref="wurlitzer.classpath" fork="true">
+            <jvmarg value="-Dsystem.config.groovy=${system.config.groovy}" /> 
+        </groovy>
+
+	</target>
+	
+	<target name="jax_3" depends="init">
+        <groovy  failonerror="true" src="groovy/testcase/sample/jax_3.groovy" 
+                 classpathref="wurlitzer.classpath" fork="true">
+            <jvmarg value="-Dsystem.config.groovy=${system.config.groovy}" /> 
+        </groovy>
+
+	</target>
+        
+    <!-- ################################################################# --> 
+    <target name="init">
+        <tstamp>
+            <format property="DSTAMP" pattern="MMMM dd, yyyy" locale="en"/>
+            <format property="TSTAMP" pattern="hh:mm aa" locale="en"/>
+        </tstamp>
+    </target>
+
+</project>

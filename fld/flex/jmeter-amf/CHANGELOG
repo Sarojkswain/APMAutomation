@@ -1,0 +1,33 @@
+Changelog
+---------------------
+
+### Version 1.5
+* resolved amf2xml conversion bugs during recording
+* added maven nature of the project   
+
+### Version 1.4
+* Compatibility with JMeter 2.6 (no backwards compatibility)
+
+### Version 1.3
+* Gracefully handle sending actual ASObjects (Thanks jaisingh)
+
+### Version 1.2
+* Build process cleanup
+* Resolved issue with the AMF proxy being unable to sample command messages
+
+### Version 1.1
+* Store response as XML in a variable for assertion and post-processing.
+
+### Version 1.0
+* Better XML editing.
+* AMF rendering of response in the View Results Tree listener.
+* More robust unmarshall of AMF. Provide your own remoting classes for the most reliable translation.
+* Option to record think time (delay between samples) when using the proxy. A delay node will be added that pauses the sample before it is executed.
+
+### Version 0.9.1
+* Automatically switch between AMF and HTTP samplers based on content type.
+* Custom converter for ASObject. This is not backwards compatible but future changes to the converter will be versioned.
+
+### Version 0.9
+* Initial public release.
+* Plugin is usable at this stage, but needs testing to be considered stable.

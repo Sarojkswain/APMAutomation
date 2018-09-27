@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE scenario SYSTEM "./dtd/PipeOrganScenario.dtd">
+
+<!-- Normal Scenarios for different kinds of Problems AT handles -->
+
+<scenario>
+
+	<databaseConnection name="h2Connection" user=""
+		password="" driver="org.h2.Driver" dsn="jdbc:h2:tcp://localhost/~/test" />
+
+	<iterateEvent count="100" interval="1000">
+
+		<!-- Normal Scenario for Stall Event. Generates stall on webservice. Servlet 
+			calls webservice -->
+		<servlet milestones="no" uri="ExecutorServlet_4" port="8080"
+			host="localhost"
+			x-apm-bt="t=4F2504E0-4F89-9B0C-0305E82C2301;d=2b6f0cc904d137be2e1730235f5664094b831186;v=1.0;n=TMobile;l=3g;g=94015-1523;a=Tomcat Example$bs=PipeOrganApp;bt=User_Stall;p=iOS;pv=8.1"
+			contextroot="/pipeorgan">
+			<webService
+				uri="http://localhost:8080/pipeorgan/services/PipeOrganWebService_4"
+				requestsize="10">
+				<message>Entered Web Service </message>
+				<custom class="com.wily.tools.pipeorgan.extensions.VariableWait"
+					args="minduration=60,maxduration=100,outlierduration=100" />
+				<message>Exiting Web Service</message>
+			</webService>
+		</servlet>
+
+		<!-- Normal Scenario for ErrorSnapshot. Generates error on DB. Servlet 
+			calls DB -->
+		<servlet milestones="no" uri="ExecutorServlet_8" port="8080"
+			host="localhost"
+			x-apm-bt="t=4F2504E0-4F89-9B0C-0305E82C2301;d=2b6f0cc904d137be2e1730235f5664094b831186;v=1.0;n=VERIZON;l=3g;g=94015-1523;a=Tomcat Example$bs=PipeOrganApp;bt=User_Incorrect_Login;p=iOS;pv=9.3"
+			contextroot="/pipeorgan">
+			<message>Start Normal scenario on BT for Error</message>
+			<query connection="h2Connection" resultset="true">
+				select * from ACCOUNT;
+			</query>
+			<custom class="com.wily.tools.pipeorgan.extensions.VariableWait"
+				args="minduration=60,maxduration=100,outlierduration=100" />
+			<message>Normal Scenario Started</message>
+		</servlet>
+
+		<!-- Normal Scenario for Alerts Events. Servlet calls Webservice which 
+			calls DB -->
+		<servlet milestones="no" uri="ExecutorServlet_7" port="8080"
+			host="localhost"
+			x-apm-bt="t=4F2504E0-4F89-9B0C-0305E82C2301;d=2b6f0cc904d137be2e1730235f5664094b831186;v=1.0;n=TMobile;l=3g;g=94015-1523;a=Tomcat Example$bs=PipeOrganApp;bt=User_Alert;p=iOS;pv=8.1"
+			contextroot="/pipeorgan">
+			<servlet milestones="no" uri="ExecutorServlet_6" port="8080"
+				host="localhost" contextroot="/pipeorgan">
+				<message>Start stall scenario</message>
+				<webService
+					uri="http://localhost:8080/pipeorgan/services/PipeOrganWebService_3"
+					requestsize="10">
+					<message>Entered Web Service </message>
+					<custom class="com.wily.tools.pipeorgan.extensions.VariableWait"
+						args="minduration=60,maxduration=100,outlierduration=100" />
+					<message>Exiting Web Service</message>
+				</webService>
+			</servlet>
+		</servlet>
+	</iterateEvent>
+</scenario>

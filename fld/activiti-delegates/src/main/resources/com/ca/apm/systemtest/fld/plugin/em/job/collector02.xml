@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+	<transformation id="coll2props">
+		<append-property name="dailystats.jvmArgs" value=" -Xms4096m -Xmx4096m -XX:+HeapDumpOnOutOfMemoryError" />
+		<set-property name="dailystats.aggregateInSeparateJvm" value="true" />
+	</transformation>
+	
+	<files id="coll2files">
+		<file>${#emPlugin.pluginConfiguration.currentInstallDir}/config/tess-default.properties</file>
+	</files>
+	
+	<binding id="coll2binding">
+		<transformation-ref id="coll2props" />
+		<files-ref id="coll2files" /> 
+	</binding>
+</configuration>

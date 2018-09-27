@@ -1,0 +1,46 @@
+<div>
+    <h2 class="row">
+        <div class="col-sm-1">
+            <img class="dashboard-icon" src="img/groovy48x48.png">
+        </div>
+
+        <span class="col-sm-11 text-right" style="margin-top: 15px;">Groovy Console</span>
+    </h2>
+    <h1 class="page-header">
+    </h1>
+
+    <p>
+        To go to <b>Full Screen</b> mode put the cursor inside the black input box and press <code>F11</code>.
+        To leave <b>Full Screen</b> mode press whether <code>F11</code> again or <code>Esc</code>.
+        To use one-leg code completion press <code>Ctrl + Space</code> when typing. If you're lucky you'll see a drop down hint.</p>
+    <p>
+        <strong>Input:</strong>
+    </p>
+
+    <br/>
+
+    <ui-codemirror id="groovyScriptContentElement"
+                   ng-model="groovyScriptContent"
+                   ui-codemirror-opts="codeMirrorEditorOptions">
+    </ui-codemirror>
+
+    <br/>
+
+    <div class="text-right">
+        <button type="button"
+                class="btn btn-default"
+                aria-label="Clear"
+                ng-click="groovyConsoleController.clearOutput()">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Clear Output
+        </button>
+        <button type="button"
+                class="btn btn-primary"
+                aria-label="Execute"
+                ng-click="groovyConsoleController.executeGroovyScript()">
+            Execute
+        </button>
+    </div>
+
+    <p><strong>Console:</strong></p>
+    <pre id="groovyConsole" class="groovyConsole"><span ng-repeat="resultChunk in groovyConsoleContent">{{ resultChunk + '\n>> ' }}</span></pre>
+</div>

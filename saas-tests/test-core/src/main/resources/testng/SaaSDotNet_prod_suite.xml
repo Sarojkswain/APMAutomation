@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+	    {name=com.ca.apm.saas.testbed.SaaSDotNetTestBed, executeOn=machine1}],
+	  owner = kurma05,
+	  size = BIG,
+	  description = '.Net Agent Tests'),
+	  snapshotPolicy = SnapshotPolicy.ALWAYS,
+      snapshot = SnapshotMode.LIVE
+-->	
+<suite name="DotNetAgent" configfailurepolicy="continue">
+	<parameter name="instance" value="production" />				
+	<parameter name="testngEmailEnabled" value="true" />
+	
+	<test name="DotNetAgentTests" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.saas.test.SaaSDotNetTests">
+				 <methods>
+				 	<include name="testAgentConnected" />
+				 	<include name="testAgentMap" />
+				 	<!--  enable back once ttviewer updated on prod -->
+				 	<!-- <include name="testTTViewer" /> -->
+				 </methods>
+			</class>
+		</classes>    	   
+	</test>
+	<listeners>    	
+   	    <listener class-name="org.uncommons.reportng.HTMLReporter" />    	
+   		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+ 	</listeners>
+</suite>

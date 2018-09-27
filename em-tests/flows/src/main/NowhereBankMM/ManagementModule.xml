@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ManagementModule xmlns:ns1="http://www.w3.org/2005/11/its" xmlns:introscope="generated://introscope.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Editable="true" Version="4.0" IsActive="true" DescriptionContentType="text/plain" xsi:noNamespaceSchemaLocation="bundle://com.wily.introscope.em/com/wily/introscope/server/enterprise/entity/bundle/IntroscopeManagementModules4.0.xsd">
+    <Name>NowhereBank</Name>
+    <Description></Description>
+    <ProcessSpecifierList>
+        <ProcessSpecifier>
+            <ProcessSpecifierRegExp>.*</ProcessSpecifierRegExp>
+        </ProcessSpecifier>
+    </ProcessSpecifierList>
+    <DataGroups>
+        <DataGroup xsi:type="MetricGroupingDataGroup">
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Booking Service - Errors Per Interval</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Backends\|WebServices\|http///NowhereBank\.com/BookingService:Errors Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Portal - Average Response Time (ms)</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|Portal\|URLs\|((?!\|).)*:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Booking Service - Average Response Time (ms)</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Backends\|WebServices\|http///NowhereBank\.com/BookingService:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Engine - Transactions - Response Time</Name>
+                <Description/>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|Engine\|URLs\|transactions:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>NowhereDB - Average Response Time (ms)</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Backends\|NowhereDB @ Nowhere:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Portal - HTTP - Backend - Average Response Time (ms)</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Backends\|HTTP\|.*:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Mediator - Transactions</Name>
+                <Description/>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|Mediator\|URLs\|transactions:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Portal - Errors Per Interval</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|Portal\|URLs\|((?!\|).)*:Errors Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Engine - Average Response Time (ms)</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|Engine\|URLs\|((?!\|).)*:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Engine - Errors Per Interval</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|Engine\|URLs\|((?!\|).)*:Errors Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Portal Stall Count</Name>
+                <Description/>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|Portal:Stall Count</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Mediator - Errors Per Interval</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|Mediator\|URLs\|((?!\|).)*:Errors Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Mediator - Average Response Time (ms)</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|Mediator\|URLs\|((?!\|).)*:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>NowhereDB - Errors Per Interval</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp></ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Backends\|NowhereDB @ Nowhere:Errors Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+        </DataGroup>
+        <DataGroup xsi:type="EntityDataGroup"/>
+        <DataGroup xsi:type="TriageMapAlertDataGroup"/>
+        <DataGroup xsi:type="UnmonitoredComponentGroupDataGroup"/>
+        <DataGroup xsi:type="AlertDataGroup">
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Engine - Average Response Time (ms)</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>120</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>true</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>Engine - Average Response Time (ms)</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>4000</CautionTargetValue>
+                <DangerTargetValue>5000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Booking Service - Errors Per Interval</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>120</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>Booking Service - Errors Per Interval</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>1</CautionTargetValue>
+                <DangerTargetValue>1</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>5</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>5</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Booking Service - Average Response Time (ms)</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>120</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>true</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>Booking Service - Average Response Time (ms)</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>3500</CautionTargetValue>
+                <DangerTargetValue>5000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Portal - Average Response Time (ms)</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>120</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>true</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>Portal - Average Response Time (ms)</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>6000</CautionTargetValue>
+                <DangerTargetValue>9000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Portal - Errors Per Interval</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>120</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>true</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>Portal - Errors Per Interval</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>1</CautionTargetValue>
+                <DangerTargetValue>1</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>5</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>5</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Engine - Errors Per Interval</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>120</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>true</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>Engine - Errors Per Interval</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>1</CautionTargetValue>
+                <DangerTargetValue>1</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>5</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>5</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>NowhereDB - Average Response Time (ms)</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>120</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>true</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>NowhereDB - Average Response Time (ms)</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>1000</CautionTargetValue>
+                <DangerTargetValue>1500</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Engine - Transactions - Response Time</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>120</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>Engine - Transactions - Response Time</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>3000</CautionTargetValue>
+                <DangerTargetValue>4000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>5</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>5</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Portal - HTTP - Backend - Average Response Time (ms)</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>120</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>true</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>Portal - HTTP - Backend - Average Response Time (ms)</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>5500</CautionTargetValue>
+                <DangerTargetValue>7000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>NowhereDB - Errors Per Interval</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>120</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>true</MetricLevelNotification>
+                <AlertTriggerMode>1</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>NowhereDB - Errors Per Interval</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>1</CautionTargetValue>
+                <DangerTargetValue>1</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>5</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>5</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Portal Stall Count</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>120</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>true</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>Portal Stall Count</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>1</CautionTargetValue>
+                <DangerTargetValue>2</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Mediator - Errors Per Interval</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>120</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>true</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>Mediator - Errors Per Interval</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>1</CautionTargetValue>
+                <DangerTargetValue>1</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>5</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>5</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Mediator - Average Response Time (ms)</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>120</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>true</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>Mediator - Average Response Time (ms)</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>6000</CautionTargetValue>
+                <DangerTargetValue>8000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+        </DataGroup>
+        <DataGroup xsi:type="DifferentialControlDataGroup">
+            <DifferentialControl IsActive="true" DescriptionContentType="text/plain">
+                <Name>Booking Service - Average Response Time (ms)</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>Booking Service - Average Response Time (ms)</ConstructName>
+                </MetricGroupingID>
+                <WesternElectricRuleSet>
+                    <Rule1>true</Rule1>
+                    <Rule2>true</Rule2>
+                    <Rule3>true</Rule3>
+                    <Rule4>true</Rule4>
+                </WesternElectricRuleSet>
+                <EvaluationWindowCellCount>20</EvaluationWindowCellCount>
+                <EvaluationWindowCellDecay>20</EvaluationWindowCellDecay>
+                <CautionThresholdLevel>5</CautionThresholdLevel>
+                <DangerThresholdLevel>4</DangerThresholdLevel>
+            </DifferentialControl>
+            <DifferentialControl IsActive="true" DescriptionContentType="text/plain">
+                <Name>Portal - HTTP - Backend - Average Response Time (ms)</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>Portal - HTTP - Backend - Average Response Time (ms)</ConstructName>
+                </MetricGroupingID>
+                <WesternElectricRuleSet>
+                    <Rule1>true</Rule1>
+                    <Rule2>true</Rule2>
+                    <Rule3>true</Rule3>
+                    <Rule4>true</Rule4>
+                </WesternElectricRuleSet>
+                <EvaluationWindowCellCount>20</EvaluationWindowCellCount>
+                <EvaluationWindowCellDecay>20</EvaluationWindowCellDecay>
+                <CautionThresholdLevel>5</CautionThresholdLevel>
+                <DangerThresholdLevel>4</DangerThresholdLevel>
+            </DifferentialControl>
+            <DifferentialControl IsActive="true" DescriptionContentType="text/plain">
+                <Name>Engine - Average Response Time (ms)</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>Engine - Average Response Time (ms)</ConstructName>
+                </MetricGroupingID>
+                <WesternElectricRuleSet>
+                    <Rule1>true</Rule1>
+                    <Rule2>true</Rule2>
+                    <Rule3>true</Rule3>
+                    <Rule4>true</Rule4>
+                </WesternElectricRuleSet>
+                <EvaluationWindowCellCount>20</EvaluationWindowCellCount>
+                <EvaluationWindowCellDecay>20</EvaluationWindowCellDecay>
+                <CautionThresholdLevel>5</CautionThresholdLevel>
+                <DangerThresholdLevel>4</DangerThresholdLevel>
+            </DifferentialControl>
+            <DifferentialControl IsActive="true" DescriptionContentType="text/plain">
+                <Name>NowhereDB - Average Response Time (ms)</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>NowhereDB - Average Response Time (ms)</ConstructName>
+                </MetricGroupingID>
+                <WesternElectricRuleSet>
+                    <Rule1>true</Rule1>
+                    <Rule2>true</Rule2>
+                    <Rule3>true</Rule3>
+                    <Rule4>true</Rule4>
+                </WesternElectricRuleSet>
+                <EvaluationWindowCellCount>20</EvaluationWindowCellCount>
+                <EvaluationWindowCellDecay>20</EvaluationWindowCellDecay>
+                <CautionThresholdLevel>5</CautionThresholdLevel>
+                <DangerThresholdLevel>4</DangerThresholdLevel>
+            </DifferentialControl>
+            <DifferentialControl IsActive="true" DescriptionContentType="text/plain">
+                <Name>Portal - Average Response Time (ms)</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>Portal - Average Response Time (ms)</ConstructName>
+                </MetricGroupingID>
+                <WesternElectricRuleSet>
+                    <Rule1>true</Rule1>
+                    <Rule2>true</Rule2>
+                    <Rule3>true</Rule3>
+                    <Rule4>true</Rule4>
+                </WesternElectricRuleSet>
+                <EvaluationWindowCellCount>20</EvaluationWindowCellCount>
+                <EvaluationWindowCellDecay>20</EvaluationWindowCellDecay>
+                <CautionThresholdLevel>5</CautionThresholdLevel>
+                <DangerThresholdLevel>4</DangerThresholdLevel>
+            </DifferentialControl>
+            <DifferentialControl IsActive="true" DescriptionContentType="text/plain">
+                <Name>Mediator - Average Response Time (ms)</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>NowhereBank</ManagementModuleName>
+                    <ConstructName>Mediator - Average Response Time (ms)</ConstructName>
+                </MetricGroupingID>
+                <WesternElectricRuleSet>
+                    <Rule1>true</Rule1>
+                    <Rule2>true</Rule2>
+                    <Rule3>true</Rule3>
+                    <Rule4>true</Rule4>
+                </WesternElectricRuleSet>
+                <EvaluationWindowCellCount>20</EvaluationWindowCellCount>
+                <EvaluationWindowCellDecay>20</EvaluationWindowCellDecay>
+                <CautionThresholdLevel>5</CautionThresholdLevel>
+                <DangerThresholdLevel>4</DangerThresholdLevel>
+            </DifferentialControl>
+        </DataGroup>
+        <DataGroup xsi:type="ReportDataGroup"/>
+        <DataGroup xsi:type="ActionDataGroup"/>
+        <DataGroup xsi:type="DashboardDataGroup"/>
+        <DataGroup xsi:type="CalculatorDataGroup"/>
+        <DataGroup xsi:type="MapEntityMetricGroupingDataGroup"/>
+        <DataGroup xsi:type="SnmpCollectionDataGroup"/>
+        <DataGroup xsi:type="ImageDataGroup"/>
+        <DataGroup xsi:type="introscope:AlertDowntimeScheduleDataGroup"/>
+    </DataGroups>
+</ManagementModule>

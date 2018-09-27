@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+	    {name=com.ca.apm.tests.testbed.NodeJSAgentGATestbed, executeOn=nodejsMachine}],
+	  owner = sinka08,
+	  size = BIG,
+	  description = 'NodeAgent TestNg XML suite for functional tests using GA probe published on npmjs'),
+	  snapshotPolicy = SnapshotPolicy.ALWAYS,
+      snapshot = SnapshotMode.LIVE
+-->
+<suite name="TestSuite" configfailurepolicy="continue">
+	<test name="FunctionalTests" preserve-order="true">
+
+		<groups>
+			<run>				
+				<include name="full" />	
+				<exclude name="native-less" />			
+			</run>
+		</groups>
+		<packages>
+			<package name="com.ca.apm.tests.functional" />
+		</packages>
+	</test>
+    <listeners>
+        <listener class-name="com.ca.apm.tests.utils.AnnotationTransformerImpl" />
+        <listener class-name="com.ca.apm.automation.common.FuncTestListener" />
+    </listeners>
+</suite>

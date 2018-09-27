@@ -1,0 +1,49 @@
+{
+  "servers" : {
+    "server1" : {
+      "id" : "server1",
+      "baseDir" : "${base.dir}/tomcat1",
+      "defaultAgentInstallDir" : "wily",
+      "startScriptWithAgent" : "${base.dir}/tomcat1/bin/catalina.bat.bak",
+      "status" : "Stopped",
+      "httpPort" : 8080,
+      "agentInstalled" : false,
+      "currentAgentInstallDir" : "${base.dir}/tomcat1/wily",
+      "version" : "Tomcat6"
+    },
+    "server2" : {
+      "id" : "server2",
+      "baseDir" : "${base.dir}/tomcat2",
+      "defaultAgentInstallDir" : "wily",
+      "startScriptWithAgent" : "${base.dir}/tomcat2/bin/catalina.bat.bak",
+      "status" : "Stopped",
+      "httpPort" : 8080,
+      "agentInstalled" : false,
+      "currentAgentInstallDir" : "${base.dir}/tomcat2/wily",
+      "version" : "Tomcat6"
+    },
+    "server3" : {
+      "id" : "server3",
+      "baseDir" : "${base.dir}/tomcat3",
+      "defaultAgentInstallDir" : "wily",
+      "startScriptWithAgent" : "${base.dir}/tomcat3/bin/catalina.bat.bak",
+      "status" : "Stopped",
+      "httpPort" : 8080,
+      "agentInstalled" : false,
+      "currentAgentInstallDir" : "${base.dir}/tomcat3/wily",
+      "version" : "Tomcat6"
+    },
+    "server4" : {
+      "id" : "server4",
+      "baseDir" : "${base.dir}/tomcat4",
+      "defaultAgentInstallDir" : "wily",
+      "startScriptWithAgent" : "${base.dir}/tomcat4/bin/catalina.bat.bak",
+      "status" : "Stopped",
+      "httpPort" : 8080,
+      "agentInstalled" : false,
+      "currentAgentInstallDir" : "${base.dir}/tomcat4/wily",
+      "version" : "Tomcat6"
+    }
+  }
+}
+

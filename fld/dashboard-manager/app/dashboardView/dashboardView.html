@@ -1,0 +1,520 @@
+<div class="row dashboardTopButtonPanel">
+    <div class="col-sm-6 dashboardTopButtonColumn">
+        <a class="btn btn-primary"
+           ng-href="#/dashboardEditView/{{ dashboard.id }}"
+           ng-disabled="controller.isWorkFlowRunning()"
+           title="Edit">
+           <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+        </a>
+        <button ng-if="!controller.isWorkFlowRunning() && !controller.isWorkflowPaused()"
+                class="btn btn-success"
+                ng-class="{ disabled : !controller.isWorkflowRunnable() }"
+                ng-disabled="!controller.isWorkflowRunnable()"
+                ng-click="controller.launchWorkflow(true)"
+                autocomplete="off"
+                title="Run Process">
+            <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+        </button>
+        <button ng-if="controller.isWorkflowPaused()"
+                class="btn btn-info"
+                ng-click="controller.resumeWorkflow()"
+                autocomplete="off"
+                title="Resume Process">
+            <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+        </button>
+        <button ng-if="controller.isWorkFlowRunning() && !controller.isWorkflowPaused()"
+                class="btn btn-warning"
+                ng-click="controller.pauseWorkflow()"
+                autocomplete="off"
+                title="Pause Process">
+            <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+        </button>
+
+        <button class="btn btn-default"
+                ng-show="controller.isWorkFlowRunning()"
+                ng-click="controller.launchWorkflow(false)"
+                title="Stop Execution"
+                >
+            <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+        </button>
+        <button class="btn btn-default"
+                ng-disabled="controller.isWorkFlowRunning()"
+                ng-click="controller.deleteDashboard(dashboard.id)"
+                title="Delete dashboard"
+                >
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        </button>
+        <button class="btn btn-default"
+                ng-click="controller.cloneDashboard(dashboard.id)"
+                title="Clone dashboard"
+                >
+            <span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
+        </button>
+        <a class="btn btn-default"
+           id="exportDashboardLink"
+           title="Export Dashboard Configuration"
+           ng-click="controller.modifyExportLink()"
+           href="api/dashboards/export/{{ dashboard.id }}?x=1">
+            <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+        </a>
+    </div>
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-4">
+    </div>
+</div>
+
+<div class="row" ng-show="controller.isWorkFlowRunning()">
+    <div class="col-sm-12 col-md-12 col-xs-12">
+        <uib-progressbar
+                ng-class="{ 'progress-striped active' : controller.isWorkFlowRunning() && !controller.isWorkflowPaused() }"
+                max="14"
+                value="14"
+                type="{{ controller.getProgressBarType() }}">
+            <i ng-if="controller.isWorkFlowRunning() && !controller.isWorkflowPaused()">Running..</i>
+            <i ng-if="controller.isWorkflowPaused()">Paused</i>
+        </uib-progressbar>
+    </div>
+</div>
+
+<h2 class="row">
+    <div class="col-sm-1">
+        <img class="dashboard-icon" ng-src="img/{{ controller.getMediumIconFileName(dashboard) }}">
+    </div>
+    <span class="col-sm-11 text-right" style="margin-top: 15px;">
+        {{ dashboard.name }}
+    </span>
+</h2>
+
+<h1 class="page-header">
+</h1>
+
+<div ng-model="dashboard">
+    <div class="list-group" ng-show="dashboard">
+        <div class="list-group-item active">
+            <a ng-click="controller.toggleDashboardInfo()"><span class="glyphicon expandBulletWhite" ng-class="{ 'glyphicon-collapse-down' : !runContext.isDashboardInfoCollapsed, 'glyphicon-expand' : runContext.isDashboardInfoCollapsed }" aria-hidden="true"></span></a> Dashboard Info
+        </div>
+        <div uib-collapse="runContext.isDashboardInfoCollapsed" class="collapse" data-toggle="button">
+            <div class="list-group-item">
+                <div class="text-left dashboardProperty">Dashboard Name</div>
+                <div class="text-right">{{ dashboard.name }}</div>
+            </div>
+            <div class="list-group-item">
+                <div class="text-left dashboardProperty">Process Id</div>
+                <div class="text-right">{{ dashboard.processKey }}</div>
+            </div>
+            <div class="list-group-item">
+                <div class="text-left dashboardProperty">Associated proces state</div>
+                <div class="text-right">{{ dashboard.active ? 'Running' : 'Not Running' }}</div>
+            </div>
+            <div class="list-group-item">
+                <div class="text-left dashboardProperty">Number of configuration options</div>
+                <div class="text-right"><span class="badge">{{ dashboard.config ? dashboard.config.length : 0 }}</span></div>
+            </div>
+            <div class="list-group-item">
+                <div class="text-left dashboardProperty">Number of monitors</div>
+                <div class="text-right"><span class="badge">{{ dashboard.monitors ? dashboard.monitors.length : 0 }}</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-model="elapsedTime">
+    <div id="runConfig">
+        <div class="list-group" ng-show="controller.isWorkFlowRunning()">
+            <div class="list-group-item active">
+                <a ng-click="controller.toggleProcessInstanceInfo()">
+                    <span class="glyphicon expandBulletWhite" ng-class="{ 'glyphicon-collapse-down' : !runContext.isProcessInstanceInfoCollapsed, 'glyphicon-expand' : runContext.isProcessInstanceInfoCollapsed }" aria-hidden="true"></span>
+                </a> Process Instance Info
+            </div>
+            <div uib-collapse="runContext.isProcessInstanceInfoCollapsed" class="collapse" data-toggle="button">
+                <div class="list-group-item">
+                    <div class="text-left processLaunchConfigProperty">Process instance id</div>
+                    <div class="text-right">{{ dashboard.processInstanceId ? dashboard.processInstanceId : 'N\\A' }}</div>
+                </div>
+                <div class="list-group-item">
+                    <div class="text-left processLaunchConfigProperty">Process started at:</div>
+                    <div class="text-right">{{ dashboard.processStarted | date : 'yyyy-MM-dd HH:mm:ss Z' }}</div>
+                </div>
+                <div class="list-group-item">
+                    <div class="text-left processLaunchConfigProperty">Time elapsed:</div>
+                    <div class="text-right">
+                        <b>{{ controller.calculateElapsedHours(elapsedTime) }}</b> <span ng-show="elapsedTime > 0">h</span> <b>{{ controller.calculateElapsedMinutes(elapsedTime) }}</b> <span ng-show="elapsedTime > 0">min</span> <b>{{ controller.calculateElapsedSeconds(elapsedTime) }}</b> <span ng-show="elapsedTime > 0">sec</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ul class="list-group" ng-show="controller.isWorkFlowRunning()">
+            <li class="list-group-item active">
+                <a ng-click="controller.toggleProcessConfigurationParametersInfo()">
+                    <span class="glyphicon expandBulletWhite" ng-class="{ 'glyphicon-collapse-down' : !runContext.isProcessConfigurationParametersInfoCollapsed, 'glyphicon-expand' : runContext.isProcessConfigurationParametersInfoCollapsed }" aria-hidden="true"></span>
+                </a>
+                Process Configuration Parameters
+            </li>
+
+            <li uib-collapse="runContext.isProcessConfigurationParametersInfoCollapsed" class="collapse" data-toggle="button">
+                <table class="readOnlyConfigItems" id="selectableConfigItems">
+                    <thead>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="workflowParam in dashboard.config"
+                            id="{{ 'config_param_' + $index }}"
+                            ng-click="controller.onSelectConfigParamRow('config_param_' + $index)">
+                            <td>{{ workflowParam.name }}:</td>
+                            <td class="text-right" ng-if="workflowParam.value">{{ workflowParam.value }}</td>
+                            <td class="text-right" ng-if="!workflowParam.value"><code>N\A</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+        </ul>
+    </div>
+
+    <div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-1"
+                 ng-repeat="widget in dashboard.monitors"
+                 popover-trigger="mouseenter"
+                 uib-popover-html="getPopoverContentForWidget(widget)"
+                 popover-title="Monitor status"
+                 popover-placement="top">
+
+                <div class="monitorStatus">
+                    <img ng-src="{{ controller.getMonitorImageUrl(widget) }}">
+                    <div class="monitorLabel">
+                        {{ widget.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="processProgressImageContainer">
+        <h4 class="page-header text-right">Process Workflow Progress</h4>
+        <div>
+            <div>
+                <uib-alert type="warning" ng-cloak class="ng-cloak" ng-show="controller.hasWaitingUserTasks()">
+                    There are user tasks waiting for your action!
+                </uib-alert>
+                <div>
+                    <button type="button"
+                            id="processWorkflowPanelToggleButton"
+                            data-toggle="button"
+                            class="btn btn-default"
+                            ng-click="controller.toggleProcessWorkflowPanel()"
+                            ng-disabled="!controller.isWorkFlowRunning()"
+                            >
+                        <img src="img/flowChart48x48.png">
+                    </button>
+                    <button type="button"
+                            class="btn btn-default"
+                            ng-click="controller.openWaitingUserTasksDialogue()"
+                            ng-show="controller.hasWaitingUserTasks()"
+                            title="Show user tasks"
+                            ng-disabled="runContext.disableUserTaskButton">
+                        <img src="img/facelessUser48x48.png">
+                    </button>
+                    <button type="button"
+                            class="btn btn-default"
+                            ng-click="controller.openStuckJobsDialogue()"
+                            ng-show="controller.hasStuckJobs()"
+                            ng-disabled="runContext.disableStuckJobsButton"
+                            title="Show stuck jobs"
+                            >
+                        <img src="img/notificationWarning48x48.png">
+                    </button>
+
+                </div>
+            </div>
+            <div uib-collapse="runContext.isProcessWorkflowPanelCollapsed" class="collapse collapsibleProcessWorkflowPanel">
+                <div ng-if="controller.hasNoProcessInformation()" class="processWorkflowImagePanel text-center">
+                    <img src="img/spinner64x64.gif">
+                </div>
+
+                <div ng-repeat="(procInstId, proc) in runContext.procInstanceIdsMap" class="underlinedBlock">
+                    <div>
+                        <input type="checkbox"
+                               placeholder="Check to show diagram"
+                               ng-model="proc.show"
+                                >
+                        <label>{{ proc.title }}</label>
+                    </div>
+                    <div ng-if="proc.show" class="processWorkflowImagePanel text-center">
+                        <img ng-src="{{ proc.imgUrl }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="logsContainer" class="logsContainer">
+        <h4 class="page-header text-right">Process Logs</h4>
+
+        <div>
+            <button type="button"
+                    id="logPanelToggleButton"
+                    data-toggle="button"
+                    class="btn btn-default"
+                    ng-click="controller.toggleLogPanel()">
+                <img src="img/logFile48x48.png">
+            </button>
+            <div uib-collapse="runContext.isLogPanelCollapsed" class="collapse" style="margin-top: 10px;">
+                <div class="logPanel">
+                    <div id="logFilterExpandButton">
+                        <nav>
+                            <ul class="pager">
+                                <li class="previous">
+                                    <a href="" ng-click="controller.toggleLogFilterPanel()">
+                                        {{ runContext.isLogFilterPanelCollapsed ? '+ Expand Log Filter' : '- Collapse Log Filter' }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div uib-collapse="runContext.isLogFilterPanelCollapsed" class="collapse logFilterPanel">
+                        <div>
+                        <table class="table">
+                            <thead>
+                            <tr class="row">
+                                <th class="col-md-4 text-left">Filter by</th>
+                                <th class="col-md-8 text-right">Value</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="row">
+                                <td class="col-md-4 text-left"><h4>Date</h4></td>
+                                <td class="col-md-8 text-right">
+                                    <p class="input-group">
+                                        <input type="text"
+                                               class="form-control"
+                                               uib-datepicker-popup="dd-MMMM-yyyy"
+                                               ng-model="runContext.tmpDateFilter"
+                                               is-open="runContext.isDatePickerOpened"
+                                               close-text="Close" />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" ng-click="controller.openDatePicker($event)">
+                                                    <i class="glyphicon glyphicon-calendar"></i>
+                                                </button>
+                                            </span>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr class="row" ng-class="{ 'levelFilterHighlight' : runContext.levelFilterString !== 'ALL' }">
+                                <td class="col-md-4 text-left"><h4>Level</h4></td>
+                                <td class="col-md-8 text-left">
+                                    <div class="btn-group" uib-dropdown>
+                                        <button type="button"
+                                                class="btn dropdown-toggle"
+                                                uib-dropdown-toggle>
+                                            {{ runContext.tmpLevelFilterString }}
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="" ng-click="controller.setLevelFilterString('ALL')">ALL</a></li>
+                                            <li><a href="" ng-click="controller.setLevelFilterString('INFO')">INFO</a></li>
+                                            <li><a href="" ng-click="controller.setLevelFilterString('WARN')">WARN</a></li>
+                                            <li><a href="" ng-click="controller.setLevelFilterString('ERROR')">ERROR</a></li>
+                                            <li><a href="" ng-click="controller.setLevelFilterString('SEVERE')">SEVERE</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="row" ng-class="{ 'categoryFilterHighlight' : runContext.categoryFilterString }">
+                                <td class="col-md-4 text-left"><h4>Category</h4></td>
+                                <td class="col-md-8 text-right">
+                                    <input type="text" class="form-control" placeholder="Category" ng-model="runContext.tmpCategoryFilterString" value="{{ runContext.tmpCategoryFilterString }}">
+                                </td>
+                            </tr>
+                            <tr class="row" ng-class="{ 'tagFilterHighlight' : runContext.tagFilterString }">
+                                <td class="col-md-4 text-left"><h4>Tag</h4></td>
+                                <td class="col-md-8 text-right">
+                                    <input type="text" class="form-control" placeholder="Tag" ng-model="runContext.tmpTagFilterString" value="{{ runContext.tmpTagFilterString }}">
+                                </td>
+                            </tr>
+                            <tr class="row" ng-class="{ 'processInstanceIdFilterHighlight' : runContext.procRun }">
+                                <td class="col-md-4 text-left"><h4>Process runs</h4></td>
+                                <td class="col-md-8 text-left">
+                                    <div class="btn-group processRunsDropDown" uib-dropdown>
+                                        <button type="button"
+                                                class="btn dropdown-toggle"
+                                                ng-click="controller.loadHistoricalRuns()"
+                                                uib-dropdown-toggle>
+                                            <div ng-if="runContext.tmpProcRun && runContext.tmpProcRun.id >= 0 && !runContext.tmpProcRun.isLive" class="text-left">
+                                                <span><b>Id:</b> {{ runContext.tmpProcRun.id }} | <b>Start Time:</b> {{ runContext.tmpProcRun.startTime | date : 'medium' }} | <b>End Time:</b> {{ runContext.tmpProcRun.endTime | date : 'medium' }} </span>
+                                                <span class="caret text-right"></span>
+                                            </div>
+                                            <div ng-if="runContext.tmpProcRun && runContext.tmpProcRun.isLive" class="text-left">
+                                                <b>Id:</b> {{ dashboard.processInstanceId }} | <b>Start Time:</b> {{ dashboard.processStarted | date : 'medium' }} | <b>Live</b> <span class="caret"></span>
+                                            </div>
+                                            <div ng-if="!runContext.tmpProcRun" class="text-left">
+                                                All <span class="caret"></span>
+                                            </div>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>
+                                                <a href="" ng-click="controller.setProcRun(null)">
+                                                    All
+                                                </a>
+                                            </li>
+                                            <li ng-show="controller.isWorkFlowRunning()">
+                                                <a href="" ng-click="controller.setLiveProcRun(dashboard.processInstanceId)">
+                                                    <b>Id:</b> {{ dashboard.processInstanceId }} | <b>Start Time:</b> {{ dashboard.processStarted | date : 'medium' }} | <b>Live</b>
+                                                </a>
+                                            </li>
+                                            <li ng-repeat="procRun in runContext.procRuns">
+                                                <a href="" ng-click="controller.setProcRun(procRun)">
+                                                    <b>Id:</b> {{ procRun.id }} | <b>Start Time:</b> {{ procRun.startTime | date : 'medium' }} | <b>End Time:</b> {{ procRun.endTime | date : 'medium' }}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="row" ng-show="controller.isWorkFlowRunning() && (!runContext.procRun || runContext.procRun.isLive)">
+                                <td class="col-md-4 text-left"><h4>Is log polling on? (Works without Applying)</h4></td>
+                                <td class="col-md-8 text-left">
+                                    <input type="checkbox"
+                                           class=""
+                                           placeholder="Check to switch on or off live log polling"
+                                           ng-model="runContext.isLogPollingOn"
+                                           >
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-xs btn-primary" aria-label="Apply" ng-click="controller.applyFilter()" ng-disabled="!controller.canApplyFilter()">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                Apply
+                            </button>
+                            <button type="button" class="btn btn-xs btn-default" aria-label="Reset" ng-click="controller.resetFilter()" ng-disabled="!controller.canResetFilter()">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button type="button"
+                                id="logBrowsingModeToggleButton"
+                                data-toggle="button"
+                                class="btn btn-default"
+                                ng-click="controller.toggleLogBrowsingMode()">
+                            <span ng-if="!runContext.isInfiniteScrollingMode"><b>Pagination</b>\Scrolling</span>
+                            <span ng-if="runContext.isInfiniteScrollingMode">Pagination\<b>Scrolling</b></span>
+                        </button>
+                        <button type="button" class="btn btn-primary" aria-label="Clear All Logs" ng-click="controller.clearAllLogs()" ng-disabled="!controller.hasLogs()">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            Clear All Logs
+                        </button>
+                    </div>
+                    <div>
+                        <br/>
+                        Showing logs for the following applied filter parameters:<br/><br/>
+
+                        <div class="list-group">
+                            <div class="list-group-item" ng-class="{ 'categoryFilterHighlight' : runContext.categoryFilterString }">
+                                <div class="text-left filterSummaryValue">Category</div>
+                                <div class="text-right">
+                                    <span ng-if="runContext.categoryFilterString">
+                                        <b>{{ runContext.categoryFilterString }}</b>
+                                    </span>
+                                    <span ng-if="!runContext.categoryFilterString">
+                                        &lt;Empty&gt;
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="list-group-item" ng-class="{ 'tagFilterHighlight' : runContext.tagFilterString }">
+                                <div class="text-left filterSummaryValue">Tag</div>
+                                <div class="text-right">
+                                    <span ng-if="runContext.tagFilterString">
+                                        <b>{{ runContext.tagFilterString }}</b>
+                                    </span>
+                                    <span ng-if="!runContext.tagFilterString">
+                                        &lt;Empty&gt;
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="list-group-item">
+                                <div class="text-left filterSummaryValue">Level</div>
+                                <div class="text-right"><b>{{ runContext.levelFilterString }}</b></div>
+                            </div>
+                            <div class="list-group-item" ng-class="{ 'processInstanceIdFilterHighlight' : runContext.procRun }">
+                                <div class="text-left filterSummaryValue">Run</div>
+                                <div class="text-right">
+                                    <div ng-if="runContext.procRun && runContext.procRun.id >= 0 && !runContext.procRun.isLive" >
+                                        <span><b>Id:</b> {{ runContext.procRun.id }} | <b>Start Time:</b> {{ runContext.procRun.startTime | date : 'medium' }} | <b>End Time:</b> {{ runContext.procRun.endTime | date : 'medium' }} </span>
+                                    </div>
+                                    <div ng-if="runContext.procRun && runContext.procRun.isLive">
+                                        <span><b>Live</b> [<b>Id:</b> {{ dashboard.processInstanceId }} | <b>Start Time:</b> {{ dashboard.processStarted | date : 'medium' }}]</span>
+                                    </div>
+                                    <div ng-if="!runContext.procRun">
+                                        <b>ALL</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="logContentPanel">
+                        <table class="table noBorder logTable">
+                            <thead>
+                                <tr class="row noBorder">
+                                    <th class="col-md-1 text-left" >#</th>
+                                    <th class="col-md-1 text-left">Id</th>
+                                    <th class="col-md-1 text-left" ng-class="{ 'processInstanceIdFilterHighlight' : runContext.procRun }">Proc Inst Id</th>
+                                    <th class="col-md-2 text-left">Date</th>
+                                    <th class="col-md-2 text-left">Level</th>
+                                    <th class="col-md-2 text-left" ng-class="{ 'categoryFilterHighlight' : runContext.categoryFilterString }">Category</th>
+                                    <th class="col-md-3 text-left" ng-class="{ 'tagFilterHighlight' : runContext.tagFilterString }">Tag</th>
+                                </tr>
+                            </thead>
+
+                            <tbody infinite-scroll="controller.fetchScrolledLogChunk()">
+                                <tr class="row noBorder"
+                                    ng-repeat-start="logEntry in controller.getDisplayLogEntries()"
+                                    ng-class="{ 'exceptionLogEntry' : logEntry.level === 'ERROR', 'logTableEvenRowHighlight' : $even && logEntry.level !== 'ERROR', 'logTableOddRowHighlight' : $odd && logEntry.level !== 'ERROR' }">
+                                    <td class="col-md-1 text-left"><b>{{ $index + 1 }}</b></td>
+                                    <td class="col-md-1 text-left">{{ logEntry.id }}</td>
+                                    <td class="col-md-1 text-left" ng-class="{ 'processInstanceIdFilterHighlight' : runContext.procRun }">{{ logEntry.processInstanceId }}</td>
+                                    <td class="col-md-2 text-left">{{ logEntry.timestamp | date:'yyyy-MM-dd HH:mm:ss Z' }}</td>
+                                    <td class="col-md-2 text-left">{{ logEntry.level }}</td>
+                                    <td class="col-md-2 text-left" ng-class="{ 'categoryFilterHighlight' : runContext.categoryFilterString }">{{ logEntry.category }}</td>
+                                    <td class="col-md-3 text-left" ng-class="{ 'tagFilterHighlight' : runContext.tagFilterString }">{{ logEntry.tag }}</td>
+                                </tr>
+                                <tr class="row noBorder"
+                                    ng-class="{ 'exceptionLogEntry' : logEntry.level === 'ERROR', 'logTableEvenRowHighlight' : $even && logEntry.level !== 'ERROR', 'logTableOddRowHighlight' : $odd && logEntry.level !== 'ERROR' }"
+                                    ng-repeat-end>
+                                    <td colspan="7"
+                                        class="col-md-12 text-left">
+                                        <p ng-repeat="message in controller.formatLogMessage(logEntry) track by $index">{{ message }}<br/></p>
+                                    </td>
+                                </tr>
+                                <tr class="row noBorder" ng-show="runContext.isLoadSpinnerOn">
+                                    <td colspan="7" class="col-md-12 text-center">
+                                        <img src="img/spinner64x64.gif">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div ng-show="!runContext.isInfiniteScrollingMode && runContext.logsCount && runContext.logsCount > displayLogsChunk">
+                            <uib-pagination id="logViewPagination"
+                                        total-items="runContext.logsCount"
+                                        ng-model="runContext.currentLogPageNumber"
+                                        items-per-page="displayLogsChunk"
+                                        max-size="10"
+                                        class="pagination-sm"
+                                        boundary-links="true"
+                                        rotate="false"
+                                        num-pages="runContext.totalPages"
+                                        ng-change="controller.onLogPageChanged()"
+                                        ng-disabled="isPaginationDisabled"
+                                    >
+                            </uib-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+ 
+<!--
+ @Tas(testBed = [
+	{name=com.ca.apm.tests.testbed.AssistedTriageTestbed, executeOn=saMaster}],
+	owner = katan09,
+	size = BIG,
+	description = 'Assisted Triage TestNg XML suite for WHO feature')
+-->
+
+<suite name="ATTestSuiteforWho" configfailurepolicy="continue"> 
+		<test name="testng.TestCaseForWho_suite" preserve-order="true">
+		<classes>	
+			
+			<class name="com.ca.apm.tests.test.TestCaseForWhy">
+			     <methods>
+					   <include name="testCase_ErrorSnap"/>
+					   <include name="testCase_AccUVB"/>	
+					   <include name="testCase_Alerts"/>		
+					   <include name="testCase_Stall"/>	
+			     </methods>
+			</class>
+			<class name="com.ca.apm.tests.test.TestCaseForWho">
+			     <methods>
+					   <include name="testCase_DefaultAnalyst"/>	
+					   <include name="testCase_ProblemAnomaly"/>
+					   <include name="testCase_DBTC"/>			
+			     </methods>
+			</class>
+			<class name="com.ca.apm.tests.test.TestCaseForWhoLMC">
+			     <methods>
+					   <include name="testCase_NoBTSall_with_LMC_as_GF"/>			
+			     </methods>
+			</class>
+			<class name="com.ca.apm.tests.test.TestCaseForMerge">
+			     <methods>
+					   <include name="testCase_DeploymentMerge"/>	
+					   <include name="testCase_StoryMerge"/>		
+			     </methods>
+			</class>
+			<class name="com.ca.apm.tests.test.TestCaseforCrossProcess">
+			     <methods>
+					   <include name="testCase_CrossProcess"/>		
+			     </methods>
+			</class>
+			<class name="com.ca.apm.tests.test.TestCaseForStoryUpdate">
+			     <methods>
+					   <include name="testCase_StoryUpdate"/>		
+			     </methods>
+			</class>
+			<class name="com.ca.apm.tests.test.TestCaseforATInfra">
+                  <methods>
+                        <include name="testCase_cpuResource"/>
+                        <include name= "testCase_heapResource"/>
+                   </methods>
+            </class>
+			<class name="com.ca.apm.tests.test.TestCasesForATLogs">
+                 <methods>
+                        <include name="ATLogs_TestCase_ErrorsAndExcpetionsCheck"/>   
+                </methods>
+            </class>
+		 	<class name="com.ca.apm.tests.test.ValidateStoryIntegrity">
+                 <methods>
+                        <include name="storiesIntegerity_TestCase"/>
+                        <include name="storyEvidencesIntegrity_TestCase"/>
+                 </methods>
+            </class>
+           	<class name="com.ca.apm.tests.test.TestCaseForSuportability">
+            	<methods>
+                    	<include name="testCase_SupportabilityMetrics"/>
+            	</methods>
+            </class>
+            
+            <class name="com.ca.apm.tests.test.TestCaseForRest">
+                  <methods>
+                        <include name="testCase_NoOfStories"/>
+                        <include name= "testCase_StoryClosing"/>
+                   </methods>
+            </class>
+
+		 	<class name="com.ca.apm.tests.test.AtKillSwitch">
+               	<methods>
+                        <include name="atKillSwitch_TestCase"/>
+            	</methods>
+            </class>
+		</classes>
+        </test>
+</suite>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<call-job-stack>
+	<name>One_In_2_Of_10000</name>
+	
+	<description></description>
+	<numberOfThreadsToRun>1</numberOfThreadsToRun>
+	<jGate>tcp://USILCA31</jGate>
+	<jGatePort>2008</jGatePort>
+	<serverName>C660IPIC</serverName>
+	<useChannel>false</useChannel>
+	<useCommarea>true</useCommarea>
+	<useDynamicDecoration>false</useDynamicDecoration>
+	<programDataStr></programDataStr>
+	
+	<calledDistributions>
+		<name>One_In_2_Of_10000</name>
+		<minutesToRun>0</minutesToRun>
+		<randomSeed>0</randomSeed>
+		<useCTG>true</useCTG>
+		<useWebServices>false</useWebServices>
+		<calledUnitsOfWork>
+			<proportionOfCalls>5000</proportionOfCalls>
+			<calledTransactions>
+				<transactionID>RUN0001</transactionID>
+				<parameters>100000</parameters>
+			</calledTransactions>
+		</calledUnitsOfWork>
+		<calledUnitsOfWork>
+			<proportionOfCalls>5000</proportionOfCalls>
+			<calledTransactions>
+				<transactionID>RUN0001</transactionID>
+				<parameters>100</parameters>
+			</calledTransactions>
+		</calledUnitsOfWork>
+	</calledDistributions>
+</call-job-stack>

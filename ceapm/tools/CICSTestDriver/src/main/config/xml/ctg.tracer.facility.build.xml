@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<project name="ctg-tracer" basedir="../../../../../.." default="ctg-tracer-zip">
+	<!-- ##########################################################	-->
+	<!-- include the common dispatcher		 		-->
+	<!-- ##########################################################	-->
+     <import file="${basedir}/engineering/buildsystem/ant/buildsystem.xml"/>
+	 <import file="${basedir}/engineering/products/introscope/build/ant1.3/common.parameters.build.ant16.xml" />		
+    <target name="ctg-tracer-init">
+    	<property name="project.home" location="engineering/products/external/Introscope-Sysview/CTGApplicationTracer" />    	   
+    	<property name="common.home" location="engineering/products/external/Common-Integration" />
+    	<property name="ROOT_LIBS" location="${project.home}/../../extlibs"/>
+    	<property name="COMMON_LIBS" location="${ROOT_LIBS}/common"/>
+        <property name="JAVA_SRC_DIR" value="${project.home}/src"/>
+    	<property name="JAVA_TESTS_DIR" value="${project.home}/tests"/>
+        <property name="SCRIPTS_SOURCE_DIR" value="${project.home}/scripts"/>
+    	<property name="BUILD_DIR" value="${project.home}/targets"/>
+    	<property name="JAVA_CLASSES_DIR" value="${BUILD_DIR}/classes"/>
+
+    	<property name="OUTPUT_SHARED_CLASSES_DIR" location="${BUILD_DIR}/tomcat/shared/classes"/>
+       	<property name="OUTPUT_JAR_FILE" value="${BUILD_DIR}/ctg-tracer.jar"/>
+    	<property name="TESTS_JAR_FILE" value="${BUILD_DIR}/ctg-tracer-tests.jar"/>
+    	<property name="target.dir" value="${project.home}/targets"/>
+    	<property name="TEXT_DIR" value="${BUILD_DIR}/text"/>
+    	<property name="PBD_FILE_NAME" value="CTG_ECI_Tracer_For_SYSVIEW.pbd"/>
+    	<property name="PROFILE_TEMPLATE_FILE_NAME" value="Cross-Enterprise_APM_CTG_Config_Template.profile"/>
+    	<property name="PROFILE_COMMAREA_TEMPLATE_FILE_NAME" value="Cross-Enterprise_APM_CTG_Config_COMMAREA_Template.profile"/>
+    	
+    	<property name="PPZOS.SYSVIEW.AGENT.EXT.DIR"   value="${basedir}/engineering2/external/sysview/targets/I.SYSVIEW_AgentExtensions"/>
+
+        <path id="common.class.path">      	     	
+    	   	<fileset dir="${common.home}/libs">
+    	   		<include name="log4j*.jar"/>
+    	   	</fileset>         	    
+        	<fileset dir="engineering/products/external/Introscope-Sysview/data">
+        		<include name="Agent.jar"/>
+        	</fileset>
+        	<fileset dir="${common.home}/IBM/CICS Transaction Gateway/7.2/classes">
+        		<include name="*.jar"/>
+        	</fileset>
+        	<fileset dir="${common.home}/libs">
+        		<include name="javax.servlet.jar"/>
+        	</fileset>
+    	</path>
+
+
+    </target>
+    
+	<target name="ctg-tracer-clean" depends="ctg-tracer-init">	
+        <delete dir="${BUILD_DIR}"/>	
+		<mkdir dir="${BUILD_DIR}"/>			
+		<mkdir dir="${JAVA_CLASSES_DIR}"/>
+		<mkdir dir="${TEXT_DIR}"/>
+	</target>
+
+	<target name="ctg-param-substitution" depends="ctg-tracer-init,common.param.check.introscope.all " >		
+			
+			<copy file="${project.home}/wily/${PBD_FILE_NAME}" overwrite="yes" tofile="${TEXT_DIR}/${PBD_FILE_NAME}"/>
+			<copy file="${project.home}/wily/MANIFEST.MF" overwrite="yes" tofile="${TEXT_DIR}/MANIFEST.MF"/>
+						
+			<copy file="${project.home}/wily/${PROFILE_TEMPLATE_FILE_NAME}" overwrite="yes" tofile="${TEXT_DIR}/${PROFILE_TEMPLATE_FILE_NAME}"/>
+			<copy file="${project.home}/wily/${PROFILE_COMMAREA_TEMPLATE_FILE_NAME}" overwrite="yes" tofile="${TEXT_DIR}/${PROFILE_COMMAREA_TEMPLATE_FILE_NAME}"/>
+
+			<echo message="INTROSCOPE.BUILD.NUMBER set to: ${INTROSCOPE.BUILD.NUMBER}" /> 
+	    	<echo message="INTROSCOPE.RELEASE set to: ${INTROSCOPE.RELEASE}" />
+			<!-- substitute all Introscope common parameters -->
+			<antcall target="introscope.parameter.substitution">
+				<param name="PARAMETER.SUBSTITUTION.BASE.DIR" value="${TEXT_DIR}"/>
+				<!-- default of substitute all files is fine -->
+			</antcall>
+	</target>
+	<target name="ctg-tracer-java" depends="ctg-tracer-clean,ctg-param-substitution">
+
+	    <javac15 destdir="${JAVA_CLASSES_DIR}" debug="true">
+	    	<classpath>
+	    	 	<path refid="common.class.path"/>
+				<pathelement location="${PROJECT_UTILITIES}/targets/classes"/>
+	    	</classpath>	    		    	
+		   		
+		    <src path="${JAVA_SRC_DIR}"/>
+	    	<src path="${JAVA_TESTS_DIR}"/>
+		</javac15>	
+		    		
+	</target>
+
+    <target name="ctg-tracer-jar" depends="ctg-tracer-java">
+    	<jar destfile="${OUTPUT_JAR_FILE}" manifest="${TEXT_DIR}/MANIFEST.MF">
+            <fileset dir="${JAVA_CLASSES_DIR}">
+                <include name="com/wily/**"/>
+			</fileset>
+        </jar>	     	
+   	</target>
+	
+	<target name="ctg-tracer-tests-jar" depends="ctg-tracer-java">
+	   	<jar destfile="${TESTS_JAR_FILE}">
+	        <fileset dir="${JAVA_CLASSES_DIR}">
+	            <include name="com/ibm/**"/>
+			</fileset>
+	    </jar>	     	
+	</target>
+	
+    <target name="agent-extensions">
+		<!--get SYSVIEW agent ext plugin from \engineering2\external\sysview\targets\I.SYSVIEW_AgentExtensions dir -->
+		<unzip src="${PPZOS.SYSVIEW.AGENT.EXT.DIR}/SYSVIEW_AgentExtensions_win32.zip"
+			 		dest="${target.dir}"/>
+  	</target>
+	
+ 
+	<target name="ctg-tracer-zip" depends="ctg-tracer-clean,ctg-tracer-jar,ctg-tracer-tests-jar,agent-extensions">
+		<!-- ############################################################# -->
+		<!-- These zips are used during further builds of the common agent -->
+		<!-- In other build scripts they are unzipped and the contents are -->
+		<!-- moved into the directories, core/config, and the examples     -->
+		<!-- directories legacy, and Cross-Enterprise_APM/ext.             -->
+		<!-- ############################################################# -->
+		<zip destfile="${target.dir}/CTG-Tracer.zip">
+		     <zipfileset dir="${target.dir}" includes="ctg-tracer.jar" prefix="ext"/>
+		     <zipfileset dir="${target.dir}/ext" includes="*.jar" prefix="ext"/>
+			 <zipfileset dir="${TEXT_DIR}" includes="${PBD_FILE_NAME}" />
+			 <zipfileset dir="${TEXT_DIR}" includes="${PROFILE_TEMPLATE_FILE_NAME}" />
+		</zip>
+		<tar destfile="${target.dir}/CTG-Tracer.tar">
+		   	<tarfileset dir="${target.dir}" includes="ctg-tracer.jar" mode="755" prefix="ext"/>
+		   	<tarfileset dir="${target.dir}/ext" includes="*.jar" mode="755" prefix="ext"/>
+		   	<tarfileset dir="${TEXT_DIR}" includes="${PBD_FILE_NAME}" mode="755" />		   	
+		   	<tarfileset dir="${TEXT_DIR}" includes="${PROFILE_TEMPLATE_FILE_NAME}" mode="755" />		   	
+		</tar>	
+		
+		<!-- ##########################################################	-->
+		<!-- Below zips are created for development use only			-->
+		<!-- ##########################################################	-->
+		<zip destfile="${target.dir}/CTG-Tracer-DirectInstallToWilyDir.zip">
+		     <zipfileset dir="${target.dir}" includes="ctg-tracer.jar" prefix="core/ext"/>
+		     <zipfileset dir="${target.dir}/ext" includes="*.jar" prefix="core/ext"/>
+			 <zipfileset dir="${TEXT_DIR}" includes="${PBD_FILE_NAME}" prefix="core/config"/>
+			 <zipfileset dir="${TEXT_DIR}" includes="${PROFILE_TEMPLATE_FILE_NAME}"  prefix="core/config"/>
+			 <zipfileset dir="${TEXT_DIR}" includes="${PROFILE_COMMAREA_TEMPLATE_FILE_NAME}"  prefix="core/config"/>
+		</zip>
+		<tar destfile="${target.dir}/CTG-Tracer-DirectInstallToWilyDir.tar">
+		   	<tarfileset dir="${target.dir}" includes="ctg-tracer.jar" mode="755" prefix="core/ext"/>
+		   	<tarfileset dir="${target.dir}/ext" includes="*.jar" mode="755" prefix="core/ext"/>
+		   	<tarfileset dir="${TEXT_DIR}" includes="${PBD_FILE_NAME}" mode="755" prefix="core/config"/>		   	
+		   	<tarfileset dir="${TEXT_DIR}" includes="${PROFILE_TEMPLATE_FILE_NAME}" mode="755"  prefix="core/config"/>		   	
+		   	<tarfileset dir="${TEXT_DIR}" includes="${PROFILE_COMMAREA_TEMPLATE_FILE_NAME}" mode="755"  prefix="core/config"/>		   	
+		</tar>	
+	</target>
+
+</project>
+

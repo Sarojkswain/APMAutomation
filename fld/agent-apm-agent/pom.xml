@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.ca.apm.systemtest</groupId>
+		<artifactId>com.ca.apm.systemtest.parent</artifactId>
+		<version>99.99.dev_SaaS_fix-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.ca.apm.systemtest.fld</groupId>
+	<artifactId>agent-apm-agent</artifactId>
+	<packaging>jar</packaging>
+
+	<name>APM Agent for Load Orchestrator Agent</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.ca.apm.agent</groupId>
+			<artifactId>Agent</artifactId>
+			<version>${project.version}</version>
+            <!-- scope>provided</scope -->
+		</dependency>
+
+        <dependency>
+            <groupId>com.ca.apm.systemtest.fld</groupId>
+            <artifactId>agent</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<index>true</index>
+                        <manifest>
+                            <addClasspath />
+                            <addDefaultImplementationEntries/>
+                            <addDefaultSpecificationEntries/>
+                        </manifest>
+                        <manifestEntries>
+                            <Premain-Class>com.ca.apm.systemtest.fld.agent.apm.agent.AgentApmAgent</Premain-Class>
+                            <!-- Agent-Class>AgentApmAgent</Agent-Class -->
+                        </manifestEntries>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

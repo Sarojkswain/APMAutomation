@@ -1,0 +1,16 @@
+<div ng-controller="PictoGalleryController as controller" uib-dropdown>
+    <button type="button" class="btn btn-default dropdown-toggle" uib-dropdown-toggle>
+        <img ng-src="img/{{ controller.getCurrentMediumIconFileName() }}">
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <table role="grid">
+                <tr ng-repeat="iconsRow in iconsArray track by $index">
+                    <td style="padding: 5px;" class="text-center" role="gridcell" ng-repeat="iconName in iconsRow track by $index">
+                        <a ng-click="controller.onSelect(iconName)"><img ng-src="img/{{ iconName }}32x32.png"></a>
+                    </td>
+                </tr>
+            </table>
+        </li>
+    </ul>
+</div>

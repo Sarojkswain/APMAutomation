@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="fld.install.donet.agent" name="Install .NET Agent from TRUSS" isExecutable="true">
+    <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
+      <extensionElements>
+        <activiti:formProperty id="nodeName" name="nodeName" type="node" variable="nodeName" required="true"></activiti:formProperty>
+        <activiti:formProperty id="useTruss" name="useTruss" type="boolean" variable="useTruss" default="true"></activiti:formProperty>
+        <activiti:formProperty id="dotnetTrussBaseUrl" name="dotnetTrussBaseUrl" type="string" variable="dotnetTrussBaseUrl" default="http://truss.ca.com/builds/InternalBuilds" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dotnetCodeName" name="dotnetCodeName" type="string" variable="dotnetCodeName" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dotnetBuildNumber" name="dotnetBuildNumber" type="string" variable="dotnetBuildNumber" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dotnetBitness" name="dotnetBitness" type="string" variable="dotnetBitness" default="64" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dotnetBuildId" name="dotnetBuildId" type="string" variable="dotnetBuildId" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dotnetEmHost" name="dotnetEmHost" type="string" variable="dotnetEmHost" default="localhost" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dotnetEmPort" name="dotnetEmPort" type="long" variable="dotnetEmPort" default="5001" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <scriptTask id="makeInstallPrefix" name="Make install prefix" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>def  proxy = agentProxyFactory.createProxy(nodeName.toString());
+def dotnet = proxy.plugins.dotnetPlugin;
+dotnet.makeInstallPrefix();
+</script>
+    </scriptTask>
+    <scriptTask id="deleteAgentDirectory" name="Delete agent directory" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>def  proxy = agentProxyFactory.createProxy(nodeName.toString());
+def dotnet = proxy.plugins.dotnetPlugin;
+dotnet.uninstallAgent();
+dotnet.deleteAgentDirectory();
+</script>
+    </scriptTask>
+    <scriptTask id="scripttask1" name="Fetch .NET agent installer from TRUSS" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>def  proxy = agentProxyFactory.createProxy(nodeName.toString());
+def dotnet = proxy.plugins.dotnetPlugin;
+String file;
+if (useTruss) {
+    file = dotnet.fetchInstallerArtifactFromTruss(dotnetTrussBaseUrl,
+            dotnetCodeName, dotnetBuildNumber, dotnetBuildId,
+            dotnetBitness);
+} else {
+    file = dotnet.fetchInstallerArtifactFromArtifactory("10.1.0-SNAPSHOT", "64", null);
+    file = dotnet.unzipInstallerArtifact();
+}</script>
+    </scriptTask>
+    <scriptTask id="installDotNetAgent" name="Install .NET agent" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import com.ca.apm.systemtest.fld.plugin.dotnet.Configuration;
+
+def  proxy = agentProxyFactory.createProxy(nodeName.toString());
+def dotnet = proxy.plugins.dotnetPlugin;
+Configuration config = new Configuration();
+config.enableSpp = true;
+dotnet.installAgent(dotnetEmHost, (int)dotnetEmPort, config);
+</script>
+    </scriptTask>
+    <sequenceFlow id="flow3" sourceRef="makeInstallPrefix" targetRef="deleteAgentDirectory"></sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="deleteAgentDirectory" targetRef="scripttask1"></sequenceFlow>
+    <sequenceFlow id="flow5" sourceRef="scripttask1" targetRef="installDotNetAgent"></sequenceFlow>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow7" sourceRef="installDotNetAgent" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow8" sourceRef="startevent1" targetRef="makeInstallPrefix"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.install.donet.agent">
+    <bpmndi:BPMNPlane bpmnElement="fld.install.donet.agent" id="BPMNPlane_fld.install.donet.agent">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="90.0" y="80.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="makeInstallPrefix" id="BPMNShape_makeInstallPrefix">
+        <omgdc:Bounds height="55.0" width="105.0" x="173.0" y="70.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="deleteAgentDirectory" id="BPMNShape_deleteAgentDirectory">
+        <omgdc:Bounds height="55.0" width="121.0" x="365.0" y="70.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
+        <omgdc:Bounds height="65.0" width="105.0" x="553.0" y="65.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="installDotNetAgent" id="BPMNShape_installDotNetAgent">
+        <omgdc:Bounds height="55.0" width="105.0" x="730.0" y="70.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="920.0" y="80.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="278.0" y="97.0"></omgdi:waypoint>
+        <omgdi:waypoint x="365.0" y="97.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="486.0" y="97.0"></omgdi:waypoint>
+        <omgdi:waypoint x="553.0" y="97.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="658.0" y="97.0"></omgdi:waypoint>
+        <omgdi:waypoint x="730.0" y="97.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="835.0" y="97.0"></omgdi:waypoint>
+        <omgdi:waypoint x="920.0" y="97.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="125.0" y="97.0"></omgdi:waypoint>
+        <omgdi:waypoint x="173.0" y="97.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

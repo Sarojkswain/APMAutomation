@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE scenario SYSTEM "./dtd/PipeOrganScenario.dtd">
+
+<!-- Problem Scenario for story updated events. Generates 3 alerts on different ExecutorServlets. -->
+
+<scenario>
+	<iterateEvent count="3" interval="100">
+		<servlet milestones="no" uri="ExecutorServlet_13" 
+	   		port="8080" host="localhost" 
+	   		receiveError="yes" x-apm-bt="t=4F2504E0-4F89-9B0C-0305E82C2301;d=2b6f0cc904d137be2e1730235f5664094b831186;v=1.0;n=VERIZON;l=3g;g=94015-1523;a=Tomcat Example$bs=PipeOrganApp;bt=User_Story_Updated;p=iOS;pv=9.3">
+	   		<servlet milestones="no" uri="ExecutorServlet_14" port="8080" host="localhost" receiveError="yes">
+				<custom class="com.wily.tools.pipeorgan.extensions.VariableWait" args="minduration=800,maxduration=1000,outlierduration=1000"/>
+			</servlet>
+   		</servlet> 
+   </iterateEvent>
+</scenario>

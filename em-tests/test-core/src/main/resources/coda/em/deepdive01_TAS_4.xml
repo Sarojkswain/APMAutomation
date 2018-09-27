@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2016 CA.  All rights reserved.
+  ~
+  ~ This software and all information contained therein is confidential and
+  ~ proprietary and shall not be duplicated, used, disclosed or disseminated in
+  ~ any way except as authorized by the applicable license agreement, without
+  ~ the express written permission of CA. All authorized reproductions must be
+  ~ marked with this language.
+  ~
+  ~ EXCEPT AS SET FORTH IN THE APPLICABLE LICENSE AGREEMENT, TO THE EXTENT
+  ~ PERMITTED BY APPLICABLE LAW, CA PROVIDES THIS SOFTWARE WITHOUT WARRANTY OF
+  ~ ANY KIND, INCLUDING WITHOUT LIMITATION, ANY IMPLIED WARRANTIES OF
+  ~ MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  IN NO EVENT WILL CA BE
+  ~ LIABLE TO THE END USER OR ANY THIRD PARTY FOR ANY LOSS OR DAMAGE, DIRECT OR
+  ~ INDIRECT, FROM THE USE OF THIS SOFTWARE, INCLUDING WITHOUT LIMITATION, LOST
+  ~ PROFITS, BUSINESS INTERRUPTION, GOODWILL, OR LOST DATA, EVEN IF CA IS
+  ~ EXPRESSLY ADVISED OF SUCH LOSS OR DAMAGE.
+  -->
+<codaSuite xmlns="http://www.ca.com/2013/tasCodaSuite">
+	<name>APMRegression/common/apmbase/func_apmbase_em_deep_test_TAS_4.xml</name>
+	<testBeds>
+		<testbedConfigs>
+			<testBedName>com.ca.apm.tests.coda.testbed.EmDeepdiveTestbed</testBedName>
+		</testbedConfigs>
+	</testBeds>
+	<genericProperties>
+        <properties key="coda.logic.mercurial.branch" value="{codaLogicMercurialBranch}"/>
+        <properties key="coda.logic.mercurial.source" value="ssh://hg@{oerthRegionalMirror}.ca.com/apm/coda-logic"/>
+        <properties key="overrides.coda.site" value="tas"/>
+        <properties key="overrides.role_client.java_v2.email.feature.enabled" value="{emailEnabled}"/>
+        <properties key="overrides.role_client.java_v2.email.recipients" value="{emailRecipients}"/>
+        <properties key="overrides.versions.agent.build.number" value="{artifactVersion}"/>
+        <properties key="overrides.versions.agent.build.suffix" value="{fullProductVersion}"/>
+        <properties key="overrides.versions.agent.code.name" value="default"/>
+        <properties key="overrides.versions.introscope.build.number" value="{artifactVersion}"/>
+        <properties key="overrides.versions.introscope.build.suffix" value="{fullProductVersion}"/>
+        <properties key="overrides.versions.introscope.code.name" value="default"/>
+        <properties key="overrides.versions.osgi" value="{productVersion}"/>
+        <properties key="testvariant.files" value="APMRegression/variants/deepregression.var.xml,qa/bat/introscope/variants/newconfig.var.xml"/>
+        <properties key="test.result.regex" value=".*junitreports.(?!TEST-).*\.xml"/>
+	</genericProperties>
+	<type>CODA:Suite</type>
+	<owner>myspe01</owner>
+	<description>EM Deep1 part 4 - Domain permissions</description>
+	<size>COLOSSAL</size>
+	<group>coda</group>
+	<executeOn>controllerMachine</executeOn>
+</codaSuite>

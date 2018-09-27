@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [{name=com.ca.apm.systemtest.fld.testbed.FLDMainClusterTestbed, executeOn=fldControllerMachine}],
+	owner = filja01,
+	size = HUMONGOUS,
+	group = [fld-load-test],
+	snapshotPolicy = ON_FAILURE,
+	snapshot = DEAD,
+	description = 'Testing TestNg XML suite')
+-->
+<suite name="TestSuite" parallel="methods" thread-count="23">
+	<test name="testNgSuiteFLD">
+		<classes>
+			<class name="com.ca.apm.systemtest.fld.test.loads.ConfigureTessLoadTest" />
+			<class name="com.ca.apm.systemtest.fld.test.FullLoadDurationTest" />
+			<class name="com.ca.apm.systemtest.fld.test.FlexLoadTest" />
+			<class name="com.ca.apm.systemtest.fld.test.FLDWebViewLoadTest" />
+			<class name="com.ca.apm.systemtest.fld.test.FldHammondLoadTest" />
+			<class name="com.ca.apm.systemtest.fld.test.FLDJMeterLoadTest" /> 
+			<class name="com.ca.apm.systemtest.fld.test.FLDGeolocationLoadTest" />
+			<class name="com.ca.apm.systemtest.fld.test.WebLogicServerSOALoadTest" />
+			<class name="com.ca.apm.systemtest.fld.test.HVRAgentLoadTest" />
+			<class name="com.ca.apm.systemtest.fld.test.loads.MetricSynthLoadTest" />
+			<class name="com.ca.apm.systemtest.fld.test.FLDEntityAlertLoadTest" />
+			<class name="com.ca.apm.systemtest.fld.test.FLDFakeWorkStationLoadTest" />
+			<class name="com.ca.apm.systemtest.fld.test.FLDRealWorkstationTest" />
+			<class name="com.ca.apm.systemtest.fld.test.FLDACCLoadTest" />
+			<class name="com.ca.apm.systemtest.fld.test.FLDCLWLoadTest" />
+			<class name="com.ca.apm.systemtest.fld.test.FLDMemoryMonitorLoadTest" />
+			<class name="com.ca.apm.systemtest.fld.test.WlsCrossClusterLoadTest" />
+			<class name="com.ca.apm.systemtest.fld.test.FLDAgentDynamicInstrumentationTest" />
+			<class name="com.ca.apm.systemtest.fld.test.RunAgentRecordingSessionsTest" />
+			<class name="com.ca.apm.systemtest.fld.test.RunTIMRecordingSessionsTest" />
+			<class name="com.ca.apm.systemtest.fld.test.APMJDBCQueryLoadTest" />
+			<class name="com.ca.apm.systemtest.fld.test.HistoricalMetricLoadTest" />
+			<class name="com.ca.apm.systemtest.fld.test.FLDCEMTessLoadTest" />
+		</classes>
+	</test>
+</suite>

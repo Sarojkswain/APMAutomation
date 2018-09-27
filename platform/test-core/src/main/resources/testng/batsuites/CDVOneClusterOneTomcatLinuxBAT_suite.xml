@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.CDVOneClusterOneTomcatLinuxTestbed, executeOn=cdvMachine}],
+	  owner = ketsw01,
+	  size = COLOSSAL,
+	  description = 'TestNg XML suite for all cdv tests'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="CDVOneClusterOneTomcatLinuxTests" configfailurepolicy="continue">
+	<groups>
+    	<run>
+      		<include name="BAT"/>
+    	</run>
+	</groups>
+	<test name="CDVOneClusterOneTomcatLinuxTests" preserve-order="true">
+		<classes>
+			<class name = "com.ca.apm.tests.cdv.CDVOneClusterOneTomcatTests" />
+		</classes>
+	</test>
+</suite>

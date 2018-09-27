@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<!--
+	@Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.BPEMLinuxTestbed, executeOn=momMachine}],
+	  owner = balra06,
+	  size = COLOSSAL,
+	  description = 'BPEM TestNg XML suite for all linux tests'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="BPEMLinuxTests" configfailurepolicy="continue">
+	<test name="BPEMLinuxTests" preserve-order="true">		
+		<classes>
+			<class name="com.ca.apm.tests.bpem.BPEMTests">
+			</class>
+		</classes>
+	</test>
+</suite>
+		

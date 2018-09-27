@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <signal id="EndMonitorSignal" name="EndMonitorSignal"></signal>
+  <process id="fld.check.emmom.running" name="Check EM MOM is running" isExecutable="true">
+    <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
+      <extensionElements>
+        <activiti:formProperty id="nodeName" name="nodeName" type="string" variable="nodeName" required="true"></activiti:formProperty>
+        <activiti:formProperty id="statusVariable" name="statusVariable" type="string" variable="statusVariable" required="true"></activiti:formProperty>
+        <activiti:formProperty id="port" name="port" type="long" variable="port" default="5001" required="true"></activiti:formProperty>
+        <activiti:formProperty id="timeout" name="timeout" type="long" variable="timeout" default="120" required="true"></activiti:formProperty>
+        <activiti:formProperty id="delay" name="delay" type="long" variable="delay" default="10" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <subProcess id="checkEMMOMisRunning" name="Check periodically">
+      <startEvent id="startevent2" name="Start"></startEvent>
+      <scriptTask id="checkTask" name="Check listening" scriptFormat="groovy" activiti:autoStoreVariables="false">
+        <script>
+        import java.io.IOException;
+        import java.net.InetSocketAddress;
+        import java.net.Socket;
+        import java.net.SocketAddress;
+        import java.net.SocketTimeoutException;
+        import java.net.UnknownHostException;
+
+        Socket s = null;
+        try {
+          s = new Socket();
+          s.setReuseAddress(true);
+          SocketAddress sa = new InetSocketAddress(nodeName, (int) port);
+          s.connect(sa, (int) (timeout * 1000));
+        } catch (IOException e) {
+          execution.setVariable(statusVariable, false);
+        } finally {
+          if (s != null) {
+            if (s.isConnected()) {
+              execution.setVariable(statusVariable, true);
+            } else {
+              execution.setVariable(statusVariable, false);
+            }
+            try {
+              s.close();
+            } catch (IOException e) {
+            }
+          }
+        }
+        </script>
+      </scriptTask>
+      <intermediateCatchEvent id="sleep" name="Sleep">
+        <timerEventDefinition>
+          <timeDuration>PT${delay}M</timeDuration>
+        </timerEventDefinition>
+      </intermediateCatchEvent>
+      <endEvent id="endevent2" name="End"></endEvent>
+      <sequenceFlow id="flow3" sourceRef="startevent2" targetRef="checkTask"></sequenceFlow>
+      <sequenceFlow id="flow4" sourceRef="checkTask" targetRef="sleep"></sequenceFlow>
+      <sequenceFlow id="flow5" sourceRef="sleep" targetRef="checkTask"></sequenceFlow>
+    </subProcess>
+    <boundaryEvent id="signalBoundaryEvent" attachedToRef="checkEMMOMisRunning" cancelActivity="true">
+      <signalEventDefinition signalRef="EndMonitorSignal"></signalEventDefinition>
+    </boundaryEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="checkEMMOMisRunning"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="signalBoundaryEvent" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.check.emmom.running">
+    <bpmndi:BPMNPlane bpmnElement="fld.check.emmom.running" id="BPMNPlane_fld.check.emmom.running">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="459.0" y="52.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkEMMOMisRunning" id="BPMNShape_checkEMMOMisRunning">
+        <omgdc:Bounds height="521.0" width="381.0" x="286.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent2" id="BPMNShape_startevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="465.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkTask" id="BPMNShape_checkTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="430.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sleep" id="BPMNShape_sleep">
+        <omgdc:Bounds height="35.0" width="35.0" x="465.0" y="420.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="465.0" y="530.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="signalBoundaryEvent" id="BPMNShape_signalBoundaryEvent">
+        <omgdc:Bounds height="30.0" width="30.0" x="653.0" y="327.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="790.0" y="324.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="482.0" y="205.0"></omgdi:waypoint>
+        <omgdi:waypoint x="482.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="482.0" y="325.0"></omgdi:waypoint>
+        <omgdi:waypoint x="443.0" y="372.0"></omgdi:waypoint>
+        <omgdi:waypoint x="482.0" y="420.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="482.0" y="420.0"></omgdi:waypoint>
+        <omgdi:waypoint x="517.0" y="372.0"></omgdi:waypoint>
+        <omgdi:waypoint x="482.0" y="325.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="476.0" y="87.0"></omgdi:waypoint>
+        <omgdi:waypoint x="476.0" y="110.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="683.0" y="342.0"></omgdi:waypoint>
+        <omgdi:waypoint x="790.0" y="341.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <transformation id="props">
+        <set-property name="introscope.agent.pmi.enable.beanModule" value="true"/>
+        <set-property name="introscope.agent.pmi.enable.transactionModule" value="true"/>
+        <set-property name="introscope.agent.pmi.enable.webAppModule" value="true"/>
+        <set-property name="introscope.agent.pmi.enable.orbPerfModule" value="true"/>
+        <!--This are changes recommended by Preeti-->
+        <set-property name="introscope.agent.pmi.enable" value="true"/>
+        <set-property name="introscope.agent.pmi.enable.threadPoolModule" value="true"/>
+        <set-property name="introscope.agent.pmi.enable.servletSessionsModule" value="true"/>
+        <set-property name="introscope.agent.pmi.enable.connectionPoolModule" value="true"/>
+        <set-property name="introscope.agent.pmi.enable.beanModule" value="true"/>
+        <set-property name="introscope.agent.pmi.enable.transactionModule" value="true"/>
+        <set-property name="introscope.agent.pmi.enable.webAppModule" value="true"/>
+        <set-property name="introscope.agent.pmi.enable.orbPerfModule" value="true"/>
+        <set-property name="introscope.agent.pmi.enable.j2cModule" value="true"/>
+        <set-property name="introscope.agent.pmi.enable.SIB\ ServiceModule" value="true"/>
+    </transformation>
+
+    <files id="files">
+        <file>${#path}</file>
+    </files>
+
+    <binding id="binding">
+        <transformation-ref id="props"/>
+        <files-ref id="files"/>
+    </binding>
+</configuration>

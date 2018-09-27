@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="PerformanceTestsSuite">
+
+	<!--test name="FiltersPerformanceTest">
+		<parameter name="testIterations" value="100"/>
+		<classes>
+			<class name="com.ca.apm.test.atc.performance.FiltersPerformanceTest"/>
+		</classes>
+	</test-->
+	
+	<test name="TimelinePerformanceTest">
+		<parameter name="testIterations" value="120"/>
+		<classes>
+			<class name="com.ca.apm.test.atc.performance.TimelinePerformanceTest"/>
+		</classes>
+	</test>
+	
+	<test name="ViewTabsPerformanceTest" parallel="false" >
+		<parameter name="testIterations" value="200"/>
+		<classes>
+			<class name="com.ca.apm.test.atc.performance.ViewTabsPerformanceTest"/>
+		</classes>
+	</test>
+	
+</suite>

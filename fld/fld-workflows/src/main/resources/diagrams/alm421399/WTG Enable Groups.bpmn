@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="fld.wtg.enable.groups" name="WTG Enable Groups" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="nodeName" name="nodeName" type="string" variable="nodeName" default="FILJA01W7" required="true"></activiti:formProperty>
+        <activiti:formProperty id="wtghost" name="WTG host" type="string" variable="wtghost" default="fldwls01c.ca.com" required="true"></activiti:formProperty>
+        <activiti:formProperty id="userName" name="User name to WTG" type="string" variable="userName" default="cemadmin" required="true"></activiti:formProperty>
+        <activiti:formProperty id="userPass" name="User pass to WTG" type="string" variable="userPass" default="quality" required="true"></activiti:formProperty>
+        <activiti:formProperty id="medrec" name="Medrec group name" type="string" variable="medrec" default="MedRec" required="true"></activiti:formProperty>
+        <activiti:formProperty id="BRTTestApp" name="BRTTestApp group name" type="string" variable="BRTTestApp" default="w3vwls01_BRTTestApp" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <scriptTask id="OpenWindowAndLogin" name="Open Window And Login" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>
+import com.ca.apm.systemtest.fld.plugin.selenium.SeleniumPlugin.SelectionBy;
+
+def proxy = agentProxyFactory.createProxy(nodeName);
+def sl = proxy.plugins.seleniumPluginChrome;
+
+def sessionId = sl.startSession();
+execution.setVariable('sessionId', sessionId);
+
+def windowId = sl.openUrl(sessionId, "http://"+wtghost+":9090/wtg/login.jsp");
+
+// login
+sl.fillTextField(sessionId, windowId, SelectionBy.ID, "j_username", userName);
+sl.fillTextField(sessionId, windowId, SelectionBy.NAME, "j_password", userPass);
+sl.click(sessionId, windowId, SelectionBy.ID, "loginbutton");
+      </script>
+    </scriptTask>
+    <scriptTask id="CheckGroupsAndEnable" name="Check Groups And Enable" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>
+import com.ca.apm.systemtest.fld.plugin.selenium.SeleniumPlugin.SelectionBy;
+      
+def proxy = agentProxyFactory.createProxy(nodeName);
+def sl = proxy.plugins.seleniumPluginChrome;
+
+def windowId = sl.openUrl(sessionId, "http://"+wtghost+":9090/wtg/realtime/wrmagentview/agentview.jsp?useraction=connect&amp;host=localhost&amp;port=7700");
+
+def xpath = "//table[@id='t_summary_data_scroll']/descendant::tr[td/a[.='"+medrec+"']]/td/descendant::input[@type='checkbox']"
+sl.click(sessionId, windowId, SelectionBy.XPATH, xpath);
+xpath = "//table[@id='t_summary_data_scroll']/descendant::tr[td/a[.='"+BRTTestApp+"']]/td/descendant::input[@type='checkbox']"
+sl.click(sessionId, windowId, SelectionBy.XPATH, xpath);
+
+xpath = "//td[@class='table_navigation_top']/descendant::a[.='Enable']"
+sl.click(sessionId, windowId, SelectionBy.XPATH, xpath);
+      </script>
+    </scriptTask>
+    <scriptTask id="CloseSession" name="Close Session" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>
+def proxy = agentProxyFactory.createProxy(nodeName);
+def sl = proxy.plugins.seleniumPluginChrome;
+
+sl.closeSession(sessionId);
+      </script>
+    </scriptTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="OpenWindowAndLogin"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="OpenWindowAndLogin" targetRef="CheckGroupsAndEnable"></sequenceFlow>
+    <sequenceFlow id="flow3" sourceRef="CheckGroupsAndEnable" targetRef="CloseSession"></sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="CloseSession" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.wtg.enable.groups">
+    <bpmndi:BPMNPlane bpmnElement="fld.wtg.enable.groups" id="BPMNPlane_fld.wtg.enable.groups">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="437.0" y="80.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="437.0" y="510.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="OpenWindowAndLogin" id="BPMNShape_OpenWindowAndLogin">
+        <omgdc:Bounds height="61.0" width="110.0" x="400.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="CheckGroupsAndEnable" id="BPMNShape_CheckGroupsAndEnable">
+        <omgdc:Bounds height="61.0" width="111.0" x="399.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="CloseSession" id="BPMNShape_CloseSession">
+        <omgdc:Bounds height="61.0" width="108.0" x="401.0" y="400.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="454.0" y="115.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="160.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="455.0" y="221.0"></omgdi:waypoint>
+        <omgdi:waypoint x="454.0" y="280.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="454.0" y="341.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="400.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="455.0" y="461.0"></omgdi:waypoint>
+        <omgdi:waypoint x="454.0" y="510.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

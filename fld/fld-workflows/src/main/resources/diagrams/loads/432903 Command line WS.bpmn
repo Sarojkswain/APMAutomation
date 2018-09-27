@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="fld.commandline.ws" name="Command Line WS Processs" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="nodeName" name="nodeName" type="string" variable="nodeName" required="true"></activiti:formProperty>
+        <activiti:formProperty id="trussBaseUrl" name="trussBaseUrl" type="string" variable="trussBaseUrl" default="http://truss.ca.com/builds/InternalBuilds" required="true"></activiti:formProperty>
+        <activiti:formProperty id="jarFile" name="jarFile" type="string" variable="jarFile" default="CLWorkstation.jar" required="true"></activiti:formProperty>
+        <activiti:formProperty id="outFile" name="outFile" type="string" variable="outFile" default="FLD.historical.past60.txt" required="true"></activiti:formProperty>
+        <activiti:formProperty id="codeName" name="codeName" type="string" variable="codeName" default="9.7.0-ISCP" required="true"></activiti:formProperty>
+        <activiti:formProperty id="buildNumber" name="buildNumber" type="string" variable="buildNumber" default="990400" required="true"></activiti:formProperty>
+        <activiti:formProperty id="buildId" name="buildId" type="string" variable="buildId" default="9.7.0.31" required="true"></activiti:formProperty>
+        <activiti:formProperty id="delay" name="delay" type="long" variable="delay" default="15" required="true"></activiti:formProperty>
+        <activiti:formProperty id="momHost" name="momHost" type="string" variable="momHost" required="true"></activiti:formProperty>
+        <activiti:formProperty id="momPort" name="momPort" type="string" variable="momPort" default="5001"></activiti:formProperty>
+        <activiti:formProperty id="agentName" name="agentName" type="string" variable="agentName" default=".*1PortletAgent_11.*"></activiti:formProperty>
+        <activiti:formProperty id="metricName" name="metricName" type="string" variable="metricName" default="Backends|.*:Average Response Time \\(ms\\)"></activiti:formProperty>
+        <activiti:formProperty id="momUser" name="momUser" type="string" variable="momUser" default="Admin10"></activiti:formProperty>
+        <activiti:formProperty id="momPassword" name="momPassword" type="string" variable="momPassword" default="Admin10"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <scriptTask id="asyncStart" name="Async start" activiti:async="true" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>
+        Thread.sleep(1);
+      </script>
+    </scriptTask>
+    <scriptTask id="fetchJarFileFromTruss" name="Fetch JAR file from TRUSS" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>
+       	def proxy = agentProxyFactory.createProxy(nodeName);
+       	def emPlugin = proxy.plugins.emPlugin;
+       	emPlugin.fetchArtifact(trussBaseUrl, jarFile, codeName, buildNumber, buildId);
+
+	      dashboardManager.configureMonitoredValue(execution, "fld.monitor.clw.load", "Command Line Workstation load monitor");</script>
+    </scriptTask>
+    <scriptTask id="runJarFile" name="Run JAR file and write output" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>
+       	def proxy = agentProxyFactory.createProxy(nodeName);
+       	def emPlugin = proxy.plugins.emPlugin;
+       	def processHandle = emPlugin.runJarArtifact(jarFile, outFile,
+       		[ "-Xmx256m", "-Duser="+momUser, "-Dpassword="+momPassword, "-Dhost="+momHost, "-Dport="+momPort ] as String[],
+       		[ "get", "historical", "data", "from", "agents", "matching", agentName, "and", "metrics", "matching", metricName, "for", "past", "60", "minutes" ] as String[]);
+       	execution.setVariable('processHandle', processHandle);
+</script>
+    </scriptTask>
+    <intermediateCatchEvent id="sleep" name="Sleep">
+      <timerEventDefinition>
+        <timeDuration>PT${delay}S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="asyncStart"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="asyncStart" targetRef="fetchJarFileFromTruss"></sequenceFlow>
+    <sequenceFlow id="flow3" sourceRef="fetchJarFileFromTruss" targetRef="runJarFile"></sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="runJarFile" targetRef="sleep"></sequenceFlow>
+    <sequenceFlow id="flow5" sourceRef="sleep" targetRef="checkLastCLW"></sequenceFlow>
+    <scriptTask id="checkLastCLW" name="Check last CLW execution" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import com.ca.apm.systemtest.fld.plugin.run2.Run2Plugin;
+
+def processHandle = execution.getVariable('processHandle');
+def proxy = agentProxyFactory.createProxy(nodeName);
+def run2Plugin = proxy.plugins.run2Plugin;
+if (processHandle != null) {
+	def exitValue = run2Plugin.exitValue(processHandle);
+	if (exitValue != Run2Plugin.STILL_RUNNING) {
+ 	   dashboardManager.setMonitoredValue(execution, "fld.monitor.clw.load", exitValue == 0);
+	}
+	run2Plugin.closeHandle(processHandle);
+}
+</script>
+    </scriptTask>
+    <sequenceFlow id="flow6" sourceRef="checkLastCLW" targetRef="runJarFile"></sequenceFlow>
+    <textAnnotation id="textannotation1">
+      <text>Infinite loop, no edge to the end state.</text>
+    </textAnnotation>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.commandline.ws">
+    <bpmndi:BPMNPlane bpmnElement="fld.commandline.ws" id="BPMNPlane_fld.commandline.ws">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="218.0" y="21.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="218.0" y="510.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="asyncStart" id="BPMNShape_asyncStart">
+        <omgdc:Bounds height="65.0" width="105.0" x="183.0" y="111.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="fetchJarFileFromTruss" id="BPMNShape_fetchJarFileFromTruss">
+        <omgdc:Bounds height="65.0" width="105.0" x="183.0" y="231.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="runJarFile" id="BPMNShape_runJarFile">
+        <omgdc:Bounds height="65.0" width="105.0" x="183.0" y="343.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sleep" id="BPMNShape_sleep">
+        <omgdc:Bounds height="35.0" width="35.0" x="469.0" y="450.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="checkLastCLW" id="BPMNShape_checkLastCLW">
+        <omgdc:Bounds height="71.0" width="105.0" x="434.0" y="340.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
+        <omgdc:Bounds height="50.0" width="100.0" x="260.0" y="503.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="235.0" y="56.0"></omgdi:waypoint>
+        <omgdi:waypoint x="235.0" y="111.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="235.0" y="176.0"></omgdi:waypoint>
+        <omgdi:waypoint x="235.0" y="231.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="235.0" y="296.0"></omgdi:waypoint>
+        <omgdi:waypoint x="235.0" y="343.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="235.0" y="408.0"></omgdi:waypoint>
+        <omgdi:waypoint x="235.0" y="467.0"></omgdi:waypoint>
+        <omgdi:waypoint x="469.0" y="467.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="486.0" y="450.0"></omgdi:waypoint>
+        <omgdi:waypoint x="486.0" y="411.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="434.0" y="375.0"></omgdi:waypoint>
+        <omgdi:waypoint x="288.0" y="375.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

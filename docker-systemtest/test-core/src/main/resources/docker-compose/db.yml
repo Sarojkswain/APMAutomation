@@ -1,0 +1,5 @@
+version: '2'
+services:
+
+  db:
+    image: ${IMAGE_REGISTRY}/apm-db:${PROJECT_VERSION}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<call-job-stack>
+	<name>Do 50PerMinuteFor60minutes</name>
+	
+	<description></description>
+	<numberOfThreadsToRun>1</numberOfThreadsToRun>
+	<userID></userID>
+    <password></password>
+	<jGate>tcp://USILCA31</jGate>
+	<jGatePort>2008</jGatePort>
+	<serverName>C660IPIC</serverName>
+	<useChannel>false</useChannel>
+	<useCommarea>true</useCommarea>
+	<useDynamicDecoration>false</useDynamicDecoration>
+	<programDataStr></programDataStr>
+	
+	<calledDistributions>
+		<name>Do 50PerMinuteFor60minutes</name>
+		<minutesToRun>60</minutesToRun>
+		<microsecondsToSleepPerCall>1200000</microsecondsToSleepPerCall>
+		<randomSeed>0</randomSeed>
+		<useCTG>true</useCTG>
+		<useWebServices>false</useWebServices>
+		<calledUnitsOfWork>
+			<proportionOfCalls>1</proportionOfCalls>
+			<calledTransactions>
+				<transactionID></transactionID>
+				<parameters>1</parameters>
+			</calledTransactions>
+		</calledUnitsOfWork>
+	</calledDistributions>
+</call-job-stack>

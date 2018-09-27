@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <bean id="filterChainProxy" class="org.acegisecurity.util.FilterChainProxy">
+        <property name="filterInvocationDefinitionSource">
+            <value>
+                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+                PATTERN_TYPE_APACHE_ANT
+                /**/webservices/operatordataoutservice*=#NONE#
+                /**=httpSessionContextIntegrationFilter,authenticationProcessingFilter,securityEnforcementFilter
+            </value>
+        </property>
+    </bean>
+
+
+    <bean id="filterInvocationInterceptor" class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
+        <property name="authenticationManager"><ref bean="authenticationManager"/></property>
+        <property name="accessDecisionManager"><ref local="httpRequestAccessDecisionManager"/></property>
+        <property name="objectDefinitionSource">
+            <value>
+               CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+                PATTERN_TYPE_APACHE_ANT
+	            /**/system/tang*=System Administrative Settings:ANY:write
+                /**/system/emailsettings*=System Administrative Settings:ANY:write
+                /**/system/tessusage*=System Administrative Settings:ANY:write
+                /**/system/introscopeprobe*=System Administrative Settings:ANY:write
+                /**/system/private*=System Security Settings:ANY:write,Tenant System Security Settings:ANY:write,Access Policy:ANY:write
+                /**/system/fipssettings*=System Security Settings:ANY:write
+                /**/system/accesspolicy*=Access Policy:ANY:write
+				/**/system/**=System Administrative Settings:ANY:write,System Security Settings:ANY:write,Access Policy:ANY:write,Tenant System Security Settings:ANY:write
+				/**/admin/userdefgroup*=UserGroup:ANY:write
+				/**/admin/usersearch*=UserGroup:ANY:write
+				/**/admin/trandefgroup*=Business Service:ANY:write
+				/**/admin/appdef*=Business Application:ANY:write
+				/**/admin/recording*=Business Service:ANY:write
+				/**/admin/domaindetail*=System Configuration Settings:ANY:write,Tenant System Configuration Settings:ANY:write
+				/**/admin/monitor*=System Configuration Settings:ANY:write,Tenant System Configuration Settings:ANY:write
+				/**/admin/servicedefdetail*=System Configuration Settings:ANY:write
+				/**/admin/servicedeflist*=System Configuration Settings:ANY:write
+				/**/admin/entityconfiguration*=System Configuration Settings:ANY:write
+				/**/admin/webserver*=System Configuration Settings:ANY:write,Tenant System Configuration Settings:ANY:write
+				/**/admin/bizeventsettings*=System Configuration Settings:ANY:write,Tenant System Configuration Settings:ANY:write
+				/**/admin/httpssettingsdetail*=System Configuration Settings:ANY:write
+				/**/admin/pluginlist*=System Configuration Settings:ANY:write,Tenant System Configuration Settings:ANY:write
+				/**/admin/introscopeemdetail*=System Configuration Settings:ANY:write,Tenant System Configuration Settings:ANY:write
+				/**/admin/dbconfiguration*=System Configuration Settings:ANY:write
+				/**/admin/siteminder*=System Configuration Settings:ANY:write
+				/**/admin/servicedeskdetail*=System Configuration Settings:ANY:write
+				/**/admin/httpanalyzer*=System Configuration Settings:ANY:write,Tenant System Configuration Settings:ANY:write
+				/**/admin/accesspolicylist*=Access Policy:ANY:write
+				/**/admin/**=System Configuration Settings:ANY:write,Business Application:ANY:write,Business Service:ANY:write,UserGroup:ANY:write
+				/**/biz/bizevent*=Incident:ANY:write
+				/**/biz/affecteduser*=Incident:ANY:write
+				/**/biz/impactleadersreport*=Incident:ANY:write
+				/**/biz/defectlist*=Incident:ANY:write
+				/**/biz/introscopeemtrantracelist*=Incident:ANY:write
+				/**/biz/*sla*report*=Incident:ANY:write,Report:ANY:write
+				/**/biz/*trend*report*=Incident:ANY:write,Report:ANY:write
+				/**/biz/*roi*report*=Incident:ANY:write,Report:ANY:write
+				/**/biz/*report*=Report:ANY:write				
+				/**/biz/incidentsDataReport*=Incident:ANY:write				
+				/**/biz/**=Incident:ANY:write,Report:ANY:write
+				/**/common/**=System Administrative Settings:ANY:write,System Security Settings:ANY:write,System Configuration Settings:ANY:write,Business Application:ANY:write,Business Service:ANY:write,UserGroup:ANY:write,Incident:ANY:write,Report:ANY:write,Access Policy:ANY:write
+				/**/webservices*=WebService:ANY:allow
+                /**/webservices/statisticsdataoutservice*=WebService:ANY:allow
+                /**/webservices/adminservice*=WebService:ANY:allow
+                /**/webservices/eventsdataoutservice*=WebService:ANY:allow
+                /**/webservices/version*=WebService:ANY:allow
+                /**/webservices/bizimpactdataoutservice*=WebService:ANY:allow
+                /**/webservices/configurationdataoutservice*=WebService:ANY:allow
+                /**/webservices/configurationdatainservice*=WebService:ANY:allow
+                /**/webservices/internalservices*=Internal:ANY:allow
+                /**/pubsubservices/**=WebService:ANY:allow
+            </value>
+        </property>
+    </bean>
+
+    <bean id="authenticationManager" class="org.acegisecurity.providers.ProviderManager">
+        <property name="providers">
+            <list>
+                   <ref local="ssoAuthenticationProvider"/>
+                   <ref local="apmAuthenticationProvider"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="apmAuthenticationProvider" class="com.timestock.tess.services.security.APMAuthenticationProvider">
+        <property name="introscopeManager"><ref bean="introscopeManager"/></property>
+    </bean>
+
+    <bean id="ssoAuthenticationProvider" class="com.timestock.tess.services.security.sso.SsoAuthenticationProvider">
+    	<property name="introscopeManager"><ref bean="introscopeManager"/></property>
+    </bean>
+
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"/>
+
+    <bean id="userCacheBackend" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+        <property name="cacheManager">
+            <ref local="cacheManager"/>
+        </property>
+        <property name="cacheName">
+            <value>userCache</value>
+        </property>
+    </bean>
+
+    <bean id="userCache" class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
+        <property name="cache"><ref local="userCacheBackend"/></property>
+    </bean>
+
+    <!-- Automatically receives AuthenticationEvent messages -->
+    <bean id="loggerListener" class="org.acegisecurity.event.authentication.LoggerListener"/>
+
+    <!-- listener for HttpSessionDestroyedEvent messages -->
+    <bean id="tsListener" class="com.timestock.tess.services.security.TsApplicationEventListener"/>
+
+    <bean id="httpSessionContextIntegrationFilter" class="org.acegisecurity.context.HttpSessionContextIntegrationFilter"/>
+
+    <bean id="securityEnforcementFilter" class="org.acegisecurity.intercept.web.SecurityEnforcementFilter">
+        <property name="filterSecurityInterceptor"><ref local="filterInvocationInterceptor"/></property>
+        <property name="authenticationEntryPoint"><ref local="authenticationProcessingFilterEntryPoint"/></property>
+    </bean>
+
+    <bean id="authenticationProcessingFilter" class="com.timestock.tess.services.security.sso.SsoAuthenticationProcessingFilter">
+        <property name="authenticationManager"><ref bean="authenticationManager"/></property>
+        <property name="authenticationFailureUrl"><value>/cem/tess/app/login.html?login_error=1</value></property>
+        <property name="defaultTargetUrl"><value>/cem/tess/app/common/default.html</value></property>
+        <property name="filterProcessesUrl"><value>/cem/tess/app/j_acegi_security_check</value></property>
+    </bean>
+
+    <bean id="authenticationProcessingFilterEntryPoint" class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+        <property name="loginFormUrl"><value>/cem/tess/app/login.html</value></property>
+        <property name="forceHttps"><value>false</value></property>
+    </bean>
+
+    <bean id="securityResourceManager" class="com.timestock.tess.services.security.SecurityResourceManager">
+    	<property name="introscopeManager"><ref bean="introscopeManager"/></property>
+    </bean>
+
+
+    <bean id="accessPolicyRoleMappingLocal" class="com.timestock.tess.services.security.local.AccessPolicyRoleMappingLocal">
+      <!--  Begin Sysadmin access policies -->
+  	  <property name="sysAdminAccessPolicies">
+  	  	<list>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="System Administrative Settings" />
+  	  			<constructor-arg value="ALL"  />
+  	  			<constructor-arg value="write" />
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Business Application"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Business Service"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Business Service"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="read"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Business Service"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="read sensitive data"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="System Configuration Settings"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="System Configuration Settings"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="capture comprehensive defect details"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Incident"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Report"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="System Security Settings"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="UserGroup"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="WebService"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="allow"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="internal"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="disallow"/>
+  	  		</bean>
+        </list>
+  	  </property>
+	  <!--  End of Sysadmin access policies -->
+
+
+	  <!--  Begin Configadmin access policies -->
+  	  <property name="configAdminAccessPolicies">
+  	  	<list>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Business Application"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Business Service"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Business Service"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="read"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="System Configuration Settings"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Incident"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Report"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="UserGroup"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+        </list>
+  	  </property>
+	  <!--  End of ConfigAdmin access policies -->
+	  
+	   <!--  Begin Tenantadmin access policies -->
+  	  <property name="tenantAdminAccessPolicies">
+  	  	<list>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Business Application"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Business Service"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Business Service"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="read"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Tenant System Configuration Settings"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Incident"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Report"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Tenant System Security Settings"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="UserGroup"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Tenant System Configuration Settings"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="capture comprehensive defect details"/>
+  	  		</bean>
+        </list>
+  	  </property>
+	  <!--  End of TenantAdmin access policies -->
+
+	  <!--  Begin Analyst access policies -->
+  	  <property name="analystAccessPolicies">
+  	  	<list>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Incident"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Business Service"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="read"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Report"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+        </list>
+  	  </property>
+	  <!--  End of Analyst access policies -->
+
+	  <!--  Begin Incident Analyst access policies -->
+  	  <property name="incidentAnalystAccessPolicies">
+  	  	<list>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Incident"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Business Service"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="read sensitive data"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Business Service"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="read"/>
+  	  		</bean>
+  	  		<bean class="com.timestock.tess.services.security.AccessPolicy">
+  	  			<constructor-arg value="Report"/>
+  	  			<constructor-arg value="ALL"/>
+  	  			<constructor-arg value="write"/>
+  	  		</bean>
+        </list>
+  	  </property>
+	  <!--  End of Incident Analyst access policies -->
+
+
+    </bean>
+
+    <bean id="roleVoter" class="com.timestock.tess.services.security.APMResourceVoter">
+	    <property name="resourceManager" >
+		    <ref bean="securityResourceManager"/>
+	    </property>
+	</bean>
+
+    <bean id="httpRequestAccessDecisionManager" class="org.acegisecurity.vote.AffirmativeBased">
+        <property name="allowIfAllAbstainDecisions"><value>false</value></property>
+        <property name="decisionVoters">
+            <list>
+                <ref bean="roleVoter"/>
+            </list>
+        </property>
+    </bean>
+</beans>

@@ -1,0 +1,140 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name=Generator content="Microsoft SafeHTML">
+
+
+</head>
+<body lang=en-us
+	style="background-position: 21px 0px; layout-grid: none none none; font-size: 10pt; color: windowtext; font-family: Verdana; background-color: window">
+<div><strong><font size=4 color="blue">CPT
+Connector Application</font></strong></div>
+<div></div>
+<div></div>
+<center>
+<table>
+	<form action="JCAPutServlet" method="post">
+	<tr>
+		<td><font face="Verdana" color="red">Sending Queue Manager</font>
+		</td>
+	</tr>
+	<tr>
+		<td>Queue Manager</td>
+		<td><input type="text" value="CSQ4" name="qmgr_name"></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Host</td>
+		<td><input type="text" value="USILCA31" name="host_name"></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Port</td>
+		<td><input type="text" value="4404" name="port_num"></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Queue</td>
+		<td><input type="text" value="WILY_QUEUE" name="queue_name"></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Number of messages</td>
+		<td><input type="text" name="num_msg" value="10"></td>
+	</tr>
+	<tr>
+		<td>Size of message<font size="-2"> kbs</font></td>
+		<td><input type="text" name="smsg" size="20" value="1"></td>
+	</tr>
+	<tr>
+		<td>Persistence</td>
+		<td><select name="pers">
+			<option value="n" selected>Non-Persistent</option>
+			<option value="p">Persistent</option>
+		</select></td>
+	</tr>
+	<tr>
+		<td>Set MQ Message ID</td>
+		<td><select name="msgid">
+			<option value="auto" selected>Auto</option>
+			<option value="zeros">zeros</option>
+			<option value="0123">00010203040506070809FFunique</option>
+		</select></td>
+	</tr>
+	<tr>
+		<td>Set MQ Correlation ID</td>
+		<td><select name="corid">
+			<option value="auto" selected>Auto</option>
+			<option value="same">Same as MSGID</option>
+			<option value="reverse">Reverse of MSGID</option>
+			<option value="zeros">zeros</option>
+			<option value="0123">00010203040506070809FFunique</option>
+		</select></td>
+	</tr>
+	<tr>
+		<td>Set Feedback Value</td>
+		<td><select name="feedback">
+			<option value="none" selected>None</option>
+			<option value="customer">Customer</option>
+			<option value="trace">Trace</option>
+			<option value="propagate">Propagate</option>
+		</select></td>
+	</tr>
+	<tr>
+		<td>Set Message Type</td>
+		<td><select name="message_type">
+			<option value="datagram" selected>MQMT_DATAGRAM</option>
+			<option value="request">MQMT_REQUEST</option>
+			<option value="report">MQMT_REPORT</option>
+		</select></td>
+	</tr>
+	<tr>
+		<td>Reply Queue</td>
+		<td><input type="text" value="WILY_REPLY_QUEUE" name="reply_queue_name"></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>  ...(you can try)</td>
+		<td>SYSTEM.DEFAULT.LOCAL.QUEUE</td>
+	</tr>
+	
+	<tr>
+		<td><font color="red">Receiving Queue Manager</font></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Queue Manager</td>
+		<td><input type="text" value="CSQ4" name="qmgr_nameR"></td>
+	</tr>
+
+	<tr>
+		<td>Host</td>
+		<td><input type="text"  value="USILCA31"  name="host_nameR"></td>
+	</tr>
+	<tr>
+		<td>port</td>
+		<td><input type="text" value="4404" name="port_numR"></td>
+	</tr>
+	<tr>
+		<td>Queue</td>
+		<td><input type="text"  value="WILY_REPLY_QUEUE" name="queue_nameR"></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Number of messages</td>
+		<td><input type="text" name="num_msgR" value="10"></td>
+	</tr>
+	<tr>
+		<td>Wait time interval<font size="-2"> ms</font></td>
+		<td><input type="text" name="timeout" size="20" value="100"></td>
+	</tr>
+	<tr>
+		<td align="center"><input value="Submit" type="submit"></td>
+		<td align="center"><input value="Reset" type="reset"></td>
+	</tr>
+	</form>
+</table>
+</center>
+</body>
+</html>

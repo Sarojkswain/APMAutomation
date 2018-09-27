@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.ca.apm.test</groupId>
+		<artifactId>com.ca.apm.test.parent</artifactId>
+		<version>99.99.dev_SaaS_fix-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>aquarius-em-bat</artifactId>
+	<packaging>pom</packaging>
+
+	<name>Aquarius Team EM BAT TAS project</name>
+	<description />
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.testng</groupId>
+				<artifactId>testng</artifactId>
+				<version>${version.testNg}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<version.testNg>6.10</version.testNg>
+		<!-- TAS properties -->
+		<tas.testClassifier>jar-with-dependencies</tas.testClassifier>
+
+		<resman.user>admin</resman.user>
+		<resman.password>admin</resman.password>
+		<resman.host>tas-cz-res-man</resman.host>
+		<resman.url>http://${resman.host}:8080/resman</resman.url>
+		<resman.deployUser>deploy</resman.deployUser>
+		<resman.deployPassword>#cut2dl#</resman.deployPassword>
+
+		<local.jetty.port>8082</local.jetty.port>
+		<tas.skipLocalRepo>true</tas.skipLocalRepo>
+		<tas.tests />
+		<tas.suites />
+		<tas.dynamicSuites />
+	</properties>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.ca.tas.plugins</groupId>
+										<artifactId>scantest-maven-plugin</artifactId>
+										<versionRange>[${version.tas},)</versionRange>
+										<goals>
+											<goal>generate</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	<modules>
+		<module>flows</module>
+		<module>test-core</module>
+	</modules>
+</project>

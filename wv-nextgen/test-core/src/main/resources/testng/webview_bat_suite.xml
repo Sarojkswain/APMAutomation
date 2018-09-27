@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [{name=com.ca.apm.nextgen.WvNextgenTestbedNoCoda, executeOn=seleniumGridMachineId}],
+	owner = keyja01,
+	size = COLOSSAL,
+	snapshotPolicy = ON_FAILURE,
+	snapshot = DEAD,
+	description = 'TestNg XML suite for the WebView BAT tests')
+-->
+<suite name="WebView BAT Tests" verbose="1">
+	<test name="testNgSuiteWebViewBAT">
+		<groups>
+			<run>
+				<include name="BAT" />
+			</run>
+		</groups>
+		<packages>
+			<package name="com.ca.apm.nextgen.tests" />
+		</packages>
+	</test>
+</suite>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+	@Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.StandaloneEM1TomcatAgent1JBossAgentLinuxTestbed, executeOn=emMachine}],
+	  owner = jamsa07,
+	  size = COLOSSAL,
+	  description = 'DBPersistence TestNg XML suite for all Linux tests'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.DEAD
+-->
+<suite name="DBPersistence" configfailurepolicy="continue">
+	<test name="DBPersistence" preserve-order="true">		
+		<classes>
+			<class name="com.ca.apm.tests.smartstor.DBPersistenceCollection.DatabasePersistentCollectionChanges">
+			<methods>
+				<include name="verify_ALM_298604_DBPersistenceCollectionRecordMetrics"/>
+				<include name="verify_ALM_298605_DBPersistenceCollectionRecordMetrics_JBoss"/>
+				<include name="verify_ALM_298608_DBPersistenceCollectionRecordMetrics_HotConfig"/>
+				<include name="verify_ALM_298609_DBPersistenceCollectionRecordMetrics_MetricDataPointSentPerInterval"/>
+				<include name="verify_ALM_298612_DBPersistenceCollectionRecordMetrics_QueuedMetricsDataPointsHotConfig"/>
+				<include name="verify_ALM_298619_DBPersistenceCollectionRecordMetrics_WritingDataToDB"/>
+				<include name="verify_ALM_392305_DBPersistenceCollectionRecordMetrics_InvalidDBAttributes"/>
+				<include name="verify_ALM_372944_DBPersistenceCollectionRecordMetrics_InvalidDBDriver"/>
+				<include name="verify_ALM_372945_DBPersistenceCollectionRecordMetrics_InvalidDBURL"/>
+				<include name="verify_ALM_372946_DBPersistenceCollectionRecordMetrics_InvalidDBCredentials"/>
+				<include name="verify_ALM_372947_DBPersistenceCollectionRecordMetrics_InvalidReconnectIntervalInSeconds"/>
+				<include name="verify_ALM_372948_DBPersistenceCollectionRecordMetrics_InvalidQueuedUpperLimitValue"/>
+				<include name="verify_ALM_392299_DBPersistenceCollectionRecordMetrics_InvalidCollection1Frequency"/>
+				<include name="verify_ALM_298610_DBPersistenceCollectionRecordMetrics_QueuedMetricsDataPoints"/>
+			</methods>
+			</class>		
+		</classes>
+	</test>
+</suite>
+		

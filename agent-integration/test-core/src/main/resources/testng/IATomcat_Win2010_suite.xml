@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+	    {name=com.ca.apm.tests.testbed.IATomcatWin2010Testbed, executeOn=machine1}],
+	  owner = kurma05,
+	  size = BIG,
+	  description = 'Agent ATC Tests'),
+	  snapshotPolicy = SnapshotPolicy.ALWAYS,
+      snapshot = SnapshotMode.LIVE
+-->	
+<suite name="JavaAgent_IA_Win2010" configfailurepolicy="continue">
+	<parameter name="testngEmailEnabled" value="true" />
+	 	  
+	<test name="JavaAgent_IA_Win2010" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.tests.test.TomcatThievesTests">
+				 <methods>
+				 	<include name="testThievesStarted" />
+					<include name="testThievesMap" />
+					<include name="testThievesTTViewer" />
+				 </methods>
+			</class>
+			<class name="com.ca.apm.tests.test.IAWinTests">
+				 <methods>
+				 	<include name="testInfrastructureAgentInstall" />
+					<include name="testHostMonitoring" />
+					<include name="testAppHostCorrelation" />
+					<include name="testInfrastructureAgentReInstall" />
+					<include name="testInfrastructureAgentForceStart" />
+				 </methods>
+			</class>
+		</classes>
+	</test> 	
+	<listeners>    	
+   	    <listener class-name="org.uncommons.reportng.HTMLReporter" />    	
+   		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+ 	</listeners>
+</suite>

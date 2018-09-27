@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="2.8" jmeter="2.13 r1665067">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="WEBLOGIC_HOST1" elementType="Argument">
+            <stringProp name="Argument.name">WEBLOGIC_HOST1</stringProp>
+            <stringProp name="Argument.value">${__P(host1,tas-czfld-n17:7001)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="WEBLOGIC_HOST2" elementType="Argument">
+            <stringProp name="Argument.name">WEBLOGIC_HOST2</stringProp>
+            <stringProp name="Argument.value">${__P(host2,tas-czfld-n17:7002)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="soa_load" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1486479411000</longProp>
+        <longProp name="ThreadGroup.end_time">1486479411000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="SOAP/XML-RPC Request_jax_1_operation1" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${WEBLOGIC_HOST1}/wurlitzer-noejb/JaxWSServiceImpl1Service?wsdl</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:jax=&quot;http://jaxws.webservice.api.wurlitzer.ca.com/&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;jax:operation1&gt;
+         &lt;arg0&gt;{&quot;commandsJSON&quot;:[],&quot;properties&quot;:{}}&lt;/arg0&gt;
+      &lt;/jax:operation1&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+          <stringProp name="ConstantTimer.delay">1000</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="SOAP/XML-RPC Request_jax_1_operation2" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${WEBLOGIC_HOST1}/wurlitzer-noejb/JaxWSServiceImpl1Service?wsdl</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:jax=&quot;http://jaxws.webservice.api.wurlitzer.ca.com/&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;jax:operation2&gt;
+         &lt;arg0&gt;{&quot;commandsJSON&quot;:[],&quot;properties&quot;:{}}&lt;/arg0&gt;
+      &lt;/jax:operation2&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+          <stringProp name="ConstantTimer.delay">1000</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="SOAP/XML-RPC Request_jax_1_operation3" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${WEBLOGIC_HOST1}/wurlitzer-noejb/JaxWSServiceImpl1Service?wsdl</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:jax=&quot;http://jaxws.webservice.api.wurlitzer.ca.com/&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;jax:operation3&gt;
+         &lt;arg0&gt;{&quot;commandsJSON&quot;:[],&quot;properties&quot;:{}}&lt;/arg0&gt;
+      &lt;/jax:operation3&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+          <stringProp name="ConstantTimer.delay">1000</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="SOAP/XML-RPC Request_jax_1_operation4" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${WEBLOGIC_HOST1}/wurlitzer-noejb/JaxWSServiceImpl1Service?wsdl</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:jax=&quot;http://jaxws.webservice.api.wurlitzer.ca.com/&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;jax:operation4&gt;
+         &lt;arg0&gt;{&quot;commandsJSON&quot;:[],&quot;properties&quot;:{}}&lt;/arg0&gt;
+      &lt;/jax:operation4&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+          <stringProp name="ConstantTimer.delay">1000</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="SOAP/XML-RPC Request_jax_1_operation5" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${WEBLOGIC_HOST1}/wurlitzer-noejb/JaxWSServiceImpl1Service?wsdl</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:jax=&quot;http://jaxws.webservice.api.wurlitzer.ca.com/&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;jax:operation5&gt;
+         &lt;arg0&gt;{&quot;commandsJSON&quot;:[],&quot;properties&quot;:{}}&lt;/arg0&gt;
+      &lt;/jax:operation5&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+          <stringProp name="ConstantTimer.delay">1000</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="SOAP/XML-RPC Request_jax_1_operation1_with_sub" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${WEBLOGIC_HOST1}/wurlitzer-noejb/JaxWSServiceImpl1Service?wsdl</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:jax=&quot;http://jaxws.webservice.api.wurlitzer.ca.com/&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+    &lt;jax:operation1&gt;  &lt;arg0&gt;{&quot;commandsJSON&quot;:[&quot;{\&quot;serialVersionUID\&quot;:1,\&quot;requestCount\&quot;:0,\&quot;operationStart\&quot;:10,\&quot;operationEnd\&quot;:12,\&quot;throwException\&quot;:false,\&quot;delayMillis\&quot;:5000,\&quot;remoteURL\&quot;:\&quot;http://${WEBLOGIC_HOST1}/wurlitzer-noejb/JaxWSServiceImpl1Service?WSDL\&quot;,\&quot;properties\&quot;:{},\&quot;subCommands\&quot;:[],\&quot;name\&quot;:\&quot;com.ca.wurlitzer.api.command.webservice.JaxWebService1Command\&quot;}&quot;,&quot;{\&quot;serialVersionUID\&quot;:2,\&quot;requestCount\&quot;:0,\&quot;operationStart\&quot;:50,\&quot;operationEnd\&quot;:55,\&quot;throwException\&quot;:false,\&quot;delayMillis\&quot;:500,\&quot;remoteURL\&quot;:\&quot;http://${WEBLOGIC_HOST1}/wurlitzer-noejb/JaxWSServiceImpl2Service?WSDL\&quot;,\&quot;properties\&quot;:{},\&quot;subCommands\&quot;:[],\&quot;name\&quot;:\&quot;com.ca.wurlitzer.api.command.webservice.JaxWebService2Command\&quot;}&quot;],&quot;properties&quot;:{}}&lt;/arg0&gt;
+      &lt;/jax:operation1&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+          <stringProp name="ConstantTimer.delay">1000</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="SOAP/XML-RPC Request_jax_1_operation2_with_sub" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${WEBLOGIC_HOST1}/wurlitzer-noejb/JaxWSServiceImpl1Service?wsdl</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:jax=&quot;http://jaxws.webservice.api.wurlitzer.ca.com/&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+    &lt;jax:operation2&gt;  &lt;arg0&gt;{&quot;commandsJSON&quot;:[&quot;{\&quot;serialVersionUID\&quot;:1,\&quot;requestCount\&quot;:0,\&quot;operationStart\&quot;:10,\&quot;operationEnd\&quot;:12,\&quot;throwException\&quot;:false,\&quot;delayMillis\&quot;:5000,\&quot;remoteURL\&quot;:\&quot;http://${WEBLOGIC_HOST1}/wurlitzer-noejb/JaxWSServiceImpl1Service?WSDL\&quot;,\&quot;properties\&quot;:{},\&quot;subCommands\&quot;:[],\&quot;name\&quot;:\&quot;com.ca.wurlitzer.api.command.webservice.JaxWebService1Command\&quot;}&quot;,&quot;{\&quot;serialVersionUID\&quot;:2,\&quot;requestCount\&quot;:0,\&quot;operationStart\&quot;:50,\&quot;operationEnd\&quot;:55,\&quot;throwException\&quot;:false,\&quot;delayMillis\&quot;:500,\&quot;remoteURL\&quot;:\&quot;http://${WEBLOGIC_HOST1}/wurlitzer-noejb/JaxWSServiceImpl2Service?WSDL\&quot;,\&quot;properties\&quot;:{},\&quot;subCommands\&quot;:[],\&quot;name\&quot;:\&quot;com.ca.wurlitzer.api.command.webservice.JaxWebService2Command\&quot;}&quot;],&quot;properties&quot;:{}}&lt;/arg0&gt;
+      &lt;/jax:operation2&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+          <stringProp name="ConstantTimer.delay">1000</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="SOAP/XML-RPC Request_jax_2_operation2_with_sub" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${WEBLOGIC_HOST2}/wurlitzer-noejb/JaxWSServiceImpl1Service?wsdl</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:jax=&quot;http://jaxws.webservice.api.wurlitzer.ca.com/&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+    &lt;jax:operation2&gt;  &lt;arg0&gt;{&quot;commandsJSON&quot;:[&quot;{\&quot;serialVersionUID\&quot;:1,\&quot;requestCount\&quot;:0,\&quot;operationStart\&quot;:13,\&quot;operationEnd\&quot;:15,\&quot;throwException\&quot;:false,\&quot;delayMillis\&quot;:5000,\&quot;remoteURL\&quot;:\&quot;http://${WEBLOGIC_HOST2}/wurlitzer-noejb/JaxWSServiceImpl1Service?WSDL\&quot;,\&quot;properties\&quot;:{},\&quot;subCommands\&quot;:[],\&quot;name\&quot;:\&quot;com.ca.wurlitzer.api.command.webservice.JaxWebService1Command\&quot;}&quot;,&quot;{\&quot;serialVersionUID\&quot;:2,\&quot;requestCount\&quot;:0,\&quot;operationStart\&quot;:51,\&quot;operationEnd\&quot;:56,\&quot;throwException\&quot;:false,\&quot;delayMillis\&quot;:500,\&quot;remoteURL\&quot;:\&quot;http://${WEBLOGIC_HOST2}/wurlitzer-noejb/JaxWSServiceImpl2Service?WSDL\&quot;,\&quot;properties\&quot;:{},\&quot;subCommands\&quot;:[],\&quot;name\&quot;:\&quot;com.ca.wurlitzer.api.command.webservice.JaxWebService2Command\&quot;}&quot;],&quot;properties&quot;:{}}&lt;/arg0&gt;
+      &lt;/jax:operation2&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+          <stringProp name="ConstantTimer.delay">1000</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="SOAP/XML-RPC Request_jax_2_operation3_with_sub" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${WEBLOGIC_HOST2}/wurlitzer-noejb/JaxWSServiceImpl1Service?wsdl</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:jax=&quot;http://jaxws.webservice.api.wurlitzer.ca.com/&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+    &lt;jax:operation3&gt;  &lt;arg0&gt;{&quot;commandsJSON&quot;:[&quot;{\&quot;serialVersionUID\&quot;:1,\&quot;requestCount\&quot;:0,\&quot;operationStart\&quot;:13,\&quot;operationEnd\&quot;:15,\&quot;throwException\&quot;:false,\&quot;delayMillis\&quot;:5000,\&quot;remoteURL\&quot;:\&quot;http://${WEBLOGIC_HOST2}/wurlitzer-noejb/JaxWSServiceImpl1Service?WSDL\&quot;,\&quot;properties\&quot;:{},\&quot;subCommands\&quot;:[],\&quot;name\&quot;:\&quot;com.ca.wurlitzer.api.command.webservice.JaxWebService1Command\&quot;}&quot;,&quot;{\&quot;serialVersionUID\&quot;:2,\&quot;requestCount\&quot;:0,\&quot;operationStart\&quot;:51,\&quot;operationEnd\&quot;:56,\&quot;throwException\&quot;:false,\&quot;delayMillis\&quot;:500,\&quot;remoteURL\&quot;:\&quot;http://${WEBLOGIC_HOST2}/wurlitzer-noejb/JaxWSServiceImpl2Service?WSDL\&quot;,\&quot;properties\&quot;:{},\&quot;subCommands\&quot;:[],\&quot;name\&quot;:\&quot;com.ca.wurlitzer.api.command.webservice.JaxWebService2Command\&quot;}&quot;],&quot;properties&quot;:{}}&lt;/arg0&gt;
+      &lt;/jax:operation3&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+          <stringProp name="ConstantTimer.delay">1000</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="SOAP/XML-RPC Request_jax_2_operation6" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${WEBLOGIC_HOST2}/wurlitzer-noejb/JaxWSServiceImpl1Service?wsdl</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:jax=&quot;http://jaxws.webservice.api.wurlitzer.ca.com/&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;jax:operation6&gt;
+         &lt;arg0&gt;{&quot;commandsJSON&quot;:[],&quot;properties&quot;:{}}&lt;/arg0&gt;
+      &lt;/jax:operation6&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+          <stringProp name="ConstantTimer.delay">1000</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="SOAP/XML-RPC Request_jax_2_operation7" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${WEBLOGIC_HOST2}/wurlitzer-noejb/JaxWSServiceImpl1Service?wsdl</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:jax=&quot;http://jaxws.webservice.api.wurlitzer.ca.com/&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;jax:operation7&gt;
+         &lt;arg0&gt;{&quot;commandsJSON&quot;:[],&quot;properties&quot;:{}}&lt;/arg0&gt;
+      &lt;/jax:operation7&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+          <stringProp name="ConstantTimer.delay">1000</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="SOAP/XML-RPC Request_jax_2_operation8" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${WEBLOGIC_HOST2}/wurlitzer-noejb/JaxWSServiceImpl1Service?wsdl</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:jax=&quot;http://jaxws.webservice.api.wurlitzer.ca.com/&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;jax:operation8&gt;
+         &lt;arg0&gt;{&quot;commandsJSON&quot;:[],&quot;properties&quot;:{}}&lt;/arg0&gt;
+      &lt;/jax:operation8&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+          <stringProp name="ConstantTimer.delay">1000</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="SOAP/XML-RPC Request_jax_2_operation9" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${WEBLOGIC_HOST2}/wurlitzer-noejb/JaxWSServiceImpl1Service?wsdl</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:jax=&quot;http://jaxws.webservice.api.wurlitzer.ca.com/&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;jax:operation9&gt;
+         &lt;arg0&gt;{&quot;commandsJSON&quot;:[],&quot;properties&quot;:{}}&lt;/arg0&gt;
+      &lt;/jax:operation9&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+          <stringProp name="ConstantTimer.delay">1000</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="SOAP/XML-RPC Request_jax_3_Cross_JVM_with_sub" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SoapSampler.URL_DATA">http://${WEBLOGIC_HOST1}/wurlitzer-noejb/JaxWSServiceImpl1Service?wsdl</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:jax=&quot;http://jaxws.webservice.api.wurlitzer.ca.com/&quot;&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+    &lt;jax:operation3&gt;  &lt;arg0&gt;{&quot;commandsJSON&quot;:[&quot;{\&quot;serialVersionUID\&quot;:1,\&quot;requestCount\&quot;:0,\&quot;operationStart\&quot;:70,\&quot;operationEnd\&quot;:75,\&quot;throwException\&quot;:false,\&quot;delayMillis\&quot;:0,\&quot;remoteURL\&quot;:\&quot;http://${WEBLOGIC_HOST1}/wurlitzer-noejb/JaxWSServiceImpl1Service?WSDL\&quot;,\&quot;properties\&quot;:{},\&quot;subCommands\&quot;:[],\&quot;name\&quot;:\&quot;com.ca.wurlitzer.api.command.webservice.JaxWebService1Command\&quot;}&quot;,&quot;{\&quot;serialVersionUID\&quot;:2,\&quot;requestCount\&quot;:0,\&quot;operationStart\&quot;:90,\&quot;operationEnd\&quot;:95,\&quot;throwException\&quot;:false,\&quot;delayMillis\&quot;:500,\&quot;remoteURL\&quot;:\&quot;http://${WEBLOGIC_HOST2}/wurlitzer-noejb/JaxWSServiceImpl2Service?WSDL\&quot;,\&quot;properties\&quot;:{},\&quot;subCommands\&quot;:[],\&quot;name\&quot;:\&quot;com.ca.wurlitzer.api.command.webservice.JaxWebService2Command\&quot;}&quot;],&quot;properties&quot;:{}}&lt;/arg0&gt;
+      &lt;/jax:operation3&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">false</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </SoapSampler>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+          <stringProp name="ConstantTimer.delay">10000</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>false</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <threadCounts>true</threadCounts>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

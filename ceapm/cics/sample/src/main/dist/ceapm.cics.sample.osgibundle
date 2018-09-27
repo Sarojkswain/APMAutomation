@@ -1,0 +1,1 @@
+<osgibundle symbolicname="ceapm.cics.sample" version="0.${project.version}" jvmserver="DFHJVMS"/>

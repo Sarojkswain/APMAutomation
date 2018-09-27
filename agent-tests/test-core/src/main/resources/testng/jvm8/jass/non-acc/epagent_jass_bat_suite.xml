@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+	    {name=com.ca.apm.tests.testbed.jvm8.jass.JASSEpagentTestBed, executeOn=machine1}],
+	  owner = kurma05,
+	  size = MAMMOTH,
+	  description = 'JASS'),
+	  snapshotPolicy = SnapshotPolicy.ALWAYS,
+      snapshot = SnapshotMode.LIVE
+-->
+<suite name="TestSuite" configfailurepolicy="continue">
+    <parameter name="test.priority" value="1" />
+    <!--  use test.priority.index not to pick tests randomly from db -->
+    <!-- <parameter name="test.priority.index" value="XXX" /> -->
+	<test name="EpagentJASSBat" preserve-order="true">
+		<groups>
+      		<run>
+      			<include name="epagent" />
+     		</run>
+   		</groups>   
+	    <packages>
+	        <package name="com.ca.apm.automation"/>
+	    </packages>	    
+    	<listeners>    	
+    	    <listener class-name="org.uncommons.reportng.HTMLReporter" />    	
+    		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+    		<listener class-name="com.ca.apm.tests.utils.AnnotationTransformerImpl" />
+    		<listener class-name="com.ca.apm.automation.common.FuncTestListener" />
+  		</listeners>
+	</test>
+</suite>

@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="fld.install.agents" name="Install Agents" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="fld.tomcat6.node" name="fld.tomcat6.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.tomcat6.serverId" name="fld.tomcat6.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.tomcat7.node" name="fld.tomcat7.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.tomcat7.serverId" name="fld.tomcat7.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.tomcat0w.node" name="fld.tomcat0w.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.tomcat0w.serverId" name="fld.tomcat0w.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.tomcat1w.node" name="fld.tomcat1w.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.tomcat1w.serverId" name="fld.tomcat1w.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.mom.node" name="fld.mom.node" type="node" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.mom.port" name="fld.mom.port" type="long" default="5001" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.agent.specification" name="fld.agent.specification" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.was1.node" name="fld.was1.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.was1.serverId" name="fld.was1.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.wls1w1.node" name="fld.wls1w1.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.wls1w1.serverId" name="fld.wls1w1.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.wls1w2.node" name="fld.wls1w2.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.wls1w2.serverId" name="fld.wls1w2.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.wls2w1.node" name="fld.wls2w1.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.wls2w1.serverId" name="fld.wls2w1.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.wls2w2.node" name="fld.wls2w2.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.wls2w2.serverId" name="fld.wls2w2.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.jboss6.node" name="fld.jboss6.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.jboss6.serverId" name="fld.jboss6.serverId" type="string"></activiti:formProperty>
+        <activiti:formProperty id="fld.jboss7.node" name="fld.jboss7.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.jboss7.serverId" name="fld.jboss7.serverId" type="string"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+    <callActivity id="install.tomcat6" name="Install Tomcat6 Agent" activiti:async="true" calledElement="fld.install.tomcat.agent.noinstaller">
+      <extensionElements>
+        <activiti:in source="fld.tomcat6.serverId" target="serverId"></activiti:in>
+        <activiti:in source="fld.agent.specification" target="artifactSpecification"></activiti:in>
+        <activiti:in source="fld.tomcat6.node" target="node"></activiti:in>
+        <activiti:in source="fld.mom.node" target="momNode"></activiti:in>
+        <activiti:in source="fld.mom.port" target="momPort"></activiti:in>
+        <activiti:in sourceExpression="Tomcat6" target="customName"></activiti:in>
+        <activiti:in sourceExpression="yes" target="enableDynamicinstrument"></activiti:in>
+        <activiti:in sourceExpression="no" target="brtmExtension"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="install.tomcat7" name="Install Tomcat7 Agent" activiti:async="true" calledElement="fld.install.tomcat.agent.noinstaller">
+      <extensionElements>
+        <activiti:in source="fld.tomcat7.serverId" target="serverId"></activiti:in>
+        <activiti:in source="fld.agent.specification" target="artifactSpecification"></activiti:in>
+        <activiti:in source="fld.tomcat7.node" target="node"></activiti:in>
+        <activiti:in source="fld.mom.node" target="momNode"></activiti:in>
+        <activiti:in source="fld.mom.port" target="momPort"></activiti:in>
+        <activiti:in sourceExpression="Tomcat7" target="customName"></activiti:in>
+        <activiti:in sourceExpression="yes" target="brtmExtension"></activiti:in>
+        <activiti:in sourceExpression="yes" target="enableDynamicinstrument"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="install.tomcat0w" name="Install Tomcat Wurlitzer9080 Agent" activiti:async="true" calledElement="fld.install.tomcat.agent.noinstaller">
+      <extensionElements>
+        <activiti:in source="fld.tomcat0w.serverId" target="serverId"></activiti:in>
+        <activiti:in source="fld.agent.specification" target="artifactSpecification"></activiti:in>
+        <activiti:in source="fld.tomcat0w.node" target="node"></activiti:in>
+        <activiti:in source="fld.mom.node" target="momNode"></activiti:in>
+        <activiti:in source="fld.mom.port" target="momPort"></activiti:in>
+        <activiti:in sourceExpression="TomcatAgent_9080" target="customName"></activiti:in>
+        <activiti:in sourceExpression="no" target="enableDynamicinstrument"></activiti:in>
+        <activiti:in sourceExpression="no" target="brtmExtension"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="install.tomcat1w" name="Install Tomcat Wurlitzer9081 Agent" activiti:async="true" calledElement="fld.install.tomcat.agent.noinstaller">
+      <extensionElements>
+        <activiti:in source="fld.tomcat1w.serverId" target="serverId"></activiti:in>
+        <activiti:in source="fld.agent.specification" target="artifactSpecification"></activiti:in>
+        <activiti:in source="fld.tomcat1w.node" target="node"></activiti:in>
+        <activiti:in source="fld.mom.node" target="momNode"></activiti:in>
+        <activiti:in source="fld.mom.port" target="momPort"></activiti:in>
+        <activiti:in sourceExpression="TomcatAgent_9081" target="customName"></activiti:in>
+        <activiti:in sourceExpression="no" target="brtmExtension"></activiti:in>
+        <activiti:in sourceExpression="no" target="enableDynamicinstrument"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <sequenceFlow id="flow2" sourceRef="install.tomcat6" targetRef="parallelgateway2"></sequenceFlow>
+    <parallelGateway id="parallelgateway1" name="Parallel Gateway"></parallelGateway>
+    <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
+    <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT5S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow3" sourceRef="timerintermediatecatchevent1" targetRef="parallelgateway1"></sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="parallelgateway1" targetRef="timerintermediatecatchevent2"></sequenceFlow>
+    <sequenceFlow id="flow5" sourceRef="parallelgateway2" targetRef="endevent1"></sequenceFlow>
+    <callActivity id="install.was1" name="Install WAS 1 Agent" activiti:async="true" calledElement="fld.install.was.agent.noinstaller">
+      <extensionElements>
+        <activiti:in source="fld.was1.serverId" target="serverId"></activiti:in>
+        <activiti:in source="fld.agent.specification" target="artifactSpecification"></activiti:in>
+        <activiti:in source="fld.was1.node" target="node"></activiti:in>
+        <activiti:in source="fld.mom.node" target="momNode"></activiti:in>
+        <activiti:in source="fld.mom.port" target="momPort"></activiti:in>
+        <activiti:in sourceExpression="WebSphere85" target="agentName"></activiti:in>
+        <activiti:in sourceExpression="yes" target="brtmExtension"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <sequenceFlow id="flow6" sourceRef="parallelgateway1" targetRef="timerintermediatecatchevent6"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="install.was1" targetRef="parallelgateway2"></sequenceFlow>
+    <callActivity id="install.wls1w1" name="Install WLS1 Wurlitzer1 Agent" activiti:async="true" calledElement="fld.install.wls.agent.noinstaller">
+      <extensionElements>
+        <activiti:in source="fld.wls1w1.serverId" target="serverId"></activiti:in>
+        <activiti:in source="fld.agent.specification" target="artifactSpecification"></activiti:in>
+        <activiti:in source="fld.wls1w1.node" target="node"></activiti:in>
+        <activiti:in source="fld.mom.node" target="momNode"></activiti:in>
+        <activiti:in source="fld.mom.port" target="momPort"></activiti:in>
+        <activiti:in sourceExpression="WLS103WinAgent1" target="agentName"></activiti:in>
+        <activiti:in sourceExpression="yes" target="brtmExtension"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="install.wls1w2" name="Install WLS1 Wurlitzer2 Agent" activiti:async="true" calledElement="fld.install.wls.agent.noinstaller">
+      <extensionElements>
+        <activiti:in source="fld.wls1w2.serverId" target="serverId"></activiti:in>
+        <activiti:in source="fld.agent.specification" target="artifactSpecification"></activiti:in>
+        <activiti:in source="fld.wls1w2.node" target="node"></activiti:in>
+        <activiti:in source="fld.mom.node" target="momNode"></activiti:in>
+        <activiti:in source="fld.mom.port" target="momPort"></activiti:in>
+        <activiti:in sourceExpression="WLS103WinAgent2" target="agentName"></activiti:in>
+        <activiti:in sourceExpression="no" target="brtmExtension"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="install.wls2w1" name="Install WLS2 Wurlitzer1 Agent" activiti:async="true" calledElement="fld.install.wls.agent.noinstaller">
+      <extensionElements>
+        <activiti:in source="fld.wls2w1.serverId" target="serverId"></activiti:in>
+        <activiti:in source="fld.agent.specification" target="artifactSpecification"></activiti:in>
+        <activiti:in source="fld.wls2w1.node" target="node"></activiti:in>
+        <activiti:in source="fld.mom.node" target="momNode"></activiti:in>
+        <activiti:in source="fld.mom.port" target="momPort"></activiti:in>
+        <activiti:in sourceExpression="WLS103WinAgent1" target="agentName"></activiti:in>
+        <activiti:in sourceExpression="yes" target="brtmExtension"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="install.wls2w2" name="Install WLS2 Wurlitzer2 Agent" activiti:async="true" calledElement="fld.install.wls.agent.noinstaller">
+      <extensionElements>
+        <activiti:in source="fld.wls2w2.serverId" target="serverId"></activiti:in>
+        <activiti:in source="fld.agent.specification" target="artifactSpecification"></activiti:in>
+        <activiti:in source="fld.wls2w2.node" target="node"></activiti:in>
+        <activiti:in source="fld.mom.node" target="momNode"></activiti:in>
+        <activiti:in source="fld.mom.port" target="momPort"></activiti:in>
+        <activiti:in sourceExpression="WLS103WinAgent2" target="agentName"></activiti:in>
+        <activiti:in sourceExpression="no" target="brtmExtension"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <sequenceFlow id="flow10" sourceRef="parallelgateway1" targetRef="timerintermediatecatchevent3"></sequenceFlow>
+    <sequenceFlow id="flow11" sourceRef="parallelgateway1" targetRef="timerintermediatecatchevent4"></sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="parallelgateway1" targetRef="timerintermediatecatchevent5"></sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="install.tomcat7" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow14" sourceRef="install.tomcat0w" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow15" sourceRef="install.tomcat1w" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow16" sourceRef="parallelgateway1" targetRef="timerintermediatecatchevent7"></sequenceFlow>
+    <sequenceFlow id="flow17" sourceRef="parallelgateway1" targetRef="timerintermediatecatchevent8"></sequenceFlow>
+    <sequenceFlow id="flow18" sourceRef="parallelgateway1" targetRef="timerintermediatecatchevent9"></sequenceFlow>
+    <sequenceFlow id="flow19" sourceRef="parallelgateway1" targetRef="timerintermediatecatchevent10"></sequenceFlow>
+    <sequenceFlow id="flow20" sourceRef="install.wls1w1" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow21" sourceRef="install.wls1w2" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow22" sourceRef="install.wls2w1" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow23" sourceRef="install.wls2w2" targetRef="parallelgateway2"></sequenceFlow>
+    <callActivity id="install.jboss6" name="Install JBoss6 Agent" activiti:async="true" calledElement="fld.install.jboss.agent.noinstaller">
+      <extensionElements>
+        <activiti:in source="fld.jboss6.serverId" target="serverId"></activiti:in>
+        <activiti:in source="fld.agent.specification" target="artifactSpecification"></activiti:in>
+        <activiti:in source="fld.jboss6.node" target="node"></activiti:in>
+        <activiti:in source="fld.mom.node" target="momNode"></activiti:in>
+        <activiti:in source="fld.mom.port" target="momPort"></activiti:in>
+        <activiti:in sourceExpression="JbossAgent" target="agentName"></activiti:in>
+        <activiti:in sourceExpression="Jboss6" target="customName"></activiti:in>
+        <activiti:in sourceExpression="no" target="brtmExtension"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <callActivity id="install.jboss7" name="Install JBoss7 Agent" activiti:async="true" calledElement="fld.install.jboss.agent.noinstaller">
+      <extensionElements>
+        <activiti:in source="fld.jboss7.serverId" target="serverId"></activiti:in>
+        <activiti:in source="fld.agent.specification" target="artifactSpecification"></activiti:in>
+        <activiti:in source="fld.jboss7.node" target="node"></activiti:in>
+        <activiti:in source="fld.mom.node" target="momNode"></activiti:in>
+        <activiti:in source="fld.mom.port" target="momPort"></activiti:in>
+        <activiti:in sourceExpression="JbossAgent" target="agentName"></activiti:in>
+        <activiti:in sourceExpression="Jboss7" target="customName"></activiti:in>
+        <activiti:in sourceExpression="yes" target="brtmExtension"></activiti:in>
+      </extensionElements>
+    </callActivity>
+    <sequenceFlow id="flow24" sourceRef="parallelgateway1" targetRef="timerintermediatecatchevent11"></sequenceFlow>
+    <sequenceFlow id="flow25" sourceRef="install.jboss6" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow26" sourceRef="parallelgateway1" targetRef="timerintermediatecatchevent12"></sequenceFlow>
+    <sequenceFlow id="flow27" sourceRef="install.jboss7" targetRef="parallelgateway2"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent2" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow28" sourceRef="timerintermediatecatchevent2" targetRef="install.tomcat6"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent3" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT15S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow29" sourceRef="timerintermediatecatchevent3" targetRef="install.tomcat7"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent4" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT20S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent5" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT25S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent6" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT30S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent7" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT40S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent8" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT35S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent9" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT45S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent10" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT50S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow30" sourceRef="timerintermediatecatchevent4" targetRef="install.tomcat0w"></sequenceFlow>
+    <sequenceFlow id="flow31" sourceRef="timerintermediatecatchevent5" targetRef="install.tomcat1w"></sequenceFlow>
+    <sequenceFlow id="flow32" sourceRef="timerintermediatecatchevent6" targetRef="install.was1"></sequenceFlow>
+    <sequenceFlow id="flow33" sourceRef="timerintermediatecatchevent7" targetRef="install.wls1w1"></sequenceFlow>
+    <sequenceFlow id="flow34" sourceRef="timerintermediatecatchevent8" targetRef="install.wls1w2"></sequenceFlow>
+    <sequenceFlow id="flow35" sourceRef="timerintermediatecatchevent9" targetRef="install.wls2w1"></sequenceFlow>
+    <sequenceFlow id="flow36" sourceRef="timerintermediatecatchevent10" targetRef="install.wls2w2"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent11" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT55S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent12" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT60S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow37" sourceRef="timerintermediatecatchevent12" targetRef="install.jboss7"></sequenceFlow>
+    <sequenceFlow id="flow38" sourceRef="timerintermediatecatchevent11" targetRef="install.jboss6"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.install.agents">
+    <bpmndi:BPMNPlane bpmnElement="fld.install.agents" id="BPMNPlane_fld.install.agents">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="50.0" y="40.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="1060.0" y="346.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="install.tomcat6" id="BPMNShape_install.tomcat6">
+        <omgdc:Bounds height="76.0" width="181.0" x="390.0" y="39.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="install.tomcat7" id="BPMNShape_install.tomcat7">
+        <omgdc:Bounds height="76.0" width="181.0" x="630.0" y="85.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="install.tomcat0w" id="BPMNShape_install.tomcat0w">
+        <omgdc:Bounds height="76.0" width="181.0" x="390.0" y="135.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="install.tomcat1w" id="BPMNShape_install.tomcat1w">
+        <omgdc:Bounds height="76.0" width="181.0" x="630.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway1" id="BPMNShape_parallelgateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="140.0" y="343.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway2" id="BPMNShape_parallelgateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="920.0" y="343.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="50.0" y="346.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="install.was1" id="BPMNShape_install.was1">
+        <omgdc:Bounds height="75.0" width="181.0" x="390.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="install.wls1w1" id="BPMNShape_install.wls1w1">
+        <omgdc:Bounds height="75.0" width="182.0" x="630.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="install.wls1w2" id="BPMNShape_install.wls1w2">
+        <omgdc:Bounds height="75.0" width="182.0" x="390.0" y="326.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="install.wls2w1" id="BPMNShape_install.wls2w1">
+        <omgdc:Bounds height="75.0" width="182.0" x="630.0" y="370.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="install.wls2w2" id="BPMNShape_install.wls2w2">
+        <omgdc:Bounds height="75.0" width="182.0" x="390.0" y="420.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="install.jboss6" id="BPMNShape_install.jboss6">
+        <omgdc:Bounds height="75.0" width="182.0" x="630.0" y="470.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="install.jboss7" id="BPMNShape_install.jboss7">
+        <omgdc:Bounds height="75.0" width="182.0" x="390.0" y="520.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent2" id="BPMNShape_timerintermediatecatchevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="270.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent3" id="BPMNShape_timerintermediatecatchevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="270.0" y="105.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent4" id="BPMNShape_timerintermediatecatchevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="270.0" y="156.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent5" id="BPMNShape_timerintermediatecatchevent5">
+        <omgdc:Bounds height="35.0" width="35.0" x="270.0" y="201.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent6" id="BPMNShape_timerintermediatecatchevent6">
+        <omgdc:Bounds height="35.0" width="35.0" x="270.0" y="250.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent7" id="BPMNShape_timerintermediatecatchevent7">
+        <omgdc:Bounds height="35.0" width="35.0" x="270.0" y="300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent8" id="BPMNShape_timerintermediatecatchevent8">
+        <omgdc:Bounds height="35.0" width="35.0" x="270.0" y="346.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent9" id="BPMNShape_timerintermediatecatchevent9">
+        <omgdc:Bounds height="35.0" width="35.0" x="270.0" y="390.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent10" id="BPMNShape_timerintermediatecatchevent10">
+        <omgdc:Bounds height="35.0" width="35.0" x="270.0" y="440.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent11" id="BPMNShape_timerintermediatecatchevent11">
+        <omgdc:Bounds height="35.0" width="35.0" x="270.0" y="490.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent12" id="BPMNShape_timerintermediatecatchevent12">
+        <omgdc:Bounds height="35.0" width="35.0" x="270.0" y="540.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="67.0" y="75.0"></omgdi:waypoint>
+        <omgdi:waypoint x="67.0" y="346.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="571.0" y="77.0"></omgdi:waypoint>
+        <omgdi:waypoint x="940.0" y="76.0"></omgdi:waypoint>
+        <omgdi:waypoint x="940.0" y="343.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="85.0" y="363.0"></omgdi:waypoint>
+        <omgdi:waypoint x="140.0" y="363.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="160.0" y="343.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="77.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="77.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="960.0" y="363.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1060.0" y="363.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="160.0" y="343.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="267.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="267.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="571.0" y="267.0"></omgdi:waypoint>
+        <omgdi:waypoint x="939.0" y="267.0"></omgdi:waypoint>
+        <omgdi:waypoint x="940.0" y="343.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="160.0" y="343.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="123.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="122.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="160.0" y="343.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="177.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="173.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="160.0" y="343.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="221.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="218.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="811.0" y="123.0"></omgdi:waypoint>
+        <omgdi:waypoint x="939.0" y="125.0"></omgdi:waypoint>
+        <omgdi:waypoint x="940.0" y="343.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="571.0" y="173.0"></omgdi:waypoint>
+        <omgdi:waypoint x="939.0" y="173.0"></omgdi:waypoint>
+        <omgdi:waypoint x="940.0" y="343.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="811.0" y="218.0"></omgdi:waypoint>
+        <omgdi:waypoint x="939.0" y="219.0"></omgdi:waypoint>
+        <omgdi:waypoint x="940.0" y="343.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="160.0" y="343.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="317.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="317.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="180.0" y="363.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="363.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="160.0" y="383.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="407.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="407.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="160.0" y="383.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="457.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="457.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="812.0" y="317.0"></omgdi:waypoint>
+        <omgdi:waypoint x="939.0" y="317.0"></omgdi:waypoint>
+        <omgdi:waypoint x="940.0" y="343.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="572.0" y="363.0"></omgdi:waypoint>
+        <omgdi:waypoint x="920.0" y="363.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="812.0" y="407.0"></omgdi:waypoint>
+        <omgdi:waypoint x="939.0" y="407.0"></omgdi:waypoint>
+        <omgdi:waypoint x="940.0" y="383.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="572.0" y="457.0"></omgdi:waypoint>
+        <omgdi:waypoint x="939.0" y="457.0"></omgdi:waypoint>
+        <omgdi:waypoint x="940.0" y="383.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
+        <omgdi:waypoint x="160.0" y="383.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="507.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="507.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="812.0" y="507.0"></omgdi:waypoint>
+        <omgdi:waypoint x="940.0" y="507.0"></omgdi:waypoint>
+        <omgdi:waypoint x="940.0" y="383.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="160.0" y="383.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="557.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="557.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
+        <omgdi:waypoint x="572.0" y="557.0"></omgdi:waypoint>
+        <omgdi:waypoint x="940.0" y="557.0"></omgdi:waypoint>
+        <omgdi:waypoint x="940.0" y="383.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
+        <omgdi:waypoint x="305.0" y="77.0"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="77.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
+        <omgdi:waypoint x="305.0" y="122.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="123.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
+        <omgdi:waypoint x="305.0" y="173.0"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="173.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
+        <omgdi:waypoint x="305.0" y="218.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="218.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
+        <omgdi:waypoint x="305.0" y="267.0"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="267.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
+        <omgdi:waypoint x="305.0" y="317.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="317.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow34" id="BPMNEdge_flow34">
+        <omgdi:waypoint x="305.0" y="363.0"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="363.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
+        <omgdi:waypoint x="305.0" y="407.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="407.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
+        <omgdi:waypoint x="305.0" y="457.0"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="457.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
+        <omgdi:waypoint x="305.0" y="557.0"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="557.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
+        <omgdi:waypoint x="305.0" y="507.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="507.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

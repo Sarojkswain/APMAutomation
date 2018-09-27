@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+	    {name=com.ca.apm.saas.testbed.SaaSUIKonakartTestbed, executeOn=konakartMachine}],
+	  owner = sinab10,
+	  size = BIG,
+	  description = 'Konakart Tests on Tomcat'),
+	  snapshotPolicy = SnapshotPolicy.ALWAYS,
+      snapshot = SnapshotMode.LIVE
+-->		
+<suite name="KonakartTests" configfailurepolicy="continue">	
+	<parameter name="instance" value="staging" />			
+	<parameter name="testngEmailEnabled" value="true" />
+	 	  
+	<test name="KonakartTests" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.saas.test.SaaSEnd2EndTests">
+				 <methods>
+				   	<include name="testKonakartConnected" />
+				   	<include name="testKonakartMap" />
+				   	<!-- <include name="testKonakartTTViewer" /> -->
+				 </methods>
+			</class>	
+		</classes>
+	</test> 	
+</suite>

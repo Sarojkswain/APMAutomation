@@ -1,0 +1,1 @@
+(org.osgi.framework.PackagePermission "com.ibm.cics.*" "import")

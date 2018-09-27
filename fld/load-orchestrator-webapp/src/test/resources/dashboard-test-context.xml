@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!--
+	################################################################################
+	Allow @Autowired without scan
+	################################################################################
+	-->
+	<context:annotation-config/>
+
+	<!--
+	################################################################################
+	Mock DAOs
+	################################################################################
+	-->
+	<bean id="mockDashboardDao" class="org.mockito.Mockito" factory-method="mock"> 
+		<constructor-arg value="com.ca.apm.systemtest.fld.server.dao.DashboardDao" /> 
+	</bean>
+
+	<bean id="mockLogger" class="org.mockito.Mockito" factory-method="mock"> 
+		<constructor-arg value="com.ca.apm.systemtest.fld.server.dao.LoggerMonitorDao" /> 
+	</bean>
+
+	<!--
+	################################################################################
+	In memory process engine configuration
+	################################################################################
+	-->
+	<bean id="processConfig" class="org.activiti.engine.ProcessEngineConfiguration"
+			factory-method="createStandaloneInMemProcessEngineConfiguration"> 
+		<property name="jobExecutorActivate" value="true"/>
+	</bean>
+
+	<bean id="processEngine" class="org.activiti.engine.ProcessEngine"
+			factory-bean="processConfig"
+			factory-method="buildProcessEngine">
+	</bean>
+
+	<bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService"/>
+
+	<!--
+	################################################################################
+	Other beans required for testing
+	################################################################################
+	-->
+	<bean id="fldLogger" class="com.ca.apm.systemtest.fld.server.logmonitor.FldLoggerLocalImpl"/>
+
+	<!--
+	Patterns are evaluated from first to last, first which match is used. You can
+	use \ as escape character when you need : as value for pattern.
+
+	VALUE
+		ListOfEventTypes:ProcDefIdPattern:ProcInstIdPattern:ExecIdPattern:Level:Tag:Message
+
+	MATCHING PARAMETERS
+		ListOfEventTypes - is comma separated list of event types (look to ActivitiEventType enum)
+		ProcessDefIdPattern - Standard Java Pattern to match against event.ProcessDefinitionId
+		ProcessInstIdPattern - Standard Java Pattern to match against event.ProcessInstanceId
+		ExecIdPattern - Standard Java Pattern to match against event.ExecIdPattern
+
+	OUTPUT PARAMETERS
+		Level - Should be one of TRACE, DEBUG, INFO, WARN, ERROR (default to DEBUG)
+		Tag - Tag used for logging into FldLogger
+		Message - Format for output message in java 'Format', parameters are EventType, ProcessDefId,
+			ProcessInstId, ExecId (default is "Event %s executed in %s (inst: %s, exec: %s)")
+
+	EXAMPLES
+		ACTIVITY_COMPLETED,PROCESS_COMPLETED:web.*\:4:::WARN:COMPL_TAG:%2$s completed with event %1$s
+		:::::CATCH_ALL:| %-20s| %-20s| %-5s| %-5s|
+	-->
+	<bean id="eventListener" class="com.ca.apm.systemtest.fld.server.listener.EventListener">
+		<property name="eventMatches">
+			<list>
+				<value>JOB_EXECUTION_SUCCESS::::DEBUG:SomeTag</value>
+				<value>ACTIVITY_COMPLETED,PROCESS_COMPLETED:Dashboard.*\:4:::TRACE:COMPL_TAG:%2$s completed with event %1$s</value>
+				<value>:::::CATCH_ALL:| %-20s| %-20s| %-5s| %-5s|</value>
+			</list>
+		</property>
+	</bean>
+</beans>

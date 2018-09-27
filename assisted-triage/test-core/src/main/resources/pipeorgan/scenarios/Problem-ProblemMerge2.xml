@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE scenario SYSTEM "./dtd/PipeOrganScenario.dtd">
+
+<!-- Problem Scenario for Problem Merging. Generates Stall on webservice_5. 
+	ExecutorServlet_10 calls PipeOrganWebService_5 with Stall in webservice. -->
+
+<scenario>
+	<iterateEvent count="4" interval="100">
+		<servlet milestones="no" uri="ExecutorServlet_10" port="8080"
+			host="localhost"
+			x-apm-bt="t=4F2504E0-4F89-9B0C-0305E82C2301;d=2b6f0cc904d137be2e1730235f5664094b831186;v=1.0;n=TMobile;l=3g;g=94015-1523;a=Tomcat Example$bs=PipeOrganApp;bt=Merge_Problem_User2;p=iOS;pv=8.1"
+			contextroot="/pipeorgan">
+			<webService
+				uri="http://localhost:8080/pipeorgan/services/PipeOrganWebService_5"
+				requestsize="10">
+				<message>Entered Web Service </message>
+				<wait duration="40000"/>
+				<message>Exiting Web Service</message>
+			</webService>
+		</servlet>
+	</iterateEvent>
+</scenario> 

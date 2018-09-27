@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<call-job-stack>
+	<name>NoCommareaNoChannelRun0001_3Thread_Q660.xml</name>
+	
+	<description>This script runs program RUN0001 with no commarea and no channel.  It uses 3 threads running 10 transactions each.</description>
+	<numberOfThreadsToRun>3</numberOfThreadsToRun>
+	<userID></userID>
+    <password></password>
+	<jGate>tcp://USILCA31</jGate>
+	<jGatePort>2008</jGatePort>
+	<serverName>Q660IPIC</serverName>
+	<useChannel>false</useChannel>
+	<useCommarea>false</useCommarea>
+	<useDynamicDecoration>false</useDynamicDecoration>
+	<programDataStr></programDataStr>
+	
+	<calledDistributions>
+		<name>10TransactionsWithNoCommareNoChannel</name>
+		<minutesToRun>0</minutesToRun>
+		<microsecondsToSleepPerCall>0</microsecondsToSleepPerCall>
+		<randomSeed>0</randomSeed>
+		<useCTG>true</useCTG>
+		<useWebServices>false</useWebServices>
+		<calledUnitsOfWork>
+			<proportionOfCalls>10</proportionOfCalls>
+			<calledTransactions>
+				<transactionID>RUN0001</transactionID>
+				<parameters></parameters>
+			</calledTransactions>
+		</calledUnitsOfWork>
+	</calledDistributions>
+</call-job-stack>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+	    {name=com.ca.apm.saas.testbed.SaasUITestbed, executeOn=testMachine}],
+	  owner = akujo01,
+	  size = BIG,
+	  description = 'SAAS AXA Tests'),
+	  snapshotPolicy = SnapshotPolicy.ALWAYS,
+      snapshot = SnapshotMode.LIVE
+-->	
+<suite name="SaaSAXA" configfailurepolicy="continue">	
+	<parameter name="instance" value="staging" />			
+	<parameter name="testngEmailEnabled" value="true" />
+	 	  
+	<test name="SaaSAXA" preserve-order="true">
+		<classes>			
+			<class name="com.ca.apm.saas.test.SaasAxaSanityTest" />
+		</classes>
+	</test>
+	<listeners>    	
+   	    <listener class-name="org.uncommons.reportng.HTMLReporter" />    	
+   		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+ 	</listeners>
+</suite>

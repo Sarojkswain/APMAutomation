@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+	    {name=com.ca.apm.tests.testbed.jvm7.acc.onprem.Websphere8TestBed, executeOn=machine1}],
+	  owner = kurma05,
+	  size = COLOSSAL,
+	  description = 'Java Agent BAT'),
+	  snapshotPolicy = SnapshotPolicy.ALWAYS,
+      snapshot = SnapshotMode.LIVE
+-->
+<suite name="TestSuite" configfailurepolicy="continue">
+	<parameter name="test.priority" value="4" />
+	<test name="WebsphereFullFunctionalTests" preserve-order="true">
+		<groups>
+      		<run>
+      			<include name="websphere" />
+      			<exclude name="zca_bundle" />
+     		</run>
+   		</groups>   
+	    <packages>
+	        <package name="com.ca.apm.automation.*">
+	        	<!--  not supported for acc -->
+				<exclude name="com.ca.apm.automation.cd"></exclude>
+				<exclude name="com.ca.apm.automation.leakhunter"></exclude>
+			</package>
+	    </packages>	    
+    	<listeners>    	
+    	    <listener class-name="org.uncommons.reportng.HTMLReporter" />    	
+    		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+    		<listener class-name="com.ca.apm.tests.utils.AnnotationTransformerImpl" />
+    		<listener class-name="com.ca.apm.automation.common.FuncTestListener" />
+  		</listeners>
+	</test>
+</suite>

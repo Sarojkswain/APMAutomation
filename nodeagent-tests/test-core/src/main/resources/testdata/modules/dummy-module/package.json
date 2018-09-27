@@ -1,0 +1,18 @@
+{
+  "name": "dummy-module",
+  "version": "1.0.0",
+  "description": "dummy module for testing ca-apm-nodejs-probe functionality",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "sinka08@ca.com"
+  },
+  "license": "ISC",
+  "readme": "ERROR: No README data found!",
+  "_id": "dummy-module@1.0.0",
+  "_shasum": "8eb8f6fd92897fdb6da7ec4079ca5d5d0c43d426",
+  "_resolved": "file:dummy-module-1.0.0.tgz",
+  "_from": "dummy-module-1.0.0.tgz"
+}

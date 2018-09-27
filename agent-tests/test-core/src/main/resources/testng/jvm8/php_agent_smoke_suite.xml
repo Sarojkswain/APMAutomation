@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [	    
+	    {name=com.ca.apm.tests.testbed.PhpAgentStandAloneTestBed, executeOn=phpMachine}],
+	  owner = ahmal01,
+	  size = COLOSSAL,
+	  description = 'PhP Java Agent Smoke'),
+	  snapshotPolicy = SnapshotPolicy.ALWAYS,
+      snapshot = SnapshotMode.LIVE
+-->
+<suite name="TestSuite" configfailurepolicy="continue">
+    <parameter name="test.priority" value="2" />
+	<test name="PhPSmokeFunctionalTests" preserve-order="true">
+		<groups>
+      		<run>
+      			<include name="php" />
+     		</run>
+   		</groups>   
+	    <packages>
+	        <package name="com.ca.apm.automation"/>
+	    </packages>	    
+    	<listeners>    	
+    	    <listener class-name="org.uncommons.reportng.HTMLReporter" />    	
+    		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+    		<listener class-name="com.ca.apm.tests.utils.AnnotationTransformerImpl" />
+    		<listener class-name="com.ca.apm.automation.common.FuncTestListener" />
+  		</listeners>
+	</test>
+</suite>

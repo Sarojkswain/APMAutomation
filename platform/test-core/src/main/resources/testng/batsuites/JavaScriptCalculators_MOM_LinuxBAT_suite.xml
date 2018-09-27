@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!-- @Tas(testBed = [ {name=com.ca.apm.tests.testbed.JavaScriptCalculatorsMOMLinuxTestbed, 
+	executeOn=momMachine}], owner = ketsw01, size = BIG, description = 'JavaScriptCalculators 
+	TestNg XML suite for all tests'), snapshotPolicy = SnapshotPolicy.ALWAYS, 
+	snapshot = SnapshotMode.LIVE -->
+<suite name="JavaScriptCalculatorsMOMTests" configfailurepolicy="continue">
+	<groups>
+    	<run>
+      		<include name="BAT"/>
+      		<include name="Bat"/>
+      		<include name="bat"/>
+    	</run>
+	</groups>
+	<test name="JavaScriptCalculatorsMOMTests" preserve-order="true">
+		<classes>
+			<class
+				name="com.ca.apm.tests.javascriptcalculators.JavaScriptCalculatorsMOMTests" />
+		</classes>
+	</test>
+</suite>

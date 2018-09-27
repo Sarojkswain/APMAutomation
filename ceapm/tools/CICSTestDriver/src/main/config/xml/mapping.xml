@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mapping>
+	<class name="com.ca.apm.powerpack.sysview.tools.cicstestdriver.xml.CalledTransaction">
+		<field name="transactionID" type="string">
+			<bind-xml name="transactionID" node="element"/>
+		</field>
+		<field name="parameters" type="java.lang.String" collection="arraylist">
+			<bind-xml name="parameters"/>
+		</field>
+		<field name="bufferLength" type="int">
+			<bind-xml name="bufferLength" node="element"/>
+		</field>
+		<field name="commAreaLength" type="int">
+			<bind-xml name="commAreaLength" node="element"/>
+		</field>
+		<field name="outBoundLength" type="int">
+			<bind-xml name="outBoundLength" node="element"/>
+		</field>
+		<field name="inBoundLength" type="int">
+			<bind-xml name="inBoundLength" node="element"/>
+		</field>
+		<field name="socketBufferSize" type="int">
+			<bind-xml name="socketBufferSize" node="element"/>
+		</field>
+        <field name="commAreaData" type="string">
+            <bind-xml name="commAreaData" node="element"/>
+        </field>
+	</class>
+
+	<class name="com.ca.apm.powerpack.sysview.tools.cicstestdriver.xml.CalledUnitOfWork">
+		<field name="proportionOfCalls" type="int">
+			<bind-xml name="proportionOfCalls" node="element"/>
+		</field>
+		<field name="transactionRepeat" type="int">
+			<bind-xml name="transactionRepeat" node="element"/>
+		</field>
+		<field name="testXA" type="boolean">
+			<bind-xml name="testXA" node="element"/>
+		</field>
+		<field name="userID" type="string">
+			<bind-xml name="userID" node="element"/>
+		</field>
+		<field name="password" type="string">
+			<bind-xml name="password" node="element"/>
+		</field>
+		<field name="calledTransactions"
+				type="com.ca.apm.powerpack.sysview.tools.cicstestdriver.xml.CalledTransaction"
+				collection="arraylist">
+			<bind-xml name="calledTransactions"/>
+		</field>
+	</class>
+
+	<class name="com.ca.apm.powerpack.sysview.tools.cicstestdriver.xml.CallDistribution">
+		<field name="name" type="string">
+			<bind-xml name="name" node="element"/>
+		</field>
+		<field name="minutesToRun" type="long">
+			<bind-xml name="minutesToRun" node="element"/>
+		</field>
+		<field name="microsecondsToSleepPerCall" type="long">
+			<bind-xml name="microsecondsToSleepPerCall" node="element"/>
+		</field>
+		<field name="randomSeed" type="java.lang.Long">
+			<bind-xml name="randomSeed" node="element"/>
+		</field>
+		<field name="useCTG" type="boolean">
+			<bind-xml name="useCTG" node="element"/>
+		</field>
+		<field name="useWebServices" type="boolean">
+			<bind-xml name="useWebServices" node="element"/>
+		</field>
+		<field name="useCICSSockets" type="boolean">
+			<bind-xml name="useCICSSockets" node="element"/>
+		</field>
+		<field name="calledUnitsOfWork"
+				type="com.ca.apm.powerpack.sysview.tools.cicstestdriver.xml.CalledUnitOfWork"
+				collection="arraylist">
+			<bind-xml name="calledUnitsOfWork"/>
+		</field>
+	</class>
+
+	<class name="com.ca.apm.powerpack.sysview.tools.cicstestdriver.xml.CallJobStack">
+		<field name="name" type="string">
+			<bind-xml name="name" node="element"/>
+		</field>
+		<field name="description" type="string">
+			<bind-xml name="description" node="element"/>
+		</field>
+		<field name="numberOfThreadsToRun" type="int">
+			<bind-xml name="numberOfThreadsToRun" node="element"/>
+		</field>
+		<field name="userID" type="string">
+			<bind-xml name="userID" node="element"/>
+		</field>
+		<field name="password" type="string">
+			<bind-xml name="password" node="element"/>
+		</field>
+		<field name="jGate" type="string">
+			<bind-xml name="jGate" node="element"/>
+		</field>
+		<field name="jGatePort" type="int">
+			<bind-xml name="jGatePort" node="element"/>
+		</field>
+		<field name="serverName" type="string">
+			<bind-xml name="serverName" node="element"/>
+		</field>
+		<field name="useChannel" type="boolean">
+			<bind-xml name="useChannel" node="element"/>
+		</field>
+		<field name="useCommarea" type="boolean">
+			<bind-xml name="useCommarea" node="element"/>
+		</field>
+		<field name="useDynamicDecoration" type="boolean">
+			<bind-xml name="useDynamicDecoration" node="element"/>
+		</field>
+		<field name="programDataStr" type="string">
+			<bind-xml name="programDataStr" node="element"/>
+		</field>
+		<field name="socketServer" type="string">
+			<bind-xml name="socketServer" node="element"/>
+		</field>
+		<field name="socketPort" type="int">
+			<bind-xml name="socketPort" node="element"/>
+		</field>
+		<field name="calledDistributions"
+				type="com.ca.apm.powerpack.sysview.tools.cicstestdriver.xml.CallDistribution"
+				collection="arraylist">
+			<bind-xml name="calledDistributions"/>
+		</field>
+	</class>
+</mapping>

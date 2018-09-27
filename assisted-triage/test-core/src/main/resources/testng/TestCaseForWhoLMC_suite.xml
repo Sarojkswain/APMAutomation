@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+ 
+<!--
+ @Tas(testBed = [
+	{name=com.ca.apm.tests.testbed.DevStandAloneTestBed, executeOn=saMaster}],
+	owner = katan09,
+	size = BIG,
+	description = 'Assisted Triage TestNg XML suite for WHO feature')
+-->
+
+<suite name="ATTestSuiteforWhoLMC" configfailurepolicy="continue"> 
+		<test name="testng.TestCaseForWhoLMC_suite" preserve-order="true">
+		<classes>	
+			<class name="com.ca.apm.tests.test.TestCaseForWhoLMC">
+			     <methods>
+					   <include name="testCase_NoBTSall_with_LMC_as_GF"/>			
+			     </methods>
+			</class>
+		</classes>
+        </test>
+</suite>

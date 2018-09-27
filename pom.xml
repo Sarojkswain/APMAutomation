@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.ca.apm.testing</groupId>
+		<artifactId>com.ca.apm.testing.parent</artifactId>
+		<version>99.99.dev_SaaS_fix-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.ca.apm.test</groupId>
+	<artifactId>com.ca.apm.test.parent</artifactId>
+	<packaging>pom</packaging>
+
+	<name>Test Projects</name>
+	<description>Aggregation project for TAS driven system tests</description>
+
+    <modules>
+		<module>aba-tests</module>
+		<module>em-tests</module>
+		<module>aquarius-em-bat</module>
+		<module>assisted-triage</module>
+		<module>emautomation</module>
+		<module>siteminder</module>
+		<module>saml</module>
+		<module>nodeagent-tests</module>
+		<module>tt_appmap</module>
+		<module>lucene-wurlitzer</module>
+		<module>ceapm</module>
+		<module>agent-tests</module>
+		<module>tibco</module>
+		<module>wv-nextgen</module>
+		<module>platform</module>
+		<module>performance-regression</module>
+		<module>webviewTT</module>
+		<module>systemtest-powerpacks</module>
+		<module>Services</module>
+        <module>APM-Commons-Lite</module>
+		<module>APM-Commons</module>
+		<module>apm-uber</module>
+		<module>BTMatcher</module>
+		<module>apmsqlserver</module>
+		<module>Install-Upgrade</module>
+		<module>apm-saas</module>
+		<module>ttviewer</module>
+		<module>docker-systemtest</module>
+		<module>alert-state-load</module>
+		<module>sizing-guide-test</module>
+        <module>elastic-tracestore</module>
+		<module>upgrade-systemtest</module>
+		<module>saas-tests</module>
+		<module>qa-integration-flows</module>
+		<module>atc-performance</module>
+		<module>reversed-migration-test</module>
+		<module>agent-integration</module>
+  </modules>
+
+</project>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!-- @Tas(testBed = [ {name=com.ca.apm.tests.testbed.JavaScriptCalculatorsStandaloneWindowsTestbed, 
+	executeOn=emMachine}], owner = ketsw01, size = BIG, description = 'JavaScriptCalculators 
+	TestNg XML suite for all tests'), snapshotPolicy = SnapshotPolicy.ALWAYS, 
+	snapshot = SnapshotMode.LIVE -->
+<suite name="JavaScriptCalculatorsStandaloneTests"
+	configfailurepolicy="continue">
+	<test name="JavaScriptCalculatorsStandaloneTests" preserve-order="true">
+		<classes>
+			<class
+				name="com.ca.apm.tests.javascriptcalculators.JavaScriptCalculatorsStandaloneTests" />
+		</classes>
+	</test>
+</suite>
+		

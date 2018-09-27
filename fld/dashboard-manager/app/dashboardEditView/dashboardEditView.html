@@ -1,0 +1,115 @@
+<div ng-controller="DashboardEditDetailsController as controller">
+    <div class="row dashboardTopButtonPanel">
+        <div class="col-sm-6 dashboardTopButtonColumn">
+            <button type="button"
+                    title="Save changes and close the editor"
+                    class="btn btn-primary"
+                    ng-disabled="!controller.hasChanges() || !dashboard.processKey || !dashboard.name"
+                    ng-click="controller.onSave()">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            </button>
+            <button type="button"
+                    title="Save changes and continue editing"
+                    class="btn btn-primary"
+                    ng-disabled="!controller.hasChanges() || !dashboard.processKey || !dashboard.name"
+                    ng-click="controller.onSaveAndStay()">
+                <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+            </button>
+            <button type="button"
+                    title="Close the editor"
+                    class="btn btn-default"
+                    ng-click="controller.onCancel()">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="col-sm-6">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1 col-sm-1">
+            <picto-gallery></picto-gallery>
+        </div>
+        <div class="col-md-11 col-sm-11">
+            <h1 class="page-header text-right dashboardEditTitle">
+                Dashboard Settings<span ng-show="controller.hasChanges()">*</span>
+                <label class="new-label label-success" ng-show="controller.isNewDashboard()">New</label>
+            </h1>
+        </div>
+    </div>
+
+    <form name="dashboardForm">
+        <div>
+            <div class="form-group has-feedback"
+                 ng-class="{ 'has-success' : dashboard.name, 'has-error' : !dashboard.name }">
+                <label class="control-label" for="dashboardNameId">Dashboard Name</label>
+                <input type="text" class="form-control" id="dashboardNameId" placeholder="Dashboard Name"
+                       ng-model="dashboard.name" value="{{ dashboard.name }}" ng-change="controller.setHasChanges(true)"
+                       focus="true"
+                       required>
+                <span class="glyphicon form-control-feedback"
+                      ng-class="{ 'glyphicon-ok' : dashboard.name, 'glyphicon-remove' : !dashboard.name }"
+                      aria-hidden="true"></span>
+            </div>
+        </div>
+        <div ng-if="controller.isNewDashboard()">
+            <div class="form-group has-feedback"
+                 ng-class="{ 'has-success' : dashboard.processKey, 'has-error' : !dashboard.processKey }">
+                <label class="control-label" for="dashboardProcessKey">Process Key</label>
+
+                <input type="hidden" value="{{ dashboard.processKey }}" ng-model="dashboard.processKey"
+                       required="required">
+                <process-key-drop-down id="dashboardProcessKey" value="dashboard.processKey"></process-key-drop-down>
+            </div>
+        </div>
+        <div ng-if="!controller.isNewDashboard()">
+            <label class="control-label" for="roDashboardProcessKey">Process Key</label>
+            <input id="roDashboardProcessKey"
+                   class="form-control"
+                   type="text"
+                   value="{{ dashboard.processKey }}"
+                   disabled>
+        </div>
+
+        <div ng-show="!controller.isNewDashboard()">
+            <h3 class="workflowParametersHeader text-right">Workflow Settings</h3>
+            <workflow-parameters hasfocus="false"></workflow-parameters>
+        </div>
+
+        <div>
+            <h3 class="monitoringValuesHeader text-right">Monitoring Values</h3>
+
+            <div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 col-md-1"
+                         ng-repeat="widget in monitors">
+                        <div class="valueWidgetCloseLink text-right">
+                            <button type="button" class="close" ng-click="controller.removeValueWidget(widget)">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="close" ng-click="controller.editValueWidget(widget)">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <div class="text-center" id="thumbnail-{{ widget.key }}">
+                            <img ng-src="{{ widget.img }}">
+                            <div class="monitorLabel">
+                                {{ widget.name }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <nav>
+                    <ul class="pager">
+                        <li ng-show="controller.hasMonitors()"><a ng-click="controller.removeAllWidgets()">Remove
+                            All</a></li>
+                        <li><a href="" ng-click="controller.openAddValueWidgetDialog()">+</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </form>
+</div>

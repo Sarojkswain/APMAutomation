@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!-- @Tas(testBed = [ 
+    {name=com.ca.apm.testbed.atc.TeamCenterRegressionTestBed, executeOn=endUserMachine}],
+    owner = kolto01,
+    size = BIG,
+    description = 'AGC Selenium TestNg XML suite for all functional tests',
+    snapshotMode = 'LIVE') -->
+<suite name="testNgRegression2TestSuite" parallel="classes" thread-count="5" configfailurepolicy="continue">
+	<test name="testNgAllFunctionalTests" preserve-order="false">
+		<classes>
+			<class name="com.ca.apm.test.atc.SetupRegressionTest" />
+			<class name="com.ca.apm.test.atc.universe.UniverseTest" />
+			<class name="com.ca.apm.test.atc.universe.UniverseAuthorizationTest" />
+			<class name="com.ca.apm.test.atc.filtersnavigation.DragAndDropTest" />
+			<class name="com.ca.apm.test.atc.filtersnavigation.CreateFilter" />
+			<class name="com.ca.apm.test.atc.filtersnavigation.DeleteFilter" />
+			<class name="com.ca.apm.test.atc.filtersnavigation.DisableFilter" />
+			<class name="com.ca.apm.test.atc.filtersnavigation.EditFilter" />
+			<class name="com.ca.apm.test.atc.filtersnavigation.FilterFilter" />
+			<class name="com.ca.apm.test.atc.filtersnavigation.MapView" />
+			<class name="com.ca.apm.test.atc.filtersnavigation.Sorting" />
+			<class name="com.ca.apm.test.atc.changedetection.ChangeEventsTest" />
+			<class name="com.ca.apm.test.atc.grouping.SemanticGroupingTest" />
+			<class name="com.ca.apm.test.atc.grouping.TemporaryPerspectiveTest" />
+			<class name="com.ca.apm.test.atc.grouping.TemporaryPerspectiveTest" />
+			<class name="com.ca.apm.test.atc.levelofdetail.LevelsOfDetailTest" />
+			<class name="com.ca.apm.test.atc.permalink.FiltersPermalinkTest" />
+			<class name="com.ca.apm.test.atc.permalink.TimelinePermalink" />
+			<class name="com.ca.apm.test.atc.search.SearchTest" />
+			<class name="com.ca.apm.test.atc.status.StatusTest" />
+			<class name="com.ca.apm.test.atc.timeline.TimelineTest" />
+			<class name="com.ca.apm.test.atc.timeline.ZoomingTest" />
+			<class name="com.ca.apm.test.atc.ExpandCollapseViewsTest" />
+			<class name="com.ca.apm.test.atc.DeepLinkingTest" />
+			<class name="com.ca.apm.test.atc.DetailsPanelTest" />
+			<class name="com.ca.apm.test.atc.AboutDialogTest" />
+			<class name="com.ca.apm.test.atc.WelcomeScreenTest" />
+			<class name="com.ca.apm.test.atc.webview.TimeResolutionTest" />
+			<class name="com.ca.apm.test.atc.databrushing.DatabrushingTest" />
+			<class name="com.ca.apm.test.atc.externalization.ExternalizationTest" />
+			<class name="com.ca.apm.test.atc.trendview.ComponentViewInDashboardTest" />
+			<class name="com.ca.apm.test.atc.changedetection.ChangeEventsHighlightingTest" />
+			<class name="com.ca.apm.test.atc.trendview.DetailViewTest" />
+			<class name="com.ca.apm.test.atc.AppMapHelpLinksTest" />
+		</classes>
+	</test>
+</suite>

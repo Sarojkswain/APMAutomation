@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<!--
+ @Tas(testBed = [
+	{name=com.ca.apm.tests.testbed.StandAloneTestBed, executeOn=saMaster}],
+	owner = katan09,
+	size = BIG,
+	description = 'Transaction Trace Viewer TestNg XML suite')
+-->
+
+<suite name="TTViewerTestSuite" configfailurepolicy="continue">
+    <test name="testng.ttviewer_suite" preserve-order="true">
+        <classes>
+            <class name="com.ca.apm.tests.test.TransactionTraceViewerTest">
+                <methods>
+                    <include name="test"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

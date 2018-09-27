@@ -1,0 +1,15 @@
+<assembly>
+    <id>PipeOrganMM</id>
+    <!-- Specifies that our binary distribution is a jar package -->
+    <formats>
+        <format>jar</format>
+    </formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+ 
+    <fileSets>
+       <fileSet>
+            <directory>${basedir}/src/main/PipeOrganMM</directory>
+            <outputDirectory></outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>

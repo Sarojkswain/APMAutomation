@@ -1,0 +1,474 @@
+Agent Stats|Build and Release
+Agent Stats|Sustainability|Configuration|Last AutoProbe Reload Time
+Agent Stats|Sustainability|Configuration|Last Class Redefinition Time
+Agent Stats|Sustainability|Configuration|Last Profile Update Time
+CICS Regions|%%%|Alerts|%%%|Alert Status
+CICS Regions|%%%|Alerts|%%%|Alert Status Value
+CICS Regions|%%%|Alerts|%%%|Description
+CICS Regions|%%%|Alerts|%%%|Job Name
+CICS Regions|%%%|Alerts|%%%|Name
+CICS Regions|%%%|Alerts|%%%|Priority
+CICS Regions|%%%|Alerts|%%%|Resource Argument 1
+CICS Regions|%%%|Alerts|%%%|Resource Argument 2
+CICS Regions|%%%|Alerts|%%%|Rule Type
+CICS Regions|%%%|Alerts|%%%|Subgroup
+CICS Regions|%%%|Alerts|%%%|Task
+CICS Regions|%%%|Alerts|%%%|Value
+CICS Regions|%%%|Average CPU Time Per Transaction (%%%s)
+CICS Regions|%%%|Average Lifetime Per Transaction (%%%s)
+CICS Regions|%%%|Average Suspend Time Per Transaction (%%%s)
+CICS Regions|%%%|Average Time Spent On File Control (%%%s)
+CICS Regions|%%%|Average Waiting To Run Time (%%%s)
+CICS Regions|%%%|Degradation Analysis|%%%|Average
+CICS Regions|%%%|Degradation Analysis|%%%|Job Name
+CICS Regions|%%%|Degradation Analysis|%%%|Percent
+CICS Regions|%%%|Degradation Analysis|%%%|Resource
+CICS Regions|%%%|Degradation Analysis|%%%|Row
+CICS Regions|%%%|Dynamic Storage Area|Dynamic Storage Area (DSA) Amount Free
+CICS Regions|%%%|Dynamic Storage Area|Dynamic Storage Area (DSA) Free (%)
+CICS Regions|%%%|Dynamic Storage Area|Extended Dynamic Storage Area (EDSA) Amount Free
+CICS Regions|%%%|Dynamic Storage Area|Extended Dynamic Storage Area (EDSA) Free (%)
+CICS Regions|%%%|Dynamic Storage Area|Global Dynamic Storage Area (GDSA) Amount Free
+CICS Regions|%%%|Dynamic Storage Area|Global Dynamic Storage Area (GDSA) Free (%)
+CICS Regions|%%%|Number of Transactions
+CICS Regions|%%%|Status|DB Control Connection
+CICS Regions|%%%|Status|DB Control Connection Value
+CICS Regions|%%%|Status|DB2 Connection
+CICS Regions|%%%|Status|DB2 Connection Value
+CICS Regions|%%%|Status|Maximum CICS Task
+CICS Regions|%%%|Status|Maximum CICS Task Value
+CICS Regions|%%%|Status|Region Monitoring
+CICS Regions|%%%|Status|Region Monitoring Value
+CICS Regions|%%%|Status|Region Status
+CICS Regions|%%%|Status|Region Status Value
+CICS Regions|%%%|Status|TCPIP Connection
+CICS Regions|%%%|Status|TCPIP Connection Value
+CICS Regions|%%%|Status|VTAM Connection
+CICS Regions|%%%|Status|VTAM Connection Value
+CICS Regions|%%%|Status|WEB Connection
+CICS Regions|%%%|Status|WEB Connection Value
+CICS Regions|%%%|Status|WebSphere MQ Connection
+CICS Regions|%%%|Status|WebSphere MQ Connection Value
+CICS Regions|%%%|Transaction Groups|%%%|Average CPU Time (%%%s)
+CICS Regions|%%%|Transaction Groups|%%%|Average File Control Time (%%%s)
+CICS Regions|%%%|Transaction Groups|%%%|Average Lifetime (%%%s)
+CICS Regions|%%%|Transaction Groups|%%%|Average Suspend Time (%%%s)
+CICS Regions|%%%|Transaction Groups|%%%|Average Waiting To Run Time (%%%s)
+CICS Regions|%%%|Transaction Groups|%%%|Elapsed Time Since The Transaction Last Ran (sec)
+CICS Regions|%%%|Transaction Groups|%%%|Executed Transaction Count (This Interval)
+CICS Regions|%%%|Transaction Groups|%%%|Last Date Since The Transaction Ran
+CICS Regions|%%%|Transaction Groups|%%%|Last Time Since The Transaction Ran
+CICS Regions|%%%|Transaction Groups|%%%|Transaction Rate (Last System Interval)
+CICS Regions|%%%|Transactions Per Second
+CICS Regions|Unacknowledged Alert Count
+CICS Regions|Unacknowledged Problem Count
+CICS Regions|Unacknowledged Warning Count
+DATACOM Address Spaces|%%%|Amount Of Real Storage Used (kb)
+DATACOM Address Spaces|%%%|CPU Time Accumulated (%%%s)
+DATACOM Address Spaces|%%%|CPU Time Per Interval (%%%s)
+DATACOM Address Spaces|%%%|Datacom Release
+DATACOM Address Spaces|%%%|EXCPs Outstanding
+DATACOM Address Spaces|%%%|Executed Amount Of Wall Clock Time (sec)
+DATACOM Address Spaces|%%%|Executed I/O Operations Count
+DATACOM Address Spaces|%%%|Executed I/O Operations Count Per Interval
+DATACOM Address Spaces|%%%|SVC Number
+DATACOM Address Spaces|%%%|Status|Address Space
+DATACOM Address Spaces|%%%|Status|Address Space Value
+DATACOM Address Spaces|%%%|SubID
+DATACOM Address Spaces|%%%|System Table Value
+DB2 z/OS Data Sharing Groups|%%%|Buffer Pool|Asynchronous Writes
+DB2 z/OS Data Sharing Groups|%%%|Buffer Pool|Available Pages (%)
+DB2 z/OS Data Sharing Groups|%%%|Buffer Pool|Dataset Opens
+DB2 z/OS Data Sharing Groups|%%%|Buffer Pool|Page Get Requests
+DB2 z/OS Data Sharing Groups|%%%|Buffer Pool|Page Read Efficiency
+DB2 z/OS Data Sharing Groups|%%%|Buffer Pool|Page Write Efficiency
+DB2 z/OS Data Sharing Groups|%%%|Buffer Pool|Page Write Requests
+DB2 z/OS Data Sharing Groups|%%%|Buffer Pool|Prefetch Failed
+DB2 z/OS Data Sharing Groups|%%%|Buffer Pool|Prefetch IO
+DB2 z/OS Data Sharing Groups|%%%|Buffer Pool|Prefetch Reads
+DB2 z/OS Data Sharing Groups|%%%|Buffer Pool|Prefetch Requests
+DB2 z/OS Data Sharing Groups|%%%|Buffer Pool|Synchronous IO
+DB2 z/OS Data Sharing Groups|%%%|Buffer Pool|VPool Size
+DB2 z/OS Data Sharing Groups|%%%|CPU|DB2 Elapsed Time
+DB2 z/OS Data Sharing Groups|%%%|CPU|DBM1 CP CPU Usage
+DB2 z/OS Data Sharing Groups|%%%|CPU|DBM1 CPU (%)
+DB2 z/OS Data Sharing Groups|%%%|CPU|DBM1 zIIP CPU Usage
+DB2 z/OS Data Sharing Groups|%%%|CPU|DDF CP CPU Usage
+DB2 z/OS Data Sharing Groups|%%%|CPU|DDF CPU (%)
+DB2 z/OS Data Sharing Groups|%%%|CPU|DDF zIIP CPU Usage
+DB2 z/OS Data Sharing Groups|%%%|CPU|IRLM CP CPU Usage
+DB2 z/OS Data Sharing Groups|%%%|CPU|IRLM CPU (%)
+DB2 z/OS Data Sharing Groups|%%%|CPU|IRLM zIIP CPU Usage
+DB2 z/OS Data Sharing Groups|%%%|CPU|MSTR CP CPU Usage
+DB2 z/OS Data Sharing Groups|%%%|CPU|MSTR CPU (%)
+DB2 z/OS Data Sharing Groups|%%%|CPU|MSTR zIIP CPU Usage
+DB2 z/OS Data Sharing Groups|%%%|CPU|Processor Count
+DB2 z/OS Data Sharing Groups|%%%|CPU|Total CPU (%)
+DB2 z/OS Data Sharing Groups|%%%|Distributed Activity|Rows Received
+DB2 z/OS Data Sharing Groups|%%%|Distributed Activity|Rows Sent
+DB2 z/OS Data Sharing Groups|%%%|Distributed Activity|SQL Received
+DB2 z/OS Data Sharing Groups|%%%|Distributed Activity|SQL Sent
+DB2 z/OS Data Sharing Groups|%%%|EDM Pool|Cursor Table Load (%)
+DB2 z/OS Data Sharing Groups|%%%|EDM Pool|DBD Load (%)
+DB2 z/OS Data Sharing Groups|%%%|EDM Pool|DBD Pool Free Pages
+DB2 z/OS Data Sharing Groups|%%%|EDM Pool|DBD Pool Full Failures
+DB2 z/OS Data Sharing Groups|%%%|EDM Pool|DBD Pool Pages
+DB2 z/OS Data Sharing Groups|%%%|EDM Pool|DBD Pool Pages Available (%)
+DB2 z/OS Data Sharing Groups|%%%|EDM Pool|DBD Used Pages
+DB2 z/OS Data Sharing Groups|%%%|EDM Pool|Dynamic Statement Load (%)
+DB2 z/OS Data Sharing Groups|%%%|EDM Pool|EDM Pool Full Failures
+DB2 z/OS Data Sharing Groups|%%%|EDM Pool|Package Table Load (%)
+DB2 z/OS Data Sharing Groups|%%%|EDM Pool|Skeleton Cursor Table Pages
+DB2 z/OS Data Sharing Groups|%%%|EDM Pool|Skeleton Package Table Pages
+DB2 z/OS Data Sharing Groups|%%%|EDM Pool|Skeleton Package Table Pages Available (%)
+DB2 z/OS Data Sharing Groups|%%%|EDM Pool|Statement Pool Free Pages
+DB2 z/OS Data Sharing Groups|%%%|EDM Pool|Statement Pool Full Failures
+DB2 z/OS Data Sharing Groups|%%%|EDM Pool|Statement Pool Pages
+DB2 z/OS Data Sharing Groups|%%%|EDM Pool|Statement Pool Used Pages
+DB2 z/OS Data Sharing Groups|%%%|Exceptions|Application Critical Exceptions
+DB2 z/OS Data Sharing Groups|%%%|Exceptions|Application Warning Exceptions
+DB2 z/OS Data Sharing Groups|%%%|Exceptions|Database Critical Exceptions
+DB2 z/OS Data Sharing Groups|%%%|Exceptions|Database Warning Exceptions
+DB2 z/OS Data Sharing Groups|%%%|Exceptions|Subsystem Critical Exceptions
+DB2 z/OS Data Sharing Groups|%%%|Exceptions|Subsystem Warning Exceptions
+DB2 z/OS Data Sharing Groups|%%%|Exceptions|Total Critical Exceptions
+DB2 z/OS Data Sharing Groups|%%%|Exceptions|Total Warning Exceptions
+DB2 z/OS Data Sharing Groups|%%%|General|Availability
+DB2 z/OS Data Sharing Groups|%%%|General|Availability Value
+DB2 z/OS Data Sharing Groups|%%%|General|DB2 Start Time
+DB2 z/OS Data Sharing Groups|%%%|General|Data Sharing Group Name
+DB2 z/OS Data Sharing Groups|%%%|General|Member Count
+DB2 z/OS Data Sharing Groups|%%%|General|Member List
+DB2 z/OS Data Sharing Groups|%%%|Group Buffer Pool|Page Data Reads
+DB2 z/OS Data Sharing Groups|%%%|Group Buffer Pool|Page Empty Reads
+DB2 z/OS Data Sharing Groups|%%%|Group Buffer Pool|Page Read Efficiency
+DB2 z/OS Data Sharing Groups|%%%|Group Buffer Pool|Write Failures
+DB2 z/OS Data Sharing Groups|%%%|Locks|Deadlocks
+DB2 z/OS Data Sharing Groups|%%%|Locks|Escalations
+DB2 z/OS Data Sharing Groups|%%%|Locks|Global Requests
+DB2 z/OS Data Sharing Groups|%%%|Locks|Global Suspensions
+DB2 z/OS Data Sharing Groups|%%%|Locks|Local Requests
+DB2 z/OS Data Sharing Groups|%%%|Locks|Local Suspensions
+DB2 z/OS Data Sharing Groups|%%%|Locks|Timeouts
+DB2 z/OS Data Sharing Groups|%%%|Log Activity|Active Reads
+DB2 z/OS Data Sharing Groups|%%%|Log Activity|Archive Reads
+DB2 z/OS Data Sharing Groups|%%%|Log Activity|Checkpoints
+DB2 z/OS Data Sharing Groups|%%%|Log Activity|Unavailable Buffer Waits
+DB2 z/OS Data Sharing Groups|%%%|Log Activity|Write Forced
+DB2 z/OS Data Sharing Groups|%%%|Log Activity|Write No Waits
+DB2 z/OS Data Sharing Groups|%%%|Log Activity|Write Waits
+DB2 z/OS Data Sharing Groups|%%%|Misc|Current Starjoin Pool Size
+DB2 z/OS Data Sharing Groups|%%%|Misc|Current Starjoin Pool Used (%)
+DB2 z/OS Data Sharing Groups|%%%|Misc|RID Pool Failures
+DB2 z/OS Data Sharing Groups|%%%|Misc|Starjoin Pool Allocation Requests
+DB2 z/OS Data Sharing Groups|%%%|Misc|Starjoin Pool Failures
+DB2 z/OS Data Sharing Groups|%%%|Misc|Workfile Shortage 32K
+DB2 z/OS Data Sharing Groups|%%%|Misc|Workfile Shortage 4K
+DB2 z/OS Data Sharing Groups|%%%|Workload|Aborts
+DB2 z/OS Data Sharing Groups|%%%|Workload|Call Requests
+DB2 z/OS Data Sharing Groups|%%%|Workload|Create Thread Requests
+DB2 z/OS Data Sharing Groups|%%%|Workload|Current Background Threads
+DB2 z/OS Data Sharing Groups|%%%|Workload|Current DBAT Threads
+DB2 z/OS Data Sharing Groups|%%%|Workload|Current Foreground Threads
+DB2 z/OS Data Sharing Groups|%%%|Workload|Current Threads
+DB2 z/OS Data Sharing Groups|%%%|Workload|Delete Requests
+DB2 z/OS Data Sharing Groups|%%%|Workload|Dynamic Requests
+DB2 z/OS Data Sharing Groups|%%%|Workload|InsUpdDel Requests
+DB2 z/OS Data Sharing Groups|%%%|Workload|Insert Requests
+DB2 z/OS Data Sharing Groups|%%%|Workload|Queued Create Thread Requests
+DB2 z/OS Data Sharing Groups|%%%|Workload|SelectOpen Requests
+DB2 z/OS Data Sharing Groups|%%%|Workload|Syncs
+DB2 z/OS Data Sharing Groups|%%%|Workload|Update Requests
+DB2 z/OS Subsystems|%%%|Buffer Pool|Asynchronous Writes
+DB2 z/OS Subsystems|%%%|Buffer Pool|Available Pages (%)
+DB2 z/OS Subsystems|%%%|Buffer Pool|Dataset Opens
+DB2 z/OS Subsystems|%%%|Buffer Pool|Page Get Requests
+DB2 z/OS Subsystems|%%%|Buffer Pool|Page Read Efficiency
+DB2 z/OS Subsystems|%%%|Buffer Pool|Page Write Efficiency
+DB2 z/OS Subsystems|%%%|Buffer Pool|Page Write Requests
+DB2 z/OS Subsystems|%%%|Buffer Pool|Prefetch Failed
+DB2 z/OS Subsystems|%%%|Buffer Pool|Prefetch IO
+DB2 z/OS Subsystems|%%%|Buffer Pool|Prefetch Reads
+DB2 z/OS Subsystems|%%%|Buffer Pool|Prefetch Requests
+DB2 z/OS Subsystems|%%%|Buffer Pool|Synchronous IO
+DB2 z/OS Subsystems|%%%|Buffer Pool|VPool Size
+DB2 z/OS Subsystems|%%%|Distributed Activity|Rows Received
+DB2 z/OS Subsystems|%%%|Distributed Activity|Rows Sent
+DB2 z/OS Subsystems|%%%|Distributed Activity|SQL Received
+DB2 z/OS Subsystems|%%%|Distributed Activity|SQL Sent
+DB2 z/OS Subsystems|%%%|EDM Pool|Cursor Table Load (%)
+DB2 z/OS Subsystems|%%%|EDM Pool|DBD Load (%)
+DB2 z/OS Subsystems|%%%|EDM Pool|DBD Pool Free Pages
+DB2 z/OS Subsystems|%%%|EDM Pool|DBD Pool Full Failures
+DB2 z/OS Subsystems|%%%|EDM Pool|DBD Pool Pages
+DB2 z/OS Subsystems|%%%|EDM Pool|DBD Pool Pages Available (%)
+DB2 z/OS Subsystems|%%%|EDM Pool|DBD Used Pages
+DB2 z/OS Subsystems|%%%|EDM Pool|Dynamic Statement Load (%)
+DB2 z/OS Subsystems|%%%|EDM Pool|EDM Pool Full Failures
+DB2 z/OS Subsystems|%%%|EDM Pool|Package Table Load (%)
+DB2 z/OS Subsystems|%%%|EDM Pool|Skeleton Cursor Table Pages
+DB2 z/OS Subsystems|%%%|EDM Pool|Skeleton Package Table Pages
+DB2 z/OS Subsystems|%%%|EDM Pool|Skeleton Package Table Pages Available (%)
+DB2 z/OS Subsystems|%%%|EDM Pool|Statement Pool Free Pages
+DB2 z/OS Subsystems|%%%|EDM Pool|Statement Pool Full Failures
+DB2 z/OS Subsystems|%%%|EDM Pool|Statement Pool Pages
+DB2 z/OS Subsystems|%%%|EDM Pool|Statement Pool Used Pages
+DB2 z/OS Subsystems|%%%|Exceptions|Application Critical Exceptions
+DB2 z/OS Subsystems|%%%|Exceptions|Application Warning Exceptions
+DB2 z/OS Subsystems|%%%|Exceptions|Database Critical Exceptions
+DB2 z/OS Subsystems|%%%|Exceptions|Database Warning Exceptions
+DB2 z/OS Subsystems|%%%|Exceptions|Subsystem Critical Exceptions
+DB2 z/OS Subsystems|%%%|Exceptions|Subsystem Warning Exceptions
+DB2 z/OS Subsystems|%%%|Exceptions|Total Critical Exceptions
+DB2 z/OS Subsystems|%%%|Exceptions|Total Warning Exceptions
+DB2 z/OS Subsystems|%%%|General|Availability
+DB2 z/OS Subsystems|%%%|General|Availability Value
+DB2 z/OS Subsystems|%%%|General|DB2 Start Time
+DB2 z/OS Subsystems|%%%|General|Data Sharing Group Name
+DB2 z/OS Subsystems|%%%|General|Data Sharing Member Name
+DB2 z/OS Subsystems|%%%|General|Location Name
+DB2 z/OS Subsystems|%%%|General|Release Number
+DB2 z/OS Subsystems|%%%|General|SMF ID
+DB2 z/OS Subsystems|%%%|General|Subsystem Name
+DB2 z/OS Subsystems|%%%|Group Buffer Pool|Page Data Reads
+DB2 z/OS Subsystems|%%%|Group Buffer Pool|Page Empty Reads
+DB2 z/OS Subsystems|%%%|Group Buffer Pool|Page Read Efficiency
+DB2 z/OS Subsystems|%%%|Group Buffer Pool|Write Failures
+DB2 z/OS Subsystems|%%%|Locks|Deadlocks
+DB2 z/OS Subsystems|%%%|Locks|Escalations
+DB2 z/OS Subsystems|%%%|Locks|Global Requests
+DB2 z/OS Subsystems|%%%|Locks|Global Suspensions
+DB2 z/OS Subsystems|%%%|Locks|Local Requests
+DB2 z/OS Subsystems|%%%|Locks|Local Suspensions
+DB2 z/OS Subsystems|%%%|Locks|Timeouts
+DB2 z/OS Subsystems|%%%|Log Activity|Active Log Space Available (%)
+DB2 z/OS Subsystems|%%%|Log Activity|Active Reads
+DB2 z/OS Subsystems|%%%|Log Activity|Archive Reads
+DB2 z/OS Subsystems|%%%|Log Activity|Checkpoints
+DB2 z/OS Subsystems|%%%|Log Activity|Minutes Between Checkpoints
+DB2 z/OS Subsystems|%%%|Log Activity|Unavailable Buffer Waits
+DB2 z/OS Subsystems|%%%|Log Activity|Write Forced
+DB2 z/OS Subsystems|%%%|Log Activity|Write No Waits
+DB2 z/OS Subsystems|%%%|Log Activity|Write Waits
+DB2 z/OS Subsystems|%%%|Misc|Current Starjoin Pool Size
+DB2 z/OS Subsystems|%%%|Misc|Current Starjoin Pool Used (%)
+DB2 z/OS Subsystems|%%%|Misc|DDF Status
+DB2 z/OS Subsystems|%%%|Misc|DDF Status Value
+DB2 z/OS Subsystems|%%%|Misc|Dataset Open (%)
+DB2 z/OS Subsystems|%%%|Misc|Maximum Starjoin Pool Size
+DB2 z/OS Subsystems|%%%|Misc|Maximum Starjoin Pool Used (%)
+DB2 z/OS Subsystems|%%%|Misc|RID Pool Failures
+DB2 z/OS Subsystems|%%%|Misc|RLF Status
+DB2 z/OS Subsystems|%%%|Misc|RLF Status Value
+DB2 z/OS Subsystems|%%%|Misc|Starjoin Pool Allocation Requests
+DB2 z/OS Subsystems|%%%|Misc|Starjoin Pool Failures
+DB2 z/OS Subsystems|%%%|Misc|Workfile Shortage 32K
+DB2 z/OS Subsystems|%%%|Misc|Workfile Shortage 4K
+DB2 z/OS Subsystems|%%%|Subsystem CPU|DB2 Elapsed Time
+DB2 z/OS Subsystems|%%%|Subsystem CPU|DBM1 CP CPU Usage
+DB2 z/OS Subsystems|%%%|Subsystem CPU|DBM1 CPU (%)
+DB2 z/OS Subsystems|%%%|Subsystem CPU|DBM1 zIIP CPU Usage
+DB2 z/OS Subsystems|%%%|Subsystem CPU|DDF CP CPU Usage
+DB2 z/OS Subsystems|%%%|Subsystem CPU|DDF CPU (%)
+DB2 z/OS Subsystems|%%%|Subsystem CPU|DDF zIIP CPU Usage
+DB2 z/OS Subsystems|%%%|Subsystem CPU|IRLM CP CPU Usage
+DB2 z/OS Subsystems|%%%|Subsystem CPU|IRLM CPU (%)
+DB2 z/OS Subsystems|%%%|Subsystem CPU|IRLM zIIP CPU Usage
+DB2 z/OS Subsystems|%%%|Subsystem CPU|MSTR CP CPU Usage
+DB2 z/OS Subsystems|%%%|Subsystem CPU|MSTR CPU (%)
+DB2 z/OS Subsystems|%%%|Subsystem CPU|MSTR zIIP CPU Usage
+DB2 z/OS Subsystems|%%%|Subsystem CPU|Processor Count
+DB2 z/OS Subsystems|%%%|Subsystem CPU|Total CPU (%)
+DB2 z/OS Subsystems|%%%|Workload|Aborts
+DB2 z/OS Subsystems|%%%|Workload|Call Requests
+DB2 z/OS Subsystems|%%%|Workload|Create Thread Requests
+DB2 z/OS Subsystems|%%%|Workload|Current Background Threads
+DB2 z/OS Subsystems|%%%|Workload|Current DBAT Threads
+DB2 z/OS Subsystems|%%%|Workload|Current Foreground Threads
+DB2 z/OS Subsystems|%%%|Workload|Current Threads
+DB2 z/OS Subsystems|%%%|Workload|Delete Requests
+DB2 z/OS Subsystems|%%%|Workload|Dynamic Requests
+DB2 z/OS Subsystems|%%%|Workload|InsUpdDel Requests
+DB2 z/OS Subsystems|%%%|Workload|Insert Requests
+DB2 z/OS Subsystems|%%%|Workload|Maximum Background Threads
+DB2 z/OS Subsystems|%%%|Workload|Maximum Batch Users (%)
+DB2 z/OS Subsystems|%%%|Workload|Maximum DBAT Threads
+DB2 z/OS Subsystems|%%%|Workload|Maximum Foreground Threads
+DB2 z/OS Subsystems|%%%|Workload|Maximum Remote Users (%)
+DB2 z/OS Subsystems|%%%|Workload|Maximum TSO Users (%)
+DB2 z/OS Subsystems|%%%|Workload|Maximum Threads
+DB2 z/OS Subsystems|%%%|Workload|Maximum Users (%)
+DB2 z/OS Subsystems|%%%|Workload|Queued Create Thread Requests
+DB2 z/OS Subsystems|%%%|Workload|SelectOpen Requests
+DB2 z/OS Subsystems|%%%|Workload|Syncs
+DB2 z/OS Subsystems|%%%|Workload|Update Requests
+EM Host
+EM Port
+GC Heap|Bytes In Use
+GC Heap|Bytes Total
+Host|IP Address
+Host|Operating System
+Host|Wall Clock Time
+IMS Subsystems|%%%|Amount Of Real Storage Used (kb)
+IMS Subsystems|%%%|Average CPU Time Per Transaction (%%%s)
+IMS Subsystems|%%%|Average Input Queue Time Per Transaction (%%%s)
+IMS Subsystems|%%%|Average Lifetime Per Transaction (%%%s)
+IMS Subsystems|%%%|Average Output Queue Time Per Transaction (%%%s)
+IMS Subsystems|%%%|Average Processing Time Per Transaction (%%%s)
+IMS Subsystems|%%%|CPU Time Per Interval (%%%s)
+IMS Subsystems|%%%|CPU Time Accumulated (%%%s)
+IMS Subsystems|%%%|Configuration Properties|IMS Subsystem Name
+IMS Subsystems|%%%|Count Of Databases Stopped
+IMS Subsystems|%%%|Count Of External Systems Not Connected
+IMS Subsystems|%%%|Count Of Programs Stopped
+IMS Subsystems|%%%|Count Of Transactions Stopped
+IMS Subsystems|%%%|Executed I/O Operations Count
+IMS Subsystems|%%%|Executed I/O Operations Count Per Interval
+IMS Subsystems|%%%|Jobname
+IMS Subsystems|%%%|Monitored By SYSVIEW
+IMS Subsystems|%%%|Status|Subsystem
+IMS Subsystems|%%%|Status|Subsystem Value
+IMS Subsystems|%%%|Transaction Groups|%%%|Average CPU Time Per Transaction (%%%s)
+IMS Subsystems|%%%|Transaction Groups|%%%|Average Input Queue Time Per Transaction (%%%s)
+IMS Subsystems|%%%|Transaction Groups|%%%|Average Lifetime Per Transaction (%%%s)
+IMS Subsystems|%%%|Transaction Groups|%%%|Average Output Queue Time Per Transaction (%%%s)
+IMS Subsystems|%%%|Transaction Groups|%%%|Average Processing Time Per Transaction (%%%s)
+IMS Subsystems|%%%|Transaction Groups|%%%|Transaction Group Name
+IMS Subsystems|%%%|Transaction Groups|%%%|Transaction Rate Per Second
+IMS Subsystems|%%%|Transaction Queue Depth
+IMS Subsystems|%%%|Transaction Rate Per Interval
+IMS Subsystems|%%%|Transaction Rate Per Second
+DB2 Polling Interval (sec)
+Java Version
+Launch Time
+MQ Queue Managers|%%%|Alerts|%%%|Alert Status
+MQ Queue Managers|%%%|Alerts|%%%|Alert Status Value
+MQ Queue Managers|%%%|Alerts|%%%|Description
+MQ Queue Managers|%%%|Alerts|%%%|Name
+MQ Queue Managers|%%%|Alerts|%%%|Priority
+MQ Queue Managers|%%%|Alerts|%%%|Queue Manager Name
+MQ Queue Managers|%%%|Alerts|%%%|Resource Name
+MQ Queue Managers|%%%|Alerts|%%%|Rule Type
+MQ Queue Managers|%%%|Alerts|%%%|Subgroup
+MQ Queue Managers|%%%|Alerts|%%%|Value
+MQ Queue Managers|%%%|Configuration Properties|Channel Initiator Address Space ID
+MQ Queue Managers|%%%|Configuration Properties|Channel Initiator Job Name
+MQ Queue Managers|%%%|Configuration Properties|Command Prefix
+MQ Queue Managers|%%%|Configuration Properties|DB2 Data Sharing Group Name
+MQ Queue Managers|%%%|Configuration Properties|DB2 Name
+MQ Queue Managers|%%%|Configuration Properties|Monitored By SYSVIEW
+MQ Queue Managers|%%%|Configuration Properties|OTMA XCF Group Member Name Of The IMS Bridge
+MQ Queue Managers|%%%|Configuration Properties|OTMA XCF Group Of The IMS Bridge
+MQ Queue Managers|%%%|Configuration Properties|Queue Manager Address Space ID
+MQ Queue Managers|%%%|Configuration Properties|Queue Manager Job Name
+MQ Queue Managers|%%%|Configuration Properties|Queue Manager Name
+MQ Queue Managers|%%%|Configuration Properties|Queue Sharing Group Name
+MQ Queue Managers|%%%|Configuration Properties|WebSphere MQ Version
+MQ Queue Managers|%%%|Queues|%%%|Configuration Properties|Description
+MQ Queue Managers|%%%|Queues|%%%|Configuration Properties|Get Messages
+MQ Queue Managers|%%%|Queues|%%%|Configuration Properties|Get Messages Value
+MQ Queue Managers|%%%|Queues|%%%|Configuration Properties|Max Queue Depth
+MQ Queue Managers|%%%|Queues|%%%|Configuration Properties|Put Messages
+MQ Queue Managers|%%%|Queues|%%%|Configuration Properties|Put Messages Value
+MQ Queue Managers|%%%|Queues|%%%|Configuration Properties|Queue Name
+MQ Queue Managers|%%%|Queues|%%%|Status|Current Queue Depth
+MQ Queue Managers|%%%|Queues|%%%|Status|Current Queue Depth (% Queue Full)
+MQ Queue Managers|%%%|Queues|%%%|Status|Last Elapsed Get Time (ms)
+MQ Queue Managers|%%%|Queues|%%%|Status|Last Elapsed Put Time (ms)
+MQ Queue Managers|%%%|Queues|%%%|Status|Last Get Date
+MQ Queue Managers|%%%|Queues|%%%|Status|Last Get Time
+MQ Queue Managers|%%%|Queues|%%%|Status|Last Put Date
+MQ Queue Managers|%%%|Queues|%%%|Status|Last Put Time
+MQ Queue Managers|%%%|Queues|%%%|Status|Open Input Count
+MQ Queue Managers|%%%|Queues|%%%|Status|Open Output Count
+MQ Queue Managers|%%%|Queues|%%%|Status|Queue Time (Long Term Avg.)
+MQ Queue Managers|%%%|Queues|%%%|Status|Queue Time (Short Term Avg.)
+MQ Queue Managers|%%%|Queues|Aggregated Get Messages Value
+MQ Queue Managers|%%%|Queues|Aggregated Put Messages Value
+MQ Queue Managers|%%%|Queues|Maximum Queue Depth (% Queue Full)
+MQ Queue Managers|%%%|Queues|Maximum Queue Depth Reached
+MQ Queue Managers|%%%|Status|Amount Of Real Storage Used (kb)
+MQ Queue Managers|%%%|Status|CPU Time Accumulated (%%%s)
+MQ Queue Managers|%%%|Status|CPU Time Per Interval (%%%s)
+MQ Queue Managers|%%%|Status|Channel Initiator
+MQ Queue Managers|%%%|Status|Executed Amount Of Wall Clock Time (sec)
+MQ Queue Managers|%%%|Status|Executed I/O Operations Count
+MQ Queue Managers|%%%|Status|Executed I/O Operations Count Per Interval
+MQ Queue Managers|%%%|Status|Queue Manager
+MQ Queue Managers|%%%|Status|Queue Manager Value
+MQ Queue Managers|Aggregated Maximum Queue Depth Reached
+MQ Queue Managers|Aggregated Queue Manager Value
+MQ Queue Managers|Unacknowledged Alert Count
+MQ Queue Managers|Unacknowledged Problem Count
+MQ Queue Managers|Unacknowledged Warning Count
+Polling Interval (sec)
+TCPIP Stacks|%%%|Amount Of Real Storage Used (kb)
+TCPIP Stacks|%%%|CPU Time Accumulated (%%%s)
+TCPIP Stacks|%%%|CPU Time Per Interval (%%%s)
+TCPIP Stacks|%%%|Communications Server Version And Release
+TCPIP Stacks|%%%|Enabled For IPV6
+TCPIP Stacks|%%%|Executed Amount Of Wall Clock Time (sec)
+TCPIP Stacks|%%%|Executed I/O Operations Count
+TCPIP Stacks|%%%|Executed I/O Operations Count Per Interval
+TCPIP Stacks|%%%|Hostname
+TCPIP Stacks|%%%|Monitored By SYSVIEW
+TCPIP Stacks|%%%|Status|Address Space
+TCPIP Stacks|%%%|Status|Address Space Value
+z/OS Metrics|Alerts|%%%|Alert Name
+z/OS Metrics|Alerts|%%%|Alert Status
+z/OS Metrics|Alerts|%%%|Alert Status Value
+z/OS Metrics|Alerts|%%%|Alias
+z/OS Metrics|Alerts|%%%|Description
+z/OS Metrics|Alerts|%%%|Group
+z/OS Metrics|Alerts|%%%|Priority
+z/OS Metrics|Alerts|%%%|Resource Name
+z/OS Metrics|Alerts|%%%|Rule Type
+z/OS Metrics|Alerts|%%%|Value
+z/OS Metrics|Alerts|Unacknowledged Alert Count
+z/OS Metrics|Alerts|Unacknowledged Problem Count
+z/OS Metrics|Alerts|Unacknowledged Warning Count
+z/OS Metrics|Degradation Delay Analysis|%%%|ASID
+z/OS Metrics|Degradation Delay Analysis|%%%|CPU
+z/OS Metrics|Degradation Delay Analysis|%%%|Delay Percent
+z/OS Metrics|Degradation Delay Analysis|%%%|Detail
+z/OS Metrics|Degradation Delay Analysis|%%%|Device
+z/OS Metrics|Degradation Delay Analysis|%%%|Enqueue
+z/OS Metrics|Degradation Delay Analysis|%%%|Job Name
+z/OS Metrics|Degradation Delay Analysis|%%%|Operator
+z/OS Metrics|Degradation Delay Analysis|%%%|Reason
+z/OS Metrics|Degradation Delay Analysis|%%%|Storage
+z/OS Metrics|Degradation Delay Analysis|%%%|Subsystem
+z/OS Metrics|IO Rate Per Second
+z/OS Metrics|LPAR Name
+z/OS Metrics|Paging|Available Frame Queue Average
+z/OS Metrics|Paging|Local Page Dataset Slots In Use (%)
+z/OS Metrics|Paging|Paging Per Second
+z/OS Metrics|Paging|Unreferenced Interval Count Average
+z/OS Metrics|Processor|CP (%)
+z/OS Metrics|Processor|CPU (%)
+z/OS Metrics|Processor|IFA (%)
+z/OS Metrics|Processor|IIP (%)
+z/OS Metrics|Processor|LPAR CP (%)
+z/OS Metrics|Processor|LPAR CPU (%)
+z/OS Metrics|Processor|LPAR IFA (%)
+z/OS Metrics|Processor|LPAR IIP (%)
+z/OS Metrics|Spool Utilization (%)
+z/OS Metrics|Status|Dump Data Sets
+z/OS Metrics|Status|Enqueue Conflicts
+z/OS Metrics|Status|Enqueue Reserves
+z/OS Metrics|Status|LPAR
+z/OS Metrics|Status|SMF
+z/OS Metrics|Status|Tape Mounts
+z/OS Metrics|Status|WTO
+z/OS Metrics|Storage|Common Storage Area (CSA %)
+z/OS Metrics|Storage|Extended Storage Area (ECSA %)
+z/OS Metrics|Storage|Extended System Queue Area (ESQA %)
+z/OS Metrics|Storage|System Queue Area (SQA %)
+z/OS Metrics|Tasks Ready To Dispatch
+z/OS Metrics|Workload Manager Service Goals|%%%|Class
+z/OS Metrics|Workload Manager Service Goals|%%%|Goal Type
+z/OS Metrics|Workload Manager Service Goals|%%%|Importance
+z/OS Metrics|Workload Manager Service Goals|%%%|Index
+z/OS Metrics|Workload Manager Service Goals|%%%|Index Value
+z/OS Metrics|Workload Manager Service Goals|%%%|Period
+z/OS Metrics|Workload Manager Service Goals|%%%|Workload

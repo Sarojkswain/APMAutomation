@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2014 CA.  All rights reserved.
+  ~
+  ~ This software and all information contained therein is confidential and
+  ~ proprietary and shall not be duplicated, used, disclosed or disseminated in
+  ~ any way except as authorized by the applicable license agreement, without
+  ~ the express written permission of CA. All authorized reproductions must be
+  ~ marked with this language.
+  ~
+  ~ EXCEPT AS SET FORTH IN THE APPLICABLE LICENSE AGREEMENT, TO THE EXTENT
+  ~ PERMITTED BY APPLICABLE LAW, CA PROVIDES THIS SOFTWARE WITHOUT WARRANTY OF
+  ~ ANY KIND, INCLUDING WITHOUT LIMITATION, ANY IMPLIED WARRANTIES OF
+  ~ MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  IN NO EVENT WILL CA BE
+  ~ LIABLE TO THE END USER OR ANY THIRD PARTY FOR ANY LOSS OR DAMAGE, DIRECT OR
+  ~ INDIRECT, FROM THE USE OF THIS SOFTWARE, INCLUDING WITHOUT LIMITATION, LOST
+  ~ PROFITS, BUSINESS INTERRUPTION, GOODWILL, OR LOST DATA, EVEN IF CA IS
+  ~ EXPRESSLY ADVISED OF SUCH LOSS OR DAMAGE.
+  --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+    <artifactId>tibco</artifactId>
+    <groupId>com.ca.apm.tests.tibco</groupId>
+    <version>99.99.dev_SaaS_fix-SNAPSHOT</version>
+  </parent>
+
+	<artifactId>tibco-core</artifactId>
+	<packaging>jar</packaging>
+
+	<name>tibco - Core</name>
+	<description>Module for defining testbeds, test and custom roles.</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.ca.apm.tests.tibco</groupId>
+			<artifactId>tibco-flows</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ca.tas</groupId>
+			<artifactId>automation-roles</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>com.ca.tas</groupId>
+            <artifactId>automation-core</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.ca.tas.plugins</groupId>
+				<artifactId>tas-maven-plugin</artifactId>
+				<configuration>
+					<resmanApiUrl>${resman.url}</resmanApiUrl>
+					<resmanUser>${resman.user}</resmanUser>
+					<resmanPassword>${resman.password}</resmanPassword>
+					<almHost>${alm.host}</almHost>
+					<almDomain>${alm.domain}</almDomain>
+					<almProject>${alm.project}</almProject>
+					<almUsername>${alm.username}</almUsername>
+					<almPassword>${alm.password}</almPassword>
+					<almTestPlanRoot>${alm.testPlanRoot}</almTestPlanRoot>
+					<almTestLabRoot>${alm.testLabRoot}</almTestLabRoot>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>index</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.ca.tas.plugins</groupId>
+				<artifactId>resman-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<appendAssemblyId>true</appendAssemblyId>
+					<archive>
+						<manifest>
+							<mainClass>com.ca.tas.client.deployment.Deploy</mainClass>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+					</archive>
+					<appendAssemblyId>true</appendAssemblyId>
+					<descriptors>
+						<descriptor>assembly.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>pack-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

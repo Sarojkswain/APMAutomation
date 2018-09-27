@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+	{name=com.ca.apm.tests.testbed.NodeJSAgentRuntime10Testbed, executeOn=nodejsMachine}],
+	owner = jinaa01,
+	size = COLOSSAL,
+	description = 'NodeAgent TestNg XML suite for all functional tests')
+-->
+<suite name="TestSuite" configfailurepolicy="continue">
+	<test name="testng.nodeagent10_suite" preserve-order="true">
+
+		<classes>
+	
+			<class name="com.ca.apm.tests.functional.ProbeCommunicationTest">
+			<methods>
+					<include name="testSingleJSONMessage"/>
+					<include name="testMultipleJSONMessages"/>
+					<include name="testSingleJSONMessageMultipleChunks"/>
+					<include name="testInvalidJSONMessage"/>
+			</methods>
+			</class>
+
+		</classes>
+
+	</test>
+</suite>

@@ -1,0 +1,13 @@
+Launch Time
+GC Heap|Bytes In Use
+GC Heap|Bytes Total
+Agent Stats|Sustainability|Configuration|Last AutoProbe Reload Time
+Agent Stats|Sustainability|Configuration|Last Class Redefinition Time
+Agent Stats|Sustainability|Configuration|Last Profile Update Time
+Agent Stats|Sustainability|Configuration|Last Update Time
+Host|Wall Clock Time
+Java Version
+
+# GA 10.0 agent issue only, due to Sysview column change (I/O-Req -> IOReq) 
+IMS Subsystems|%%%|Executed I/O Operations Count
+IMS Subsystems|%%%|Executed I/O Operations Count Per Interval

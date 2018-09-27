@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TeamCenterRegressionChromeSuite - one suite">
+	<test name="Manual registration tests">
+		<classes>
+			<class name="com.ca.apm.test.em.agc.AGCRegisterManualTest">
+				<methods>
+					<include name="beforeSuite"/>
+					<include name="beforeClass"/>
+          
+					<include name="registrationTestWithCancelingRegistrationFromMaster"/>
+          <!--include name="registrationTestWithCancelingRegistrationFromFollower"/>
+          <include name="registrationTestWithGracefulDeregistration"/>
+          <include name="registrationTestWithForceDeregistration"/-->
+						
+					<include name="afterTest"/>
+					<include name="afterMethod"/>
+					<include name="afterSuite"/>
+					<include name="beforeMethod"/>
+					<include name="afterClass"/>
+					
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

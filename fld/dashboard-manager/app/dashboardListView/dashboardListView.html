@@ -1,0 +1,15 @@
+<ul class="nav nav-sidebar">
+    <li ng-repeat="dashboard in dashboards">
+        <a ng-href="#/dashboardView/{{ dashboard.id }}">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6">
+                    <h5>{{ dashboard.name }}</h5>
+                </div>
+                <div class="col-xs-6 col-sm-6 text-right">
+                    <img ng-show="dashboard.active" ng-src="{{ dashboardListCtrl.getSpinnerIconForDashboard(dashboard) }} ">
+                    <img ng-src="{{ dashboardListCtrl.getSmallIconFileName(dashboard) }}">
+                </div>
+            </div>
+        </a>
+    </li>
+</ul>

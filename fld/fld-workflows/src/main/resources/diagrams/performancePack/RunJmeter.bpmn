@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1425992219129" name="">
+  <signal id="JMeterStartedSignal" name="JMeterStartedSignal"></signal>
+  <process id="fld.powerpack.jmetertask" name="Jmeter task" isExecutable="true" isClosed="true" processType="None">
+    <startEvent id="startJmeter" name="Start" activiti:initiator="initiator">
+      <extensionElements>
+        <activiti:formProperty id="node" name="jMeter Node" type="node" variable="node" required="true"></activiti:formProperty>
+        <activiti:formProperty id="testWarmupInSeconds" name="Test Warmup (in seconds)" type="long" variable="testWarmupInSeconds" default="30" required="true"></activiti:formProperty>
+        <activiti:formProperty id="testDurationInSeconds" name="Test Duration (in seconds)" type="long" variable="testDurationInSeconds" default="60" required="true"></activiti:formProperty>
+        <activiti:formProperty id="testNumberOfCVUS" name="Jmeter: Concurrent Users Count" type="long" variable="testNumberOfCVUS" default="5" required="true"></activiti:formProperty>
+        <activiti:formProperty id="jMeterScenarioUrl" name="Jmeter Scenario URL" type="string" variable="jMeterScenarioUrl" required="true"></activiti:formProperty>
+        <activiti:formProperty id="serverType" name="Server Type " type="enum" variable="serverType" required="true">
+          <activiti:value id="webspherePP" name="webspherePP"></activiti:value>
+          <activiti:value id="weblogicPP" name="weblogicPP"></activiti:value>
+          <activiti:value id="sharePointPP" name="sharePointPP"></activiti:value>
+          <activiti:value id="weblogicportalPP" name="weblogicportalPP"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="cycleDelay" name="Cycle Delay (in seconds)" type="long" variable="cycleDelay" default="1000" required="true"></activiti:formProperty>
+        <activiti:formProperty id="loops" name="Number Of Loops" type="long" variable="loops" default="1"></activiti:formProperty>
+        <activiti:formProperty id="logDir" name="Log Directory" type="string" variable="logDir" default="c:/temp/agent" required="true"></activiti:formProperty>
+        <activiti:formProperty id="appServerPort" name="Jmeter: Application Port (For Load)" type="long" variable="appServerPort" required="true"></activiti:formProperty>
+        <activiti:formProperty id="appServerHost" name="Jmeter: Application Host (For Load)" type="string" variable="appServerHost" required="true"></activiti:formProperty>
+        <activiti:formProperty id="logDirServer" name="Server Log Location (Shared Folder)" type="string" variable="logDirServer" default="c:/temp/server"></activiti:formProperty>
+        <activiti:formProperty id="jmeterStoppingPort" name="jMeter stopping port" type="long" variable="jmeterStoppingPort" default="3030"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <serviceTask id="runJMeterTestsTask" name="Run Jmeter Tests" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).runJmeterTests()}"></serviceTask>
+    <scriptTask id="scripttask1" name="Check if Jmeter is Installed" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+def log = LoggerFactory.getLogger("JmeterInstalledCheckGroovyWF");
+
+log.info("Checking if Jmeter is installed");
+
+def nodeName = node.getName();
+
+def jmeterPlugin = agentProxyFactory.createProxy(nodeName).plugins.jmeterPlugin;
+
+def jMeterInstalled = jmeterPlugin.checkIfJmeterIsInstalled();
+
+execution.setVariable("jMeterInstalled", jMeterInstalled);
+// We set jmeterNode here for com.ca.apm.systemtest.fld.plugin.powerpack.delegates.StopJmeterLoadDelegate#handleExecution to find it.
+execution.setVariable("jmeterNode", node);
+
+log.info("Jmeter install status is =" + jMeterInstalled );</script>
+    </scriptTask>
+    <scriptTask id="scripttask2" name="Download Jmeter" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+def log = LoggerFactory.getLogger("JmeterDownloadGroovyWF") 
+log.info("Downloading Jmeter")
+log.info("Deleting temp folder")
+
+def nodeName = node.getName();
+
+def jmeterPlugin = agentProxyFactory.createProxy(nodeName).plugins.jmeterPlugin
+
+jmeterPlugin.deleteTempDir()
+def jMeterZip = jmeterPlugin.downloadJMeter(null)
+
+log.info("Jmeter downloaded to: " + new File(jMeterZip).getAbsolutePath())</script>
+    </scriptTask>
+    <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway" default="flowInstalled"></exclusiveGateway>
+    <sequenceFlow id="flowNotInstalled" sourceRef="exclusivegateway3" targetRef="scripttask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${jMeterInstalled==false}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flowInstalled" sourceRef="exclusivegateway3" targetRef="runJMeterTestsTask"></sequenceFlow>
+    <scriptTask id="scripttask3" name="Unzip File" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+def log = LoggerFactory.getLogger("JmeterUnzipGroovyWF") 
+log.info("Unzipping Jmeter file")
+
+def nodeName = node.getName();
+def jmeterPlugin = agentProxyFactory.createProxy(nodeName).plugins.jmeterPlugin
+def jMeterDir = jmeterPlugin.unzipJMeterZip()
+
+log.info("Unzipping Jmeter file complete")
+</script>
+    </scriptTask>
+    <sequenceFlow id="flow23" sourceRef="scripttask2" targetRef="timerintermediatecatchevent7"></sequenceFlow>
+    <sequenceFlow id="flow24" sourceRef="scripttask3" targetRef="timerintermediatecatchevent8"></sequenceFlow>
+    <scriptTask id="scripttask5" name="Script End Message" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+def log = LoggerFactory.getLogger("JmeterWorkflow")
+log.info("Jmeter Workflow finished")</script>
+    </scriptTask>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT${testWarmupInSeconds}S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent2" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT${testDurationInSeconds}S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow41" sourceRef="timerintermediatecatchevent1" targetRef="throw_JMeterStartedSignal_signalintermediatethrowevent1"></sequenceFlow>
+    <sequenceFlow id="flow44" sourceRef="scripttask1" targetRef="exclusivegateway3"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent3" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow45" sourceRef="scripttask5" targetRef="timerintermediatecatchevent3"></sequenceFlow>
+    <sequenceFlow id="flow46" sourceRef="timerintermediatecatchevent3" targetRef="endevent2"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent4" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow47" sourceRef="startJmeter" targetRef="timerintermediatecatchevent4"></sequenceFlow>
+    <sequenceFlow id="flow48" sourceRef="timerintermediatecatchevent4" targetRef="scripttask1"></sequenceFlow>
+    <intermediateThrowEvent id="throw_JMeterStartedSignal_signalintermediatethrowevent1" name="SignalThrowEvent">
+      <signalEventDefinition signalRef="JMeterStartedSignal"></signalEventDefinition>
+    </intermediateThrowEvent>
+    <sequenceFlow id="flow50" sourceRef="throw_JMeterStartedSignal_signalintermediatethrowevent1" targetRef="timerintermediatecatchevent2"></sequenceFlow>
+    <scriptTask id="scripttask8" name="Record end time" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+def log = LoggerFactory.getLogger("JmeterTestStartTime");
+
+def shortDate = new Date().format("HH:mm:ss");
+log.info("Test end time short: {}", shortDate);
+execution.setVariable("testEndTimeShort", shortDate);
+</script>
+    </scriptTask>
+    <sequenceFlow id="flow53" sourceRef="timerintermediatecatchevent2" targetRef="killJMeterTask"></sequenceFlow>
+    <sequenceFlow id="flow54" sourceRef="scripttask8" targetRef="timerintermediatecatchevent6"></sequenceFlow>
+    <sequenceFlow id="flow55" sourceRef="runJMeterTestsTask" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent6" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent7" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent8" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow58" sourceRef="timerintermediatecatchevent7" targetRef="scripttask3"></sequenceFlow>
+    <sequenceFlow id="flow59" sourceRef="timerintermediatecatchevent8" targetRef="runJMeterTestsTask"></sequenceFlow>
+    <sequenceFlow id="flow60" sourceRef="timerintermediatecatchevent6" targetRef="scripttask5"></sequenceFlow>
+    <serviceTask id="killJMeterTask" name="Kill jMeter" activiti:delegateExpression="${perfJobFactory.getPerfJob(serverType).killJmeter()}"></serviceTask>
+    <sequenceFlow id="flow61" sourceRef="killJMeterTask" targetRef="scripttask8"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.powerpack.jmetertask">
+    <bpmndi:BPMNPlane bpmnElement="fld.powerpack.jmetertask" id="BPMNPlane_fld.powerpack.jmetertask">
+      <bpmndi:BPMNShape bpmnElement="startJmeter" id="BPMNShape_startJmeter">
+        <omgdc:Bounds height="35.0" width="35.0" x="159.0" y="1.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="runJMeterTestsTask" id="BPMNShape_runJMeterTestsTask">
+        <omgdc:Bounds height="61.0" width="105.0" x="124.0" y="565.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
+        <omgdc:Bounds height="97.0" width="137.0" x="108.0" y="142.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask2" id="BPMNShape_scripttask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="243.0" y="247.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
+        <omgdc:Bounds height="40.0" width="40.0" x="156.0" y="254.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask3" id="BPMNShape_scripttask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="243.0" y="435.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask5" id="BPMNShape_scripttask5">
+        <omgdc:Bounds height="75.0" width="141.0" x="560.0" y="358.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="613.0" y="555.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="455.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent2" id="BPMNShape_timerintermediatecatchevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="455.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent3" id="BPMNShape_timerintermediatecatchevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="613.0" y="490.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent4" id="BPMNShape_timerintermediatecatchevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="159.0" y="70.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="throw_JMeterStartedSignal_signalintermediatethrowevent1" id="BPMNShape_throw_JMeterStartedSignal_signalintermediatethrowevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="455.0" y="154.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask8" id="BPMNShape_scripttask8">
+        <omgdc:Bounds height="55.0" width="105.0" x="578.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent6" id="BPMNShape_timerintermediatecatchevent6">
+        <omgdc:Bounds height="35.0" width="35.0" x="613.0" y="278.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent7" id="BPMNShape_timerintermediatecatchevent7">
+        <omgdc:Bounds height="35.0" width="35.0" x="278.0" y="359.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent8" id="BPMNShape_timerintermediatecatchevent8">
+        <omgdc:Bounds height="35.0" width="35.0" x="278.0" y="534.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="killJMeterTask" id="BPMNShape_killJMeterTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="578.0" y="88.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flowNotInstalled" id="BPMNEdge_flowNotInstalled">
+        <omgdi:waypoint x="196.0" y="274.0"></omgdi:waypoint>
+        <omgdi:waypoint x="243.0" y="274.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flowInstalled" id="BPMNEdge_flowInstalled">
+        <omgdi:waypoint x="176.0" y="294.0"></omgdi:waypoint>
+        <omgdi:waypoint x="176.0" y="565.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="295.0" y="302.0"></omgdi:waypoint>
+        <omgdi:waypoint x="295.0" y="359.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
+        <omgdi:waypoint x="295.0" y="490.0"></omgdi:waypoint>
+        <omgdi:waypoint x="295.0" y="534.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">
+        <omgdi:waypoint x="490.0" y="127.0"></omgdi:waypoint>
+        <omgdi:waypoint x="472.0" y="154.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow44" id="BPMNEdge_flow44">
+        <omgdi:waypoint x="176.0" y="239.0"></omgdi:waypoint>
+        <omgdi:waypoint x="176.0" y="254.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow45" id="BPMNEdge_flow45">
+        <omgdi:waypoint x="630.0" y="433.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="490.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow46" id="BPMNEdge_flow46">
+        <omgdi:waypoint x="630.0" y="525.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="555.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow47" id="BPMNEdge_flow47">
+        <omgdi:waypoint x="176.0" y="36.0"></omgdi:waypoint>
+        <omgdi:waypoint x="176.0" y="70.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow48" id="BPMNEdge_flow48">
+        <omgdi:waypoint x="176.0" y="105.0"></omgdi:waypoint>
+        <omgdi:waypoint x="176.0" y="142.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow50" id="BPMNEdge_flow50">
+        <omgdi:waypoint x="490.0" y="171.0"></omgdi:waypoint>
+        <omgdi:waypoint x="472.0" y="200.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow53" id="BPMNEdge_flow53">
+        <omgdi:waypoint x="490.0" y="217.0"></omgdi:waypoint>
+        <omgdi:waypoint x="556.0" y="217.0"></omgdi:waypoint>
+        <omgdi:waypoint x="556.0" y="114.0"></omgdi:waypoint>
+        <omgdi:waypoint x="578.0" y="115.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow54" id="BPMNEdge_flow54">
+        <omgdi:waypoint x="630.0" y="235.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="278.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow55" id="BPMNEdge_flow55">
+        <omgdi:waypoint x="229.0" y="595.0"></omgdi:waypoint>
+        <omgdi:waypoint x="406.0" y="595.0"></omgdi:waypoint>
+        <omgdi:waypoint x="406.0" y="127.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="127.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow58" id="BPMNEdge_flow58">
+        <omgdi:waypoint x="295.0" y="394.0"></omgdi:waypoint>
+        <omgdi:waypoint x="295.0" y="435.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow59" id="BPMNEdge_flow59">
+        <omgdi:waypoint x="278.0" y="551.0"></omgdi:waypoint>
+        <omgdi:waypoint x="176.0" y="565.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow60" id="BPMNEdge_flow60">
+        <omgdi:waypoint x="630.0" y="313.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="358.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow61" id="BPMNEdge_flow61">
+        <omgdi:waypoint x="630.0" y="143.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="180.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

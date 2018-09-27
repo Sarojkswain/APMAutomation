@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+	<transformation id="props">
+		<set-property name="lax.nl.java.option.additional" value="-Djava.awt.headless=true -Dmail.mime.charset=UTF-8 -Dorg.owasp.esapi.resources=./config/esapi -Dcom.wily.assert=false -showversion  -XX:CMSInitiatingOccupancyFraction=50 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -Xss512k -Xms8192m -Xmx8192m -verbose:gc -Xloggc:${#emPlugin.pluginConfiguration.currentGcLogFile}" />
+	</transformation>
+	
+	<files id="files">
+		<file>${#emPlugin.pluginConfiguration.currentInstallDir}/Introscope_Enterprise_Manager.lax</file>
+	</files>
+	
+	<binding id="binding">
+		<transformation-ref id="props" />
+		<files-ref id="files" /> 
+	</binding>
+</configuration>

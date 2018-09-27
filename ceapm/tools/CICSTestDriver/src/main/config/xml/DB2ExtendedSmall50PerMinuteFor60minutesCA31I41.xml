@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<call-job-stack>
+	<name>Do DB2Extended50PerMinuteFor60minutesCA31I41</name>
+	
+	<description></description>
+	<numberOfThreadsToRun>1</numberOfThreadsToRun>
+	<userID></userID>
+    <password></password>
+	<jGate>tcp://USILCA31</jGate>
+	<jGatePort>2008</jGatePort>
+	<serverName>CA31I41</serverName>
+	<useChannel>false</useChannel>
+	<useCommarea>true</useCommarea>
+	<useDynamicDecoration>false</useDynamicDecoration>
+	<programDataStr></programDataStr>
+	
+	<calledDistributions>
+		<name>Do DB2Extended50PerMinuteFor60minutesCA31I41</name>
+		<minutesToRun>60</minutesToRun>
+		<microsecondsToSleepPerCall>1200000</microsecondsToSleepPerCall>
+		<randomSeed>0</randomSeed>
+		<useCTG>true</useCTG>
+		<useWebServices>false</useWebServices>
+		<calledUnitsOfWork>
+			<proportionOfCalls>1</proportionOfCalls>
+			<transactionRepeat>1</transactionRepeat>
+			<calledTransactions>
+				<transactionID>ECIDB2D</transactionID>
+				<parameters>1000000</parameters>
+			</calledTransactions>		
+			<calledTransactions>
+				<transactionID>ECIDB2A</transactionID>
+				<parameters>1</parameters>
+			</calledTransactions>
+		</calledUnitsOfWork>				
+	</calledDistributions>
+</call-job-stack>

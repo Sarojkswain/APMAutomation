@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<codaSuite xmlns="http://www.ca.com/2013/tasCodaSuite">
+	<name>qa/wv_ui/smoke/default/gremlin_smoke_with_as.xml</name>
+	<testBeds>
+		<testBed>com.ca.tas.test.aba.smoke.ABASmokeTestBed</testBed>
+	</testBeds>
+	<genericProperties>
+		<properties key="coda.logic.mercurial.branch" value="${tas.codaLogicBranchName}" />
+		<properties key="testvariant.files"
+			value="qa/wv_ui/variant/aba_deploy_flatiron_qatf.variant" />
+
+		<properties key="auto.start" value="true" />
+		<!-- prelert -->
+		<properties key="overrides.versions.as.build.number" value="${tas.artifactVersion}" />
+		<properties key="overrides.versions.as.build.suffix" value="default" />
+		<properties key="overrides.versions.as.code.name" value="default" />
+		<properties key="overrides.role_analyticsserver.os.architecture.name"
+			value="AMD64" />
+		<!-- CA Introscope -->
+		<properties key="overrides.versions.introscope.build.number"
+			value="${tas.artifactVersion}" />
+		<properties key="overrides.versions.introscope.build.suffix"
+			value="default" />
+		<properties key="overrides.versions.introscope.code.name"
+			value="default" />
+		<properties key="overrides.versions.osgi" value="${tas.productVersion}" />
+		<!-- QC upload -->
+		<properties key="overrides.role_qcuploadtool.upload.results"
+			value="false" />
+		<properties key="overrides.role_qcuploadtool.testset.name"
+			value="WebviewABASmoke" />
+		<properties key="overrides.role_qcuploadtool.testset.folder"
+			value="Root/APM 9.6/Automation/Regression/SMOKE/Client" />
+		<properties key="overrides.role_qcuploadtool.execution.run.build"
+			value="versions.introscope.build.number" />
+
+		<!-- Machine properties -->
+		<properties key="machine.testing.slaveType" value="WindowsService" />
+		
+		<!-- Role properties -->
+		<properties key="role.em01.slaveType" value="WindowsService" />
+		<properties key="role.em01.install.parent.dir" value="c:/qa_sandbox/aut" />
+		<properties key="role.em01.java.home" value="C:/Program Files/Java/jre7" />
+		<properties key="role.em01.min.heap.mb" value="512" />
+		<properties key="role.em01.max.heap.mb" value="512" />
+		<properties key="role.em01.max.permsize.mb" value="256" />
+
+		<properties key="role.caas01.scp.user" value="bob" />
+		<properties key="role.caas01.stage.dir"
+			value="/home/${testbed_analyticsserver.scp.user}/sw/coda-stage/" />
+		<properties key="role.caas01.install.dir" value="/home/${testbed_analyticsserver.scp.user}/ca/apm_analysis_server" />
+		<properties key="role.caas01.base.results.dir"
+			value="/home/${testbed_analyticsserver.scp.user}/sw/coda-results" />
+
+	</genericProperties>
+	<type>CODA:Suite</type>
+	<owner>pospa02</owner>
+	<description>ABA.SMOKE test suite</description>
+	<size>BIG</size>
+	<group>coda</group>
+	<executeOn>controller</executeOn>
+</codaSuite>

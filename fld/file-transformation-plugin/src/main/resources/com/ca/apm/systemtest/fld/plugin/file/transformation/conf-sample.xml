@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+    <transformation id="1">
+        <set-property name="a" value="x${#_}"/>
+        <delete-property name="b"/>
+        <append-property name="c" value="Y"/>
+    </transformation>
+
+    <transformation id="2">
+        <set-property name="c" value="x"/>
+        <delete-property name="d"/>
+    </transformation>
+
+    <transformation id="3">
+        <xslt-transform>
+            <xslt><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xalan="http://xml.apache.org/xslt">
+<xsl:strip-space elements="*"/>
+<xsl:output method="xml" indent="yes" xalan:indent-amount="4"/>
+<xsl:template match="@*|node()">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template>
+<xsl:template match="domains">
+  <domains>
+     <xsl:apply-templates select="@* | *"/>
+    <domain name="${#domainName}">
+        <agent mapping="(.*)\|(.*)\|kokoagent(.*)"/>
+        <grant group="Admin" permission="full"/>
+        <grant user="Guest" permission="read"/>
+    </domain>
+  </domains>
+</xsl:template>
+</xsl:stylesheet>]]></xslt>
+        </xslt-transform>
+    </transformation>
+
+    <files id="group1">
+        <file><![CDATA[C:\test.txt]]></file>
+        <file>C:\test2.txt</file>
+    </files>
+
+    <files id="group2">
+        <file>C:\test3.txt</file>
+        <file>C:\test4.txt</file>
+        <file>C:\test5.txt</file>
+    </files>
+
+    <binding>
+        <transformation-ref id="1"/>
+        <files-ref id="group1"/>
+    </binding>
+
+    <binding>
+        <transformation-ref id="3"/>
+        <transformation-ref id="2"/>
+        <files-ref id="group2"/>
+    </binding>
+</configuration>

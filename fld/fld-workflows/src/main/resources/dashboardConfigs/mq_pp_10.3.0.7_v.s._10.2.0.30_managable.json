@@ -1,0 +1,434 @@
+{
+  "id" : null,
+  "processKey" : "fld.powerpack.linkedtestsForBothVersions.managable",
+  "name" : "MQ PP 10.3 v.s. 10.2 managable",
+  "config" : [ {
+    "formId" : "node",
+    "type" : "node",
+    "name" : "Application Node",
+    "value" : "WebLogicAppServerNode",
+    "required" : true
+  }, {
+    "formId" : "momNode",
+    "type" : "node",
+    "name" : "Mom Node",
+    "value" : "AQPP-EM01",
+    "required" : true
+  }, {
+    "formId" : "loNode",
+    "type" : "node",
+    "name" : "Load Orchestrator Node",
+    "value" : "AQPP-LO01",
+    "required" : true
+  }, {
+    "formId" : "serverId",
+    "type" : "string",
+    "name" : "Server Id",
+    "value" : "webspheremq",
+    "required" : true
+  }, {
+    "formId" : "artifactSpecificationOld",
+    "type" : "string",
+    "name" : "Introscope Agent Download Specification (Previous Version)",
+    "value" : "truss:10.2.0:990700:10.2.0.30",
+    "required" : false
+  }, {
+    "formId" : "artifactSpecificationNew",
+    "type" : "string",
+    "name" : "Introscope Agent Download Specification (Newer Version)",
+    "value" : "truss:10.3.0:990006:10.3.0.7",
+    "required" : false
+  }, {
+    "formId" : "agentName",
+    "type" : "string",
+    "name" : "Agent Name",
+    "value" : "mq_pp_agent",
+    "required" : true
+  }, {
+    "formId" : "agentInstallationDir",
+    "type" : "string",
+    "name" : "Agent Installation Folder",
+    "value" : "c:/sw/wily",
+    "required" : false
+  }, {
+    "formId" : "momPort",
+    "type" : "long",
+    "name" : "Mom Port",
+    "value" : 5001,
+    "required" : true
+  }, {
+    "formId" : "brtmExtension",
+    "type" : "boolean",
+    "name" : "Include BRTM Extension",
+    "value" : false,
+    "required" : false
+  }, {
+    "formId" : "dbCleanupHost",
+    "type" : "string",
+    "name" : "Db Cleanup: Host Name",
+    "value" : "",
+    "required" : false
+  }, {
+    "formId" : "dbCleanupPort",
+    "type" : "long",
+    "name" : "Db Cleanup: Port Number",
+    "required" : false
+  }, {
+    "formId" : "testWarmupInSeconds",
+    "type" : "long",
+    "name" : "Test Warmup Period (in seconds)",
+    "value" : 1200,
+    "required" : true
+  }, {
+    "formId" : "testDurationInSeconds",
+    "type" : "long",
+    "name" : "Test Duration (in seconds)",
+    "value" : 2650,
+    "required" : true
+  }, {
+    "formId" : "jmeterNode",
+    "type" : "node",
+    "name" : "Jmeter: Node ",
+    "value" : "Jmeter4WLS",
+    "required" : true
+  }, {
+    "formId" : "testNumberOfCVUS",
+    "type" : "long",
+    "name" : "Jmeter: Concurrent Users Count",
+    "value" : 30,
+    "required" : true
+  }, {
+    "formId" : "jMeterScenarioUrl",
+    "type" : "string",
+    "name" : "Jmeter: Scenario Url",
+    "value" : "http://aqpp-lo01.ca.com:8080/LoadOrchestrator/getResource?resourceName=mqloanapp_load2.jmx",
+    "required" : true
+  }, {
+    "formId" : "appServerHost",
+    "type" : "string",
+    "name" : "Jmeter: Host Of The Test Load Application ",
+    "value" : "aqpp-wls02.ca.com",
+    "required" : true
+  }, {
+    "formId" : "appServerPort",
+    "type" : "long",
+    "name" : "Jmeter: Test Load Application Port",
+    "value" : 9080,
+    "required" : true
+  }, {
+    "formId" : "logDir",
+    "type" : "string",
+    "name" : "Agent Log Location",
+    "value" : "c:/temp/agent/was_mq_pp_103_vs_102",
+    "required" : false
+  }, {
+    "formId" : "logDirServer",
+    "type" : "string",
+    "name" : "Mapped Server Log Location",
+    "value" : "c:/temp/server/was_mq_pp_103_vs_102",
+    "required" : true
+  }, {
+    "formId" : "logsArchiveFolder",
+    "type" : "string",
+    "name" : "On-Server Logs Archive Folder",
+    "value" : "c:/temp/archive/was_mq_pp_103_vs_102",
+    "required" : false
+  }, {
+    "formId" : "jmxPort",
+    "type" : "long",
+    "name" : "Monitoring: JMX Port",
+    "value" : 1099,
+    "required" : false
+  }, {
+    "formId" : "jmxMetrics",
+    "type" : "string",
+    "name" : "Monitoring: Jmx Metrics",
+    "value" : "java.lang:type=MemoryPool,name=Java heap|Usage/used,max;java.lang:type=GarbageCollector,name=Copy|CollectionCount|CollectionTime;java.lang:type=GarbageCollector,name=MarkSweepCompact|CollectionCount|CollectionTime",
+    "required" : false
+  }, {
+    "formId" : "delayAfterServerStart",
+    "type" : "long",
+    "name" : "Delay After App Server Starts (in seconds)",
+    "value" : 60,
+    "required" : false
+  }, {
+    "formId" : "reportResultsFileTemplateUrl",
+    "type" : "string",
+    "name" : "Results Report File Template Url",
+    "value" : "http://aqpp-lo01.ca.com:8080/LoadOrchestrator/getResource?resourceName=report_with_charts_template.xls",
+    "required" : false
+  }, {
+    "formId" : "reCreateDbScriptArchiveUrl",
+    "type" : "string",
+    "name" : "DB Recreation Script Archive URL",
+    "value" : "",
+    "required" : false
+  }, {
+    "formId" : "typePerfLogFileName",
+    "type" : "string",
+    "name" : "TypePerf Log File Name",
+    "value" : "typePerf.csv",
+    "required" : false
+  }, {
+    "formId" : "jmxLogFileName",
+    "type" : "string",
+    "name" : "JMX Log File Name",
+    "value" : "jmx.csv",
+    "required" : false
+  }, {
+    "formId" : "resultsGroupingNeeded",
+    "type" : "boolean",
+    "name" : "Group Test Results?",
+    "value" : true,
+    "required" : false
+  }, {
+    "formId" : "samplesCount",
+    "type" : "long",
+    "name" : "Number Of Samples",
+    "value" : 2450,
+    "required" : false
+  }, {
+    "formId" : "sampleIntervalMillis",
+    "type" : "long",
+    "name" : "Sample Interval (in milliseconds)",
+    "value" : 1000,
+    "required" : false
+  }, {
+    "formId" : "resultReportFileName",
+    "type" : "string",
+    "name" : "Final Result Report File Name",
+    "value" : "mqPowerPackPerfTestReport.xls",
+    "required" : false
+  }, {
+    "formId" : "cleanAgentDownloads",
+    "type" : "boolean",
+    "name" : "Clean Agent Downloads Before Run",
+    "value" : true,
+    "required" : false
+  }, {
+    "formId" : "processCommandLinePattern",
+    "type" : "string",
+    "name" : "Monitored Process's Command Line Pattern",
+    "value" : "-Dwas.status.socket=",
+    "required" : false
+  }, {
+    "formId" : "runTypePerfMonitoring",
+    "type" : "boolean",
+    "name" : "Run TypePerf Monitoring",
+    "value" : true,
+    "required" : true
+  }, {
+    "formId" : "runJmxMonitoring",
+    "type" : "boolean",
+    "name" : "Run JMX Monitoring?",
+    "value" : true,
+    "required" : true
+  }, {
+    "formId" : "runJstatMonitoring",
+    "type" : "boolean",
+    "name" : "Run Jstat Monitoring?",
+    "value" : false,
+    "required" : true
+  }, {
+    "formId" : "typePerfCounters",
+    "type" : "string",
+    "name" : "Performance Counters (sep. by comma)",
+    "value" : "\\Processor(_Total)\\% Processor Time,\\Process({0})\\ID Process",
+    "required" : false
+  }, {
+    "formId" : "jstatLogFileName",
+    "type" : "string",
+    "name" : "JSTAT Log File Name",
+    "value" : "jstat.log",
+    "required" : false
+  }, {
+    "formId" : "applicationType",
+    "type" : "enum",
+    "name" : "Application Type",
+    "typeInformation" : "{none=None, trade6=Trade6, wily2web=Wily2web, stockTrader=StockTrader, loanApp=LoanApp}",
+    "value" : "loanApp",
+    "required" : true
+  }, {
+    "formId" : "runNewAgentWithPPTest",
+    "type" : "boolean",
+    "name" : "Run New Agent With PowerPack Test?",
+    "value" : true,
+    "required" : false
+  }, {
+    "formId" : "runNewAgentTest",
+    "type" : "boolean",
+    "name" : "Run New Agent Test?",
+    "value" : true,
+    "required" : false
+  }, {
+    "formId" : "runNoAgentTest",
+    "type" : "boolean",
+    "name" : "Run No Agent Test?",
+    "value" : true,
+    "required" : false
+  }, {
+    "formId" : "runOldAgentWithPPTest",
+    "type" : "boolean",
+    "name" : "Run Old Agent With PowerPack Test?",
+    "value" : true,
+    "required" : false
+  }, {
+    "formId" : "runOldAgentTest",
+    "type" : "boolean",
+    "name" : "Run Old Agent Test?",
+    "value" : true,
+    "required" : false
+  }, {
+    "formId" : "processName",
+    "type" : "string",
+    "name" : "Process Name Pattern (for searching with typeperf, wmic)",
+    "value" : "java",
+    "required" : true
+  }, {
+    "formId" : "javaProcessName",
+    "type" : "string",
+    "name" : "Process Name Pattern (for searching with jps)",
+    "value" : "",
+    "required" : false
+  }, {
+    "formId" : "processInstanceName",
+    "type" : "string",
+    "name" : "Process Instance Name (for typeperf to skip searching)",
+    "required" : false
+  }, {
+    "formId" : "serverType",
+    "type" : "enum",
+    "name" : "Server Type (Websphere, Weblogic, ...)",
+    "typeInformation" : "{webspherePP=Websphere, webspherePortalPP=Websphere Portal, weblogicPP=Weblogic, weblogicportalPP=Weblogic Portal, sharePointPP=Share Point, tibcobwPP=Tibco, webspheremqPP=WebsphereMQ, weblogicosbPP=Weblogic + OSB, webmethodsPP=Web Methods}",
+    "value" : "webspheremqPP",
+    "required" : true
+  }, {
+    "formId" : "oracleNode",
+    "type" : "node",
+    "name" : "Database Node",
+    "required" : false
+  }, {
+    "formId" : "includeJmeterLogs",
+    "type" : "boolean",
+    "name" : "Include Jmeter Logs",
+    "value" : true,
+    "required" : false
+  }, {
+    "formId" : "includeWilyLogs",
+    "type" : "boolean",
+    "name" : "Include Introscope Agent Logs",
+    "value" : true,
+    "required" : false
+  }, {
+    "formId" : "archiveLogs",
+    "type" : "boolean",
+    "name" : "Save Logs Into Archive",
+    "value" : true,
+    "required" : false
+  }, {
+    "formId" : "newAgentVersion",
+    "type" : "string",
+    "name" : "New Introscope Agent Version",
+    "value" : "10.3.0.7",
+    "required" : true
+  }, {
+    "formId" : "oldAgentVersion",
+    "type" : "string",
+    "name" : "Old Introscope Agent Version",
+    "value" : "10.2.0.30",
+    "required" : true
+  }, {
+    "formId" : "jmeterCollectFileExtensions",
+    "type" : "string",
+    "name" : "Comma Delimited Jmeter File Extensions To Collect",
+    "value" : ".log,.jtl,.csv",
+    "required" : false
+  }, {
+    "formId" : "additionalOldAgentProfileProperties",
+    "type" : "string",
+    "name" : "OLD Agent Additional Profile Properties (delimited by semicolumn)",
+    "value" : "agentManager.url.1=aqpp-em01:5001;introscope.agent.deep.automatic.trace.crossprocess.enabled=false",
+    "required" : false
+  }, {
+    "formId" : "additionalOldAgentWithPowerPackProfileProperties",
+    "type" : "string",
+    "name" : "OLD Agent With PowerPack Additional Profile Properties (delimited by semicolumn)",
+    "value" : "agentManager.url.1=aqpp-em01:5001;introscope.agent.deep.automatic.trace.crossprocess.enabled=false",
+    "required" : false
+  }, {
+    "formId" : "additionalNewAgentProfileProperties",
+    "type" : "string",
+    "name" : "NEW Agent Additional Profile Properties (delimited by semicolumn)",
+    "value" : "agentManager.url.1=aqpp-em01:5001;introscope.agent.deep.automatic.trace.crossprocess.enabled=false",
+    "required" : false
+  }, {
+    "formId" : "additionalNewAgentWithPowerPackProfileProperties",
+    "type" : "string",
+    "name" : "NEW Agent With PowerPack Additional Profile Properties (delimited by semicolumn)",
+    "value" : "agentManager.url.1=aqpp-em01:5001;introscope.agent.deep.automatic.trace.crossprocess.enabled=false",
+    "required" : false
+  }, {
+    "formId" : "oldAgentProbeDirectives",
+    "type" : "string",
+    "name" : "OLD Agent Probe Directives (delimited by comma)",
+    "value" : "websphere-full.pbl,hotdeploy",
+    "required" : true
+  }, {
+    "formId" : "oldAgentWithPowerPackProbeDirectives",
+    "type" : "string",
+    "name" : "OLD Agent With PowerPack Probe Directives (delimited by comma)",
+    "value" : "websphere-full.pbl,webspheremq.pbl,hotdeploy",
+    "required" : true
+  }, {
+    "formId" : "newAgentProbeDirectives",
+    "type" : "string",
+    "name" : "NEW Agent Probe Directives (delimited by comma)",
+    "value" : "websphere-full.pbl,hotdeploy",
+    "required" : true
+  }, {
+    "formId" : "newAgentWithPowerPackProbeDirectives",
+    "type" : "string",
+    "name" : "NEW Agent With PowerPack Probe Directives (delimited by comma)",
+    "value" : "websphere-full.pbl,webspheremq.pbl,hotdeploy",
+    "required" : false
+  }, {
+    "formId" : "oldAgentExtraModules",
+    "type" : "string",
+    "name" : "OLD Agent Extra Modules (delimited by comma)",
+    "required" : false
+  }, {
+    "formId" : "oldAgentWithPowerPackExtraModules",
+    "type" : "string",
+    "name" : "OLD Agent With PowerPack Extra Modules (delimited by comma)",
+    "value" : "examples\\PowerpackforWebsphereMQ\\ext\\MQNameFormatter.jar",
+    "required" : false
+  }, {
+    "formId" : "newAgentExtraModules",
+    "type" : "string",
+    "name" : "NEW Agent Extra Modules (delimited by comma)",
+    "required" : false
+  }, {
+    "formId" : "newAgentWithPowerPackExtraModules",
+    "type" : "string",
+    "name" : "NEW Agent With PowerPack Extra Modules (delimited by comma)",
+    "value" : "examples\\PowerpackforWebsphereMQ\\ext\\MQNameFormatter.jar",
+    "required" : false
+  }, {
+    "formId" : "agentEMInvestigatorGroupName",
+    "type" : "string",
+    "name" : "Name of the Group under which Introscope Agent appears in EM Investigator",
+    "value" : "WebSphere",
+    "required" : true
+  } ],
+  "monitors" : [ ],
+  "hideNonRequiredConfigParameters" : false,
+  "active" : false,
+  "suspended" : false,
+  "hasWaitingUserTasks" : false,
+  "hasStuckJobs" : false,
+  "processStarted" : null,
+  "processEnded" : null,
+  "processInstanceId" : null,
+  "iconName" : "webSphereLogo",
+  "executions" : null
+}

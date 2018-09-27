@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="fld.configure.cluster" name="Configure Cluster" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="fld.mom.node" name="fld.mom.node" type="node" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.em01.node" name="fld.em01.node" type="node" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.em02.node" name="fld.em02.node" type="node" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.em03.node" name="fld.em03.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.em04.node" name="fld.em04.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.em05.node" name="fld.em05.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.em06.node" name="fld.em06.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.em07.node" name="fld.em07.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.em08.node" name="fld.em08.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.em09.node" name="fld.em09.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.em10.node" name="fld.em10.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.mm.url" name="fld.mm.url" type="string" default="http://artifactory-emea-cz.ca.com:8081/artifactory/apm-integration-local/com/ca/apm/systemtest/fld/management-modules/99.99.aquarius-SNAPSHOT/management-modules-99.99.aquarius-20150722.113505-90-dist.zip" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.webview.node" name="fld.webview.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.install.prelert.server" name="fld.install.prelert.server" type="boolean" default="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.agc.node" name="fld.agc.node" type="node" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.agc.em.node" name="fld.agc.em.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.mom02.node" name="fld.mom02.node" type="node" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fld.mom02.em01.node" name="fld.mom02.em01.node" type="node"></activiti:formProperty>
+        <activiti:formProperty id="fld.mom02.em02.node" name="fld.mom02.em02.node" type="node"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <serviceTask id="install.mm" name="Install MM" activiti:delegateExpression="${configureJobsBean.installManagementModules}"></serviceTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="install.mm" targetRef="timerintermediatecatchevent2"></sequenceFlow>
+    <serviceTask id="cofigure.collector.2" name="Configure Coll #2" activiti:delegateExpression="${configureJobsBean.configureCollector2}"></serviceTask>
+    <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT5S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow4" sourceRef="timerintermediatecatchevent1" targetRef="install.mm"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent2" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT5S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow5" sourceRef="timerintermediatecatchevent2" targetRef="configure.mom.analytics"></sequenceFlow>
+    <serviceTask id="configure.mom.analytics" name="Configure MOM Analytics" activiti:delegateExpression="${configureJobsBean.configureMomAnalytics}"></serviceTask>
+    <intermediateCatchEvent id="timerintermediatecatchevent3" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT3S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow7" sourceRef="configure.mom.analytics" targetRef="timerintermediatecatchevent3"></sequenceFlow>
+    <sequenceFlow id="flow8" sourceRef="timerintermediatecatchevent3" targetRef="cofigure.collector.2"></sequenceFlow>
+    <serviceTask id="configure.clamps" name="Configure Clamps" activiti:delegateExpression="${configureJobsBean.configureClamps}"></serviceTask>
+    <sequenceFlow id="flow9" sourceRef="configure.clamps" targetRef="timerintermediatecatchevent5"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent4" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT3S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow10" sourceRef="cofigure.collector.2" targetRef="timerintermediatecatchevent4"></sequenceFlow>
+    <sequenceFlow id="flow11" sourceRef="timerintermediatecatchevent4" targetRef="configure.clamps"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent5" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT3S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <serviceTask id="configure.baseline" name="Configure Baselining" activiti:delegateExpression="${configureJobsBean.configureBaselines}"></serviceTask>
+    <sequenceFlow id="flow12" sourceRef="timerintermediatecatchevent5" targetRef="configure.baseline"></sequenceFlow>
+    <serviceTask id="configure.mom.jvmargs" name="Configure MOM JvmArgs" activiti:delegateExpression="${configureJobsBean.configureMomJvmArgs}"></serviceTask>
+    <serviceTask id="configure.collector1.jvmargs" name="Conf Coll #1 JvmArgs" activiti:delegateExpression="${configureJobsBean.configureCollector1JvmArgs}"></serviceTask>
+    <serviceTask id="configure.collectorx.jvmargs" name="Conf CollX JvmArgs" activiti:delegateExpression="${configureJobsBean.configureCollectorXJvmArgs}"></serviceTask>
+    <intermediateCatchEvent id="timerintermediatecatchevent6" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT3S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent7" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT3S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent8" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT3S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow14" sourceRef="configure.baseline" targetRef="timerintermediatecatchevent6"></sequenceFlow>
+    <sequenceFlow id="flow15" sourceRef="timerintermediatecatchevent6" targetRef="configure.mom.jvmargs"></sequenceFlow>
+    <sequenceFlow id="flow16" sourceRef="configure.mom.jvmargs" targetRef="timerintermediatecatchevent7"></sequenceFlow>
+    <sequenceFlow id="flow17" sourceRef="timerintermediatecatchevent7" targetRef="configure.collector1.jvmargs"></sequenceFlow>
+    <sequenceFlow id="flow18" sourceRef="configure.collector1.jvmargs" targetRef="timerintermediatecatchevent8"></sequenceFlow>
+    <sequenceFlow id="flow19" sourceRef="timerintermediatecatchevent8" targetRef="configure.collectorx.jvmargs"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent9" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT3S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow20" sourceRef="configure.collectorx.jvmargs" targetRef="timerintermediatecatchevent9"></sequenceFlow>
+    <serviceTask id="configure.webview.jvmargs" name="Conf WebView JvmArgs" activiti:delegateExpression="${configureJobsBean.configureWebViewJvmArgs}"></serviceTask>
+    <sequenceFlow id="flow21" sourceRef="timerintermediatecatchevent9" targetRef="configure.webview.jvmargs"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow22" sourceRef="configure.agc.master" targetRef="timerintermediatecatchevent11"></sequenceFlow>
+    <serviceTask id="configure.agc.master" name="Conf AGC Master" activiti:delegateExpression="${configureJobsBean.configureAgcMasterArgs}"></serviceTask>
+    <intermediateCatchEvent id="timerintermediatecatchevent10" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT3S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow23" sourceRef="configure.webview.jvmargs" targetRef="timerintermediatecatchevent10"></sequenceFlow>
+    <sequenceFlow id="flow24" sourceRef="timerintermediatecatchevent10" targetRef="configure.agc.master"></sequenceFlow>
+    <serviceTask id="configure.virt.collectorx.jvmargs" name="Conf VirtCollX JvmArgs" activiti:delegateExpression="${configureJobsBean.configureVirtCollectorXJvmArgs}"></serviceTask>
+    <sequenceFlow id="flow25" sourceRef="configure.virt.collectorx.jvmargs" targetRef="timerintermediatecatchevent12"></sequenceFlow>
+    <serviceTask id="configure.mom.2" name="Conf MOM #2" activiti:delegateExpression="${configureJobsBean.configureSecondMOMArgs}"></serviceTask>
+    <sequenceFlow id="flow26" sourceRef="configure.mom.2" targetRef="endevent1"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent11" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT3S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow27" sourceRef="timerintermediatecatchevent11" targetRef="configure.virt.collectorx.jvmargs"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent12" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT3S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow28" sourceRef="timerintermediatecatchevent12" targetRef="configure.mom.2"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.configure.cluster">
+    <bpmndi:BPMNPlane bpmnElement="fld.configure.cluster" id="BPMNPlane_fld.configure.cluster">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="90.0" y="10.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="install.mm" id="BPMNShape_install.mm">
+        <omgdc:Bounds height="55.0" width="105.0" x="55.0" y="140.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="cofigure.collector.2" id="BPMNShape_cofigure.collector.2">
+        <omgdc:Bounds height="55.0" width="105.0" x="530.0" y="140.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="90.0" y="70.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent2" id="BPMNShape_timerintermediatecatchevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="220.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="configure.mom.analytics" id="BPMNShape_configure.mom.analytics">
+        <omgdc:Bounds height="65.0" width="105.0" x="305.0" y="135.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent3" id="BPMNShape_timerintermediatecatchevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="450.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="configure.clamps" id="BPMNShape_configure.clamps">
+        <omgdc:Bounds height="55.0" width="105.0" x="55.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent4" id="BPMNShape_timerintermediatecatchevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="340.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent5" id="BPMNShape_timerintermediatecatchevent5">
+        <omgdc:Bounds height="35.0" width="35.0" x="220.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="configure.baseline" id="BPMNShape_configure.baseline">
+        <omgdc:Bounds height="55.0" width="105.0" x="305.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="configure.mom.jvmargs" id="BPMNShape_configure.mom.jvmargs">
+        <omgdc:Bounds height="81.0" width="105.0" x="540.0" y="257.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="configure.collector1.jvmargs" id="BPMNShape_configure.collector1.jvmargs">
+        <omgdc:Bounds height="74.0" width="105.0" x="55.0" y="391.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="configure.collectorx.jvmargs" id="BPMNShape_configure.collectorx.jvmargs">
+        <omgdc:Bounds height="55.0" width="131.0" x="290.0" y="400.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent6" id="BPMNShape_timerintermediatecatchevent6">
+        <omgdc:Bounds height="35.0" width="35.0" x="450.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent7" id="BPMNShape_timerintermediatecatchevent7">
+        <omgdc:Bounds height="35.0" width="35.0" x="340.0" y="350.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent8" id="BPMNShape_timerintermediatecatchevent8">
+        <omgdc:Bounds height="35.0" width="35.0" x="220.0" y="410.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent9" id="BPMNShape_timerintermediatecatchevent9">
+        <omgdc:Bounds height="35.0" width="35.0" x="450.0" y="410.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="configure.webview.jvmargs" id="BPMNShape_configure.webview.jvmargs">
+        <omgdc:Bounds height="65.0" width="105.0" x="540.0" y="395.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="575.0" y="640.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="configure.agc.master" id="BPMNShape_configure.agc.master">
+        <omgdc:Bounds height="61.0" width="105.0" x="55.0" y="520.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent10" id="BPMNShape_timerintermediatecatchevent10">
+        <omgdc:Bounds height="35.0" width="35.0" x="340.0" y="470.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="configure.virt.collectorx.jvmargs" id="BPMNShape_configure.virt.collectorx.jvmargs">
+        <omgdc:Bounds height="61.0" width="105.0" x="305.0" y="520.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="configure.mom.2" id="BPMNShape_configure.mom.2">
+        <omgdc:Bounds height="61.0" width="105.0" x="540.0" y="520.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent11" id="BPMNShape_timerintermediatecatchevent11">
+        <omgdc:Bounds height="35.0" width="35.0" x="220.0" y="533.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent12" id="BPMNShape_timerintermediatecatchevent12">
+        <omgdc:Bounds height="35.0" width="35.0" x="450.0" y="533.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="107.0" y="45.0"></omgdi:waypoint>
+        <omgdi:waypoint x="107.0" y="70.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="160.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="220.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="107.0" y="105.0"></omgdi:waypoint>
+        <omgdi:waypoint x="107.0" y="140.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="255.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="305.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="410.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="450.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="485.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="530.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="160.0" y="297.0"></omgdi:waypoint>
+        <omgdi:waypoint x="220.0" y="297.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="582.0" y="195.0"></omgdi:waypoint>
+        <omgdi:waypoint x="582.0" y="227.0"></omgdi:waypoint>
+        <omgdi:waypoint x="375.0" y="227.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="340.0" y="227.0"></omgdi:waypoint>
+        <omgdi:waypoint x="107.0" y="227.0"></omgdi:waypoint>
+        <omgdi:waypoint x="107.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="255.0" y="297.0"></omgdi:waypoint>
+        <omgdi:waypoint x="305.0" y="297.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="410.0" y="297.0"></omgdi:waypoint>
+        <omgdi:waypoint x="450.0" y="297.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="485.0" y="297.0"></omgdi:waypoint>
+        <omgdi:waypoint x="540.0" y="297.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="592.0" y="338.0"></omgdi:waypoint>
+        <omgdi:waypoint x="592.0" y="367.0"></omgdi:waypoint>
+        <omgdi:waypoint x="375.0" y="367.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="340.0" y="367.0"></omgdi:waypoint>
+        <omgdi:waypoint x="107.0" y="367.0"></omgdi:waypoint>
+        <omgdi:waypoint x="107.0" y="391.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="160.0" y="428.0"></omgdi:waypoint>
+        <omgdi:waypoint x="220.0" y="427.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="255.0" y="427.0"></omgdi:waypoint>
+        <omgdi:waypoint x="290.0" y="427.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="421.0" y="427.0"></omgdi:waypoint>
+        <omgdi:waypoint x="450.0" y="427.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="485.0" y="427.0"></omgdi:waypoint>
+        <omgdi:waypoint x="540.0" y="427.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="160.0" y="550.0"></omgdi:waypoint>
+        <omgdi:waypoint x="220.0" y="550.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="592.0" y="460.0"></omgdi:waypoint>
+        <omgdi:waypoint x="592.0" y="487.0"></omgdi:waypoint>
+        <omgdi:waypoint x="375.0" y="487.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
+        <omgdi:waypoint x="340.0" y="487.0"></omgdi:waypoint>
+        <omgdi:waypoint x="107.0" y="487.0"></omgdi:waypoint>
+        <omgdi:waypoint x="107.0" y="520.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="410.0" y="550.0"></omgdi:waypoint>
+        <omgdi:waypoint x="450.0" y="550.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="592.0" y="581.0"></omgdi:waypoint>
+        <omgdi:waypoint x="592.0" y="640.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
+        <omgdi:waypoint x="255.0" y="550.0"></omgdi:waypoint>
+        <omgdi:waypoint x="305.0" y="550.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
+        <omgdi:waypoint x="485.0" y="550.0"></omgdi:waypoint>
+        <omgdi:waypoint x="540.0" y="550.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" exporter="camunda modeler" exporterVersion="2.7.0">
+  <process id="fld.monitoring.dbcleanup" name="Typeperf monitoring for Process" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="nodeName" name="nodeName" type="string" variable="nodeName" default="DIMI" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dbCleanupHost" name="dbCleanupHost" type="string" variable="dbCleanupHost" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dbCleanupPort" name="dbCleanupPort" type="string" variable="dbCleanupPort" required="true"></activiti:formProperty>
+        <activiti:formProperty id="applicationType" name="applicationType" type="string" variable="applicationType" required="true"></activiti:formProperty>
+        <activiti:formProperty id="serverId" name="serverId" type="string" variable="serverId"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <scriptTask id="scripttask1.something" name="Reset Trade6" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
+def log = LoggerFactory.getLogger("Trade6CleanupGroovyWF")
+log.info("Cleaning Database")
+
+def httpclient = HttpClients.createDefault()
+def url = String.format("http://%s:%s/trade/config?action=resetTrade", dbCleanupHost, dbCleanupPort)
+def httpGet = new HttpGet(url)
+def response1 = httpclient.execute(httpGet)
+
+log.debug(response1.toString())
+
+def entity1 = response1.getEntity()
+def responseBody = IOUtils.toString(entity1.getContent())
+
+EntityUtils.consume(entity1);
+response1.close();
+
+def resultOK = responseBody.contains("Trade Reset completed successfully");
+
+execution.setVariable("resultOK", resultOK)
+log.info("Cleaning Database Complete")</script>
+    </scriptTask>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway" default="emptyDbCleanupHostFlow"></exclusiveGateway>
+    <scriptTask id="scripttask3" name="Populate Trade6" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.apache.http.client.config.RequestConfig;
+
+def log = LoggerFactory.getLogger("Trade6CleanupGroovyWF")
+log.info("Repopulating database")
+
+def httpclient = HttpClients.createDefault()
+def url = String.format("http://%s:%s/trade/config?action=buildDB",  dbCleanupHost, dbCleanupPort)
+def httpGet = new HttpGet(url)
+def response1 = httpclient.execute(httpGet)
+
+log.info(response1.toString())
+
+def entity1 = response1.getEntity()
+def responseBody = IOUtils.toString(entity1.getContent())
+EntityUtils.consume(entity1);
+response1.close();
+log.info(responseBody)
+
+def resultOK = responseBody.contains("Trade Database Built - 500users created");
+
+execution.setVariable("resultOK", resultOK)
+log.info("Repopulating database Complete")</script>
+    </scriptTask>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow17" sourceRef="scripttask1.something" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow18" sourceRef="exclusivegateway2" targetRef="scripttask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${resultOK==true}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="errorendevent1" name="ErrorEnd">
+      <errorEventDefinition errorRef="DBCleanupFailed"></errorEventDefinition>
+    </endEvent>
+    <sequenceFlow id="flow19" sourceRef="exclusivegateway2" targetRef="errorendevent1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${resultOK==false}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow20" sourceRef="scripttask3" targetRef="exclusivegateway3"></sequenceFlow>
+    <sequenceFlow id="flow21" sourceRef="exclusivegateway3" targetRef="errorendevent1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${resultOK==false}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow22" sourceRef="exclusivegateway3" targetRef="endevent1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${resultOK==true}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="emptyDbCleanupHostFlow" name="default" sourceRef="exclusivegateway1" targetRef="endevent1"></sequenceFlow>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="scripttask1.something">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <userTask id="usertask1" name="User Task">
+      <extensionElements>
+        <activiti:formProperty id="LOGS!!!!"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow23" sourceRef="boundaryerror1" targetRef="usertask1"></sequenceFlow>
+    <scriptTask id="scripttask5" name="Check server status" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+def log = LoggerFactory.getLogger("CleanupWorkflow")
+def plugin = agentProxyFactory.createProxy(nodeName).plugins.webspherePlugin
+
+if (!plugin.isServerRunning(serverId)) {
+    log.info("Server is not running")
+    plugin.startServer(serverId)
+}</script>
+    </scriptTask>
+    <sequenceFlow id="flowTrade6" sourceRef="exclusivegateway1" targetRef="scripttask5">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationType=="trade6"}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow25" sourceRef="scripttask5" targetRef="scripttask1.something"></sequenceFlow>
+    <sequenceFlow id="flow26" sourceRef="startevent1" targetRef="exclusivegateway1"></sequenceFlow>
+    <textAnnotation id="textannotation1">
+      <text>Restart server if not on</text>
+    </textAnnotation>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.monitoring.dbcleanup">
+    <bpmndi:BPMNPlane bpmnElement="fld.monitoring.dbcleanup" id="BPMNPlane_fld.monitoring.dbcleanup">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="133.0" y="1.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="130.0" y="513.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask1.something" id="BPMNShape_scripttask1.something">
+        <omgdc:Bounds height="55.0" width="105.0" x="95.0" y="193.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="180.0" y="207.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="129.0" y="51.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask3" id="BPMNShape_scripttask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="94.0" y="344.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="127.0" y="273.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="errorendevent1" id="BPMNShape_errorendevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="30.0" y="354.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
+        <omgdc:Bounds height="40.0" width="40.0" x="127.0" y="423.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="270.0" y="194.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask5" id="BPMNShape_scripttask5">
+        <omgdc:Bounds height="55.0" width="105.0" x="50.0" y="113.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
+        <omgdc:Bounds height="50.0" width="100.0" x="420.0" y="183.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="147.0" y="248.0"></omgdi:waypoint>
+        <omgdi:waypoint x="147.0" y="273.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="147.0" y="313.0"></omgdi:waypoint>
+        <omgdi:waypoint x="146.0" y="344.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="147.0" y="313.0"></omgdi:waypoint>
+        <omgdi:waypoint x="47.0" y="354.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="146.0" y="399.0"></omgdi:waypoint>
+        <omgdi:waypoint x="147.0" y="423.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="147.0" y="423.0"></omgdi:waypoint>
+        <omgdi:waypoint x="47.0" y="389.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="147.0" y="463.0"></omgdi:waypoint>
+        <omgdi:waypoint x="147.0" y="513.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="emptyDbCleanupHostFlow" id="BPMNEdge_emptyDbCleanupHostFlow">
+        <omgdi:waypoint x="149.0" y="91.0"></omgdi:waypoint>
+        <omgdi:waypoint x="232.0" y="206.0"></omgdi:waypoint>
+        <omgdi:waypoint x="232.0" y="471.0"></omgdi:waypoint>
+        <omgdi:waypoint x="147.0" y="513.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="100.0" x="192.0" y="106.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="210.0" y="222.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="221.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flowTrade6" id="BPMNEdge_flowTrade6">
+        <omgdi:waypoint x="149.0" y="91.0"></omgdi:waypoint>
+        <omgdi:waypoint x="102.0" y="113.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="102.0" y="168.0"></omgdi:waypoint>
+        <omgdi:waypoint x="147.0" y="193.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="150.0" y="36.0"></omgdi:waypoint>
+        <omgdi:waypoint x="149.0" y="51.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

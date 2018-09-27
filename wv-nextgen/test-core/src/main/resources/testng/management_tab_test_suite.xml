@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!--
+ @Tas(testBed = [{name=com.ca.apm.nextgen.WvNextgenTestbedNoCoda, executeOn=seleniumGridMachineId}],
+	owner = sinal04,
+	size = BIG,
+	snapshotPolicy = ON_FAILURE,
+	snapshot = DEAD,
+	description = 'All WebView Management Module Tab tests')
+-->
+<suite name="managementModuleWvNgTestSuite" verbose="1">
+	<test name="managementModuleWvNgTest">
+		<groups>
+			<run>
+				<include name="MANAGEMENT_TAB" />
+			</run>
+		</groups>
+		<packages>
+			<package name="com.ca.apm.nextgen.tests" />
+		</packages>
+	</test>
+</suite>

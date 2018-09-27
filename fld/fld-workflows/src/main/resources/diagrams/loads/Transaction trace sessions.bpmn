@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="fld.transaction.trace" name="Transaction trace sessions" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="nodeName" name="nodeName" type="string" variable="nodeName" required="true"></activiti:formProperty>
+        <activiti:formProperty id="trussBaseUrl" name="trussBaseUrl" type="string" variable="trussBaseUrl" default="http://truss.ca.com/builds/InternalBuilds" required="true"></activiti:formProperty>
+        <activiti:formProperty id="jarFile" name="jarFile" type="string" variable="jarFile" default="CLWorkstation.jar" required="true"></activiti:formProperty>
+        <activiti:formProperty id="outFile" name="outFile" type="string" variable="outFile" default="fld.tran.trace" required="true"></activiti:formProperty>
+        <activiti:formProperty id="codeName" name="codeName" type="string" variable="codeName" default="9.7.0-ISCP" required="true"></activiti:formProperty>
+        <activiti:formProperty id="buildNumber" name="buildNumber" type="string" variable="buildNumber" default="990400" required="true"></activiti:formProperty>
+        <activiti:formProperty id="buildId" name="buildId" type="string" variable="buildId" default="9.7.0.31" required="true"></activiti:formProperty>
+        <activiti:formProperty id="delay" name="delay" type="long" variable="delay" default="60" required="true"></activiti:formProperty>
+        <activiti:formProperty id="momHost" name="momHost" type="string" variable="momHost" required="true"></activiti:formProperty>
+        <activiti:formProperty id="momPort" name="momPort" type="string" variable="momPort" default="5001"></activiti:formProperty>
+        <activiti:formProperty id="agentName1" name="Agent Name #1" type="string" variable="agentName1"></activiti:formProperty>
+        <activiti:formProperty id="agentName2" name="Agent Name #2" type="string" variable="agentName2"></activiti:formProperty>
+        <activiti:formProperty id="agentName3" name="Agent Name #3" type="string" variable="agentName3"></activiti:formProperty>
+        <activiti:formProperty id="agentName4" name="Agent Name #4" type="string" variable="agentName4"></activiti:formProperty>
+        <activiti:formProperty id="agentName5" name="Agent Name #5" type="string" variable="agentName5"></activiti:formProperty>
+        <activiti:formProperty id="agentName6" name="Agent Name #6" type="string" variable="agentName6"></activiti:formProperty>
+        <activiti:formProperty id="agentName7" name="Agent Name #7" type="string" variable="agentName7"></activiti:formProperty>
+        <activiti:formProperty id="agentName8" name="Agent Name #8" type="string" variable="agentName8"></activiti:formProperty>
+        <activiti:formProperty id="agentName9" name="Agent Name #9" type="string" variable="agentName9"></activiti:formProperty>
+        <activiti:formProperty id="agentName10" name="Agent Name #10" type="string" variable="agentName10"></activiti:formProperty>
+        <activiti:formProperty id="momUser" name="momUser" type="string" variable="momUser" default="Admin15"></activiti:formProperty>
+        <activiti:formProperty id="momPassword" name="momPassword" type="string" variable="momPassword" default="Admin15"></activiti:formProperty>
+        <activiti:formProperty id="dirLoc" name="Agent dir path" type="string" expression="dirLoc" variable="dirLoc" default="c:/sw/lo-agent" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <scriptTask id="asyncStart" name="Async start" activiti:async="true" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>
+        Thread.sleep(1);
+      </script>
+    </scriptTask>
+    <scriptTask id="fetchJarFileFromTruss" name="Fetch JAR file from TRUSS" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import java.io.File;
+
+       	def proxy = agentProxyFactory.createProxy(nodeName);
+       	def emPlugin = proxy.plugins.emPlugin;
+
+		def today = new Date()
+		def sdf = new java.text.SimpleDateFormat("yyyyMMddhhmmss")
+		def dirLoc = dirLoc + "/" + sdf.format(today);
+		new File(dirLoc).mkdirs();
+		execution.setVariable("dirLoc", dirLoc);
+
+       	emPlugin.fetchArtifact(trussBaseUrl, jarFile, codeName, buildNumber, buildId);
+		execution.setVariable("loopCounter", 1);
+		dashboardManager.configureMonitoredValue(execution, "fld.transaction.trace", "CLW TT sessions");</script>
+    </scriptTask>
+    <scriptTask id="runAgentname1" name="Run Agentname #1" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>	if (agentName1 != null &amp;&amp; agentName1 != "" ) {
+       	def proxy = agentProxyFactory.createProxy(nodeName);
+       	def emPlugin = proxy.plugins.emPlugin;
+       	emPlugin.runJarArtifact(jarFile, outFile,
+       		[ "-Xmx256m", "-Duser="+momUser, "-Dpassword="+momPassword, "-Dhost="+momHost, "-Dport="+momPort, "-Dintroscope.clw.tt.dirname="+dirLoc ] as String[],
+       		[ "trace", "transactions", "exceeding", "1", "ms", "in", "agents", "matching", agentName1, "for", "180", "s" ] as String[]);
+	}  </script>
+    </scriptTask>
+    <intermediateCatchEvent id="sleep1" name="Sleep1">
+      <timerEventDefinition>
+        <timeDuration>PT${delay}S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="asyncStart"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="asyncStart" targetRef="fetchJarFileFromTruss"></sequenceFlow>
+    <sequenceFlow id="flow3" sourceRef="fetchJarFileFromTruss" targetRef="runAgentname1"></sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="runAgentname1" targetRef="sleep1"></sequenceFlow>
+    <scriptTask id="runAgentname2" name="Run Agentname #2" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>	if (agentName2 != null &amp;&amp; agentName2 != "" ) {
+       	def proxy = agentProxyFactory.createProxy(nodeName);
+       	def emPlugin = proxy.plugins.emPlugin;
+       	emPlugin.runJarArtifact(jarFile, outFile,
+       		[ "-Xmx256m", "-Duser="+momUser, "-Dpassword="+momPassword, "-Dhost="+momHost, "-Dport="+momPort, "-Dintroscope.clw.tt.dirname="+dirLoc ] as String[],
+       		[ "trace", "transactions", "exceeding", "1", "ms", "in", "agents", "matching", agentName2, "for", "180", "s" ] as String[]);
+	}</script>
+    </scriptTask>
+    <intermediateCatchEvent id="sleep2" name="Sleep2">
+      <timerEventDefinition>
+        <timeDuration>PT${delay}S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow6" sourceRef="runAgentname2" targetRef="sleep2"></sequenceFlow>
+    <scriptTask id="runAgentname3" name="Run Agentname #3" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>	if (agentName3 != null &amp;&amp; agentName3 != "" ) {
+       	def proxy = agentProxyFactory.createProxy(nodeName);
+       	def emPlugin = proxy.plugins.emPlugin;
+       	emPlugin.runJarArtifact(jarFile, outFile,
+       		[ "-Xmx256m", "-Duser="+momUser, "-Dpassword="+momPassword, "-Dhost="+momHost, "-Dport="+momPort, "-Dintroscope.clw.tt.dirname="+dirLoc ] as String[],
+       		[ "trace", "transactions", "exceeding", "1", "ms", "in", "agents", "matching", agentName3, "for", "180", "s" ] as String[]);
+	}</script>
+    </scriptTask>
+    <sequenceFlow id="flow7" sourceRef="sleep2" targetRef="runAgentname3"></sequenceFlow>
+    <intermediateCatchEvent id="sleep3" name="Sleep3">
+      <timerEventDefinition>
+        <timeDuration>PT${delay}S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow8" sourceRef="runAgentname3" targetRef="sleep3"></sequenceFlow>
+    <scriptTask id="runAgentname4" name="Run Agentname #4" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>	if (agentName4 != null &amp;&amp; agentName4 != "" ) {
+       	def proxy = agentProxyFactory.createProxy(nodeName);
+       	def emPlugin = proxy.plugins.emPlugin;
+       	emPlugin.runJarArtifact(jarFile, outFile,
+       		[ "-Xmx256m", "-Duser="+momUser, "-Dpassword="+momPassword, "-Dhost="+momHost, "-Dport="+momPort, "-Dintroscope.clw.tt.dirname="+dirLoc ] as String[],
+       		[ "trace", "transactions", "exceeding", "1", "ms", "in", "agents", "matching", agentName4, "for", "180", "s" ] as String[]);
+	}</script>
+    </scriptTask>
+    <sequenceFlow id="flow9" sourceRef="sleep3" targetRef="runAgentname4"></sequenceFlow>
+    <scriptTask id="runAgentname5" name="Run Agentname #5" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>	if (agentName5 != null &amp;&amp; agentName5 != "" ) {
+       	def proxy = agentProxyFactory.createProxy(nodeName);
+       	def emPlugin = proxy.plugins.emPlugin;
+       	emPlugin.runJarArtifact(jarFile, outFile,
+       		[ "-Xmx256m", "-Duser="+momUser, "-Dpassword="+momPassword, "-Dhost="+momHost, "-Dport="+momPort, "-Dintroscope.clw.tt.dirname="+dirLoc ] as String[],
+       		[ "trace", "transactions", "exceeding", "1", "ms", "in", "agents", "matching", agentName5, "for", "180", "s" ] as String[]);
+	}</script>
+    </scriptTask>
+    <intermediateCatchEvent id="sleep4" name="Sleep4">
+      <timerEventDefinition>
+        <timeDuration>PT${delay}S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow10" sourceRef="runAgentname4" targetRef="sleep4"></sequenceFlow>
+    <sequenceFlow id="flow11" sourceRef="sleep4" targetRef="runAgentname5"></sequenceFlow>
+    <intermediateCatchEvent id="sleep5" name="Sleep5">
+      <timerEventDefinition>
+        <timeDuration>PT${delay}S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow12" sourceRef="runAgentname5" targetRef="sleep5"></sequenceFlow>
+    <scriptTask id="runAgentname6" name="Run Agentname #6" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>	if (agentName6 != null &amp;&amp; agentName6 != "" ) {
+       	def proxy = agentProxyFactory.createProxy(nodeName);
+       	def emPlugin = proxy.plugins.emPlugin;
+       	emPlugin.runJarArtifact(jarFile, outFile,
+       		[ "-Xmx256m", "-Duser="+momUser, "-Dpassword="+momPassword, "-Dhost="+momHost, "-Dport="+momPort, "-Dintroscope.clw.tt.dirname="+dirLoc ] as String[],
+       		[ "trace", "transactions", "exceeding", "1", "ms", "in", "agents", "matching", agentName6, "for", "180", "s" ] as String[]);
+	}</script>
+    </scriptTask>
+    <sequenceFlow id="flow13" sourceRef="sleep5" targetRef="runAgentname6"></sequenceFlow>
+    <intermediateCatchEvent id="sleep6" name="Sleep6">
+      <timerEventDefinition>
+        <timeDuration>PT${delay}S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow14" sourceRef="runAgentname6" targetRef="sleep6"></sequenceFlow>
+    <scriptTask id="runAgentname7" name="Run Agentname #7" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>	if (agentName7 != null &amp;&amp; agentName7 != "" ) {
+       	def proxy = agentProxyFactory.createProxy(nodeName);
+       	def emPlugin = proxy.plugins.emPlugin;
+       	emPlugin.runJarArtifact(jarFile, outFile,
+       		[ "-Xmx256m", "-Duser="+momUser, "-Dpassword="+momPassword, "-Dhost="+momHost, "-Dport="+momPort, "-Dintroscope.clw.tt.dirname="+dirLoc ] as String[],
+       		[ "trace", "transactions", "exceeding", "1", "ms", "in", "agents", "matching", agentName7, "for", "180", "s" ] as String[]);
+	}</script>
+    </scriptTask>
+    <sequenceFlow id="flow15" sourceRef="sleep6" targetRef="runAgentname7"></sequenceFlow>
+    <intermediateCatchEvent id="sleep7" name="Sleep7">
+      <timerEventDefinition>
+        <timeDuration>PT${delay}S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow16" sourceRef="runAgentname7" targetRef="sleep7"></sequenceFlow>
+    <scriptTask id="runAgentname8" name="Run Agentname #8" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>	if (agentName8 != null &amp;&amp; agentName8 != "" ) {
+       	def proxy = agentProxyFactory.createProxy(nodeName);
+       	def emPlugin = proxy.plugins.emPlugin;
+       	emPlugin.runJarArtifact(jarFile, outFile,
+       		[ "-Xmx256m", "-Duser="+momUser, "-Dpassword="+momPassword, "-Dhost="+momHost, "-Dport="+momPort, "-Dintroscope.clw.tt.dirname="+dirLoc ] as String[],
+       		[ "trace", "transactions", "exceeding", "1", "ms", "in", "agents", "matching", agentName8, "for", "180", "s" ] as String[]);
+	}</script>
+    </scriptTask>
+    <sequenceFlow id="flow17" sourceRef="sleep7" targetRef="runAgentname8"></sequenceFlow>
+    <intermediateCatchEvent id="sleep8" name="Sleep8">
+      <timerEventDefinition>
+        <timeDuration>PT${delay}S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow18" sourceRef="runAgentname8" targetRef="sleep8"></sequenceFlow>
+    <scriptTask id="runAgentname9" name="Run Agentname #9" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>	if (agentName9 != null &amp;&amp; agentName9 != "" ) {
+       	def proxy = agentProxyFactory.createProxy(nodeName);
+       	def emPlugin = proxy.plugins.emPlugin;
+       	emPlugin.runJarArtifact(jarFile, outFile,
+       		[ "-Xmx256m", "-Duser="+momUser, "-Dpassword="+momPassword, "-Dhost="+momHost, "-Dport="+momPort, "-Dintroscope.clw.tt.dirname="+dirLoc ] as String[],
+       		[ "trace", "transactions", "exceeding", "1", "ms", "in", "agents", "matching", agentName9, "for", "180", "s" ] as String[]);
+	}</script>
+    </scriptTask>
+    <sequenceFlow id="flow19" sourceRef="sleep8" targetRef="runAgentname9"></sequenceFlow>
+    <intermediateCatchEvent id="sleep9" name="Sleep9">
+      <timerEventDefinition>
+        <timeDuration>PT${delay}S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow20" sourceRef="runAgentname9" targetRef="sleep9"></sequenceFlow>
+    <scriptTask id="runAgentname10" name="Run Agentname #10" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>	if (agentName10 != null &amp;&amp; agentName10 != "" ) {
+       	def proxy = agentProxyFactory.createProxy(nodeName);
+       	def emPlugin = proxy.plugins.emPlugin;
+       	emPlugin.runJarArtifact(jarFile, outFile,
+       		[ "-Xmx256m", "-Duser="+momUser, "-Dpassword="+momPassword, "-Dhost="+momHost, "-Dport="+momPort, "-Dintroscope.clw.tt.dirname="+dirLoc ] as String[],
+       		[ "trace", "transactions", "exceeding", "1", "ms", "in", "agents", "matching", agentName10, "for", "180", "s" ] as String[]);
+	}</script>
+    </scriptTask>
+    <sequenceFlow id="flow21" sourceRef="sleep9" targetRef="runAgentname10"></sequenceFlow>
+    <intermediateCatchEvent id="longSleep" name="LongSleep">
+      <timerEventDefinition>
+        <timeDuration>PT30M</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow22" sourceRef="runAgentname10" targetRef="longSleep"></sequenceFlow>
+    <sequenceFlow id="flow24" sourceRef="sleep1" targetRef="runAgentname2"></sequenceFlow>
+    <scriptTask id="scripttask1" name="setMonitoredValue" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import groovy.transform.Field
+import java.io.File;
+
+@Field def log = LoggerFactory.getLogger("com.ca.apm.systemstest.fld." + execution.getActivityId())
+def proxy = agentProxyFactory.createProxy(nodeName);
+def emPlugin = proxy.plugins.emPlugin;
+def count = execution.getVariable("loopCounter");
+def countFiles = new File(dirLoc).listFiles().length
+log.info("total number of TT files after {} executions = {} ",count,countFiles);
+
+dashboardManager.setMonitoredValue(execution, "fld.transaction.trace", (countFiles == count*10));
+count +=1;
+execution.setVariable("loopCounter", count);</script>
+    </scriptTask>
+    <sequenceFlow id="flow25" sourceRef="longSleep" targetRef="scripttask1"></sequenceFlow>
+    <sequenceFlow id="flow26" sourceRef="scripttask1" targetRef="runAgentname1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.transaction.trace">
+    <bpmndi:BPMNPlane bpmnElement="fld.transaction.trace" id="BPMNPlane_fld.transaction.trace">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="85.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="900.0" y="246.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="asyncStart" id="BPMNShape_asyncStart">
+        <omgdc:Bounds height="65.0" width="105.0" x="65.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="fetchJarFileFromTruss" id="BPMNShape_fetchJarFileFromTruss">
+        <omgdc:Bounds height="65.0" width="105.0" x="65.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="runAgentname1" id="BPMNShape_runAgentname1">
+        <omgdc:Bounds height="65.0" width="105.0" x="260.0" y="70.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sleep1" id="BPMNShape_sleep1">
+        <omgdc:Bounds height="35.0" width="35.0" x="459.0" y="85.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="runAgentname2" id="BPMNShape_runAgentname2">
+        <omgdc:Bounds height="65.0" width="105.0" x="260.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sleep2" id="BPMNShape_sleep2">
+        <omgdc:Bounds height="35.0" width="35.0" x="459.0" y="175.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="runAgentname3" id="BPMNShape_runAgentname3">
+        <omgdc:Bounds height="65.0" width="105.0" x="260.0" y="250.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sleep3" id="BPMNShape_sleep3">
+        <omgdc:Bounds height="35.0" width="35.0" x="459.0" y="265.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="runAgentname4" id="BPMNShape_runAgentname4">
+        <omgdc:Bounds height="65.0" width="105.0" x="260.0" y="340.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="runAgentname5" id="BPMNShape_runAgentname5">
+        <omgdc:Bounds height="65.0" width="105.0" x="260.0" y="430.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sleep4" id="BPMNShape_sleep4">
+        <omgdc:Bounds height="35.0" width="35.0" x="459.0" y="355.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sleep5" id="BPMNShape_sleep5">
+        <omgdc:Bounds height="35.0" width="35.0" x="459.0" y="445.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="runAgentname6" id="BPMNShape_runAgentname6">
+        <omgdc:Bounds height="65.0" width="105.0" x="570.0" y="70.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sleep6" id="BPMNShape_sleep6">
+        <omgdc:Bounds height="35.0" width="35.0" x="760.0" y="85.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="runAgentname7" id="BPMNShape_runAgentname7">
+        <omgdc:Bounds height="65.0" width="105.0" x="570.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sleep7" id="BPMNShape_sleep7">
+        <omgdc:Bounds height="35.0" width="35.0" x="760.0" y="175.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="runAgentname8" id="BPMNShape_runAgentname8">
+        <omgdc:Bounds height="65.0" width="105.0" x="570.0" y="246.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sleep8" id="BPMNShape_sleep8">
+        <omgdc:Bounds height="35.0" width="35.0" x="760.0" y="261.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="runAgentname9" id="BPMNShape_runAgentname9">
+        <omgdc:Bounds height="65.0" width="105.0" x="570.0" y="340.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sleep9" id="BPMNShape_sleep9">
+        <omgdc:Bounds height="35.0" width="35.0" x="760.0" y="355.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="runAgentname10" id="BPMNShape_runAgentname10">
+        <omgdc:Bounds height="65.0" width="105.0" x="570.0" y="430.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="longSleep" id="BPMNShape_longSleep">
+        <omgdc:Bounds height="35.0" width="35.0" x="804.0" y="445.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
+        <omgdc:Bounds height="52.0" width="111.0" x="468.0" y="10.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="117.0" y="120.0"></omgdi:waypoint>
+        <omgdi:waypoint x="117.0" y="170.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="117.0" y="235.0"></omgdi:waypoint>
+        <omgdi:waypoint x="117.0" y="280.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="170.0" y="312.0"></omgdi:waypoint>
+        <omgdi:waypoint x="199.0" y="311.0"></omgdi:waypoint>
+        <omgdi:waypoint x="199.0" y="102.0"></omgdi:waypoint>
+        <omgdi:waypoint x="260.0" y="102.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="365.0" y="102.0"></omgdi:waypoint>
+        <omgdi:waypoint x="459.0" y="102.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="365.0" y="192.0"></omgdi:waypoint>
+        <omgdi:waypoint x="459.0" y="192.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="476.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="312.0" y="250.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="365.0" y="282.0"></omgdi:waypoint>
+        <omgdi:waypoint x="459.0" y="282.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="476.0" y="300.0"></omgdi:waypoint>
+        <omgdi:waypoint x="312.0" y="340.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="365.0" y="372.0"></omgdi:waypoint>
+        <omgdi:waypoint x="459.0" y="372.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="476.0" y="390.0"></omgdi:waypoint>
+        <omgdi:waypoint x="312.0" y="430.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="365.0" y="462.0"></omgdi:waypoint>
+        <omgdi:waypoint x="459.0" y="462.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="494.0" y="462.0"></omgdi:waypoint>
+        <omgdi:waypoint x="532.0" y="462.0"></omgdi:waypoint>
+        <omgdi:waypoint x="532.0" y="103.0"></omgdi:waypoint>
+        <omgdi:waypoint x="570.0" y="102.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="675.0" y="102.0"></omgdi:waypoint>
+        <omgdi:waypoint x="760.0" y="102.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="777.0" y="120.0"></omgdi:waypoint>
+        <omgdi:waypoint x="622.0" y="160.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="675.0" y="192.0"></omgdi:waypoint>
+        <omgdi:waypoint x="760.0" y="192.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="777.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="622.0" y="246.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="675.0" y="278.0"></omgdi:waypoint>
+        <omgdi:waypoint x="760.0" y="278.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="777.0" y="296.0"></omgdi:waypoint>
+        <omgdi:waypoint x="622.0" y="340.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="675.0" y="372.0"></omgdi:waypoint>
+        <omgdi:waypoint x="760.0" y="372.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="777.0" y="390.0"></omgdi:waypoint>
+        <omgdi:waypoint x="622.0" y="430.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="675.0" y="462.0"></omgdi:waypoint>
+        <omgdi:waypoint x="804.0" y="462.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
+        <omgdi:waypoint x="476.0" y="120.0"></omgdi:waypoint>
+        <omgdi:waypoint x="312.0" y="160.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="821.0" y="445.0"></omgdi:waypoint>
+        <omgdi:waypoint x="821.0" y="36.0"></omgdi:waypoint>
+        <omgdi:waypoint x="579.0" y="36.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="468.0" y="36.0"></omgdi:waypoint>
+        <omgdi:waypoint x="313.0" y="36.0"></omgdi:waypoint>
+        <omgdi:waypoint x="312.0" y="70.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

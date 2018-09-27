@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<!--
+	@Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.TwoCollectorsOneTomcatOneJBossWindowsTestbed, executeOn=momMachine}],
+	  owner = gamsa03,
+	  size = COLOSSAL,
+	  description = 'TestNg XML suite for Cluster Tests with One Collector and One Agent for all windows tests'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="ClusterOneCollectorOneAgentWindowsTestSuite" configfailurepolicy="continue">
+	<test name="ClusterOneCollectorOneAgentTestsWindows" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.tests.cluster.ClusterTwoCollectorsTwoAgentsTests">
+				<methods>
+					<include name="verify_ALM_280510_CollectorHotConfig"/>
+					<include name="verify_ALM_450709_WeirdAgentLogEntries_MoMRestart"/>
+					<include name="verify_ALM_450467_ChangeDetectorEnabled_loadbalancing"/>
+					<include name="verify_ALM_305343_CollectorConnectivity_WeightHotConfig"/>
+					<include name="verify_ALM_450921_WeirdAgentLogEntries_Cluster_Agent_Restart"/>
+					<include name="verify_ALM_280509_Cluster_CollectorRestart"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>
+		

@@ -1,0 +1,38 @@
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{ modalOptions.headerText }}</h3>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div ng-class="{ 'form-group has-feedback' : true, 'has-success' : textInput1, 'has-error' : !textInput1 }">
+                <label class="control-label" for="nodeNameId1">{{ modalOptions.label1 }}</label>
+                <input type="text" class="form-control" id="nodeNameId1"
+                       placeholder="{{ modalOptions.placeholder1 }}"
+                       ng-model="textInput1" value="{{ textInput1 }}"
+                       focus="true">
+
+                        <span ng-class="{ 'glyphicon form-control-feedback' : true, 'glyphicon-ok' : textInput1, 'glyphicon-remove' : !textInput1 }"
+                              aria-hidden="true"></span>
+            </div>
+            <div ng-class="{ 'form-group has-feedback' : true, 'has-success' : textInput2, 'has-error' : !textInput2 }">
+                <label class="control-label" for="nodeNameId2">{{ modalOptions.label2 }}</label>
+                <input type="text" class="form-control" id="nodeNameId2"
+                       placeholder="{{ modalOptions.placeholder2 }}"
+                       ng-model="textInput2" value="{{ textInput2 }}"
+                       focus="false">
+                        <span ng-class="{ 'glyphicon form-control-feedback' : true, 'glyphicon-ok' : textInput2, 'glyphicon-remove' : !textInput2 }"
+                              aria-hidden="true"></span>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"
+                ng-click="twoTextBoxesModalController.onCancel()">{{ modalOptions.cancelButtonText }}
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                ng-click="twoTextBoxesModalController.onOk()" ng-disabled="!textInput1 || !textInput2">
+            {{ modalOptions.okButtonText }}
+        </button>
+    </div>
+</div>

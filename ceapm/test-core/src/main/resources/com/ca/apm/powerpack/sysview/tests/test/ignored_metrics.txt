@@ -1,0 +1,4 @@
+Variance|$$$
+Differential Control|$$$
+Agent Stats|Sustainability|Configuration|Last Update Time
+Virtual Machine

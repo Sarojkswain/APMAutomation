@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [{name=com.ca.apm.systemtest.fld.testbed.SmallMainFLDClusterTestbed, executeOn=fldControllerMachine}],
+	owner = filja01,
+	size = HUMONGOUS,
+	group = [fld-load-test],
+	snapshotPolicy = ON_FAILURE,
+	snapshot = DEAD,
+	description = 'Testing TestNg XML suite')
+-->
+<suite name="TestSuite" parallel="methods" thread-count="2">
+	<test name="testNgSuiteFLD">
+		<classes>
+			<class name="com.ca.apm.systemtest.fld.test.FullLoadDurationTest" />
+			<class name="com.ca.apm.systemtest.fld.test.FLDWurlitzerLoadTest" />
+		</classes>
+	</test>
+</suite>

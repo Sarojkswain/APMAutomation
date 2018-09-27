@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [{name=com.ca.apm.systemtest.alertstateload.testbed.AlertStateLoadTestbed, executeOn=memoryMonitorWebappMachine}],
+	owner = bocto01,
+	size = DEBUG,
+	snapshotPolicy = ALWAYS,
+	snapshot = LIVE,
+	description = 'Alert state load')
+-->
+<suite name="TestSuite" configfailurepolicy="continue">
+	<test name="AlertStateLoad" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.systemtest.alertstateload.test.AlertStateLoadTest" />
+		</classes>
+	</test>
+</suite>

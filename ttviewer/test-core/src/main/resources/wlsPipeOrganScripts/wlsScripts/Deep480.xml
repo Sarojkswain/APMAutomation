@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE scenario SYSTEM "./dtd/PipeOrganScenario.dtd">
+
+<scenario>
+	<iterateEvent count="1000000" interval="120000">
+
+		<servlet milestones="no" uri="ExecutorServle_14" port="7001" host="localMachine">
+			<message>Init test..sleeping</message>
+			<wait duration="5000"/>
+   		</servlet>
+
+		<thread>
+			<sustainedEvent duration="100">
+				<servlet milestones="no" uri="ExecutorServle_14" port="7001" host="localMachine">
+					<custom class="com.wily.tools.pipeorgan.extensions.Recursor" args="depth=480,sleep=50,throwException=no,servlets=no,type=java.lang.NullPointerException,message=ErrorInRecursor"/>
+				</servlet>
+			</sustainedEvent>
+		</thread>
+		
+		<wait duration="480000"/>
+	</iterateEvent>
+</scenario>
+

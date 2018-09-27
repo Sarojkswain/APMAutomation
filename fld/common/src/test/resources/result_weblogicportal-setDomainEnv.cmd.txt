@@ -1,0 +1,349 @@
+@ECHO OFF
+
+@REM WARNING: This file is created by the Configuration Wizard.
+@REM Any changes to this script may be lost when adding extensions to this configuration.
+
+@REM *************************************************************************
+@REM This script is used to setup the needed environment to be able to start Weblogic Server in this domain.
+@REM 
+@REM This script initializes the following variables before calling commEnv to set other variables:
+@REM 
+@REM WL_HOME         - The BEA home directory of your WebLogic installation.
+@REM JAVA_VM         - The desired Java VM to use. You can set this environment variable before calling
+@REM                   this script to switch between Sun or BEA or just have the default be set. 
+@REM JAVA_HOME       - Location of the version of Java used to start WebLogic
+@REM                   Server. Depends directly on which JAVA_VM value is set by default or by the environment.
+@REM USER_MEM_ARGS   - The variable to override the standard memory arguments
+@REM                   passed to java.
+@REM PRODUCTION_MODE - The variable that determines whether Weblogic Server is started in production mode.
+@REM DOMAIN_PRODUCTION_MODE 
+@REM                 - The variable that determines whether the workshop related settings like the debugger,
+@REM                   testconsole or iterativedev should be enabled. ONLY settable using the 
+@REM                   command-line parameter named production
+@REM                   NOTE: Specifying the production command-line param will force 
+@REM                          the server to start in production mode.
+@REM 
+@REM Other variables used in this script include:
+@REM SERVER_NAME     - Name of the weblogic server.
+@REM JAVA_OPTIONS    - Java command-line options for running the server. (These
+@REM                   will be tagged on to the end of the JAVA_VM and
+@REM                   MEM_ARGS)
+@REM 
+@REM For additional information, refer to the WebLogic Server Administration
+@REM Console Online Help(http://e-docs.bea.com/wls/docs103/ConsoleHelp/startstop.html).
+@REM *************************************************************************
+
+set WLPORTAL_HOME=C:\beaportal\wlportal_10.3
+
+
+set WL_HOME=C:\beaportal\wlserver_10.3
+for %%i in ("%WL_HOME%") do set WL_HOME=%%~fsi
+
+set BEA_JAVA_HOME=C:\beaportal\jrockit_160_05
+
+set SUN_JAVA_HOME=C:\beaportal\jdk160_05
+
+if "%JAVA_VENDOR%"=="BEA" (
+	set JAVA_HOME=%BEA_JAVA_HOME%
+) else (
+	if "%JAVA_VENDOR%"=="Sun" (
+		set JAVA_HOME=%SUN_JAVA_HOME%
+	) else (
+		set JAVA_VENDOR=BEA
+		set JAVA_HOME=C:\beaportal\jrockit_160_05
+	)
+)
+
+rem --------------- Begin APM Tests Configuration ------------------
+set JAVA_HOME=%SUN_JAVA_HOME%
+set JAVA_VENDOR=Sun
+rem --------------- End APM Tests Configuration ------------------
+
+@REM We need to reset the value of JAVA_HOME to get it shortened AND 
+@REM we can not shorten it above because immediate variable expansion will blank it
+
+set JAVA_HOME=%JAVA_HOME%
+for %%i in ("%JAVA_HOME%") do set JAVA_HOME=%%~fsi
+
+set SAMPLES_HOME=%WL_HOME%\samples
+
+set DOMAIN_HOME=C:\beaportal\wlportal_10.3\samples\domains\portal
+for %%i in ("%DOMAIN_HOME%") do set DOMAIN_HOME=%%~fsi
+
+set LONG_DOMAIN_HOME=C:\beaportal\wlportal_10.3\samples\domains\portal
+
+if "%DEBUG_PORT%"=="" (
+	set DEBUG_PORT=8453
+)
+
+if "%SERVER_NAME%"=="" (
+	set SERVER_NAME=portalServer
+)
+
+set debugFlag=true
+
+set testConsoleFlag=true
+
+set iterativeDevFlag=true
+
+set logErrorsToConsoleFlag=true
+
+set POINTBASE_FLAG=true
+
+set POINTBASE_PORT=9052
+
+set POINTBASE_DBNAME=weblogic_eval
+
+set enableHotswapFlag=
+
+set PRODUCTION_MODE=
+
+set doExitFlag=false
+set verboseLoggingFlag=false
+for %%p in (%*) do call :SET_PARAM %%p
+GOTO :CMD_LINE_DONE
+	:SET_PARAM
+	for %%q in (%1) do set noQuotesParam=%%~q
+	if /i "%noQuotesParam%" == "nodebug" (
+		set debugFlag=false
+		GOTO :EOF
+	)
+	if /i "%noQuotesParam%" == "production" (
+		set DOMAIN_PRODUCTION_MODE=true
+		GOTO :EOF
+	)
+	if /i "%noQuotesParam%" == "notestconsole" (
+		set testConsoleFlag=false
+		GOTO :EOF
+	)
+	if /i "%noQuotesParam%" == "noiterativedev" (
+		set iterativeDevFlag=false
+		GOTO :EOF
+	)
+	if /i "%noQuotesParam%" == "noLogErrorsToConsole" (
+		set logErrorsToConsoleFlag=false
+		GOTO :EOF
+	)
+	if /i "%noQuotesParam%" == "nopointbase" (
+		set POINTBASE_FLAG=false
+		GOTO :EOF
+	)
+	if /i "%noQuotesParam%" == "doExit" (
+		set doExitFlag=true
+		GOTO :EOF
+	)
+	if /i "%noQuotesParam%" == "noExit" (
+		set doExitFlag=false
+		GOTO :EOF
+	)
+	if /i "%noQuotesParam%" == "verbose" (
+		set verboseLoggingFlag=true
+		GOTO :EOF
+	)
+	if /i "%noQuotesParam%" == "enableHotswap" (
+		set enableHotswapFlag=-javaagent:%WL_HOME%\server\lib\diagnostics-agent.jar
+		GOTO :EOF
+	) else (
+		set PROXY_SETTINGS=%PROXY_SETTINGS% %1
+	)
+	GOTO :EOF
+:CMD_LINE_DONE
+
+
+set MEM_DEV_ARGS=
+
+if "%DOMAIN_PRODUCTION_MODE%"=="true" (
+	set PRODUCTION_MODE=%DOMAIN_PRODUCTION_MODE%
+)
+
+if "%PRODUCTION_MODE%"=="true" (
+	set debugFlag=false
+	set testConsoleFlag=false
+	set iterativeDevFlag=false
+)
+
+@REM If you want to override the default Patch Classpath, Library Path and Path for this domain,
+@REM Please uncomment the following lines and add a valid value for the environment variables
+@REM set PATCH_CLASSPATH=[myPatchClasspath] (windows)
+@REM set PATCH_LIBPATH=[myPatchLibpath] (windows)
+@REM set PATCH_PATH=[myPatchPath] (windows)
+@REM PATCH_CLASSPATH=[myPatchClasspath] (unix)
+@REM PATCH_LIBPATH=[myPatchLibpath] (unix)
+@REM PATCH_PATH=[myPatchPath] (unix)
+
+call "%WL_HOME%\common\bin\commEnv.cmd"
+
+set WLS_HOME=%WL_HOME%\server
+
+set MEM_ARGS=-Xms256m -Xmx768m
+
+set MEM_PERM_SIZE=
+
+set MEM_MAX_PERM_SIZE=-XX:PermSize=128m -XX:MaxPermSize=192m
+
+rem --------------- Begin APM Tests Configuration ------------------
+set MEM_ARGS=-Xms256m -Xmx1024m
+set MEM_MAX_PERM_SIZE=-XX:PermSize=128m -XX:MaxPermSize=256m
+rem --------------- End APM Tests Configuration ------------------
+
+if "%JAVA_VENDOR%"=="Sun" (
+	if "%PRODUCTION_MODE%"=="" (
+		set MEM_DEV_ARGS=-XX:CompileThreshold=8000 %MEM_PERM_SIZE% 
+	)
+)
+
+@REM Had to have a separate test here BECAUSE of immediate variable expansion on windows
+
+if "%JAVA_VENDOR%"=="Sun" (
+	set MEM_ARGS=%MEM_ARGS% %MEM_DEV_ARGS% %MEM_MAX_PERM_SIZE%
+)
+
+if "%JAVA_VENDOR%"=="HP" (
+	set MEM_ARGS=%MEM_ARGS% %MEM_MAX_PERM_SIZE%
+)
+
+@REM IF USER_MEM_ARGS the environment variable is set, use it to override ALL MEM_ARGS values
+
+if NOT "%USER_MEM_ARGS%"=="" (
+	set MEM_ARGS=%USER_MEM_ARGS%
+)
+
+set JAVA_PROPERTIES=-Dplatform.home=%WL_HOME% -Dwls.home=%WLS_HOME% -Dweblogic.home=%WLS_HOME% 
+
+@REM  To use Java Authorization Contract for Containers (JACC) in this domain, 
+@REM  please uncomment the following section. If there are multiple machines in 
+@REM  your domain, be sure to edit the setDomainEnv in the associated domain on 
+@REM  each machine.
+@REM 
+@REM -Djava.security.manager
+@REM -Djava.security.policy=location of weblogic.policy
+@REM -Djavax.security.jacc.policy.provider=weblogic.security.jacc.simpleprovider.SimpleJACCPolicy
+@REM -Djavax.security.jacc.PolicyConfigurationFactory.provider=weblogic.security.jacc.simpleprovider.PolicyConfigurationFactoryImpl
+@REM -Dweblogic.security.jacc.RoleMapperFactory.provider=weblogic.security.jacc.simpleprovider.RoleMapperFactoryImpl
+
+set EXTRA_JAVA_PROPERTIES=-Dweblogic.wsee.bind.suppressDeployErrorMessage=true -Dweblogic.wsee.skip.async.response=true
+
+set JAVA_PROPERTIES=%JAVA_PROPERTIES% %EXTRA_JAVA_PROPERTIES%
+
+set ARDIR=%WL_HOME%\server\lib
+
+pushd %LONG_DOMAIN_HOME%
+
+@REM Clustering support (edit for your cluster!)
+
+if "%ADMIN_URL%"=="" (
+	@REM The then part of this block is telling us we are either starting an admin server OR we are non-clustered
+	set CLUSTER_PROPERTIES=-Dweblogic.management.discover=true
+) else (
+	set CLUSTER_PROPERTIES=-Dweblogic.management.discover=false -Dweblogic.management.server=%ADMIN_URL%
+)
+
+if NOT "%LOG4J_CONFIG_FILE%"=="" (
+	set JAVA_PROPERTIES=%JAVA_PROPERTIES% -Dlog4j.configuration=file:%LOG4J_CONFIG_FILE%
+)
+
+set JAVA_PROPERTIES=%JAVA_PROPERTIES% %CLUSTER_PROPERTIES%
+
+@REM Clear the pre_classpath here in case an application template wants to set it before the larger pre_classpath is invoked below
+
+set PRE_CLASSPATH=
+
+set JAVA_DEBUG=
+
+if "%debugFlag%"=="true" (
+	set JAVA_DEBUG=-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address=%DEBUG_PORT%,server=y,suspend=n -Djava.compiler=NONE
+	set JAVA_OPTIONS=%JAVA_OPTIONS% %enableHotswapFlag% -ea -da:com.bea... -da:javelin... -da:weblogic... -ea:com.bea.wli... -ea:com.bea.broker... -ea:com.bea.sbconsole...
+) else (
+	set JAVA_OPTIONS=%JAVA_OPTIONS% %enableHotswapFlag% -da
+)
+
+if NOT exist %JAVA_HOME%\lib (
+	echo The JRE was not found in directory %JAVA_HOME%. ^(JAVA_HOME^)
+	echo Please edit your environment and set the JAVA_HOME
+	echo variable to point to the root directory of your Java installation.
+	popd
+	pause
+	GOTO :EOF
+)
+
+if "%POINTBASE_FLAG%"=="true" (
+	set DATABASE_CLASSPATH=%POINTBASE_CLASSPATH%
+) else (
+	set DATABASE_CLASSPATH=%POINTBASE_CLIENT_CLASSPATH%
+)
+
+set POST_CLASSPATH=
+
+set POST_CLASSPATH=%POST_CLASSPATH%;%DATABASE_CLASSPATH%;%ARDIR%\xqrl.jar
+
+@REM PROFILING SUPPORT
+
+set JAVA_PROFILE=
+
+set SERVER_CLASS=weblogic.Server
+
+set WLP_POST_CLASSPATH=%WL_HOME%\server\lib\xquery.jar;%WL_HOME%\server\lib\binxml.jar
+
+set JAVA_PROPERTIES=%JAVA_PROPERTIES% %WLP_JAVA_PROPERTIES%
+
+set JAVA_OPTIONS=%JAVA_OPTIONS% %JAVA_PROPERTIES% -Dwlw.iterativeDev=%iterativeDevFlag% -Dwlw.testConsole=%testConsoleFlag% -Dwlw.logErrorsToConsole=%logErrorsToConsoleFlag%
+
+@REM -- Setup properties so that we can save stdout and stderr to files
+
+if NOT "%WLS_STDOUT_LOG%"=="" (
+	echo Logging WLS stdout to %WLS_STDOUT_LOG%
+	set JAVA_OPTIONS=%JAVA_OPTIONS% -Dweblogic.Stdout=%WLS_STDOUT_LOG%
+)
+
+if NOT "%WLS_STDERR_LOG%"=="" (
+	echo Logging WLS stderr to %WLS_STDERR_LOG%
+	set JAVA_OPTIONS=%JAVA_OPTIONS% -Dweblogic.Stderr=%WLS_STDERR_LOG%
+)
+
+@REM ADD EXTENSIONS TO CLASSPATHS
+
+if NOT "%EXT_PRE_CLASSPATH%"=="" (
+	set PRE_CLASSPATH=%EXT_PRE_CLASSPATH%;%PRE_CLASSPATH%
+)
+
+if NOT "%EXT_POST_CLASSPATH%"=="" (
+	set POST_CLASSPATH=%POST_CLASSPATH%;%EXT_POST_CLASSPATH%
+)
+
+@REM weblogic extension directories (system jars)
+if NOT "%WEBLOGIC_EXTENSION_DIRS%"=="" (
+	set WEBLOGIC_EXTENSION_DIRS=%WEBLOGIC_EXTENSION_DIRS%;%WLPORTAL_HOME%\p13n\lib\system
+) else (
+	set WEBLOGIC_EXTENSION_DIRS=%WLPORTAL_HOME%\p13n\lib\system
+)
+
+
+set WEBLOGIC_EXTENSION_DIRS=%WEBLOGIC_EXTENSION_DIRS%;%WLPORTAL_HOME%\light-portal\lib\system;%WLPORTAL_HOME%\portal\lib\system;%WLPORTAL_HOME%\info-mgmt\lib\system;%WLPORTAL_HOME%\analytics\lib\system;%WLPORTAL_HOME%\apps\lib\system;%WLPORTAL_HOME%\info-mgmt\deprecated\lib\system
+
+set WEBLOGIC_EXTENSION_DIRS=%WEBLOGIC_EXTENSION_DIRS%;%WLPORTAL_HOME%\content-mgmt\lib\system
+
+if NOT "%WEBLOGIC_EXTENSION_DIRS%"=="" (
+	set JAVA_OPTIONS=%JAVA_OPTIONS% -Dweblogic.ext.dirs=%WEBLOGIC_EXTENSION_DIRS%
+)
+
+@REM WebLogic Portal security providers
+set ALTERNATE_TYPES_DIRECTORY=%WLPORTAL_HOME%\portal\lib\security
+set JAVA_OPTIONS=%JAVA_OPTIONS% -Dweblogic.alternateTypesDirectory=%ALTERNATE_TYPES_DIRECTORY%
+
+
+set JAVA_OPTIONS=%JAVA_OPTIONS%
+
+@REM SET THE CLASSPATH
+
+set CLASSPATH=%PRE_CLASSPATH%;%WEBLOGIC_CLASSPATH%;%POST_CLASSPATH%;%WLP_POST_CLASSPATH%
+
+set JAVA_VM=%JAVA_VM% %JAVA_DEBUG% %JAVA_PROFILE%
+
+rem --------------- Begin Jmx Configuration ------------------
+set JAVA_VM=%JAVA_VM% -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Djava.net.preferIPv4Stack=true -Dcom.sun.management.jmxremote.port=1099
+rem --------------- End Jmx Configuration ------------------
+
+rem --------------- Begin APM Agent Configuration ------------------
+set JAVA_VM=%JAVA_VM% -javaagent:c:\beaportal\wlportal_10.3\samples\domains\portal\wily\Agent.jar -Dcom.wily.introscope.agentProfile=c:\beaportal\wlportal_10.3\samples\domains\portal\wily\core\config\IntroscopeAgent.profile
+rem --------------- End APM Agent Configuration ------------------
+

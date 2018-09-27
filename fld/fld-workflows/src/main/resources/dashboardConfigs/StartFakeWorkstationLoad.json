@@ -1,0 +1,131 @@
+{
+  "id" : null,
+  "processKey" : "fld.start.fake.workstation.load",
+  "name" : "Start FW Load",
+  "config" : [ {
+    "formId" : "agentNode",
+    "type" : "node",
+    "name" : "agentNode",
+    "value" : "node1",
+    "required" : true
+  }, {
+    "formId" : "fakeWorkstationVersion",
+    "type" : "string",
+    "name" : "fakeWorkstationVersion",
+    "value" : "99.99.sys-SNAPSHOT",
+    "required" : false
+  }, {
+    "formId" : "agentListLive",
+    "type" : "string",
+    "name" : "agentListLive",
+    "value" : "(.*)Agent_1,(.*)Agent_2,(.*)Agent_3,(.*)Agent_4,(.*)Agent_5,(.*)Agent_6,(.*)Agent_7,(.*)Agent_8,(.*)Agent_9,(.*)Agent_10",
+    "required" : false
+  }, {
+    "formId" : "agentListHistorical",
+    "type" : "string",
+    "name" : "agentListHistorical",
+    "value" : "(.*)Agent_2",
+    "required" : false
+  }, {
+    "formId" : "momHost",
+    "type" : "string",
+    "name" : "momHost",
+    "value" : "tas-czt-ne0",
+    "required" : true
+  }, {
+    "formId" : "javaOptions",
+    "type" : "string",
+    "name" : "javaOptions",
+    "value" : "-Xms96m -Xmx512m -XX:+HeapDumpOnOutOfMemoryError",
+    "required" : false
+  }, {
+    "formId" : "port",
+    "type" : "long",
+    "name" : "port",
+    "value" : 5001,
+    "required" : false
+  }, {
+    "formId" : "userLive",
+    "type" : "string",
+    "name" : "userLive",
+    "value" : "cemadmin",
+    "required" : false
+  }, {
+    "formId" : "userHistorical",
+    "type" : "string",
+    "name" : "userHistorical",
+    "value" : "cemadmin",
+    "required" : false
+  }, {
+    "formId" : "passwordLive",
+    "type" : "string",
+    "name" : "passwordLive",
+    "value" : "quality",
+    "required" : false
+  }, {
+    "formId" : "passwordHistorical",
+    "type" : "string",
+    "name" : "passwordHistorical",
+    "value" : "quality",
+    "required" : false
+  }, {
+    "formId" : "resolution",
+    "type" : "long",
+    "name" : "resolution",
+    "value" : 15,
+    "required" : false
+  }, {
+    "formId" : "sleepBetween",
+    "type" : "long",
+    "name" : "sleepBetween",
+    "value" : 15000,
+    "required" : false
+  }, {
+    "formId" : "metric",
+    "type" : "string",
+    "name" : "metric",
+    "value" : "Servlets\\|Servlet_(.*):Average Response Time \\(ms\\)",
+    "required" : false
+  } ],
+  "monitors" : [ {
+    "key" : "fw.live.monitor.(.*)Agent_1",
+    "name" : "Live_Agent_1"
+  }, {
+    "key" : "fw.live.monitor.(.*)Agent_2",
+    "name" : "Live_Agent_2"
+  }, {
+    "key" : "fw.live.monitor.(.*)Agent_3",
+    "name" : "Live_Agent_3"
+  }, {
+    "key" : "fw.live.monitor.(.*)Agent_4",
+    "name" : "Live_Agent_4"
+  }, {
+    "key" : "fw.live.monitor.(.*)Agent_5",
+    "name" : "Live_Agent_5"
+  }, {
+    "key" : "fw.live.monitor.(.*)Agent_6",
+    "name" : "Live_Agent_6"
+  }, {
+    "key" : "fw.live.monitor.(.*)Agent_7",
+    "name" : "Live_Agent_7"
+  }, {
+    "key" : "fw.live.monitor.(.*)Agent_8",
+    "name" : "Live_Agent_8"
+  }, {
+    "key" : "fw.live.monitor.(.*)Agent_9",
+    "name" : "Live_Agent_9"
+  }, {
+    "key" : "fw.live.monitor.(.*)Agent_10",
+    "name" : "Live_Agent_10"
+  }, {
+    "key" : "fw.historical.monitor.(.*)Agent_2",
+    "name" : "Historical_Agent_2"
+  } ],
+  "active" : false,
+  "suspended" : false,
+  "processStarted" : null,
+  "processEnded" : null,
+  "iconName" : "health",
+  "executions" : null,
+  "hideNonRequiredConfigParameters" : false
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <transformation id="props">
+        <set-property name="introscope.agent.pmi.enable.beanModule" value="false"/>
+        <set-property name="introscope.agent.pmi.enable.transactionModule" value="false"/>
+        <set-property name="introscope.agent.pmi.enable.webAppModule" value="false"/>
+        <set-property name="introscope.agent.pmi.enable.orbPerfModule" value="false"/>
+    </transformation>
+
+    <files id="files">
+        <file>${#path}</file>
+    </files>
+
+    <binding id="binding">
+        <transformation-ref id="props"/>
+        <files-ref id="files"/>
+    </binding>
+</configuration>

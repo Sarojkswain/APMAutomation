@@ -1,0 +1,2099 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ManagementModule xmlns:ns1="http://www.w3.org/2005/11/its" xmlns:introscope="generated://introscope.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Editable="true" Version="4.0" IsActive="true" DescriptionContentType="text/plain" xsi:noNamespaceSchemaLocation="bundle://com.wily.introscope.em/com/wily/introscope/server/enterprise/entity/bundle/IntroscopeManagementModules4.0.xsd">
+    <Name>FLD_mm</Name>
+    <DataGroups>
+        <DataGroup xsi:type="EntityDataGroup"/>
+        <DataGroup xsi:type="MapEntityMetricGroupingDataGroup"/>
+        <DataGroup xsi:type="AlertDataGroup">
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Tomcat7 ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Tomcat7 ART Action</ConstructName>
+                    </ActionID>
+                </CautionActionList>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Tomcat7 ART Action</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>Tomcat7 ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>1</CautionTargetValue>
+                <DangerTargetValue>3</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Tomcat6 ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Tomcat6 ART Action</ConstructName>
+                    </ActionID>
+                </CautionActionList>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Tomcat6 ART Action</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>Tomcat6 ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>5</CautionTargetValue>
+                <DangerTargetValue>7</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>DotNetTestApp ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>1</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>DotNetTestApp ART Action</ConstructName>
+                    </ActionID>
+                </CautionActionList>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>DotNetTestApp ART Action</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>DotNetTestApp ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>10000</CautionTargetValue>
+                <DangerTargetValue>12000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>.NET CMSGallery ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>.NET CMSGallery ART Action</ConstructName>
+                    </ActionID>
+                </CautionActionList>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>.NET CMSGallery ART Action</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>.NET CMSGallery ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>10</CautionTargetValue>
+                <DangerTargetValue>15</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Web ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Web ART Action</ConstructName>
+                    </ActionID>
+                </CautionActionList>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Web ART Action</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>Web ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>4</CautionTargetValue>
+                <DangerTargetValue>5</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Tomcat9081 ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Tomcat9081 ART Action</ConstructName>
+                    </ActionID>
+                </CautionActionList>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Tomcat9081 ART Action</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>Tomcat9081 ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>350</CautionTargetValue>
+                <DangerTargetValue>420</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Tomcat9080 ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Tomcat9080 ART Action</ConstructName>
+                    </ActionID>
+                </CautionActionList>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Tomcat9080 ART Action</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>Tomcat9080 ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>350</CautionTargetValue>
+                <DangerTargetValue>400</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Collectors Connected</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>true</MetricLevelNotification>
+                <AlertTriggerMode>3</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Mail to FLD Team</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>Collectors Connected</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>3</AlertCompareOperator>
+                <CautionTargetValue>3</CautionTargetValue>
+                <DangerTargetValue>3</DangerTargetValue>
+                <CautionMinNumPerPeriod>4</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>4</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>4</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>4</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Number of Collector Metrics</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>120</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Mail to FLD Team</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>Number of Collector Metrics</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>1</AlertCompareOperator>
+                <CautionTargetValue>4000000</CautionTargetValue>
+                <DangerTargetValue>4000000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="false" DescriptionContentType="text/plain">
+                <Name>Agent count alert</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList/>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>New Simple Alert</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>0</CautionTargetValue>
+                <DangerTargetValue>0</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>fldwas02 ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>fldwas02 ART Action</ConstructName>
+                    </ActionID>
+                </CautionActionList>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>fldwas02 ART Action</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>fldwas02 ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>5000</CautionTargetValue>
+                <DangerTargetValue>5500</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Fldwls01_1 ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Fldwls01_1 ART Action</ConstructName>
+                    </ActionID>
+                </CautionActionList>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Fldwls01_1 ART Action</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>FLDWLS01_1 ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>900</CautionTargetValue>
+                <DangerTargetValue>1000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Fldwas01 ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Fldwas01 ART Action</ConstructName>
+                    </ActionID>
+                </CautionActionList>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Fldwas01 ART Action</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>Fldwas01 ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>400</CautionTargetValue>
+                <DangerTargetValue>500</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Skew Time (ms)</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>true</MetricLevelNotification>
+                <AlertTriggerMode>3</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Mail to FLD Team</ConstructName>
+                    </ActionID>
+                </CautionActionList>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Mail to FLD Team</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>Skew Time (ms)</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>3000</CautionTargetValue>
+                <DangerTargetValue>3500</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>fldwebview01 ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>fldwebview01 ART Action</ConstructName>
+                    </ActionID>
+                </CautionActionList>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>fldwebview01 ART Action</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>fldwebview01 ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>1</CautionTargetValue>
+                <DangerTargetValue>2</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Fldwls01_2 ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Fldwls01_2 ART Action</ConstructName>
+                    </ActionID>
+                </CautionActionList>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Fldwls01_2 ART Action</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>Fldwls01_2 ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>250</CautionTargetValue>
+                <DangerTargetValue>300</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>GalleryPro ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>GalleryPro ART Action</ConstructName>
+                    </ActionID>
+                </CautionActionList>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>GalleryPro ART Action</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>GalleryPro ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>60</CautionTargetValue>
+                <DangerTargetValue>70</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>SmartStor Disk Space</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>60</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>true</MetricLevelNotification>
+                <AlertTriggerMode>3</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Low Disk Mail to FLD Team</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>SmartStor Disk Space</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>1</AlertCompareOperator>
+                <CautionTargetValue>10000000</CautionTargetValue>
+                <DangerTargetValue>10000000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="false" IsActive="false" DescriptionContentType="text/plain">
+                <Name>Number of Workstations</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>120</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>3</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList/>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Mail to FLD Team</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>Number of Workstations</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>1</AlertCompareOperator>
+                <CautionTargetValue>10</CautionTargetValue>
+                <DangerTargetValue>10</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>fldwls02_2 ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>fldwls02_2 ART Action</ConstructName>
+                    </ActionID>
+                </CautionActionList>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>fldwls02_2 ART Action</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>fldwls02_2 ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>500</CautionTargetValue>
+                <DangerTargetValue>550</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>fldwls02_1 ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>2</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>fldwls02_1 ART Action</ConstructName>
+                    </ActionID>
+                </CautionActionList>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>fldwls02_1 ART Action</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>fldwls02_1 ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>900</CautionTargetValue>
+                <DangerTargetValue>1000</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Jboss6 RPI</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>1</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Jboss6 RPI Action</ConstructName>
+                    </ActionID>
+                </CautionActionList>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>Jboss6 RPI Action</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>Jboss6 RPI</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>3</CautionTargetValue>
+                <DangerTargetValue>4</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+            <AlertBase xsi:type="AlertType" PropagateToAppMap="true" IsActive="true" DescriptionContentType="text/plain">
+                <Name>JBoss7 ART</Name>
+                <Description></Description>
+                <Frequency>
+                    <PeriodInSeconds>15</PeriodInSeconds>
+                </Frequency>
+                <MetricLevelNotification>false</MetricLevelNotification>
+                <AlertTriggerMode>1</AlertTriggerMode>
+                <CautionActionDelay>0</CautionActionDelay>
+                <DangerActionDelay>0</DangerActionDelay>
+                <CautionActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>JBoss7 ART Action</ConstructName>
+                    </ActionID>
+                </CautionActionList>
+                <DangerActionList>
+                    <ActionID>
+                        <ManagementModuleName>FLD_mm</ManagementModuleName>
+                        <ConstructName>JBoss7 ART Action</ConstructName>
+                    </ActionID>
+                </DangerActionList>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>JBoss7 ART</ConstructName>
+                </MetricGroupingID>
+                <AlertCombineOperator>1</AlertCombineOperator>
+                <AlertCompareOperator>2</AlertCompareOperator>
+                <CautionTargetValue>2</CautionTargetValue>
+                <DangerTargetValue>4</DangerTargetValue>
+                <CautionMinNumPerPeriod>1</CautionMinNumPerPeriod>
+                <CautionAlertPeriod>1</CautionAlertPeriod>
+                <DangerMinNumPerPeriod>1</DangerMinNumPerPeriod>
+                <DangerAlertPeriod>1</DangerAlertPeriod>
+            </AlertBase>
+        </DataGroup>
+        <DataGroup xsi:type="ActionDataGroup">
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>Tomcat6 ART Action</Name>
+                <Description></Description>
+                <ActionName>TransactionTraceAction</ActionName>
+                <ConcreteClassData>
+                    <BTFilterData>
+                        <TTThreshold>100</TTThreshold>
+                        <TTDuration>1</TTDuration>
+                        <isTraceAll>true</isTraceAll>
+                        <isBusinessSegment>true</isBusinessSegment>
+                    </BTFilterData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>Web ART Action</Name>
+                <Description></Description>
+                <ActionName>TransactionTraceAction</ActionName>
+                <ConcreteClassData>
+                    <BTFilterData>
+                        <TTThreshold>500</TTThreshold>
+                        <TTDuration>10</TTDuration>
+                        <isTraceAll>true</isTraceAll>
+                        <isBusinessSegment>true</isBusinessSegment>
+                    </BTFilterData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>Fldwas01 ART Action</Name>
+                <Description></Description>
+                <ActionName>TransactionTraceAction</ActionName>
+                <ConcreteClassData>
+                    <BTFilterData>
+                        <TTThreshold>100</TTThreshold>
+                        <TTDuration>5</TTDuration>
+                        <isTraceAll>false</isTraceAll>
+                        <isBusinessSegment>false</isBusinessSegment>
+                    </BTFilterData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>Mail to FLD Team</Name>
+                <Description></Description>
+                <ActionName>SendSMTPMailAction</ActionName>
+                <ConcreteClassData>
+                    <EmailData>
+                        <SMTPHost>mail.ca.com</SMTPHost>
+                        <SMTPSender>APM-FLD@ca.com</SMTPSender>
+                        <SMTPRecipient>banra06@ca.com</SMTPRecipient>
+                        <SendShortText>false</SendShortText>
+                        <SendPlainText>false</SendPlainText>
+                        <SubjectText>CA APM Alert from ${EM_Host}: ${Alert_Name} in ${Alert_State} state</SubjectText>
+                        <BodyText>Alert Name: ${Alert_Name}
+Time Triggered: ${Alert_Time}
+Alert Status: ${Alert_State}
+
+Problem Details:
+${Problem_Detail_List}
+
+Link to more information about the Alert:
+${URL_Alert_Info}
+
+Links to the problem metrics or associated alerts:
+${URL_Detail_List}</BodyText>
+                        <SMTPSecureType>NONE</SMTPSecureType>
+                    </EmailData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>fldwls02_1 ART Action</Name>
+                <Description></Description>
+                <ActionName>TransactionTraceAction</ActionName>
+                <ConcreteClassData>
+                    <BTFilterData>
+                        <TTThreshold>100</TTThreshold>
+                        <TTDuration>3</TTDuration>
+                        <isTraceAll>true</isTraceAll>
+                        <isBusinessSegment>true</isBusinessSegment>
+                    </BTFilterData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>.NET CMSGallery ART Action</Name>
+                <Description></Description>
+                <ActionName>TransactionTraceAction</ActionName>
+                <ConcreteClassData>
+                    <BTFilterData>
+                        <TTThreshold>100</TTThreshold>
+                        <TTDuration>10</TTDuration>
+                        <isTraceAll>false</isTraceAll>
+                        <isBusinessSegment>true</isBusinessSegment>
+                    </BTFilterData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>JBoss7 ART Action</Name>
+                <Description></Description>
+                <ActionName>TransactionTraceAction</ActionName>
+                <ConcreteClassData>
+                    <BTFilterData>
+                        <TTThreshold>100</TTThreshold>
+                        <TTDuration>5</TTDuration>
+                        <isTraceAll>false</isTraceAll>
+                        <isBusinessSegment>false</isBusinessSegment>
+                    </BTFilterData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>Low Disk Mail to FLD Team</Name>
+                <Description></Description>
+                <ActionName>SendSMTPMailAction</ActionName>
+                <ConcreteClassData>
+                    <EmailData>
+                        <SMTPHost>mail.ca.com</SMTPHost>
+                        <SMTPSender>APM-FLD-LowDisk@ca.com</SMTPSender>
+                        <SMTPRecipient>banra06@ca.com</SMTPRecipient>
+                        <SendShortText>false</SendShortText>
+                        <SendPlainText>false</SendPlainText>
+                        <SubjectText>CA APM Alert from ${EM_Host}: ${Alert_Name} in ${Alert_State} state</SubjectText>
+                        <BodyText>Alert Name: ${Alert_Name}
+Time Triggered: ${Alert_Time}
+Alert Status: ${Alert_State}
+
+Problem Details:
+${Problem_Detail_List}
+
+Link to more information about the Alert:
+${URL_Alert_Info}
+
+Links to the problem metrics or associated alerts:
+${URL_Detail_List}</BodyText>
+                        <SMTPSecureType>NONE</SMTPSecureType>
+                    </EmailData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>Collector down</Name>
+                <Description></Description>
+                <ActionName>SendSMTPMailAction</ActionName>
+                <ConcreteClassData>
+                    <EmailData>
+                        <SMTPHost>mail.ca.com</SMTPHost>
+                        <SMTPSender>FLD-Collector-Down@ca.com</SMTPSender>
+                        <SMTPRecipient>banra06@ca.com</SMTPRecipient>
+                        <SendShortText>false</SendShortText>
+                        <SendPlainText>false</SendPlainText>
+                        <SubjectText>CA APM Alert from ${EM_Host}: ${Alert_Name} in ${Alert_State} state</SubjectText>
+                        <BodyText>Alert Name: ${Alert_Name}
+Time Triggered: ${Alert_Time}
+Alert Status: ${Alert_State}
+
+Problem Details:
+${Problem_Detail_List}
+
+Link to more information about the Alert:
+${URL_Alert_Info}
+
+Links to the problem metrics or associated alerts:
+${URL_Detail_List}</BodyText>
+                        <SMTPSecureType>NONE</SMTPSecureType>
+                    </EmailData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>GalleryPro ART Action</Name>
+                <Description></Description>
+                <ActionName>TransactionTraceAction</ActionName>
+                <ConcreteClassData>
+                    <BTFilterData>
+                        <TTThreshold>100</TTThreshold>
+                        <TTDuration>5</TTDuration>
+                        <isTraceAll>true</isTraceAll>
+                        <isBusinessSegment>true</isBusinessSegment>
+                    </BTFilterData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>fldwebview01 ART Action</Name>
+                <Description></Description>
+                <ActionName>TransactionTraceAction</ActionName>
+                <ConcreteClassData>
+                    <BTFilterData>
+                        <TTThreshold>100</TTThreshold>
+                        <TTDuration>5</TTDuration>
+                        <isTraceAll>true</isTraceAll>
+                        <isBusinessSegment>false</isBusinessSegment>
+                    </BTFilterData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>Fldwls01_2 ART Action</Name>
+                <Description></Description>
+                <ActionName>TransactionTraceAction</ActionName>
+                <ConcreteClassData>
+                    <BTFilterData>
+                        <TTThreshold>100</TTThreshold>
+                        <TTDuration>3</TTDuration>
+                        <isTraceAll>true</isTraceAll>
+                        <isBusinessSegment>true</isBusinessSegment>
+                    </BTFilterData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>Tomcat9081 ART Action</Name>
+                <Description></Description>
+                <ActionName>TransactionTraceAction</ActionName>
+                <ConcreteClassData>
+                    <BTFilterData>
+                        <TTThreshold>1</TTThreshold>
+                        <TTDuration>2</TTDuration>
+                        <isTraceAll>true</isTraceAll>
+                        <isBusinessSegment>true</isBusinessSegment>
+                    </BTFilterData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>fldwas02 ART Action</Name>
+                <Description></Description>
+                <ActionName>TransactionTraceAction</ActionName>
+                <ConcreteClassData>
+                    <BTFilterData>
+                        <TTThreshold>100</TTThreshold>
+                        <TTDuration>5</TTDuration>
+                        <isTraceAll>true</isTraceAll>
+                        <isBusinessSegment>false</isBusinessSegment>
+                    </BTFilterData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>Tomcat7 ART Action</Name>
+                <Description></Description>
+                <ActionName>TransactionTraceAction</ActionName>
+                <ConcreteClassData>
+                    <BTFilterData>
+                        <TTThreshold>10</TTThreshold>
+                        <TTDuration>10</TTDuration>
+                        <isTraceAll>false</isTraceAll>
+                        <isBusinessSegment>false</isBusinessSegment>
+                    </BTFilterData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>fldwls02_2 ART Action</Name>
+                <Description></Description>
+                <ActionName>TransactionTraceAction</ActionName>
+                <ConcreteClassData>
+                    <BTFilterData>
+                        <TTThreshold>200</TTThreshold>
+                        <TTDuration>3</TTDuration>
+                        <isTraceAll>true</isTraceAll>
+                        <isBusinessSegment>false</isBusinessSegment>
+                    </BTFilterData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>Fldwls01_1 ART Action</Name>
+                <Description></Description>
+                <ActionName>TransactionTraceAction</ActionName>
+                <ConcreteClassData>
+                    <BTFilterData>
+                        <TTThreshold>100</TTThreshold>
+                        <TTDuration>3</TTDuration>
+                        <isTraceAll>false</isTraceAll>
+                        <isBusinessSegment>false</isBusinessSegment>
+                    </BTFilterData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>Jboss6 RPI Action</Name>
+                <Description></Description>
+                <ActionName>TransactionTraceAction</ActionName>
+                <ConcreteClassData>
+                    <BTFilterData>
+                        <TTThreshold>100</TTThreshold>
+                        <TTDuration>5</TTDuration>
+                        <isTraceAll>false</isTraceAll>
+                        <isBusinessSegment>true</isBusinessSegment>
+                    </BTFilterData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>DotNetTestApp ART Action</Name>
+                <Description></Description>
+                <ActionName>TransactionTraceAction</ActionName>
+                <ConcreteClassData>
+                    <BTFilterData>
+                        <TTThreshold>100</TTThreshold>
+                        <TTDuration>10</TTDuration>
+                        <isTraceAll>false</isTraceAll>
+                        <isBusinessSegment>false</isBusinessSegment>
+                    </BTFilterData>
+                </ConcreteClassData>
+            </Action>
+            <Action IsActive="true" DescriptionContentType="text/plain">
+                <Name>Tomcat9080 ART Action</Name>
+                <Description></Description>
+                <ActionName>TransactionTraceAction</ActionName>
+                <ConcreteClassData>
+                    <BTFilterData>
+                        <TTThreshold>200</TTThreshold>
+                        <TTDuration>3</TTDuration>
+                        <isTraceAll>true</isTraceAll>
+                        <isBusinessSegment>false</isBusinessSegment>
+                    </BTFilterData>
+                </ConcreteClassData>
+            </Action>
+        </DataGroup>
+        <DataGroup xsi:type="TriageMapAlertDataGroup"/>
+        <DataGroup xsi:type="introscope:AlertDowntimeScheduleDataGroup"/>
+        <DataGroup xsi:type="CalculatorDataGroup">
+            <Calculator IsActive="true" DescriptionContentType="text/plain">
+                <Name>Total Number of Agents in Cluster</Name>
+                <Description></Description>
+                <MetricGroupingID>
+                    <ManagementModuleName>FLD_mm</ManagementModuleName>
+                    <ConstructName>Agents in each collector</ConstructName>
+                </MetricGroupingID>
+                <CalculatorOperator>1</CalculatorOperator>
+                <CalculatorMetricType>1</CalculatorMetricType>
+                <Metric>
+                    <Path>
+                        <Resource></Resource>
+                    </Path>
+                    <MetricName>Total Number of Agents in Cluster</MetricName>
+                    <MetricType ConstantProperty="ChangingType">
+                        <UnderlyingIntegerMetricType>
+                            <CounterType>
+<FluctuatingCounter/>
+                            </CounterType>
+                        </UnderlyingIntegerMetricType>
+                    </MetricType>
+                </Metric>
+                <Frequency>
+                    <PeriodInSeconds>0</PeriodInSeconds>
+                </Frequency>
+                <DatabaseRecordType></DatabaseRecordType>
+            </Calculator>
+        </DataGroup>
+        <DataGroup xsi:type="DashboardDataGroup">
+            <Dashboard PixelHeight="600" PixelWidth="800" GridWidth="4" GridHeight="4" ClearAgentSpecifier="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name ns1:translate="yes">FLD Status</Name>
+                <Description ns1:translate="yes"></Description>
+                <Widget Type="LiveGraph">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <MetricGroupingID>
+<ManagementModuleName>FLD_mm</ManagementModuleName>
+<ConstructName>Number of Metrics for each Collector</ConstructName>
+                            </MetricGroupingID>
+                            <TopNFilter IsActive="false" IsTop="true" FilterSize="10">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="1"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ShowMinMax">
+                        <Value xsi:type="TextType" Value="false"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="GraphPercentageSize">
+                        <Value xsi:type="IntegerType" Value="41"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="24" YCoordinate="56"/>
+                        <CornerPoint XCoordinate="408" YCoordinate="392"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveGraph">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <MetricGroupingID>
+<ManagementModuleName>FLD_mm</ManagementModuleName>
+<ConstructName>Agents in each collector</ConstructName>
+                            </MetricGroupingID>
+                            <TopNFilter IsActive="false" IsTop="true" FilterSize="10">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="2"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ShowMinMax">
+                        <Value xsi:type="TextType" Value="false"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="GraphPercentageSize">
+                        <Value xsi:type="IntegerType" Value="41"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="416" YCoordinate="56"/>
+                        <CornerPoint XCoordinate="788" YCoordinate="388"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveString">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <FullMetric>
+<Process>
+    <DomainName>SuperDomain</DomainName>
+    <HostSegment>Custom Metric Host (Virtual)</HostSegment>
+    <ProcessSegment>Custom Metric Process (Virtual)</ProcessSegment>
+    <IDSegment>Custom Metric Agent (Virtual)</IDSegment>
+</Process>
+<Metric>
+    <Path>
+        <Resource></Resource>
+    </Path>
+    <MetricName>Total Number of Agents in Cluster</MetricName>
+    <MetricType ConstantProperty="ChangingType">
+        <UnderlyingLongMetricType>
+            <CounterType>
+                <FluctuatingCounter/>
+            </CounterType>
+        </UnderlyingLongMetricType>
+    </MetricType>
+</Metric>
+                            </FullMetric>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="SansSerif"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="3"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="288" YCoordinate="12"/>
+                        <CornerPoint XCoordinate="528" YCoordinate="48"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveString">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <FullMetric>
+<Process>
+    <DomainName>SuperDomain</DomainName>
+    <HostSegment>Custom Metric Host (Virtual)</HostSegment>
+    <ProcessSegment>Custom Metric Process (Virtual)</ProcessSegment>
+    <IDSegment>Custom Metric Agent (Virtual)</IDSegment>
+</Process>
+<Metric>
+    <Path>
+        <Resource>Enterprise Manager|MOM</Resource>
+    </Path>
+    <MetricName>Number of Collector Metrics</MetricName>
+    <MetricType ConstantProperty="ChangingType">
+        <UnderlyingLongMetricType>
+            <CounterType>
+                <FluctuatingCounter/>
+            </CounterType>
+        </UnderlyingLongMetricType>
+    </MetricType>
+</Metric>
+                            </FullMetric>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="SansSerif"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="4"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="28" YCoordinate="16"/>
+                        <CornerPoint XCoordinate="276" YCoordinate="48"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveString">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <FullMetric>
+<Process>
+    <DomainName>SuperDomain</DomainName>
+    <HostSegment>Custom Metric Host (Virtual)</HostSegment>
+    <ProcessSegment>Custom Metric Process (Virtual)</ProcessSegment>
+    <IDSegment>Custom Metric Agent (Virtual)</IDSegment>
+</Process>
+<Metric>
+    <Path>
+        <Resource>Enterprise Manager|MOM</Resource>
+    </Path>
+    <MetricName>Collector Metrics Received Per Interval</MetricName>
+    <MetricType ConstantProperty="ChangingType">
+        <UnderlyingLongMetricType>
+            <CounterType>
+                <FluctuatingCounter/>
+            </CounterType>
+        </UnderlyingLongMetricType>
+    </MetricType>
+</Metric>
+                            </FullMetric>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontStyle">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontSize">
+                        <Value xsi:type="IntegerType" Value="12"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextAlign">
+                        <Value xsi:type="IntegerType" Value="0"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="FontName">
+                        <Value xsi:type="TextType" Value="SansSerif"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="5"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="TextColor">
+                        <Value xsi:type="ColorType" Value="-16777216"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="540" YCoordinate="14"/>
+                        <CornerPoint XCoordinate="780" YCoordinate="50"/>
+                    </DisplayBox>
+                </Widget>
+                <Widget Type="LiveGraph">
+                    <WidgetProperty Name="DataProvider">
+                        <Value xsi:type="DataProviderType">
+                            <MetricGroupingID>
+<ManagementModuleName>FLD_mm</ManagementModuleName>
+<ConstructName>Total Baseline Metrics on Collectors</ConstructName>
+                            </MetricGroupingID>
+                            <TopNFilter IsActive="false" IsTop="true" FilterSize="10">
+<IncludeList/>
+<ExcludeList/>
+                            </TopNFilter>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Frequency">
+                        <Value xsi:type="IntegerType" Value="15"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="Scale">
+                        <Value xsi:type="ScaleType">
+                            <ScaleMin>0.0</ScaleMin>
+                            <ScaleMax>5.0</ScaleMax>
+                            <ScaleDefaultMin>0.0</ScaleDefaultMin>
+                            <ScaleDefaultMax>5.0</ScaleDefaultMax>
+                            <ScaleAutoExpandMin>true</ScaleAutoExpandMin>
+                            <ScaleAutoExpandMax>true</ScaleAutoExpandMax>
+                            <ScaleAutoCollapseMin>false</ScaleAutoCollapseMin>
+                            <ScaleAutoCollapseMax>false</ScaleAutoCollapseMax>
+                        </Value>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ID">
+                        <Value xsi:type="IntegerType" Value="6"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="ShowMinMax">
+                        <Value xsi:type="TextType" Value="false"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="CanHaveLinks">
+                        <Value xsi:type="TextType" Value="CanHaveLinks"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="GraphPercentageSize">
+                        <Value xsi:type="IntegerType" Value="67"/>
+                    </WidgetProperty>
+                    <WidgetProperty Name="LabelsVisible">
+                        <Value xsi:type="TextType" Value="true"/>
+                    </WidgetProperty>
+                    <DisplayBox>
+                        <OriginPoint XCoordinate="24" YCoordinate="400"/>
+                        <CornerPoint XCoordinate="788" YCoordinate="592"/>
+                    </DisplayBox>
+                </Widget>
+            </Dashboard>
+            <Dashboard PixelHeight="600" PixelWidth="800" GridWidth="4" GridHeight="4" ClearAgentSpecifier="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name ns1:translate="yes">FLD Status2</Name>
+            </Dashboard>
+        </DataGroup>
+        <DataGroup xsi:type="MetricGroupingDataGroup">
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Tomcat7 ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Tomcat7\|Tomcat7</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Fldwas01 ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|WebSphere\|WebSphere85</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Tomcat6 ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Tomcat6\|Tomcat6</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Jboss6 RPI</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Jboss6\|JbossAgent</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets:Responses Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>FLDWLS01_1 ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|WebLogic\|WebLogic_Wurlitzer1</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Number of Workstations</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Metric Agent \(Virtual\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|Connections:Number of Workstations</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Tomcat9081 ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|TomcatAgent_9081\|Tomcat9081</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>JBoss7 ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Jboss7\|JbossAgent</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|Apache\-Axis2:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Harvest duration</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|Tasks:Harvest Duration \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Transaction Queries Per Interval</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Metric Agent \(Virtual\) \((.*)@5001\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|Data Store\|Transactions:Number of Queries Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>SmartStor Disk Space</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|Data Store\|Volume Space Free:Smarstor Data Volume Free \(mb\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Total Baseline Metrics on Collectors</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Metric Agent \(Virtual\) \((.*)@5001\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|Baseline Engine:Total Metrics Baselined \(count\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Number of Collector Metrics</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Metric Agent \(Virtual\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|MOM:Number of Collector Metrics</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Number of Metrics for each Collector</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Metric Agent \(Virtual\) \((.*)@5001\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|Connections:Number of Metrics</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Total Number of Applications in Cluster</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Metric Agent \(Virtual\) \((.*)@5001\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|Connections:Number of Applications</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Agents in each collector</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Metric Agent \(Virtual\) \((.*)@5001\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|Connections:Number of Agents</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>New Simple Alert</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp></MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Collectors Connected</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Metric Agent \(Virtual\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|MOM\|Collectors\|(.*)@5001:Connected</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Total Number of Agents in Cluster</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Metric Agent \(Virtual\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Total Number of Agents in Cluster</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>GalleryPro ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|\.NET Process\|GalleryPro</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|rootContext:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Fldwls01_2 ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|WebLogic\|WebLogic_Wurlitzer2</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Tomcat9080 ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|TomcatAgent_9080\|Tomcat9080</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>fldwebview01 ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|APM Introscope WebView\|APM\.WebView</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>.NET CMSGallery ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|\.NET Process\|CMSGallery</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|rootContext:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>EM CPU Used (%)</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|CPU:EM CPU Used \(%\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Web ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|\.NET Process\|Web</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|rootContext:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>DotNetTestApp ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|\.NET Process\|DotNetTestApp</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|DotNetTestApp:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>fldwls02_2 ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|WebLogic\|Weblogic_Wurlitzer2</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>fldwls02_1 ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|WebLogic\|Weblogic_Wurlitzer1</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Servlets:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Smartstor Duration (ms)</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|Tasks:Smartstor Duration \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>In Use (mb)</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|GC Heap:In Use \(mb\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Skew Time (ms)</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Metric Agent \(Virtual\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|MOM\|Collectors\|(.*)@5001:Skew Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Messages Received Per Interval</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Metric Agent \(Virtual\) \((.*)@5001\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|Internal\|Messaging:Messages Received Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Transaction Trace Active Sessions</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Metric Agent \(Virtual\) \((.*)@5001\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|Internal:Number of Transaction Trace Active Sessions</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Total Number of Unique Applications in Cluster</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Metric Agent \(Virtual\) \((.*)@5001\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|Connections:Number of Unique Applications</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Messages Sent Per Interval</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Metric Agent \(Virtual\) \((.*)@5001\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|Internal\|Messaging:Messages Sent Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>fldwas02 ART</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|WebSphere\|WASCrossCluster1</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|PipeOrgan Application:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>DOT NET Average Response Time (ms)</Name>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|\.NET Process\|(.*)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Frontends\|Apps\|rootContext:Average Response Time \(ms\)</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+            <MetricGrouping useAgentExpressionFromManagementModule="false" IsActive="true" DescriptionContentType="text/plain">
+                <Name>Transaction Inserts Per Interval</Name>
+                <Description></Description>
+                <FullMetricSpecifier>
+                    <FullMetricSpecifierEntry>
+                        <DomainSpecifier>
+                            <DomainSpecifierRegExp>(.*)</DomainSpecifierRegExp>
+                        </DomainSpecifier>
+                        <ProcessSpecifier>
+                            <ProcessSpecifierRegExp>(.*)\|Custom Metric Process \(Virtual\)\|Custom Metric Agent \(Virtual\) \((.*)@5001\)</ProcessSpecifierRegExp>
+                        </ProcessSpecifier>
+                        <MetricSpecifier>
+                            <MetricSpecifierRegExp>Enterprise Manager\|Data Store\|Transactions:Number of Inserts Per Interval</MetricSpecifierRegExp>
+                        </MetricSpecifier>
+                    </FullMetricSpecifierEntry>
+                </FullMetricSpecifier>
+            </MetricGrouping>
+        </DataGroup>
+        <DataGroup xsi:type="ImageDataGroup"/>
+        <DataGroup xsi:type="DifferentialControlDataGroup"/>
+        <DataGroup xsi:type="SnmpCollectionDataGroup"/>
+        <DataGroup xsi:type="UnmonitoredComponentGroupDataGroup"/>
+        <DataGroup xsi:type="ReportDataGroup"/>
+    </DataGroups>
+</ManagementModule>

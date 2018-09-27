@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.EMPropertyConfigurationtWindowsTestbed, executeOn=emMachine}],
+	  owner = ketsw01,
+	  size = BIG,
+	  description = 'TestNg XML suite for all WebviewProperties tests'),
+	  snapshotPolicy = SnapshotPolicy.ALWAYS,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="WebviewPropertiesTest" configfailurepolicy="continue">
+	<test name="WebviewPropertiesTest" preserve-order="true">
+		<classes>
+			<class name = "com.ca.apm.tests.propertyconfiguration.WebviewPropertiesTest">
+				<methods>	 					
+	 				<include name="verify_ALM_454129_DE132344_10x_webview_jetty_config_file_missing_new_certAlias_property"/>
+	 			</methods>
+	 		</class>
+		</classes>
+	</test>
+</suite>
+		
+			

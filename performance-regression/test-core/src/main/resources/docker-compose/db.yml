@@ -1,0 +1,5 @@
+version: '2'
+services:
+  apmdb:
+    image: ${image.registry}/apm-db:${project.version}
+    network_mode: "host"

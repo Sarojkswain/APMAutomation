@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!-- @Tas(testBed = [ {name=com.ca.apm.tests.testbed.ConfigUtilityLinuxTestbed, 
+	executeOn=testMachine}], owner = nalsh01, size = BIG, description = 'TestNg 
+	XML suite for all configUtility tests'), snapshotPolicy = SnapshotPolicy.ON_FAILURE, 
+	snapshot = SnapshotMode.LIVE -->
+<suite name="ConfigUtilityLinuxTests" configfailurepolicy="continue">
+	<test name="ConfigUtilityLinuxTests" preserve-order="true">
+		<classes>
+			<class name = "com.ca.apm.tests.tests.ConfigUtilityXmlTests" />
+			<class name = "com.ca.apm.tests.tests.ConfigUtilityTests" />
+			<class name = "com.ca.apm.tests.tests.ConfigUtilityUpgradeTests" />
+		</classes>
+	</test>
+</suite>
+		
+		

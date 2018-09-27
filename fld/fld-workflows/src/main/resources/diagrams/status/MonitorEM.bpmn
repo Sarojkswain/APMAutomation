@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.ca.com/apm/systemtest/fld">
+  <process id="fld.monitor.em" name="Monitor EM" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="emHost" name="EM host" type="string" variable="emHost" required="true"></activiti:formProperty>
+        <activiti:formProperty id="emPort" name="EM port" type="long" variable="emPort" default="5001" required="true"></activiti:formProperty>
+        <activiti:formProperty id="emStatusVariable" name="EM status variable name" type="string" variable="emStatusVariable" default="emStatus" required="true"></activiti:formProperty>
+        <activiti:formProperty id="performEmClwQuery" name="CLW: Perform CLW query on EM" type="boolean" variable="performEmClwQuery" default="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="emNode" name="CLW: EM node" type="node" variable="emNode"></activiti:formProperty>
+        <activiti:formProperty id="runInLoop" name="Run in loop (otherwise only once)" type="boolean" variable="runInLoop" default="true" required="true"></activiti:formProperty>
+        <activiti:formProperty id="delay" name="Delay between loops" type="long" variable="delay" default="15" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT1S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+    <scriptTask id="scripttask1" name="Configure Monitored Value in Dashboard" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+def log = LoggerFactory.getLogger("MonitorEM")
+
+dashboardManager.configureMonitoredValue(execution, emStatusVariable, "EM status");
+</script>
+    </scriptTask>
+    <sequenceFlow id="flow2" sourceRef="timerintermediatecatchevent1" targetRef="scripttask1"></sequenceFlow>
+    <scriptTask id="scripttask2" name="Set Monitored Value in Dashboard" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+def log = LoggerFactory.getLogger("MonitorEM");
+
+boolean value = false;
+Boolean b = execution.getVariable(emStatusVariable, Boolean.class);
+if (b != null)
+{
+  value = b.booleanValue();
+}
+
+dashboardManager.setMonitoredValue(execution, emStatusVariable, value);
+
+log.info("dashboardManager.setMonitoredValue():: " + emStatusVariable + " = " + value);
+</script>
+    </scriptTask>
+    <serviceTask id="servicetask1" name="Check EM status" activiti:delegateExpression="${emStatusJobs.monitorEm}"></serviceTask>
+    <sequenceFlow id="flow3" sourceRef="scripttask1" targetRef="servicetask1"></sequenceFlow>
+    <sequenceFlow id="flow5" sourceRef="scripttask2" targetRef="exclusivegateway2"></sequenceFlow>
+    <userTask id="usertask1" name="User Task - finish flow"></userTask>
+    <sequenceFlow id="flow4" sourceRef="servicetask1" targetRef="scripttask2"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="usertask1" targetRef="endevent1"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow6" name="Run once" sourceRef="exclusivegateway2" targetRef="usertask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${runInLoop==false}]]></conditionExpression>
+    </sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent2" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT${delay}S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow8" name="Run in loop" sourceRef="exclusivegateway2" targetRef="timerintermediatecatchevent2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${runInLoop==true}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow9" sourceRef="timerintermediatecatchevent2" targetRef="servicetask1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.monitor.em">
+    <bpmndi:BPMNPlane bpmnElement="fld.monitor.em" id="BPMNPlane_fld.monitor.em">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="59.0" y="108.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="989.0" y="108.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="139.0" y="108.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
+        <omgdc:Bounds height="71.0" width="120.0" x="220.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask2" id="BPMNShape_scripttask2">
+        <omgdc:Bounds height="71.0" width="121.0" x="560.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="399.0" y="98.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="63.0" width="105.0" x="850.0" y="94.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="740.0" y="105.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent2" id="BPMNShape_timerintermediatecatchevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="743.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="94.0" y="125.0"></omgdi:waypoint>
+        <omgdi:waypoint x="139.0" y="125.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="174.0" y="125.0"></omgdi:waypoint>
+        <omgdi:waypoint x="220.0" y="125.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="340.0" y="125.0"></omgdi:waypoint>
+        <omgdi:waypoint x="399.0" y="125.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="681.0" y="125.0"></omgdi:waypoint>
+        <omgdi:waypoint x="740.0" y="125.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="504.0" y="125.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="125.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="955.0" y="125.0"></omgdi:waypoint>
+        <omgdi:waypoint x="989.0" y="125.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="780.0" y="125.0"></omgdi:waypoint>
+        <omgdi:waypoint x="850.0" y="125.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="46.0" x="780.0" y="125.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="760.0" y="145.0"></omgdi:waypoint>
+        <omgdi:waypoint x="760.0" y="200.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="53.0" x="760.0" y="169.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="743.0" y="217.0"></omgdi:waypoint>
+        <omgdi:waypoint x="451.0" y="217.0"></omgdi:waypoint>
+        <omgdi:waypoint x="451.0" y="153.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

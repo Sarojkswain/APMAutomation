@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+		{name=com.ca.apm.tests.testbed.DomainPermissionsLinuxStandaloneTestbed, executeOn=emMachine}],
+	  owner = jamsa07,
+	  size = BIG,
+	  description = 'EM BAT test suite for Windows'),
+	  snapshotPolicy = SnapshotPolicy.ON_FAILURE,
+	  snapshot = SnapshotMode.LIVE
+-->
+<suite name="Domain Permissions" configfailurepolicy="continue">
+	<test name="DomainPermissions Management" preserve-order="true" enabled="true">
+  		<classes>
+     		<class name="com.ca.apm.tests.domainpermissions.DomainsPermissionManagementTest">
+	 		</class>
+	 	</classes>
+	</test>		
+</suite>
+		

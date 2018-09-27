@@ -1,0 +1,38 @@
+# connect(adminServerName='AdminServer', url='t3://localhost:${LISTEN_PORT}')
+connect('weblogic', 'welcome123', 't3://localhost:${LISTEN_PORT}')
+edit()
+startEdit()
+undo('true', 'y')
+cd('/')
+
+jdbc=ls('/JDBCSystemResources');
+if (jdbc.find('${DS_NAME}') != -1):
+	delete('${DS_NAME}', 'JDBCSystemResources');
+
+cmo.createJDBCSystemResource('${DS_NAME}')
+cd('/JDBCSystemResources/${DS_NAME}/JDBCResource/${DS_NAME}')
+cmo.setName('${DS_NAME}')
+
+cd('/JDBCSystemResources/${DS_NAME}/JDBCResource/${DS_NAME}/JDBCDataSourceParams/${DS_NAME}')
+set('JNDINames',jarray.array([String('jdbc/${DS_NAME}')], String))
+
+cd('/JDBCSystemResources/${DS_NAME}/JDBCResource/${DS_NAME}/JDBCDriverParams/${DS_NAME}')
+cmo.setUrl( '${DS_URL}' )
+cmo.setDriverName( '${DS_DRIVER_NAME}' )
+cmo.setPassword( '${DS_PASSWORD}' )
+
+cd('/JDBCSystemResources/${DS_NAME}/JDBCResource/${DS_NAME}/JDBCConnectionPoolParams/${DS_NAME}')
+cmo.setTestTableName('${DS_TEST_QUERY}')
+cd('/JDBCSystemResources/${DS_NAME}/JDBCResource/${DS_NAME}/JDBCDriverParams/${DS_NAME}/Properties/${DS_NAME}')
+cmo.createProperty('user')
+
+cd('/JDBCSystemResources/${DS_NAME}/JDBCResource/${DS_NAME}/JDBCDriverParams/${DS_NAME}/Properties/${DS_NAME}/Properties/user')
+cmo.setValue('${DS_USERNAME}')
+
+cd('/JDBCSystemResources/${DS_NAME}/JDBCResource/${DS_NAME}/JDBCDataSourceParams/${DS_NAME}')
+cmo.setGlobalTransactionsProtocol('OnePhaseCommit')
+
+cd('/SystemResources/${DS_NAME}')
+set('Targets',jarray.array([ObjectName('com.bea:Name=AdminServer,Type=Server')], ObjectName))
+
+activate()

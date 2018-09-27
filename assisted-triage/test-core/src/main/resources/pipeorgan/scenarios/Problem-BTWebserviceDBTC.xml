@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE scenario SYSTEM "./dtd/PipeOrganScenario.dtd">
+
+<!-- Problem Scenario for DBTC in a BT. Servlet calls Webservice which calls 
+	DB several times. -->
+
+<scenario>
+
+	<databaseConnection name="h2Connection" user=""
+		password="" driver="org.h2.Driver" dsn="jdbc:h2:tcp://localhost/~/test" />
+
+	<iterateEvent count="20" interval="300">
+         <servlet milestones="no" uri="ExecutorServlet_2" 
+         	port="8080" host="localhost" 
+         	x-apm-bt="t=4F2504E0-4F89-9B0C-0305E82C2301;d=2b6f0cc904d137be2e1730235f5664094b831186;v=1.0;n=TMobile;l=3g;g=94015-1523;a=Tomcat Example$bs=PipeOrganApp;bt=Existing_User_Login;p=iOS;pv=8.1"  
+         	contextroot="/pipeorgan">
+         		<message>Start DBTC scenario on Webservice</message>
+         		<custom class="com.wily.tools.pipeorgan.extensions.VariableWait" args="minduration=60,maxduration=100,outlierduration=100"/>
+               	<webService uri="http://localhost:8080/pipeorgan/services/PipeOrganWebService" requestsize="10">   
+                  	<message>Entered Web Service</message>
+         				<iterateEvent count="300" interval="30">
+            				<query connection="h2Connection" resultset="true">
+            					select * from ACCOUNT;
+            				</query>	
+      			   		</iterateEvent>
+                  	<message>Exiting Web Service</message>
+               	</webService>
+         		<message>Finish DBTC Scenario</message>
+   		</servlet>
+   	</iterateEvent>
+</scenario>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+	    {name=com.ca.apm.saas.testbed.SaaSBATestbed, executeOn=machine1Win}],
+	  owner = akujo01,
+	  size = BIG,
+	  description = 'Browser Agent Tests'),
+	  snapshotPolicy = SnapshotPolicy.ALWAYS,
+      snapshot = SnapshotMode.LIVE
+-->	
+<suite name="BrowserAgent" configfailurepolicy="continue">
+	<parameter name="instance" value="production" />			
+	<parameter name="testngEmailEnabled" value="true" />
+	<parameter name="testngEmailRecipients" value="Marina.Kur@ca.com,Team-DXI-SaaSHosting-Alerts@ca.com,Anand.Krishnamurthy@ca.com,Martin.Janda@ca.com,Balamurugan.Kannan@ca.com,RaviKanth.Bandari@ca.com,Aleem.Ahmad@ca.com,JayAndrew.Key@ca.com,Rashmi.Gupta@ca.com,Vasu.Krishnappanaidu@ca.com" />
+	
+	<test name="BrowserAgentTests_Production" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.saas.test.SaaSBATests">
+				 <methods>
+				 	<include name="testBrowserAgentConnected" />
+				 	<include name="testBrowserAgentMapView" />
+				 	<include name="testBrowserAgentTTViewer" />				 	
+				 	<include name="testAxaApmIntegration" />		 	
+				 </methods>
+			</class>
+		</classes>    	   
+	</test>
+	<listeners>    	
+   	    <listener class-name="org.uncommons.reportng.HTMLReporter" />    	
+   		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+ 	</listeners>
+</suite>

@@ -1,0 +1,75 @@
+<DataCollectorSet>
+	<Status>0</Status>
+	<Duration>0</Duration>
+	<Description/>
+	<DescriptionUnresolved/>
+	<DisplayName/>
+	<DisplayNameUnresolved/>
+	<SchedulesEnabled>-1</SchedulesEnabled>
+	<Keyword>sharepoint</Keyword>
+	<LatestOutputLocation>C:\PerfLogs\SharePointPP\</LatestOutputLocation>
+	<Name>SharePoint PP 2</Name>
+	<OutputLocation>C:\PerfLogs\SharePointPP\</OutputLocation>
+	<RootPath>C:\PerfLogs\SharePointPP</RootPath>
+	<Segment>0</Segment>
+	<SegmentMaxDuration>0</SegmentMaxDuration>
+	<SegmentMaxSize>0</SegmentMaxSize>
+	<SerialNumber>4</SerialNumber>
+	<Server/>
+	<Subdirectory/>
+	<SubdirectoryFormat>1</SubdirectoryFormat>
+	<SubdirectoryFormatPattern/>
+	<Task/>
+	<TaskRunAsSelf>0</TaskRunAsSelf>
+	<TaskArguments/>
+	<TaskUserTextArguments/>
+	<UserAccount>SYSTEM</UserAccount>
+	<Security>O:BAG:S-1-5-21-3458940048-4050965060-3412079968-513C:AI(A;;FA;;;SY)(A;;FA;;;BA)(A;;FR;;;LU)(A;;0x1301ff;;;S-1-5-80-2661322625-712705077-2999183737-3043590567-590698655)(A;ID;FA;;;SY)(A;ID;FA;;;BA)(A;ID;0x1200ab;;;LU)(A;ID;FR;;;AU)(A;ID;FR;;;LS)(A;ID;FR;;;NS)</Security>
+	<StopOnCompletion>0</StopOnCompletion>
+	<PerformanceCounterDataCollector>
+		<DataCollectorType>0</DataCollectorType>
+		<Name>APM Agent Share Point PP Performance Log</Name>
+		<FileName>SharePointPPPerfLog</FileName>
+		<FileNameFormat>1</FileNameFormat>
+		<FileNameFormatPattern>\.yyyy\-MM\-dd\THHmm\.\#N</FileNameFormatPattern>
+		<LogAppend>0</LogAppend>
+		<LogCircular>0</LogCircular>
+		<LogOverwrite>0</LogOverwrite>
+		<LatestOutputLocation>C:\PerfLogs\SharePointPP\SharePointPPPerfLog.2015-09-02T1606.#3.csv</LatestOutputLocation>
+		<DataSourceName/>
+		<SampleInterval>1</SampleInterval>
+		<SegmentMaxRecords>0</SegmentMaxRecords>
+		<LogFileFormat>0</LogFileFormat>
+		<Counter>\Processor Information(_Total)\% Processor Time</Counter>
+		<Counter>\Process(SPMonitor)\*</Counter>
+		<Counter>\Process(PerfMonCollectorAgent)\*</Counter>
+		<Counter>\.NET CLR Memory(SPMonitor)\*</Counter>
+		<Counter>\.NET CLR Memory(PerfMonCollectorAgent)\*</Counter>
+		<Counter>\Memory\% Committed Bytes In Use</Counter>
+		<Counter>\Memory\Available Bytes</Counter>
+		<Counter>\Memory\Cache Bytes</Counter>
+		<Counter>\Memory\Commit Limit</Counter>
+		<Counter>\Memory\Committed Bytes</Counter>
+		<CounterDisplayName>\Processor Information(_Total)\% Processor Time</CounterDisplayName>
+		<CounterDisplayName>\Process(SPMonitor)\*</CounterDisplayName>
+		<CounterDisplayName>\Process(PerfMonCollectorAgent)\*</CounterDisplayName>
+		<CounterDisplayName>\.NET CLR Memory(SPMonitor)\*</CounterDisplayName>
+		<CounterDisplayName>\.NET CLR Memory(PerfMonCollectorAgent)\*</CounterDisplayName>
+		<CounterDisplayName>\Memory\% Committed Bytes In Use</CounterDisplayName>
+		<CounterDisplayName>\Memory\Available Bytes</CounterDisplayName>
+		<CounterDisplayName>\Memory\Cache Bytes</CounterDisplayName>
+		<CounterDisplayName>\Memory\Commit Limit</CounterDisplayName>
+		<CounterDisplayName>\Memory\Committed Bytes</CounterDisplayName>
+	</PerformanceCounterDataCollector>
+	<DataManager>
+		<Enabled>0</Enabled>
+		<CheckBeforeRunning>0</CheckBeforeRunning>
+		<MinFreeDisk>0</MinFreeDisk>
+		<MaxSize>0</MaxSize>
+		<MaxFolderCount>0</MaxFolderCount>
+		<ResourcePolicy>0</ResourcePolicy>
+		<ReportFileName>report.html</ReportFileName>
+		<RuleTargetFileName>report.xml</RuleTargetFileName>
+		<EventsFileName/>
+	</DataManager>
+</DataCollectorSet>

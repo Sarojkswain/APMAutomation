@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+	<configuration>
+		<custom-converters>
+			<converter type="com.ca.apm.systemtest.fld.server.util.ConfigItemDozerConverter">
+				<class-a>com.ca.apm.systemtest.fld.server.model.ConfigItem</class-a>
+				<class-b>com.ca.apm.systemtest.fld.shared.vo.ConfigItemVO</class-b>
+			</converter>
+		</custom-converters>
+	</configuration>
+
+	<mapping type="bi-directional">
+		<class-a>com.ca.apm.systemtest.fld.server.model.Dashboard</class-a>
+		<class-b>com.ca.apm.systemtest.fld.shared.vo.DashboardVO</class-b>
+		<field>
+			<a>dashboardConfig.monitors</a>
+			<b>monitors</b>
+		</field>
+		<field>
+			<a>dashboardConfig.configItems</a>
+			<b>config</b>
+		</field>
+	</mapping>
+	
+	<mapping type="bi-directional">
+		<class-a>com.ca.apm.systemtest.fld.common.logmonitor.LoggerMessage</class-a>
+		<class-b>com.ca.apm.systemtest.fld.server.model.LoggerMonitorValue</class-b>
+		<field>
+			<a>fldLevel</a>
+			<b>level</b>
+		</field>
+		<field>
+			<a>category</a>
+			<b>category</b>
+		</field>
+		<field>
+			<a>tag</a>
+			<b>tag</b>
+		</field>
+		<field>
+			<a>message</a>
+			<b>message</b>
+		</field>
+		<field>
+			<a>except</a>
+			<b>exception</b>
+		</field>
+	</mapping>
+
+	<mapping type="bi-directional">
+		<class-a>com.ca.apm.systemtest.fld.server.model.PropertyValue</class-a>
+		<class-b>com.ca.apm.systemtest.fld.shared.vo.PropertyValueVO</class-b>
+	</mapping>
+
+	<mapping type="bi-directional">
+		<class-a>org.activiti.engine.form.FormProperty</class-a>
+		<class-b>com.ca.apm.systemtest.fld.shared.vo.FormPropertyVO</class-b>
+		<field>
+			<a>type.name</a>
+			<b>type</b>
+		</field>
+	</mapping>
+
+</mappings> 

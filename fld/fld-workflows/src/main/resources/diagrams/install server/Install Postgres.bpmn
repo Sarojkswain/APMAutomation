@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" exporter="camunda modeler" exporterVersion="2.7.0">
+  <process id="fld.install.postgres" name="Install Postgres" isExecutable="true">
+    <intermediateCatchEvent id="timerintermediatecatchevent1" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT10S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow26" sourceRef="timerintermediatecatchevent1" targetRef="service.task.check.complete"></sequenceFlow>
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="nodeName" name="nodeName" type="string" variable="nodeName" required="true"></activiti:formProperty>
+        <activiti:formProperty id="emInstallDir" name="Installation Directory" type="string" variable="emInstallDir"></activiti:formProperty>
+        <activiti:formProperty id="trussServer" name="Truss server name" type="string" variable="trussServer" default="truss.ca.com"></activiti:formProperty>
+        <activiti:formProperty id="codeName" name="codeName" type="string" variable="codeName" required="true"></activiti:formProperty>
+        <activiti:formProperty id="buildNumber" name="buildNumber" type="string" variable="buildNumber" required="true"></activiti:formProperty>
+        <activiti:formProperty id="buildId" name="buildId" type="string" variable="buildId" required="true"></activiti:formProperty>
+        <activiti:formProperty id="logs" name="Log folder" type="string" variable="logs"></activiti:formProperty>
+        <activiti:formProperty id="dbHost" name="dbHost" type="string" variable="dbHost"></activiti:formProperty>
+        <activiti:formProperty id="dbPort" name="dbPort" type="long" variable="dbPort"></activiti:formProperty>
+        <activiti:formProperty id="dbSid" name="dbSid" type="string" variable="dbSid"></activiti:formProperty>
+        <activiti:formProperty id="dbUserName" name="dbUserName" type="string" variable="dbUserName"></activiti:formProperty>
+        <activiti:formProperty id="dbUserPass" name="dbUserPass" type="string" variable="dbUserPass"></activiti:formProperty>
+        <activiti:formProperty id="dbAdminName" name="dbAdminName" type="string" variable="dbAdminName"></activiti:formProperty>
+        <activiti:formProperty id="dbAdminPass" name="dbAdminPass" type="string" variable="dbAdminPass"></activiti:formProperty>
+        <activiti:formProperty id="dbConfigImportTargetRelease" name="dbConfigImportTargetRelease" type="string" variable="dbConfigImportTargetRelease" default="99.99.0.0"></activiti:formProperty>
+        <activiti:formProperty id="emNoInstallerSpecification" name="emNoInstallerSpecification" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <sequenceFlow id="flow24" sourceRef="startevent1" targetRef="service.task.start.db.installation"></sequenceFlow>
+    <serviceTask id="service.task.start.db.installation" name="Start installation" activiti:delegateExpression="${databaseInstallTaskBean.startEmDatabaseInstallDelegate}"></serviceTask>
+    <sequenceFlow id="flow32" sourceRef="service.task.start.db.installation" targetRef="timerintermediatecatchevent1"></sequenceFlow>
+    <serviceTask id="service.task.check.complete" name="Check if complete" activiti:delegateExpression="${databaseInstallTaskBean.checkEmDatabaseInstallDelegate}"></serviceTask>
+    <intermediateCatchEvent id="timerintermediatecatchevent2" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT10S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow27" name="Still installing" sourceRef="exclusivegateway1" targetRef="timerintermediatecatchevent1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${installStatus == "Installing"}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow28" name="Success" sourceRef="exclusivegateway1" targetRef="timerintermediatecatchevent2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${installStatus == "Installed"}]]></conditionExpression>
+    </sequenceFlow>
+    <boundaryEvent id="BoundaryEvent_1" attachedToRef="service.task.check.complete">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <boundaryEvent id="BoundaryEvent_2" attachedToRef="service.task.start.db.installation">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="SequenceFlow_1" sourceRef="BoundaryEvent_1" targetRef="UserTask_2"></sequenceFlow>
+    <sequenceFlow id="SequenceFlow_2" sourceRef="BoundaryEvent_2" targetRef="UserTask_1"></sequenceFlow>
+    <userTask id="UserTask_2" name="Choose next step #2">
+      <extensionElements>
+        <activiti:formProperty id="nextAction" name="nextAction" type="enum" variable="nextAction">
+          <activiti:value id="retry" name="retry"></activiti:value>
+          <activiti:value id="stop" name="stop"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="SequenceFlow_4" sourceRef="UserTask_2" targetRef="ExclusiveGateway_1"></sequenceFlow>
+    <exclusiveGateway id="ExclusiveGateway_2"></exclusiveGateway>
+    <sequenceFlow id="SequenceFlow_5" name="Retry" sourceRef="ExclusiveGateway_2" targetRef="service.task.start.db.installation">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${nextAction=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="SequenceFlow_7" name="Stop" sourceRef="ExclusiveGateway_2" targetRef="EndEvent_1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${nextAction=='stop'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="EndEvent_1"></endEvent>
+    <exclusiveGateway id="ExclusiveGateway_1"></exclusiveGateway>
+    <sequenceFlow id="SequenceFlow_6" name="Stop" sourceRef="ExclusiveGateway_1" targetRef="EndEvent_1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${nextAction=='stop'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="SequenceFlow_8" name="Retry" sourceRef="ExclusiveGateway_1" targetRef="service.task.check.complete">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${nextAction=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="UserTask_1" name="Choose next step #1">
+      <extensionElements>
+        <activiti:formProperty id="nextAction" name="nextAction" type="enum" variable="nextAction">
+          <activiti:value id="retry" name="retry"></activiti:value>
+          <activiti:value id="stop" name="stop"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="SequenceFlow_3" sourceRef="UserTask_1" targetRef="ExclusiveGateway_2"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+    <userTask id="usertask1" name="Choose next step #3">
+      <extensionElements>
+        <activiti:formProperty id="nextAction" name="nextAction" type="enum" variable="nextAction">
+          <activiti:value id="retry" name="retry"></activiti:value>
+          <activiti:value id="stop" name="stop"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow35" sourceRef="usertask1" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow36" name="Retry" sourceRef="exclusivegateway2" targetRef="install.domain.config">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${nextAction=='retry'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow37" name="Stop" sourceRef="exclusivegateway2" targetRef="EndEvent_1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${nextAction=='stop'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="errorendevent1" name="ErrorEnd">
+      <errorEventDefinition errorRef="DatabaseInstallationFailed"></errorEventDefinition>
+    </endEvent>
+    <sequenceFlow id="errorflow38" name="Error" sourceRef="exclusivegateway1" targetRef="timerintermediatecatchevent3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${installStatus == "Error"}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="install.domain.config" name="Install domain config" activiti:delegateExpression="${databaseInstallTaskBean.importDomainXmlDelegate}"></serviceTask>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="install.domain.config">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="flow38" sourceRef="boundaryerror1" targetRef="usertask1"></sequenceFlow>
+    <sequenceFlow id="flow39" sourceRef="install.domain.config" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow40" sourceRef="service.task.check.complete" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow41" sourceRef="timerintermediatecatchevent2" targetRef="install.domain.config"></sequenceFlow>
+    <intermediateCatchEvent id="timerintermediatecatchevent3" name="TimerCatchEvent">
+      <timerEventDefinition>
+        <timeDuration>PT10S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="flow42" sourceRef="timerintermediatecatchevent3" targetRef="errorendevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_fld.install.postgres">
+    <bpmndi:BPMNPlane bpmnElement="fld.install.postgres" id="BPMNPlane_fld.install.postgres">
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent1" id="BPMNShape_timerintermediatecatchevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="356.0" y="155.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="44.0" y="155.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="service.task.start.db.installation" id="BPMNShape_service.task.start.db.installation">
+        <omgdc:Bounds height="55.0" width="105.0" x="176.0" y="145.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="BoundaryEvent_2" id="BPMNShape_BoundaryEvent_2">
+        <omgdc:Bounds height="30.0" width="30.0" x="264.0" y="183.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="service.task.check.complete" id="BPMNShape_service.task.check.complete">
+        <omgdc:Bounds height="55.0" width="105.0" x="468.0" y="145.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="BoundaryEvent_1" id="BPMNShape_BoundaryEvent_1">
+        <omgdc:Bounds height="30.0" width="30.0" x="556.0" y="183.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent2" id="BPMNShape_timerintermediatecatchevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="756.0" y="155.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="1100.0" y="155.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="670.0" y="152.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="UserTask_2" id="BPMNShape_UserTask_2">
+        <omgdc:Bounds height="55.0" width="105.0" x="518.0" y="276.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ExclusiveGateway_2" id="BPMNShape_ExclusiveGateway_2">
+        <omgdc:Bounds height="40.0" width="40.0" x="258.0" y="357.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="EndEvent_1" id="BPMNShape_EndEvent_1">
+        <omgdc:Bounds height="35.0" width="35.0" x="411.0" y="360.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ExclusiveGateway_1" id="BPMNShape_ExclusiveGateway_1">
+        <omgdc:Bounds height="40.0" width="40.0" x="550.0" y="357.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="UserTask_1" id="BPMNShape_UserTask_1">
+        <omgdc:Bounds height="55.0" width="105.0" x="226.0" y="276.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="944.0" y="357.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="912.0" y="276.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="errorendevent1" id="BPMNShape_errorendevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="1100.0" y="97.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="install.domain.config" id="BPMNShape_install.domain.config">
+        <omgdc:Bounds height="55.0" width="105.0" x="865.0" y="145.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="955.0" y="195.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="timerintermediatecatchevent3" id="BPMNShape_timerintermediatecatchevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="940.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="391.0" y="172.0"></omgdi:waypoint>
+        <omgdi:waypoint x="468.0" y="172.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
+        <omgdi:waypoint x="79.0" y="172.0"></omgdi:waypoint>
+        <omgdi:waypoint x="176.0" y="172.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
+        <omgdi:waypoint x="281.0" y="172.0"></omgdi:waypoint>
+        <omgdi:waypoint x="356.0" y="172.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
+        <omgdi:waypoint x="690.0" y="152.0"></omgdi:waypoint>
+        <omgdi:waypoint x="628.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="373.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="373.0" y="155.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="60.0" x="544.0" y="94.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
+        <omgdi:waypoint x="710.0" y="172.0"></omgdi:waypoint>
+        <omgdi:waypoint x="756.0" y="172.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="43.0" x="720.0" y="172.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_1" id="BPMNEdge_SequenceFlow_1">
+        <omgdi:waypoint x="571.0" y="213.0"></omgdi:waypoint>
+        <omgdi:waypoint x="570.0" y="276.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_2" id="BPMNEdge_SequenceFlow_2">
+        <omgdi:waypoint x="279.0" y="213.0"></omgdi:waypoint>
+        <omgdi:waypoint x="278.0" y="276.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_4" id="BPMNEdge_SequenceFlow_4">
+        <omgdi:waypoint x="570.0" y="331.0"></omgdi:waypoint>
+        <omgdi:waypoint x="570.0" y="357.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_5" id="BPMNEdge_SequenceFlow_5">
+        <omgdi:waypoint x="258.0" y="377.0"></omgdi:waypoint>
+        <omgdi:waypoint x="170.0" y="377.0"></omgdi:waypoint>
+        <omgdi:waypoint x="170.0" y="243.0"></omgdi:waypoint>
+        <omgdi:waypoint x="228.0" y="200.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="26.0" x="180.0" y="357.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_7" id="BPMNEdge_SequenceFlow_7">
+        <omgdi:waypoint x="298.0" y="377.0"></omgdi:waypoint>
+        <omgdi:waypoint x="411.0" y="377.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="22.0" x="323.0" y="381.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_6" id="BPMNEdge_SequenceFlow_6">
+        <omgdi:waypoint x="550.0" y="377.0"></omgdi:waypoint>
+        <omgdi:waypoint x="500.0" y="377.0"></omgdi:waypoint>
+        <omgdi:waypoint x="500.0" y="377.0"></omgdi:waypoint>
+        <omgdi:waypoint x="446.0" y="377.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="22.0" x="458.0" y="381.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_8" id="BPMNEdge_SequenceFlow_8">
+        <omgdi:waypoint x="570.0" y="357.0"></omgdi:waypoint>
+        <omgdi:waypoint x="473.0" y="336.0"></omgdi:waypoint>
+        <omgdi:waypoint x="473.0" y="242.0"></omgdi:waypoint>
+        <omgdi:waypoint x="520.0" y="200.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="26.0" x="507.0" y="319.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_3" id="BPMNEdge_SequenceFlow_3">
+        <omgdi:waypoint x="278.0" y="331.0"></omgdi:waypoint>
+        <omgdi:waypoint x="278.0" y="357.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
+        <omgdi:waypoint x="964.0" y="331.0"></omgdi:waypoint>
+        <omgdi:waypoint x="964.0" y="357.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
+        <omgdi:waypoint x="964.0" y="357.0"></omgdi:waypoint>
+        <omgdi:waypoint x="875.0" y="351.0"></omgdi:waypoint>
+        <omgdi:waypoint x="875.0" y="233.0"></omgdi:waypoint>
+        <omgdi:waypoint x="917.0" y="200.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="26.0" x="901.0" y="322.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
+        <omgdi:waypoint x="964.0" y="397.0"></omgdi:waypoint>
+        <omgdi:waypoint x="922.0" y="422.0"></omgdi:waypoint>
+        <omgdi:waypoint x="470.0" y="422.0"></omgdi:waypoint>
+        <omgdi:waypoint x="428.0" y="395.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="22.0" x="869.0" y="430.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="errorflow38" id="BPMNEdge_errorflow38">
+        <omgdi:waypoint x="690.0" y="152.0"></omgdi:waypoint>
+        <omgdi:waypoint x="793.0" y="114.0"></omgdi:waypoint>
+        <omgdi:waypoint x="957.0" y="95.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="24.0" x="742.0" y="94.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
+        <omgdi:waypoint x="970.0" y="225.0"></omgdi:waypoint>
+        <omgdi:waypoint x="964.0" y="276.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
+        <omgdi:waypoint x="970.0" y="172.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1100.0" y="172.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
+        <omgdi:waypoint x="573.0" y="172.0"></omgdi:waypoint>
+        <omgdi:waypoint x="670.0" y="172.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">
+        <omgdi:waypoint x="791.0" y="172.0"></omgdi:waypoint>
+        <omgdi:waypoint x="865.0" y="172.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow42" id="BPMNEdge_flow42">
+        <omgdi:waypoint x="975.0" y="77.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1117.0" y="97.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

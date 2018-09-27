@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!-- ~ Copyright (c) 2016 CA. All rights reserved. ~ ~ This software and 
+	all information contained therein is confidential and ~ proprietary and shall 
+	not be duplicated, used, disclosed or disseminated in ~ any way except as 
+	authorized by the applicable license agreement, without ~ the express written 
+	permission of CA. All authorized reproductions must be ~ marked with this 
+	language. ~ ~ EXCEPT AS SET FORTH IN THE APPLICABLE LICENSE AGREEMENT, TO 
+	THE EXTENT ~ PERMITTED BY APPLICABLE LAW, CA PROVIDES THIS SOFTWARE WITHOUT 
+	WARRANTY OF ~ ANY KIND, INCLUDING WITHOUT LIMITATION, ANY IMPLIED WARRANTIES 
+	OF ~ MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL 
+	CA BE ~ LIABLE TO THE END USER OR ANY THIRD PARTY FOR ANY LOSS OR DAMAGE, 
+	DIRECT OR ~ INDIRECT, FROM THE USE OF THIS SOFTWARE, INCLUDING WITHOUT LIMITATION, 
+	LOST ~ PROFITS, BUSINESS INTERRUPTION, GOODWILL, OR LOST DATA, EVEN IF CA 
+	IS ~ EXPRESSLY ADVISED OF SUCH LOSS OR DAMAGE. -->
+<codaSuite xmlns="http://www.ca.com/2013/tasCodaSuite">
+	<name>qa/examples/noop.xml</name>
+	<testBeds>
+		<testBed>com.ca.apm.tests.testbed.CodaNoOpSmokeTestbed</testBed>
+	</testBeds>
+	<genericProperties>
+		<properties key="testvariant.files" value="" />
+		<properties key="coda.logic.mercurial.branch" value="99.99.dev" />
+		<properties key="overrides.versions.agent.build.number"
+			value="99.99.dev-SNAPSHOT" />
+		<properties key="overrides.versions.agent.build.suffix"
+			value="99.99.0.dev" />
+		<properties key="overrides.versions.introscope.build.number"
+			value="99.99.dev-SNAPSHOT" />
+		<properties key="overrides.versions.introscope.build.suffix"
+			value="99.99.0.0" />
+		<properties key="overrides.versions.osgi" value="99.99.0.0" />
+		<properties key="overrides.coda.site" value="prague" />
+		<properties key="overrides.role_qcuploadtool.upload.results"
+			value="false" />
+
+		<properties key="role.webapp01.slaveType" value="WindowsService" />
+	</genericProperties>
+	<type>CODA:Suite</type>
+	<owner>pmfkey</owner>
+	<description>NO-OP smoke test suite</description>
+	<size>MEDIUM</size>
+	<group>coda</group>
+	<group>smoke</group>
+	<executeOn>controllerMachine</executeOn>
+</codaSuite>

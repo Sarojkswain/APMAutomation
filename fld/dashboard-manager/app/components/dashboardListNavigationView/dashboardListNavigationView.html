@@ -1,0 +1,28 @@
+<ul class="nav nav-sidebar">
+    <li ng-repeat="dashboard in dashboardListController.dashboards" ng-class="{ active : dashboardListController.isDashboardSelected(dashboard.id) }">
+        <a ng-href="#/dashboardView/{{ dashboard.id }}" title="{{ dashboard.name }}">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="dashboardNavigationName">{{ dashboard.name }}</h5>
+                </div>
+                <div class="col-md-6 text-right">
+                    <img ng-show="dashboard.hasStuckJobs"
+                         src="img/notificationWarning32x32.png"
+                         title="There are stuck jobs!">
+                    <img ng-show="dashboard.hasWaitingUserTasks"
+                         src="img/facelessUser32x32.png"
+                         title="There are waiting user tasks!">
+                    <img ng-show="dashboard.active && !dashboard.hasStuckJobs && !dashboard.hasWaitingUserTasks"
+                         ng-src="{{ dashboardListController.getDashboardStatusIcon(dashboard) }}"
+                         title="Dashboard is running">
+                    <img ng-show="dashboard.active &&
+                                  dashboard.monitors.length > 0"
+                         ng-src=" {{ dashboardListController.getMonitorImageUrl(dashboard) }}"
+                         title="">
+                    <img ng-show="!appSettings.hideOptionalDashboardIconsInNavPanel"
+                         ng-src="{{ dashboardListController.getSmallIconFileName(dashboard) }}">
+                </div>
+            </div>
+        </a>
+    </li>
+</ul>

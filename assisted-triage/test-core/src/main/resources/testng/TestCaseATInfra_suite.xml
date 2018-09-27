@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+ 
+<!--
+ @Tas(testBed = [
+	{name=com.ca.apm.tests.testbed.ATInfraStandAloneTestbed, executeOn=saMaster}],
+	owner = katan09,
+	size = BIG,
+	description = 'Assisted Triage TestNg XML suite for WHO feature')
+-->
+
+<suite name="ATTestSuiteforInfra" configfailurepolicy="continue"> 
+		<test name="testng.TestCaseForATInfra_suite" preserve-order="true">
+		<classes>	
+			<class name="com.ca.apm.tests.test.TestCaseforATInfra">
+                  <methods>
+                        <include name="testCase_cpuResource"/>
+                        <include name= "testCase_heapResource"/>
+                   </methods>
+            </class>
+			<class name="com.ca.apm.tests.test.TestCasesForATLogs">
+                 <methods>
+                        <include name="ATLogs_TestCase_ErrorsAndExcpetionsCheck"/>   
+                </methods>
+            </class>
+		</classes>
+        </test>
+</suite>

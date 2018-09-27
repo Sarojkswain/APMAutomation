@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+	    {name=com.ca.apm.saas.testbed.SaasUITestbed, executeOn=testMachine}],
+	  owner = kurma05,
+	  size = BIG,
+	  description = 'Agent ATC Tests'),
+	  snapshotPolicy = SnapshotPolicy.ALWAYS,
+      snapshot = SnapshotMode.LIVE
+-->	
+<suite name="SaaS_BAT" configfailurepolicy="continue">	
+	<parameter name="instance" value="staging" />			
+	<parameter name="testngEmailEnabled" value="true" />
+	 	  
+	<test name="SaaSEnd2EndBAT" preserve-order="true">
+		<classes>
+			<class name="com.ca.apm.saas.test.SaaSEnd2EndTests">
+				 <methods>
+				 	<include name="testThievesConnected" />
+					<include name="testThievesMap" />
+					<include name="testThievesTTViewer" />
+				 </methods>
+			</class>
+		</classes>
+	</test> 	
+	<listeners>    	
+   	    <listener class-name="org.uncommons.reportng.HTMLReporter" />    	
+   		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+ 	</listeners>
+</suite>

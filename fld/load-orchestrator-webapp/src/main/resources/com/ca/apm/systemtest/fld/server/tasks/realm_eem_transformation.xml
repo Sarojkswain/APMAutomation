@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+
+	<transformation id="realm_xml">
+		<xslt-transform>
+			<xslt><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xalan="http://xml.apache.org/xslt">
+	<xsl:strip-space elements="*" />
+	<xsl:output method="xml" indent="yes" xalan:indent-amount="4" />
+	<xsl:template match="@*|node()">
+		<xsl:copy>
+			<xsl:apply-templates select="@*|node()" />
+		</xsl:copy>
+	</xsl:template>
+	<xsl:template match="realms">
+		
+		<realms>
+			<xsl:apply-templates select="@* | *" />
+			<realm active="true" id="EEM" descriptor="EEM Realm">
+				<property name="username">
+					<value>${#eemUsername}</value>
+				</property>
+				<property name="host">
+					<value>${#eemHost}</value>
+				</property>
+				<property name="appname">
+					<value>APM</value>
+				</property>
+				<property name="plainTextPasswords">
+					<value>false</value>
+				</property>
+				<property name="enableAuthorization">
+					<value>true</value>
+				</property>
+				<property name="password">
+					<value>${#eemPassword}</value>
+				</property>
+			</realm>
+		</realms>
+	</xsl:template>
+</xsl:stylesheet>]]></xslt>
+		</xslt-transform>
+	</transformation>
+
+	<files id="mom_install">
+		<file>__INSTALL_DIR__</file>
+	</files>
+
+	<binding>
+		<transformation-ref id="realm_xml" />
+		<files-ref id="mom_install" />
+	</binding>
+</configuration>
+

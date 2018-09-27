@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<call-job-stack>
+	<name>One_In_20_Of_20_Q670</name>
+	
+	<description></description>
+	<numberOfThreadsToRun>1</numberOfThreadsToRun>
+	<userID></userID>
+    <password></password>
+	<jGate>tcp://USILCA31</jGate>
+	<jGatePort>2008</jGatePort>
+	<serverName>Q670IPIC</serverName>
+	<useChannel>true</useChannel>
+	<useCommarea>false</useCommarea>
+	<useDynamicDecoration>false</useDynamicDecoration>
+	<programDataStr></programDataStr>
+	
+	<calledDistributions>
+		<name>One_In_20_Of_20</name>
+		<minutesToRun>0</minutesToRun>
+		<microsecondsToSleepPerCall>10000000</microsecondsToSleepPerCall>
+		<randomSeed>0</randomSeed>
+		<useCTG>true</useCTG>
+		<useWebServices>false</useWebServices>
+		<calledUnitsOfWork>
+			<proportionOfCalls>1</proportionOfCalls>
+			<calledTransactions>
+				<transactionID>RUN0001</transactionID>
+				<bufferLength>40</bufferLength>
+				<commAreaLength>100</commAreaLength>
+				<outBoundLength>80</outBoundLength>
+				<parameters>1000000</parameters>
+			</calledTransactions>
+		</calledUnitsOfWork>
+		<calledUnitsOfWork>
+			<proportionOfCalls>9</proportionOfCalls>
+			<calledTransactions>
+				<transactionID>RUN0001</transactionID>
+				<parameters>1000000</parameters>
+				<bufferLength>40</bufferLength>
+				<commAreaLength>200</commAreaLength>
+				<outBoundLength>40</outBoundLength>
+			</calledTransactions>
+		</calledUnitsOfWork>
+		<calledUnitsOfWork>
+			<proportionOfCalls>10</proportionOfCalls>
+			<calledTransactions>
+				<transactionID>RUN0001</transactionID>
+				<parameters>1000000</parameters>
+				<bufferLength>2000</bufferLength>
+				<commAreaLength>200</commAreaLength>
+				<outBoundLength>40</outBoundLength>
+			</calledTransactions>
+		</calledUnitsOfWork>
+	</calledDistributions>
+</call-job-stack>

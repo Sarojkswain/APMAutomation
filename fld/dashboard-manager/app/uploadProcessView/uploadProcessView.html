@@ -1,0 +1,231 @@
+<div>
+    <div>
+        <h2 class="row">
+            <div class="col-sm-1">
+                <img class="dashboard-icon" src="img/workflow48x48.png">
+            </div>
+            <span class="col-sm-11 text-right" style="margin-top: 15px;">
+                Upload Files
+            </span>
+        </h2>
+        <h1 class="page-header">
+        </h1>
+        <file-uploader drop-zone-label="'Drop Process definitions here'"
+                       custom-over-class="'file-over-highlight'"
+                       drop-zone-class="'file-drop-zone'"
+                       class="workflowUploader"
+                       submit-url="'api/upload'"
+                       file-alias="'processArchive'"
+                       uploader="uploader"
+                       event-suffix="'workflows'">
+        </file-uploader>
+    </div>
+
+    <div id="uploadedWorkflowsContainer">
+        <h2 class="row" style="margin-top: 20px;">
+                <span class="col-sm-12 text-right">
+                    Uploaded Workflows
+                </span>
+        </h2>
+        <h1 class="page-header">
+        </h1>
+
+        <div ng-if="initWorkflowsFinished && procDefList && procDefList.length > 0">
+            <div>
+                <button type="button"
+                        class="btn btn-primary"
+                        aria-label="Delete All"
+                        ng-click="uploadProcessController.deleteAllWorkflows()">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete All
+                </button>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                <tr class="row">
+                    <th class="col-md-3 text-left">Id</th>
+                    <th class="col-md-3 text-left">Name</th>
+                    <th class="col-md-5 text-left">Resource Name</th>
+                    <th class="col-md-1 text-right">Delete</th>
+                </tr>
+                </thead>
+                <tbody ng-repeat="procDef in procDefList">
+                <tr class="row" >
+                    <td class="col-md-3 text-left">
+                        <table>
+                            <thead></thead>
+                            <tbody>
+                            <tr>
+                                <td class="procDefinitionDetailOptions">
+                                    <a ng-show="procDef.formProperties && procDef.formProperties.length > 0"
+                                       ng-click="uploadProcessController.toggleProcFormProperties(procDef)"
+                                       class="pointerBullet workflowDetailBulletUp"
+                                       title="Click to see workflow input form parameters"
+                                       data-toggle="button">
+                                                    <span class="glyphicon "
+                                                          ng-class="{ 'glyphicon-menu-down' : !procFormParamsCollapsed[procDef.key], 'glyphicon-menu-right' : procFormParamsCollapsed[procDef.key] }"
+                                                          aria-hidden="true">
+
+                                                    </span>
+                                    </a>
+                                                <span class="glyphicon glyphicon-option-horizontal"
+                                                      ng-show="!procDef.formProperties || procDef.formProperties.length === 0"
+                                                      title="The workflow has no input form parameters"
+                                                      aria-hidden="true">
+                                                </span>
+                                </td>
+                                <td class="procDefinitionDetailOptions">
+                                    <a ng-click="uploadProcessController.toggleDiagram(procDef)"
+                                       class="pointerBullet"
+                                       ng-class="{ 'workflowDetailBulletDown' : !diagrmCollapsed[procDef.key], 'workflowDetailBulletUp' : diagrmCollapsed[procDef.key] }"
+                                       title="Click to see diagram"
+                                       data-toggle="button">
+                                                    <span class="glyphicon glyphicon-picture"
+                                                          aria-hidden="true">
+                                                    </span>
+                                    </a>
+                                </td>
+                                <td class="procDefinitionDetailOptions">
+                                    <h4>{{ procDef.key }}</h4>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td class="col-md-3 text-left">{{ procDef.name }}</td>
+                    <td class="col-md-5 text-left">{{ procDef.resourceName }}</td>
+                    <td class="col-md-1 text-right">
+                        <button type="button"
+                                class="btn btn-primary"
+                                aria-label="Delete"
+                                ng-click="uploadProcessController.deleteWorkflow(procDef.deploymentId)">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button>
+                    </td>
+                </tr>
+                <tr class="row"
+                    uib-collapse="procFormParamsCollapsed[procDef.key]"
+                        >
+                    <td colspan="4" class="col-md-12 formPropertiesTable">
+                        <table class="table table-condensed">
+                            <thead>
+                            <tr>
+                                <th class="text-left">Id</th>
+                                <th class="text-left">Name</th>
+                                <th class="text-right">Type</th>
+                                <th class="text-right">Value</th>
+                                <th class="text-right">Writable</th>
+                                <th class="text-right">Required</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="property in procDef.formProperties">
+                                <td class="text-left">{{ property.id }}</td>
+                                <td class="text-left">{{ property.name }}</td>
+                                <td class="text-right">{{ property.type }}</td>
+                                <td class="text-right">{{ property.value }}</td>
+                                <td class="text-right">{{ property.writable }}</td>
+                                <td class="text-right">{{ property.required }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="row"
+                    uib-collapse="diagrmCollapsed[procDef.key]">
+                    <td colspan="4" class="col-md-12 formPropertiesTable">
+                        <img ng-src="api/diagramImage?deploymentId={{ procDef.deploymentId }}&diagramResourceName={{ procDef.diagramResourceName }}">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div ng-if="initWorkflowsFinished && (!procDefList || procDefList.length == 0)">
+            <img src="img/butterfly2_48x48.png">&nbsp;&nbsp;&nbsp;&nbsp;No process definitions available, sorry :(
+        </div>
+        <div ng-show="!initWorkflowsFinished">
+            <div class="text-center">
+                <img src="img/spinner64x64.gif">
+            </div>
+        </div>
+        <div ng-show="initWorkflowsFailed">
+            <div class="text-center">
+                <img src="img/skull64x64.png">
+                <div class="inline-error-text">Oops... something wrong happened, see console</div>
+            </div>
+        </div>
+    </div>
+
+    <br/>
+    <br/>
+
+    <div id="uploadedResourcesContainer">
+        <h2 class="row">
+            <div class="col-sm-1">
+                <img class="dashboard-icon" src="img/document48x48.png">
+            </div>
+                <span class="col-sm-11 text-right" style="margin-top: 15px;">
+                    Uploaded Resource Files
+                </span>
+        </h2>
+        <h1 class="page-header">
+        </h1>
+        <div ng-if="initResourcesFinished && resourceFiles && resourceFiles.length > 0">
+            <div>
+                <button type="button"
+                        class="btn btn-primary"
+                        aria-label="Delete All"
+                        ng-click="uploadProcessController.deleteAllResources()">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete All
+                </button>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                <tr class="row">
+                    <th class="col-md-2 text-left">Id</th>
+                    <th class="col-md-6 text-left">Name</th>
+                    <th class="col-md-2 text-left">Size (Kb)</th>
+                    <th class="col-md-1 text-right">Download</th>
+                    <th class="col-md-1 text-right">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="row" ng-repeat="resourceFile in resourceFiles">
+                    <td class="col-md-2 text-left"><h4>{{ resourceFile.id }}</h4></td>
+                    <td class="col-md-6 text-left">{{ resourceFile.name }}</td>
+                    <td class="col-md-2 text-left">{{ resourceFile.sizeInBytes/1024 | number : 1}}</td>
+                    <td class="col-md-1 text-right">
+                        <a class="btn btn-primary"
+                           title="Download"
+                           ng-href="getResource?resourceName={{ resourceFile.name }}">
+                            <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                    <td class="col-md-1 text-right">
+                        <button type="button"
+                                class="btn btn-primary"
+                                aria-label="Delete"
+                                ng-click="uploadProcessController.deleteResource(resourceFile)">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div ng-if="initResourcesFinished && !initResourcesFailed && (!resourceFiles || resourceFiles.length == 0)">
+            <img src="img/butterfly2_48x48.png">&nbsp;&nbsp;&nbsp;&nbsp;No resources available, sorry :(
+        </div>
+        <div ng-show="!initResourcesFinished">
+            <div class="text-center">
+                <img src="img/spinner64x64.gif">
+            </div>
+        </div>
+        <div ng-show="initResourcesFailed">
+            <div class="text-center">
+                <img src="img/skull64x64.png">
+                <div class="inline-error-text">Oops... something wrong happened, see console</div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!-- @Tas(testBed = [ 
+    {name=com.ca.apm.testbed.atc.TeamCenterRegressionTestBed, executeOn=endUserMachine}],
+    owner = shadm01,
+    size = BIG,
+    description = 'Acceptance / Smoke suite to be executed before SAAS build. Extracted from testng_regression_suite',
+    snapshotMode = 'LIVE') -->
+<suite name="testNgSmoke1TestSuite" configfailurepolicy="continue">
+    <test name="Regression1" preserve-order="false">
+        <classes>
+            <class name="com.ca.apm.test.atc.SetupRegressionTest"/>
+            <!---->
+            <class name="com.ca.apm.test.atc.filtersnavigation.MapView"/> <!--FILTERED OK-->
+
+            <class name="com.ca.apm.test.atc.attributes.AttributesTest">
+                <methods>
+                    <include name="testAttributeRuleCreation"/>
+                    <include name="testAttributeEditingInLiveMode"/>
+                </methods>
+            </class>
+
+            <class name="com.ca.apm.test.atc.attributes.AttributeRulesTest">
+                <methods>
+                    <include name="testAuthorizationInDefaultUniverse"/>
+                    <include name="testAuthorizationInOrdinaryUniverse"/>
+                    <include name="testAttributeDecoratingInOrdinaryUniverse"/>
+                </methods>
+            </class>
+
+            <class name="com.ca.apm.test.atc.universe.ActiveUniverseTest">
+                <methods>
+                    <include name="testActiveUniversePermalink"/>
+                </methods>
+            </class>
+
+            <class name="com.ca.apm.test.atc.filtersnavigation.SimpleFilterUrlTest">
+                <methods>
+                    <include name="preparationGetCurrentUrlAndCreateAttrRules"/>
+                    <include name="testApplicationFilter"/>
+                    <include name="testLocationFilter"/>
+                </methods>
+            </class>
+
+            <class name="com.ca.apm.test.atc.filtersnavigation.AdvancedFilterUrlTest">
+                <methods>
+                    <include name="preparationGetCurrentUrlAndCreateAttrRules"/>
+                    <include name="testApplicationFilterWithName"/>
+                    <include name="testTierFilter"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [{name=com.ca.apm.systemtest.fld.testbed.smoke.FldControllerSmokeTestbed, executeOn=fldControllerMachine}],
+	owner = sinal04,
+	size = BIG,
+	group = [FLD_LOAD_REPORT],
+	snapshotPolicy = ON_FAILURE,
+	snapshot = DEAD,
+	description = 'FLD bulk load report test')
+-->
+<suite name="FLDBulkLoadReportTestSuite" parallel="methods" thread-count="4">
+	<test name="fldBulkLoadReportTest">
+		<classes>
+			<class name="com.ca.apm.systemtest.fld.test.smoke.FLDTestLoadStartReportTest" />
+			<class name="com.ca.apm.systemtest.fld.test.smoke.FLDTestLoadStartFailReportTest" />
+			<class name="com.ca.apm.systemtest.fld.test.smoke.FLDTestLoadStopReportTest" />
+			<class name="com.ca.apm.systemtest.fld.test.smoke.FLDTestLoadStopFailReportTest" />
+			<class name="com.ca.apm.systemtest.fld.test.smoke.FLDGroupAllLoadTest" />
+		</classes>
+	</test>
+</suite>

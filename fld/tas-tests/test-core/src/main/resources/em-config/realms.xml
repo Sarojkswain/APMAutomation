@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<realms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="0.1" xsi:noNamespaceSchemaLocation="realms0.1.xsd">
+	<realm descriptor="Local Users and Groups Realm" id="Local Users and Groups" active="true">
+        <property name="usersFile">
+            <value>users.xml</value>
+        </property>
+    </realm>
+    <realm active="true" id="EEM" descriptor="EEM Realm">
+		<property name="username">
+			<value>EiamAdmin</value>
+		</property>
+		<property name="host">
+			<value>fldeem01</value>
+		</property>
+		<property name="appname">
+			<value>APM</value>
+		</property>
+		<property name="plainTextPasswords">
+			<value>false</value>
+		</property>
+		<property name="enableAuthorization">
+			<value>true</value>
+		</property>
+		<property name="password">
+			<value>KDoLYv9uTDtRZRBCRTHv/Q==</value>
+		</property>
+	</realm>
+</realms>

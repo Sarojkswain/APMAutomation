@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ~ Copyright (c) 2014 CA. All rights reserved. ~ ~ This software and all information contained therein is confidential and ~ proprietary and shall not be duplicated, used, disclosed or disseminated 
+	in ~ any way except as authorized by the applicable license agreement, without ~ the express written permission of CA. All authorized reproductions must be ~ marked with this language. ~ ~ EXCEPT AS SET 
+	FORTH IN THE APPLICABLE LICENSE AGREEMENT, TO THE EXTENT ~ PERMITTED BY APPLICABLE LAW, CA PROVIDES THIS SOFTWARE WITHOUT WARRANTY OF ~ ANY KIND, INCLUDING WITHOUT LIMITATION, ANY IMPLIED WARRANTIES OF 
+	~ MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL CA BE ~ LIABLE TO THE END USER OR ANY THIRD PARTY FOR ANY LOSS OR DAMAGE, DIRECT OR ~ INDIRECT, FROM THE USE OF THIS SOFTWARE, INCLUDING 
+	WITHOUT LIMITATION, LOST ~ PROFITS, BUSINESS INTERRUPTION, GOODWILL, OR LOST DATA, EVEN IF CA IS ~ EXPRESSLY ADVISED OF SUCH LOSS OR DAMAGE. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>tas-tests</artifactId>
+		<groupId>com.ca.apm.systemtest.fld</groupId>
+		<version>99.99.dev_SaaS_fix-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>tas-tests-flows</artifactId>
+	<packaging>jar</packaging>
+
+	<name>FLD Tas Tests - Flows</name>
+	<description>Module for defining custom flows.</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.ca.tas</groupId>
+			<artifactId>automation-flows</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.ca.tas</groupId>
+			<artifactId>automation-roles</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.ca.apm.systemtest.fld</groupId>
+			<artifactId>common-with-apache-commons</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+        <dependency>
+            <groupId>com.ca.apm.systemtest.fld</groupId>
+            <artifactId>common-with-spring</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ca.apm.systemtest.fld</groupId>
+            <artifactId>logmonitor-config</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+		<dependency>
+			<groupId>org.zeroturnaround</groupId>
+			<artifactId>zt-exec</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+		</dependency>
+		<dependency>
+            <groupId>org.zeroturnaround</groupId>
+            <artifactId>zt-process-killer</artifactId>
+        </dependency>
+        <dependency>
+			<groupId>com.github.chewiebug</groupId>
+			<artifactId>gcviewer</artifactId>
+		</dependency>
+		<dependency>
+			<artifactId>jfreechart</artifactId>
+			<groupId>org.jfree</groupId>
+		</dependency>
+		<dependency>
+			<groupId>com.hazelcast</groupId>
+			<artifactId>hazelcast</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-jdk15on</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>com.hazelcast</groupId>
+			<artifactId>hazelcast-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.4</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <inherited>true</inherited>
+                <configuration>
+                    <systemPropertyVariables>
+                        <org.slf4j.simpleLogger.defaultLogLevel>info</org.slf4j.simpleLogger.defaultLogLevel>
+                    </systemPropertyVariables>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-junit47</artifactId>
+                        <version>2.19</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+	</build>
+</project>

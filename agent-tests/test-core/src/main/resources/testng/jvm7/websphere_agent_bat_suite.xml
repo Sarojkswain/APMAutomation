@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+ @Tas(testBed = [
+	    {name=com.ca.apm.tests.testbed.jvm7.Websphere8TestBed, executeOn=machine1}],
+	  owner = kurma05,
+	  size = COLOSSAL,
+	  description = 'Java Agent BAT'),
+	  snapshotPolicy = SnapshotPolicy.ALWAYS,
+      snapshot = SnapshotMode.LIVE
+-->
+<suite name="TestSuite" configfailurepolicy="continue">
+	<parameter name="test.priority" value="1" />
+	<test name="WebsphereBatFunctionalTests" preserve-order="true">
+		<groups>
+      		<run>
+      			<include name="websphere" />
+     		</run>
+   		</groups>   
+	    <packages>
+	        <package name="com.ca.apm.automation"/>
+	    </packages>	    
+    	<listeners>    	
+    	    <listener class-name="org.uncommons.reportng.HTMLReporter" />    	
+    		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+    		<listener class-name="com.ca.apm.tests.utils.AnnotationTransformerImpl" />
+    		<listener class-name="com.ca.apm.automation.common.FuncTestListener" />
+  		</listeners>
+	</test>
+</suite>

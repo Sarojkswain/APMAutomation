@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domains xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="domains0.3.xsd" version="0.3">
+	<domain name="TestDomain1" description="Test1">
+		<agent mapping="(.*)Agent_3(.*)" />
+		<agent mapping="(.*)Agent_5(.*)" />
+		<agent mapping="(.*)Agent_7(.*)" />
+		<grant user="Test1" permission="full" />
+		<grant user="Admin" permission="full" />
+		<grant user="Guest" permission="read" />
+	</domain>
+	<domain name="TestDomain2" description="Test2">
+		<agent mapping="(.*)Agent_2(.*)" />
+		<agent mapping="(.*)Agent_4(.*)" />
+		<agent mapping="(.*)Agent_6(.*)" />
+		<grant user="Test2" permission="full" />
+		<grant user="Admin" permission="full" />
+		<grant user="Guest" permission="read" />
+	</domain>
+	<SuperDomain>
+		<agent mapping="(.*)" />
+		<grant group="Admin" permission="full" />
+		<grant user="Guest" permission="read" />
+		<grant user="Test3" permission="full" />
+	</SuperDomain>
+</domains>
