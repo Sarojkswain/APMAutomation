@@ -16,7 +16,7 @@
  * PROFITS, BUSINESS INTERRUPTION, GOODWILL, OR LOST DATA, EVEN IF CA IS
  * EXPRESSLY ADVISED OF SUCH LOSS OR DAMAGE.
  * 
- * Author : KETSW01
+ * Author : SWASA0201
  */
 package com.ca.apm.tests.agentcontrollability;
 
